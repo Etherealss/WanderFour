@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test1</title>
+    <style>
+        .all {
+            margin: auto;
+            /* background-color: aqua; */
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .search {
+            margin-top: 10px;
+            /* background-color: blueviolet; */
+        }
+
+        p {
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all">
+        <div class="search">
+            <input type="email" name="" id="email">
+        </div>
+        <p id="info">请输入正确的邮箱</p>
+    </div>
+
+    <script src="Ajax.js"></script>
+    <script src="jQuery.js"></script>
+    <script>
+        var email = document.querySelector('#email');
+        var info = document.querySelector('#info');
+        var emailInt
+        email.onblur = function () {
+            emailInt = this.value;
+        }
+        ajax({
+            type: 'POST',
+            url: '/LoginServlet',
+            data: {
+                key: emailInt
+            },
+            header: {
+                'Content-Type': 'application/json'
+            },
+            success: function (res) {//成功的回调函数
+                console.log(res);
+            }
+        })
+    </script>
+
+</body>
+
+</html>
