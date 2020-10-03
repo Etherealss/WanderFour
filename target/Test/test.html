@@ -19,7 +19,7 @@
         }
 
         p {
-            background-color: cadetblue;
+            background-color: #72c3b6;
         }
     </style>
 </head>
@@ -32,20 +32,22 @@
         <p id="info">请输入正确的邮箱</p>
     </div>
 
-    <script src="Ajax.js"></script>
-    <script src="jQuery.js"></script>
+    <script src="./jQuery.js"></script>
     <script>
         var email = document.querySelector('#email');
         var info = document.querySelector('#info');
-        var emailInt
+        var emailInt = 0;
         email.onblur = function () {
             emailInt = this.value;
+            alert(emailInt);
+            f(emailInt);
         }
-        ajax({
+
+        /*ajax({
             type: 'POST',
             url: '/LoginServlet',
             data: {
-                key: emailInt
+                key: emailInt,
             },
             header: {
                 'Content-Type': 'application/json'
@@ -53,7 +55,34 @@
             success: function (res) {//成功的回调函数
                 console.log(res);
             }
-        })
+        })*/
+        function f(emailInt) {
+            $.ajax({
+                type: 'POST',
+                url: '/UserSettingServlet',
+                data: {
+                    method:"changePw",
+                    key: emailInt
+                },
+                async:'true',
+                dataType:'json',
+                /**
+                 * @param res
+                 * @param res.msg 提示信息
+                 * @param res.user 用户对象
+                 * @param res.user.userid 用户账号
+                 */
+                success:function(res){//成功的回调函数
+                    console.log(res);
+                    console.log(res.msg);
+                    console.log(res.user);
+                    alert(res);
+                    alert(res.msg);
+                    alert(res.user);
+                    alert(res.user.userid);
+                }
+            })
+        }
     </script>
 
 </body>
