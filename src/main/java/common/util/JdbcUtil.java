@@ -2,6 +2,7 @@ package common.util;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.log4j.Logger;
+import sun.rmi.runtime.Log;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -12,105 +13,94 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * @description 数据库连接池工具类 —— Druid
  * @author 寒洲
+ * @description 数据库连接池工具类 —— Druid
  * @date 2020/7/24
  */
 public class JdbcUtil {
-    /**
-     * 数据库DataSource
-     */
-    private static DataSource source = null;
+	/** 数据库DataSource  */
+	private static DataSource source = null;
+	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
+	private static Logger logger = Logger.getLogger(JdbcUtil.class);
+	static {
+		InputStream is = null;
+		Properties pros;
+		try {
+			pros = new Properties();
+			is = JdbcUtil.class.getClassLoader().getResourceAsStream("druid.properties");
+			pros.load(is);
+			source = DruidDataSourceFactory.createDataSource(pros);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null) is.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    static{
-        Logger log = Logger.getLogger(JdbcUtil.class);
-        InputStream is = null;
-        Properties pros;
-        try {
-            pros = new Properties();
-            is = JdbcUtil.class.getClassLoader().getResourceAsStream("druid.properties");
-            pros.load(is);
-            source = DruidDataSourceFactory.createDataSource(pros);
+	/**
+	 * 获取数据库连接
+	 * @return Connection 数据库的连接
+	 * @throws SQLException
+	 */
+	public static Connection getConnection() throws Exception {
+		Connection conn = threadLocal.get();
+		//如果是第一次，就创建一个连接
+		if (conn == null) {
+			logger.trace("创建一个数据库连接");
+			conn = source.getConnection();
+			//添加到本地的线程变量
+			threadLocal.set(conn);
+		}
+		return conn;
+	}
 
-            log.info(pros);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	/**
+	 * 开启事务
+	 * @throws Exception
+	 */
+	public static void beginTransaction() throws Exception {
+		logger.trace("开启事务，获取连接，关闭自动提交");
+		Connection conn = getConnection();
+		//关闭自动提交，开启事务
+		conn.setAutoCommit(false);
+	}
 
-    /**
-     * 获取数据库连接
-     * @return Connection 数据库的连接
-     * @throws SQLException
-     */
-    public static Connection getConnection() throws SQLException {
-        return source.getConnection();
-    }
+	/**
+	 * 提交事务
+	 * @throws Exception
+	 */
+	public static void commitTransaction() throws Exception {
+		logger.trace("获取连接，提交事务");
+		Connection conn = getConnection();
+		if (conn != null)
+			conn.commit();
+	}
 
-    /**
-     * 关闭数据库资源
-     * @param conn 数据库连接
-     * @param ps Statement对象
-     * @param rs ResultSet对象
-     */
-    public static void closeResource(Connection conn, Statement ps, ResultSet rs){
-        try {
-            if(ps != null)
-                ps.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if(conn != null)
-                conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if(rs != null)
-                rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * 关闭数据库资源，不关闭数据库连接
-     * @param ps Statement对象
-     * @param rs ResultSet对象
-     */
-    public static void closeResource(Statement ps, ResultSet rs){
-        try {
-            if(ps != null)
-                ps.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            if(rs != null)
-                rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * 回滚事务
+	 * @throws Exception
+	 */
+	public static void rollbackTransaction() throws Exception {
+		logger.trace("获取连接，回滚事务");
+		Connection conn = getConnection();
+		if (conn != null)
+			conn.rollback();
+	}
 
-    /**
-     * 关闭数据库连接
-     * @param conn 数据库连接
-     */
-    public static void closeConnection(Connection conn){
-        try {
-            if(conn != null)
-                conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * 结束事务，关闭连接
+	 * @throws Exception
+	 */
+	public static void closeTransaction() throws Exception {
+		logger.trace("获取连接，结束事务");
+		Connection conn = getConnection();
+		if (conn != null)
+			conn.close();
+		threadLocal.remove();
+	}
+
 }

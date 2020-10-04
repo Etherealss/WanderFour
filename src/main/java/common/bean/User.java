@@ -10,7 +10,7 @@ import java.util.Date;
  * @date 2020/10/2
  */
 public class User {
-	private Long userid;
+	private String email;
 	private String password;
 	private String nickname;
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -30,12 +30,12 @@ public class User {
 	public User() {
 	}
 
-	public Long getUserid() {
-		return userid;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -111,7 +111,7 @@ public class User {
 	}
 
 	/**
-	 * @param userid
+	 * @param email
 	 * @param password
 	 * @param nickname
 	 * @param sex
@@ -122,10 +122,8 @@ public class User {
 	 * @param beCollected
 	 * @param registerDate
 	 */
-	public User(Long userid, String password, String nickname, Boolean sex,
-	            Date birthday, String avatarPath, String userType, int beLiked,
-	            int beCollected, Date registerDate) {
-		this.userid = userid;
+	public User(String email, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, int beLiked, int beCollected, Date registerDate) {
+		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
@@ -138,27 +136,16 @@ public class User {
 	}
 
 	/**
-	 * @param userid
-	 * @param password
-	 */
-	public User(Long userid, String password) {
-		this.userid = userid;
-		this.password = password;
-	}
-
-	/**
-	 * @param userid
+	 * @param email
 	 * @param password
 	 * @param nickname
 	 * @param sex
-	 * @param birthday
 	 * @param avatarPath
 	 * @param userType
 	 * @param registerDate
 	 */
-	public User(Long userid, String password, String nickname, Boolean sex, Date birthday,
-	            String avatarPath, String userType, Date registerDate) {
-		this.userid = userid;
+	public User(String email, String password, String nickname, Boolean sex, String avatarPath, String userType, Date registerDate) {
+		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
@@ -168,10 +155,19 @@ public class User {
 		this.registerDate = registerDate;
 	}
 
+	/**
+	 * @param email
+	 * @param password
+	 */
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
-				"userid=" + userid +
+				"email='" + email + '\'' +
 				", password='" + password + '\'' +
 				", nickname='" + nickname + '\'' +
 				", sex=" + sex +

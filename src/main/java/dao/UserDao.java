@@ -4,6 +4,7 @@ import common.bean.User;
 import org.apache.commons.dbutils.QueryRunner;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author 寒洲
@@ -15,26 +16,25 @@ public interface UserDao {
 	/**
 	 * 通过账号密码查询用户
 	 * @param conn 数据库连接
-	 * @param userid
+	 * @param email
 	 * @param password
 	 * @return 存在返回true
 	 * @throws Exception
 	 */
-	boolean selectUserByPw(Connection conn, Long userid, String password) throws Exception;
+	boolean selectUserByPw(Connection conn, String email, String password) throws SQLException;
 
 	/**
 	 * 查询用户id是否存在
 	 * @param conn 数据库连接
-	 * @param userid
+	 * @param email
 	 * @return 存在返回true
 	 */
-	boolean selectUserById(Connection conn, Long userid);
+	boolean selectUserByEmail(Connection conn, String email) throws SQLException;
 
 	/**
 	 * 新建用户
 	 * @param conn
 	 * @param user
-	 * @return
 	 */
-	boolean updateNewUser(Connection conn, User user);
+	void updateNewUser(Connection conn, User user) throws SQLException;
 }

@@ -30,11 +30,11 @@ public class BaseUserServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logger.info("BaseUserServlet执行");
+		logger.trace("BaseUserServlet执行");
 		try {
 			// 获取请求标识
 			String methodName = request.getParameter("method");
-			logger.info("method = " + methodName);
+			logger.debug("method = " + methodName);
 			// 获取指定类的字节码对象
 			// 这里的this指的是继承BaseServlet对象
 			Class<? extends BaseUserServlet> clazz = this.getClass();
@@ -58,6 +58,7 @@ public class BaseUserServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		//发送给客户端
 		try {
+			logger.trace("response...");
 			mapper.writeValue(response.getWriter(), info);
 		} catch (Exception e) {
 			e.printStackTrace();

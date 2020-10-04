@@ -1,8 +1,7 @@
 package service;
 
 import common.bean.User;
-
-import java.sql.SQLException;
+import common.emun.ResultState;
 
 /**
  * @author 寒洲
@@ -12,18 +11,23 @@ import java.sql.SQLException;
 public interface UserService {
 	/**
 	 * 检查账号是否存在
-	 * @param userid
-	 * @return 存在返回true，不存在为false
+	 * @param email
+	 * @return
 	 */
-	boolean checkUserExist(Long userid);
+	ResultState checkUserExist(String email);
 
 	/**
 	 * 验证登录的账号密码
-	 * @param userid
+	 * @param email
 	 * @param paasword
-	 * @return 登录成功-200，账号不存在-404，异地登录-401，密码错误-400，异常-500
+	 * @return
 	 */
-	int validateUserLogin(Long userid, String paasword);
+	ResultState validateUserLogin(String email, String paasword);
 
-	boolean registerNewUser(User user);
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
+	ResultState registerNewUser(User user);
 }

@@ -8,11 +8,11 @@ public class JdbcUtilTest {
 
 	Connection conn;
 	@Test
-	public void getConnection() throws SQLException {
+	public void getConnection() throws Exception {
 
 		conn = JdbcUtil.getConnection();
 		System.out.println(conn);
-		JdbcUtil.closeConnection(conn);
+		JdbcUtil.closeTransaction();
 	}
 
 	@Test
@@ -24,9 +24,9 @@ public class JdbcUtilTest {
 	}
 
 	@Test
-	public void closeConnection() throws SQLException {
+	public void closeConnection() throws Exception {
 		conn = JdbcUtil.getConnection();
-		JdbcUtil.closeConnection(conn);
+		JdbcUtil.closeTransaction();
 		System.out.println(conn);
 	}
 }
