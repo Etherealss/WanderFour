@@ -1,7 +1,7 @@
 package service;
 
-import common.bean.User;
-import common.emun.ResultState;
+import pojo.po.User;
+import common.dto.ResultState;
 
 /**
  * @author 寒洲

@@ -33,7 +33,7 @@ public class ServiceTransactionProxyWrapper implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		log.trace("invoke方法执行：method.getName() = " + method.getName());
+		log.trace("调用方法：" + method.getName());
 		Object value;
 		try{
 			// 将受代理的事务执行

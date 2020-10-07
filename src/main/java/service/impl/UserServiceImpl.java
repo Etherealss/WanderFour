@@ -1,7 +1,7 @@
 package service.impl;
 
-import common.bean.User;
-import common.emun.ResultState;
+import pojo.po.User;
+import common.dto.ResultState;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.UserDao;
@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
 			}
 			if (ud.selectUserByPw(conn, email, paasword)) {
 				//密码正确，登录成功
-				//TODO 检查异地登录
 				return ResultState.SUCCESS;
 			} else {
 				//密码错误

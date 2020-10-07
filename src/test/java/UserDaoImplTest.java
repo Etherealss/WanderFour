@@ -1,4 +1,4 @@
-import common.bean.User;
+import pojo.po.User;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.UserDao;

@@ -1,7 +1,6 @@
 package dao;
 
-import common.bean.User;
-import org.apache.commons.dbutils.QueryRunner;
+import pojo.po.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;

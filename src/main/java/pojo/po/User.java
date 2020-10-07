@@ -1,41 +1,51 @@
-package common.bean;
+package pojo.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import common.annontation.Db;
+import common.annontation.DbField;
+import common.annontation.DbFieldId;
+import common.annontation.DbTable;
 
 import java.util.Date;
 
 /**
  * @author 寒洲
- * @description 用户Bean
+ * @description 用户PO
  * @date 2020/10/2
  */
+@Db(DbName = "wanderfour")
+@DbTable(tableName = "user")
 public class User {
-	private String email;
+	@DbFieldId
+	@DbField("email")
+	private String userid; // 用邮箱作为id
+	@DbField("u_password")
 	private String password;
+	@DbField("nickname")
 	private String nickname;
+	@DbField("birthday")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	// true为小哥哥，false为小姐姐
-	private Boolean sex;
 	private Date birthday;
+	@DbField("sex")
+	private Boolean sex; // true为小哥哥，false为小姐姐
+	@DbField("avatar")
 	private String avatarPath;
+	@DbField("u_type")
 	private String userType;
-	// 获赞数
-	private int beLiked;
-	// 被收藏数
-	private int beCollected;
-	// 注册时间
+	@DbField("u_liked")
+	private int liked; // 获赞数
+	@DbField("u_collected")
+	private int collected; // 被收藏数
+	@DbField("register_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date registerDate;
+	private Date registerDate; // 注册时间
 
-	public User() {
+	public String getUserid() {
+		return userid;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getPassword() {
@@ -86,20 +96,20 @@ public class User {
 		this.userType = userType;
 	}
 
-	public int getBeLiked() {
-		return beLiked;
+	public int getLiked() {
+		return liked;
 	}
 
-	public void setBeLiked(int beLiked) {
-		this.beLiked = beLiked;
+	public void setLiked(int liked) {
+		this.liked = liked;
 	}
 
-	public int getBeCollected() {
-		return beCollected;
+	public int getCollected() {
+		return collected;
 	}
 
-	public void setBeCollected(int beCollected) {
-		this.beCollected = beCollected;
+	public void setCollected(int collected) {
+		this.collected = collected;
 	}
 
 	public Date getRegisterDate() {
@@ -110,28 +120,30 @@ public class User {
 		this.registerDate = registerDate;
 	}
 
+	public User() {}
+
 	/**
-	 * @param email
+	 * @param userid
 	 * @param password
 	 * @param nickname
 	 * @param sex
 	 * @param birthday
 	 * @param avatarPath
 	 * @param userType
-	 * @param beLiked
-	 * @param beCollected
+	 * @param liked
+	 * @param collected
 	 * @param registerDate
 	 */
-	public User(String email, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, int beLiked, int beCollected, Date registerDate) {
-		this.email = email;
+	public User(String userid, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, int liked, int collected, Date registerDate) {
+		this.userid = userid;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
 		this.birthday = birthday;
 		this.avatarPath = avatarPath;
 		this.userType = userType;
-		this.beLiked = beLiked;
-		this.beCollected = beCollected;
+		this.liked = liked;
+		this.collected = collected;
 		this.registerDate = registerDate;
 	}
 
@@ -145,37 +157,36 @@ public class User {
 	 * @param registerDate
 	 */
 	public User(String email, String password, String nickname, Boolean sex, String avatarPath, String userType, Date registerDate) {
-		this.email = email;
+		this.userid = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
-		this.birthday = birthday;
 		this.avatarPath = avatarPath;
 		this.userType = userType;
 		this.registerDate = registerDate;
 	}
 
 	/**
-	 * @param email
+	 * @param userid
 	 * @param password
 	 */
-	public User(String email, String password) {
-		this.email = email;
+	public User(String userid, String password) {
+		this.userid = userid;
 		this.password = password;
 	}
 
 	@Override
 	public String toString() {
 		return "User{" +
-				"email='" + email + '\'' +
+				"email='" + userid + '\'' +
 				", password='" + password + '\'' +
 				", nickname='" + nickname + '\'' +
 				", sex=" + sex +
 				", birthday=" + birthday +
 				", avatarPath='" + avatarPath + '\'' +
 				", userType='" + userType + '\'' +
-				", beLiked=" + beLiked +
-				", beCollected=" + beCollected +
+				", liked=" + liked +
+				", collected=" + collected +
 				", registerDate=" + registerDate +
 				'}';
 	}

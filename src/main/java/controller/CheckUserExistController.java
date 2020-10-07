@@ -1,6 +1,6 @@
 package controller;
 
-import common.emun.ResultState;
+import common.dto.ResultState;
 import common.factory.ServiceFactory;
 import service.UserService;
 

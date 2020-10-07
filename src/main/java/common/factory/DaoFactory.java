@@ -12,11 +12,11 @@ import dao.impl.UserDaoImpl;
 public class DaoFactory {
 
 	/**
-	 * 获取代理的用户DAO
-	 * @return 经过代理的用户DAO对象
+	 * 用户DAO
+	 * @return 用户DAO对象
 	 */
 	public static UserDao getUserDAO() {
-		return ProxyUtil.getProxyForTransaction(new UserDaoImpl());
+		return new UserDaoImpl();
 	}
 
 }

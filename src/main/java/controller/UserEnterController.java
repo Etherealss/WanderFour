@@ -1,17 +1,19 @@
 package controller;
 
-import common.bean.User;
-import common.emun.ResultState;
+import com.alibaba.druid.util.StringUtils;
+import pojo.po.User;
+import common.dto.ResultState;
 import common.factory.ServiceFactory;
 import service.UserService;
 import service.impl.UserServiceImpl;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -33,6 +35,32 @@ public class UserEnterController extends BaseUserServlet {
 		UserService us = ServiceFactory.getUserService();
 		ResultState code = us.validateUserLogin(email, password);
 
+		if (code == ResultState.SUCCESS){
+			//密码正确，检查异地登录
+			logger.trace("密码正确，检查异地登录");
+			HttpSession session = req.getSession();
+			String sessionId = session.getId();
+
+			//通过ServletContext检查异地登录
+			ServletContext servletContext = session.getServletContext();
+			if (servletContext.getAttribute(email) == "null"){
+				//未登录，用email做标识，存入请求的sessionId
+				logger.trace("未登录，好了，现在登录了");
+				servletContext.setAttribute(email, sessionId);
+			} else if(servletContext.getAttribute(email)!= null &&
+					!StringUtils.equals(sessionId ,servletContext.getAttribute(email).toString())){
+				//如果servletContext中存在email，说明已登录，比较两个sessionId
+				//如果两个sessionId相同，说明是同个地点登录
+				//输出“您已登录”
+				logger.trace("已经登录了");
+				code = ResultState.LOGGED;
+			} else {
+				//如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
+				logger.trace("异地登录！");
+				servletContext.removeAttribute(email);
+				servletContext.setAttribute(email, sessionId);
+			}
+		}
 		logger.info(code);
 		info.put("code", code);
 		responseToBrowser(resp);

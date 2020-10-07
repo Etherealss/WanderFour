@@ -1,4 +1,4 @@
-import common.emun.ResultState;
+import common.dto.ResultState;
 import org.junit.Test;
 
 import java.util.HashMap;

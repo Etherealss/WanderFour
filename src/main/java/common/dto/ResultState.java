@@ -1,4 +1,4 @@
-package common.emun;
+package common.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,14 +11,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ResultState {
 	/** 成功 */
 	SUCCESS("SUCCESS","成功"),
+	/** 异常 */
+	EXCEPTION("EXCEPTION", "出现异常"),
+
 	/** 密码错误 */
 	PW_ERROR("PW_ERROR", "密码错误"),
 	/** 账号不存在 */
 	USER_UN_FOUND("USER_UN_FOUND", "账号不存在"),
 	/** 账号已登录 */
 	LOGGED("LOGGED", "账号已登录"),
-	/** 异常 */
-	EXCEPTION("EXCEPTION", "出现异常");
+
+
+	;//这里加一个分号方便添加新枚举
 
 	private final String state;
 	/**
