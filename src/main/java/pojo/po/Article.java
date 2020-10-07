@@ -9,43 +9,96 @@ import java.util.Date;
 
 /**
  * @author 寒洲
- * @description 文章
+ * @description 三个大分区的文章基类
  * @date 2020/10/5
  */
-@Db(DbName = "wanderfour")
-@DbTable(tableName = "article")
 public class Article {
 	@DbFieldId
-	@DbField("a_id")
-	private Long id;
-	@DbField("a_partition")
-	private String partition;// 社区分区
-	@DbField("a_category")
-	private String category;// 二级分类
-	@DbField("a_authod_id")
-	private String authorId;
-	@DbField("a_title")
-	private String title;
-	@DbField("a_content")
-	private String content;
-	@DbField("a_label1")
-	private String label1;
-	@DbField("a_label2")
-	private String label2;
-	@DbField("a_label3")
-	private String label3;
-	@DbField("a_label4")
-	private String label4;
-	@DbField("a_label5")
-	private String label5;
-	@DbField("a_create_time")
-	private Date createTime;
-	@DbField("a_update_time")
-	private Date updateTime;
-	@DbField("a_liked")
-	private int liked;//点赞数
-	@DbField("a_collected")
-	private int collected;//收藏数
+	@DbField("id")
+	protected Long id;
+//	@DbField("partition")
+//	protected String partition;// 社区分区
+	@DbField("category")
+	protected String category;// 二级分类
+	@DbField("authod_id")
+	protected String authorId;
+	@DbField("title")
+	protected String title;
+	@DbField("content")
+	protected String content;
+	@DbField("label1")
+	protected String label1;
+	@DbField("label2")
+	protected String label2;
+	@DbField("label3")
+	protected String label3;
+	@DbField("label4")
+	protected String label4;
+	@DbField("label5")
+	protected String label5;
+	@DbField("create_time")
+	protected Date createTime;
+	@DbField("update_time")
+	protected Date updateTime;
+	@DbField("liked")
+	protected int liked;//点赞数
+	@DbField("collected")
+	protected int collected;//收藏数
+
+	@Override
+	public String toString() {
+		return "Article{" +
+				"id=" + id +
+				", category='" + category + '\'' +
+				", authorId='" + authorId + '\'' +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", label1='" + label1 + '\'' +
+				", label2='" + label2 + '\'' +
+				", label3='" + label3 + '\'' +
+				", label4='" + label4 + '\'' +
+				", label5='" + label5 + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", liked=" + liked +
+				", collected=" + collected +
+				'}';
+	}
+
+	/**
+	 * @param id
+	 * @param category
+	 * @param authorId
+	 * @param title
+	 * @param content
+	 * @param label1
+	 * @param label2
+	 * @param label3
+	 * @param label4
+	 * @param label5
+	 * @param createTime
+	 * @param updateTime
+	 * @param liked
+	 * @param collected
+	 */
+	public Article(Long id, String category, String authorId, String title, String content, String label1, String label2, String label3, String label4, String label5, Date createTime, Date updateTime, int liked, int collected) {
+		this.id = id;
+		this.category = category;
+		this.authorId = authorId;
+		this.title = title;
+		this.content = content;
+		this.label1 = label1;
+		this.label2 = label2;
+		this.label3 = label3;
+		this.label4 = label4;
+		this.label5 = label5;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.liked = liked;
+		this.collected = collected;
+	}
+
+	public Article() {}
 
 	public Long getId() {
 		return id;
@@ -53,14 +106,6 @@ public class Article {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPartition() {
-		return partition;
-	}
-
-	public void setPartition(String partition) {
-		this.partition = partition;
 	}
 
 	public String getCategory() {
@@ -165,64 +210,5 @@ public class Article {
 
 	public void setCollected(int collected) {
 		this.collected = collected;
-	}
-
-	@Override
-	public String toString() {
-		return "Article{" +
-				"id=" + id +
-				", partition='" + partition + '\'' +
-				", category='" + category + '\'' +
-				", authorId='" + authorId + '\'' +
-				", title='" + title + '\'' +
-				", content='" + content + '\'' +
-				", label1='" + label1 + '\'' +
-				", label2='" + label2 + '\'' +
-				", label3='" + label3 + '\'' +
-				", label4='" + label4 + '\'' +
-				", label5='" + label5 + '\'' +
-				", creatTime=" + createTime +
-				", updateTime=" + updateTime +
-				", liked=" + liked +
-				", collected=" + collected +
-				'}';
-	}
-
-	/**
-	 * @param id
-	 * @param partition
-	 * @param category
-	 * @param authorId
-	 * @param title
-	 * @param content
-	 * @param label1
-	 * @param label2
-	 * @param label3
-	 * @param label4
-	 * @param label5
-	 * @param createTime
-	 * @param updateTime
-	 * @param liked
-	 * @param collected
-	 */
-	public Article(Long id, String partition, String category, String authorId, String title,
-	               String content, String label1, String label2, String label3, String label4, String label5,
-	               Date createTime, Date updateTime, int liked, int collected) {
-		this.id = id;
-		this.partition = partition;
-		this.category = category;
-		this.authorId = authorId;
-		this.title = title;
-		this.content = content;
-		this.label1 = label1;
-		this.label2 = label2;
-		this.label3 = label3;
-		this.label4 = label4;
-		this.label5 = label5;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.liked = liked;
-		this.collected = collected;
-
 	}
 }

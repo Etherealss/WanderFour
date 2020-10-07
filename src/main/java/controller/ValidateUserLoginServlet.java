@@ -12,7 +12,7 @@ import java.io.IOException;
  * @date 2020/10/4
  */
 @WebServlet("/ValidateUserLoginServlet")
-public class ValidateUserLoginServlet  extends BaseUserServlet{
+public class ValidateUserLoginServlet extends BasePostServlet {
 
 	/**
 	 * 检查用户的登录状态（已登录/游客）

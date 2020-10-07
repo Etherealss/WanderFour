@@ -1,7 +1,5 @@
 package controller;
 
-import org.apache.log4j.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,7 @@ import java.io.IOException;
  * @date 2020/10/3
  */
 @WebServlet("/UserSettingServlet")
-public class UserSettingController extends BaseUserServlet {
+public class UserSettingController extends BasePostServlet {
 
 	public void changePw(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户修改密码...");

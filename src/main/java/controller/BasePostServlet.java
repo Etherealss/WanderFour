@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +14,12 @@ import java.util.Map;
 
 /**
  * @author 寒洲
- * @description Servlet基类
+ * @description Post方法基类
  * 利用反射调用Controller的方法
  * 且提供预设的日志对象和返回信息报
  * @date 2020/10/2
  */
-public class BaseUserServlet extends HttpServlet {
+public class BasePostServlet extends BaseController {
 	/**
 	 * 日志
 	 */
@@ -38,7 +37,7 @@ public class BaseUserServlet extends HttpServlet {
 			logger.debug("method = " + methodName);
 			// 获取指定类的字节码对象
 			// 这里的this指的是继承BaseServlet对象
-			Class<? extends BaseUserServlet> clazz = this.getClass();
+			Class<? extends BasePostServlet> clazz = this.getClass();
 			// 通过类的字节码对象获取方法的字节码对象
 			Method method = clazz.getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
 			// 让方法执行

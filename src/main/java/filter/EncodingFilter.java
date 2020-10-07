@@ -1,6 +1,5 @@
 package filter;
 
-import controller.BaseUserServlet;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;

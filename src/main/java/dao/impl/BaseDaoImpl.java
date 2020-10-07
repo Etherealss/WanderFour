@@ -1,7 +1,6 @@
 package dao.impl;
 
 import common.annontation.Db;
-import common.annontation.DbField;
 import common.annontation.DbFieldId;
 import common.annontation.DbTable;
 import dao.BaseDao;
@@ -19,19 +18,19 @@ import java.lang.reflect.Type;
  */
 @SuppressWarnings("unchecked")
 public class BaseDaoImpl<T> implements BaseDao<T> {
-	protected Logger logger = Logger.getLogger(BaseDaoImpl.class);
+	protected Logger logger;
 	protected QueryRunner qr = new QueryRunner();
 
 	/** 子类的泛型类 */
-	private Class<T> clazz = null;
+	private final Class<T> CLAZZ;
 
 	{
 		//this指向继承BaseDAO的子类对象本身，获取该子类选择的泛型类型
 		ParameterizedType paramType = (ParameterizedType) this.getClass().getGenericSuperclass();
 		//获取泛型参数，赋值给clazz
 		Type[] typeArguments = paramType.getActualTypeArguments();
-		clazz = (Class<T>) typeArguments[0];
-
+		CLAZZ = (Class<T>) typeArguments[0];
+		logger = Logger.getLogger(CLAZZ);
 	}
 
 	/**
@@ -39,7 +38,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return PO对象对应的数据库表所在的数据库名
 	 */
 	protected String getDbName(){
-		Db db = clazz.getAnnotation(Db.class);
+		Db db = CLAZZ.getAnnotation(Db.class);
 		return db.DbName();
 	}
 
@@ -48,7 +47,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return PO对象对应的数据库表名
 	 */
 	protected String getTableName(){
-		DbTable table = clazz.getAnnotation(DbTable.class);
+		DbTable table = CLAZZ.getAnnotation(DbTable.class);
 		return table.tableName();
 	}
 
@@ -65,7 +64,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return PO对象属性对应的数据库字段
 	 */
 	protected String getFliedId(){
-		Field[] fs = clazz.getDeclaredFields();
+		Field[] fs = CLAZZ.getDeclaredFields();
 		for(Field field : fs) {
 			if(field.isAnnotationPresent(DbFieldId.class)){
 				return field.getName();

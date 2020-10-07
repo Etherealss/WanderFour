@@ -16,7 +16,7 @@ import java.io.IOException;
  * @date 2020/10/3
  */
 @WebServlet("/CheckUserExistServlet")
-public class CheckUserExistController extends BaseUserServlet{
+public class CheckUserExistController extends BasePostServlet {
 
 	public void CheckUserExist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

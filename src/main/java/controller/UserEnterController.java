@@ -22,7 +22,7 @@ import java.util.Date;
  * @date 2020/10/2
  */
 @WebServlet("/UserEnterServlet")
-public class UserEnterController extends BaseUserServlet {
+public class UserEnterController extends BasePostServlet {
 
 	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -33,9 +33,9 @@ public class UserEnterController extends BaseUserServlet {
 
 		//执行操作，获取结果
 		UserService us = ServiceFactory.getUserService();
-		ResultState code = us.validateUserLogin(email, password);
+		ResultState state = us.validateUserLogin(email, password);
 
-		if (code == ResultState.SUCCESS){
+		if (state == ResultState.SUCCESS){
 			//密码正确，检查异地登录
 			logger.trace("密码正确，检查异地登录");
 			HttpSession session = req.getSession();
@@ -53,7 +53,7 @@ public class UserEnterController extends BaseUserServlet {
 				//如果两个sessionId相同，说明是同个地点登录
 				//输出“您已登录”
 				logger.trace("已经登录了");
-				code = ResultState.LOGGED;
+				state = ResultState.LOGGED;
 			} else {
 				//如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
 				logger.trace("异地登录！");
@@ -61,8 +61,8 @@ public class UserEnterController extends BaseUserServlet {
 				servletContext.setAttribute(email, sessionId);
 			}
 		}
-		logger.info(code);
-		info.put("code", code);
+		logger.info(state);
+		info.put("state", state);
 		responseToBrowser(resp);
 	}
 

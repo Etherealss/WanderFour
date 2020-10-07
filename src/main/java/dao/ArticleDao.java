@@ -11,7 +11,7 @@ import java.util.List;
  * @description
  * @date 2020/10/5
  */
-public interface ArticleDao {
+public interface ArticleDao <T extends Article>{
 
 	/**
 	 * 发布新文章
@@ -19,7 +19,7 @@ public interface ArticleDao {
 	 * @param article
 	 * @throws SQLException
 	 */
-	void updateNewArticle(Connection conn, Article article) throws SQLException;
+	void updateNewArticle(Connection conn, T article) throws SQLException;
 
 	/**
 	 * 获取文章的具体数据
@@ -28,24 +28,27 @@ public interface ArticleDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	Article selectArticleById(Connection conn, Long id) throws SQLException;
+	T selectArticleById(Connection conn, Long id) throws SQLException;
 
 	/**
 	 * 查询一共有多少文章，用于分页
 	 * @param conn
+	 * @param partition
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countArticle(Connection conn) throws SQLException;
+	Long countArticle(Connection conn, int partition) throws SQLException;
 
 	/**
 	 * 按页码查询每页的文章记录
 	 * @param conn 数据库连接
+	 * @param partition
 	 * @param start 文章记录的起始索引
 	 * @param rows 每一页显示的记录行数，也就是每一次查询要获取的记录数
 	 * @return 包含了文章数据的List
+	 * @throws SQLException
 	 */
-	List<Article> getBlogListByPage(Connection conn, int start, int rows) throws SQLException;
+	List<T> getBlogListByPage(Connection conn, int partition, int start, int rows) throws SQLException;
 
 	/**
 	 * 获取指定用户的博客总数
