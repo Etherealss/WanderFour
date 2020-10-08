@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -22,9 +23,9 @@ import java.util.Date;
  * @date 2020/10/2
  */
 @WebServlet("/UserEnterServlet")
-public class UserEnterController extends BasePostServlet {
+public class UserEnterController extends BaseServlet {
 
-	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void login(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		logger.trace("用户登录...");
 
@@ -63,10 +64,10 @@ public class UserEnterController extends BasePostServlet {
 		}
 		logger.info(state);
 		info.put("state", state);
-		responseToBrowser(resp);
+		responseToBrowser(resp, info);
 	}
 
-	public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void register(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户注册...");
 		//获取请求参数
 		String nickname = req.getParameter("regi-nickname");
@@ -89,6 +90,6 @@ public class UserEnterController extends BasePostServlet {
 		//提交用户信息
 		UserService us = new UserServiceImpl();
 		info.put("state", us.registerNewUser(user));
-		responseToBrowser(resp);
+		responseToBrowser(resp, info);
 	}
 }

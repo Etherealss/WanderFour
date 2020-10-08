@@ -1,8 +1,10 @@
 package pojo.po;
 
-import common.Partition;
+import common.enums.Partition;
 import common.annontation.Db;
 import common.annontation.DbTable;
+import pojo.Article;
+import pojo.CollegeWriting;
 
 /**
  * @author 寒洲
@@ -11,6 +13,6 @@ import common.annontation.DbTable;
  */
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "article")
-public class CollegeArticle extends Article{
-	public static final int PARTITION = Partition.COLLEGE;
+public class CollegeArticle extends Article implements CollegeWriting {
+
 }

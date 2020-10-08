@@ -4,7 +4,7 @@ import dao.ArticleDao;
 import dao.UserDao;
 import dao.impl.ArticleDaoImpl;
 import dao.impl.UserDaoImpl;
-import pojo.po.Article;
+import pojo.Writing;
 
 /**
  * @author 寒洲
@@ -29,7 +29,7 @@ public class DaoFactory {
 	 *
 	 * @return 各分区文章的DAO
 	 */
-	public static <T> ArticleDao<? extends Article> getArticleDao() {
+	public static <T> ArticleDao<? extends Writing> getArticleDao() {
 		return new ArticleDaoImpl<>();
 	}
 

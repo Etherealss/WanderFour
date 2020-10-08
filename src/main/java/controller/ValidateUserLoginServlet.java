@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -12,7 +13,7 @@ import java.io.IOException;
  * @date 2020/10/4
  */
 @WebServlet("/ValidateUserLoginServlet")
-public class ValidateUserLoginServlet extends BasePostServlet {
+public class ValidateUserLoginServlet extends BaseServlet {
 
 	/**
 	 * 检查用户的登录状态（已登录/游客）
@@ -21,7 +22,7 @@ public class ValidateUserLoginServlet extends BasePostServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	public void validateUserLoginState(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void validateUserLoginState(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Object email = req.getServletContext().getAttribute("email");
 		if (email == null) {
 			//未登录，发送信息给前端

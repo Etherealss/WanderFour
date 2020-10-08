@@ -1,6 +1,6 @@
 package dao;
 
-import pojo.po.Article;
+import pojo.Writing;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ import java.util.List;
  * @description
  * @date 2020/10/5
  */
-public interface ArticleDao <T extends Article>{
+public interface ArticleDao <T extends Writing>{
 
 	/**
 	 * 发布新文章

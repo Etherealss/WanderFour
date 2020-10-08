@@ -47,6 +47,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return PO对象对应的数据库表名
 	 */
 	protected String getTableName(){
+		System.out.println(CLAZZ);
 		DbTable table = CLAZZ.getAnnotation(DbTable.class);
 		return table.tableName();
 	}
