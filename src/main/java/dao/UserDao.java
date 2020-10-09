@@ -20,7 +20,7 @@ public interface UserDao {
 	 * @return 存在返回true
 	 * @throws Exception
 	 */
-	boolean selectUserByPw(Connection conn, String email, String password) throws SQLException;
+	boolean countUserByPw(Connection conn, String email, String password) throws SQLException;
 
 	/**
 	 * 查询用户id是否存在
@@ -28,7 +28,7 @@ public interface UserDao {
 	 * @param email
 	 * @return 存在返回true
 	 */
-	boolean selectUserByEmail(Connection conn, String email) throws SQLException;
+	boolean countUserByEmail(Connection conn, String email) throws SQLException;
 
 	/**
 	 * 新建用户
@@ -36,4 +36,14 @@ public interface UserDao {
 	 * @param user
 	 */
 	void updateNewUser(Connection conn, User user) throws SQLException;
+
+	/**
+	 * 查询用户，获取数据
+	 * @param conn
+	 * @param email
+	 * @return
+	 * @throws SQLException
+	 */
+	User selectUserByEmail(Connection conn, String email) throws SQLException;
+	
 }

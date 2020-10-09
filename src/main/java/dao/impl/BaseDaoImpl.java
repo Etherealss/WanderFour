@@ -3,7 +3,6 @@ package dao.impl;
 import common.annontation.Db;
 import common.annontation.DbFieldId;
 import common.annontation.DbTable;
-import dao.BaseDao;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.log4j.Logger;
 
@@ -16,21 +15,15 @@ import java.lang.reflect.Type;
  * @description
  * @date 2020/10/2
  */
-@SuppressWarnings("unchecked")
-public class BaseDaoImpl<T> implements BaseDao<T> {
-	protected Logger logger;
+public class BaseDaoImpl<T> {
+	protected Logger logger = Logger.getLogger(BaseDaoImpl.class);
 	protected QueryRunner qr = new QueryRunner();
 
 	/** 子类的泛型类 */
-	private final Class<T> CLAZZ;
+	private Class<T>  CLAZZ;
 
-	{
-		//this指向继承BaseDAO的子类对象本身，获取该子类选择的泛型类型
-		ParameterizedType paramType = (ParameterizedType) this.getClass().getGenericSuperclass();
-		//获取泛型参数，赋值给clazz
-		Type[] typeArguments = paramType.getActualTypeArguments();
-		CLAZZ = (Class<T>) typeArguments[0];
-		logger = Logger.getLogger(CLAZZ);
+	public void setClazz(Class<T> CLAZZ) {
+		this.CLAZZ = CLAZZ;
 	}
 
 	/**
@@ -47,7 +40,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 * @return PO对象对应的数据库表名
 	 */
 	protected String getTableName(){
-		System.out.println(CLAZZ);
+		logger.trace(CLAZZ);
 		DbTable table = CLAZZ.getAnnotation(DbTable.class);
 		return table.tableName();
 	}

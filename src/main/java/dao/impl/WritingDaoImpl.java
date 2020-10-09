@@ -1,12 +1,8 @@
 package dao.impl;
 
-import common.annontation.DbTable;
-import dao.ArticleDao;
-import org.apache.commons.dbutils.QueryRunner;
+import dao.WritingDao;
 import pojo.Writing;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,23 +12,25 @@ import java.util.List;
  * @description 文章DAO
  * @date 2020/10/5
  */
-public class ArticleDaoImpl<T extends Writing> implements ArticleDao<T> {
-	protected QueryRunner qr = new QueryRunner();
-	/**
-	 * 通过子类实现的泛型类获取PO对象的表名
-	 * @return PO对象对应的数据库表名
-	 */
-	private String getTableName(){
-		Type genericSuperclass = this.getClass().getGenericSuperclass();
-		System.out.println(genericSuperclass);
-		ParameterizedType paramType = (ParameterizedType) genericSuperclass;
-		//获取泛型参数，赋值给clazz
-		Type[] typeArguments = paramType.getActualTypeArguments();
-		Class<T> CLAZZ = (Class<T>) typeArguments[0];
-		System.out.println(CLAZZ);
-		DbTable table = CLAZZ.getAnnotation(DbTable.class);
-		return table.tableName();
-	}
+public class WritingDaoImpl<T extends Writing> extends BaseDaoImpl<T> implements WritingDao<T> {
+
+
+//	protected QueryRunner qr = new QueryRunner();
+//	/**
+//	 * 通过子类实现的泛型类获取PO对象的表名
+//	 * @return PO对象对应的数据库表名
+//	 */
+//	private String getTableName(){
+//		Type genericSuperclass = this.getClass().getGenericSuperclass();
+//		System.out.println(genericSuperclass);
+//		ParameterizedType paramType = (ParameterizedType) genericSuperclass;
+//		//获取泛型参数，赋值给clazz
+//		Type[] typeArguments = paramType.getActualTypeArguments();
+//		Class<T> CLAZZ = (Class<T>) typeArguments[0];
+//		System.out.println(CLAZZ);
+//		DbTable table = CLAZZ.getAnnotation(DbTable.class);
+//		return table.tableName();
+//	}
 
 	@Override
 	public void updateNewArticle(Connection conn, Writing a) throws SQLException {

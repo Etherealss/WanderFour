@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			conn = JdbcUtil.getConnection();
 			//检查账号是否已存在
-			if (ud.selectUserByEmail(conn, email)){
+			if (ud.countUserByEmail(conn, email)){
 				//存在
 				return ResultState.SUCCESS;
 			}else{
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	private boolean checkUserExist(Connection conn, String email)  {
 		try {
-			return ud.selectUserByEmail(conn, email);
+			return ud.countUserByEmail(conn, email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 				//账号不存在
 				return ResultState.USER_UN_FOUND;
 			}
-			if (ud.selectUserByPw(conn, email, paasword)) {
+			if (ud.countUserByPw(conn, email, paasword)) {
 				//密码正确，登录成功
 				return ResultState.SUCCESS;
 			} else {

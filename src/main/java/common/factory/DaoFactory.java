@@ -1,8 +1,8 @@
 package common.factory;
 
-import dao.ArticleDao;
+import dao.WritingDao;
 import dao.UserDao;
-import dao.impl.ArticleDaoImpl;
+import dao.impl.WritingDaoImpl;
 import dao.impl.UserDaoImpl;
 import pojo.Writing;
 
@@ -29,8 +29,8 @@ public class DaoFactory {
 	 *
 	 * @return 各分区文章的DAO
 	 */
-	public static <T> ArticleDao<? extends Writing> getArticleDao() {
-		return new ArticleDaoImpl<>();
+	public static <T> WritingDao<? extends Writing> getArticleDao() {
+		return new WritingDaoImpl<>();
 	}
 
 }

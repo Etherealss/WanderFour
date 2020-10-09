@@ -11,7 +11,9 @@ import java.util.List;
  * @description
  * @date 2020/10/5
  */
-public interface ArticleDao <T extends Writing>{
+public interface WritingDao<T extends Writing>{
+
+	void setClazz(Class<T> clazz);
 
 	/**
 	 * 发布新文章

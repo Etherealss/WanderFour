@@ -1,10 +1,5 @@
 import common.enums.Partition;
-import common.util.ObjectUtil;
-import dao.ArticleDao;
-import dao.impl.ArticleDaoImpl;
 import org.junit.Test;
-import pojo.Article;
-import pojo.Writing;
 import pojo.po.CollegeArticle;
 
 /**
