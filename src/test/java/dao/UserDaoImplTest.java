@@ -1,7 +1,8 @@
+package dao;
+
 import pojo.po.User;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
-import dao.UserDao;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +44,7 @@ public class UserDaoImplTest {
 
 	@Test
 	public void testSelectUserById() throws Exception{
-		String email = "123123L";
+		String email = "123123@qq.com";
 		boolean b = ud.countUserByEmail(conn, email);
 		logger.debug("selectUserByPw()测试结果：" + (b ? "存在" : "不存在"));
 	}

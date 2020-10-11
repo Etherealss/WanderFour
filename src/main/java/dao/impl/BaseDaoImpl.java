@@ -20,10 +20,11 @@ public class BaseDaoImpl<T> {
 	protected QueryRunner qr = new QueryRunner();
 
 	/** 子类的泛型类 */
-	private Class<T>  CLAZZ;
-
-	public void setClazz(Class<T> CLAZZ) {
-		this.CLAZZ = CLAZZ;
+	private final Class<T>  CLAZZ;
+	{
+		ParameterizedType parametclass = (ParameterizedType) this.getClass().getGenericSuperclass();
+		Type[] actualTypeArguments = parametclass.getActualTypeArguments();
+		CLAZZ = (Class<T>) actualTypeArguments[0];
 	}
 
 	/**
@@ -40,9 +41,9 @@ public class BaseDaoImpl<T> {
 	 * @return PO对象对应的数据库表名
 	 */
 	protected String getTableName(){
-		logger.trace(CLAZZ);
 		DbTable table = CLAZZ.getAnnotation(DbTable.class);
-		return table.tableName();
+		logger.trace(table.tableName());
+		return "`" + table.tableName() + "`";
 	}
 
 	/**

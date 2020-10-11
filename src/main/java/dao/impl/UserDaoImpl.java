@@ -38,7 +38,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		String sql = "insert into " + getTableName() + "(email, u_password, nickname, sex, avatar," +
 				"register_date, u_type)values(?,?,?,?, ?,?,?)";
 		Object[] params = {u.getUserid(), u.getPassword(), u.getNickname(), u.getSex(),
-				u.getAvatarPath(), new Date(), u.getUserType()};
+				u.getAvatarPath(), new Date(), u.getUserTypeEmun().code()}; //userType传int
 		int res = qr.update(conn, sql, params);
 		assert res == 1;
 	}

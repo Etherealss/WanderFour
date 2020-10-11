@@ -19,13 +19,14 @@ import java.util.Map;
 @WebServlet("/CheckUserExistServlet")
 public class CheckUserExistController extends BaseServlet {
 
-	public void CheckUserExist(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void checkUserExist(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String email = req.getParameter("email");
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
-		ResultState code = us.checkUserExist(email);
-		info.put("code", code);
+		ResultState state = us.checkUserExist(email);
+		logger.debug("email = " + email + ", state = " + state);
+		info.put("state", state);
 		responseToBrowser(resp, info);
 	}
 }

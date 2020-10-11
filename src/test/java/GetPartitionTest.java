@@ -1,6 +1,8 @@
 import common.enums.Partition;
 import org.junit.Test;
-import pojo.po.CollegeArticle;
+import pojo.po.Article;
+import pojo.po.Posts;
+import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -10,11 +12,18 @@ import pojo.po.CollegeArticle;
 public class GetPartitionTest {
 
 	@Test
-	public void getPartitionTest(){
-		Partition partition = CollegeArticle.PARTITION;
-		System.out.println(partition);
+	public void testInstanceof(){
+		Writing w = new Article();
+		if (w instanceof Article){
+			System.out.println("Article");
+		}
+		if (w instanceof Writing){
+			System.out.println("Writing");
+		}
+		if (w instanceof Posts){
+			System.out.println("Posts");
+		}
 	}
-
 //	@Test
 //	public void extendTest(){
 //		A a = new B();

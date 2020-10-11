@@ -1,16 +1,14 @@
-package service.impl;
+package service;
 
+import common.enums.Partition;
 import common.factory.ServiceFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pojo.Writing;
-import pojo.po.LearningArticle;
+import pojo.po.Article;
 import service.WritingService;
 
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class WritingServiceImplTest {
 
@@ -24,16 +22,19 @@ public class WritingServiceImplTest {
 
 	@Test
 	public void publishNewWriting() {
-		LearningArticle writing = new LearningArticle();
-		writing.setAuthorId("123@qq.com");
+		Article writing = new Article();
+		writing.setPartition(Partition.LEARNING);
+		writing.setAuthorId("1@qq.com");
 		writing.setCategory("二级分类");
+
+		writing.setTitle("我是标题");
 		writing.setContent("主要内容");
 		writing.setLabel1("标签1");
 		writing.setLabel2("标签2");
-		writing.setTitle("我是标题");
+
 		writing.setCreateTime(new Date());
 		writing.setUpdateTime(new Date());
-		WritingService<LearningArticle> service = ServiceFactory.getWritingService(new WritingServiceImpl<LearningArticle>());
+		WritingService<Article> service = ServiceFactory.getArticleService();
 		service.publishNewWriting(writing);
 	}
 }

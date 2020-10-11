@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 			//检查账号是否已存在
 			if (ud.countUserByEmail(conn, email)){
 				//存在
-				return ResultState.SUCCESS;
+				return ResultState.IS_REGISTED;
 			}else{
 				//不存在
 				return ResultState.USER_UN_FOUND;

@@ -5,6 +5,7 @@ import common.annontation.Db;
 import common.annontation.DbField;
 import common.annontation.DbFieldId;
 import common.annontation.DbTable;
+import common.enums.UserType;
 
 import java.util.Date;
 
@@ -39,6 +40,8 @@ public class User {
 	@DbField("register_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date registerDate; // 注册时间
+
+	private UserType userTypeEmun;
 
 	public String getUserid() {
 		return userid;
@@ -94,6 +97,7 @@ public class User {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+		this.userTypeEmun = UserType.getPartition(userType);
 	}
 
 	public int getLiked() {
@@ -120,6 +124,14 @@ public class User {
 		this.registerDate = registerDate;
 	}
 
+	public UserType getUserTypeEmun() {
+		return userTypeEmun;
+	}
+
+	public void setUserTypeEmun(UserType userTypeEmun) {
+		this.userTypeEmun = userTypeEmun;
+	}
+
 	public User() {}
 
 	/**
@@ -142,6 +154,7 @@ public class User {
 		this.birthday = birthday;
 		this.avatarPath = avatarPath;
 		this.userType = userType;
+		this.userTypeEmun = UserType.getPartition(userType);
 		this.liked = liked;
 		this.collected = collected;
 		this.registerDate = registerDate;
@@ -163,6 +176,7 @@ public class User {
 		this.sex = sex;
 		this.avatarPath = avatarPath;
 		this.userType = userType;
+		this.userTypeEmun = UserType.getPartition(userType);
 		this.registerDate = registerDate;
 	}
 

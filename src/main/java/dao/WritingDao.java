@@ -1,6 +1,6 @@
 package dao;
 
-import pojo.Writing;
+import pojo.po.Writing;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,16 +13,21 @@ import java.util.List;
  */
 public interface WritingDao<T extends Writing>{
 
-	void setClazz(Class<T> clazz);
-
 	/**
 	 * 发布新文章
 	 * @param conn
-	 * @param article
+	 * @param t
 	 * @throws SQLException
 	 */
-	void updateNewArticle(Connection conn, T article) throws SQLException;
+	void updateNewArticle(Connection conn, T t) throws SQLException;
 
+	/**
+	 * 更新文章
+	 * @param conn
+	 * @param t
+	 * @throws SQLException
+	 */
+	void updateArticle(Connection conn, T t) throws SQLException;
 	/**
 	 * 获取文章的具体数据
 	 * @param conn
@@ -31,6 +36,14 @@ public interface WritingDao<T extends Writing>{
 	 * @throws SQLException
 	 */
 	T selectArticleById(Connection conn, Long id) throws SQLException;
+
+	/**
+	 * 删除文章
+	 * @param conn
+	 * @param id
+	 * @throws SQLException
+	 */
+	void deleteArticleById(Connection conn, Long id) throws SQLException;
 
 	/**
 	 * 查询一共有多少文章，用于分页
@@ -50,7 +63,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return 包含了文章数据的List
 	 * @throws SQLException
 	 */
-	List<T> getBlogListByPage(Connection conn, int partition, int start, int rows) throws SQLException;
+	List<T> getWritingListByPage(Connection conn, int partition, int start, int rows) throws SQLException;
 
 	/**
 	 * 获取指定用户的博客总数

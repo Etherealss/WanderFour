@@ -2,9 +2,12 @@ package common.factory;
 
 import dao.WritingDao;
 import dao.UserDao;
-import dao.impl.WritingDaoImpl;
+import dao.impl.ArticleDaoImpl;
+import dao.impl.PostsDaoImpl;
 import dao.impl.UserDaoImpl;
-import pojo.Writing;
+import pojo.po.Article;
+import pojo.po.Posts;
+import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -24,13 +27,13 @@ public class DaoFactory {
 
 	/**
 	 * 获取各分区文章的DAO
-	 *
-	 * @param <T>  指定分区的文章DAO类型
-	 *
-	 * @return 各分区文章的DAO
+	 * @return
 	 */
-	public static <T> WritingDao<? extends Writing> getArticleDao() {
-		return new WritingDaoImpl<>();
+	public static WritingDao<Article> getArticleDao() {
+		return new ArticleDaoImpl();
 	}
 
+	public static WritingDao<Posts> getPostsDao() {
+		return new PostsDaoImpl();
+	}
 }

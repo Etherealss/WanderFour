@@ -1,9 +1,9 @@
-package pojo;
+package pojo.po;
 
-import common.annontation.Db;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import common.annontation.DbField;
 import common.annontation.DbFieldId;
-import common.annontation.DbTable;
+import common.enums.Partition;
 
 import java.util.Date;
 
@@ -16,8 +16,8 @@ public class Writing {
 	@DbFieldId
 	@DbField("id")
 	protected Long id;
-//	@DbField("partition")
-//	protected String partition;// 社区分区
+	@DbField("partition")
+	protected String partitionStr;// 社区分区
 	@DbField("category")
 	protected String category;// 二级分类
 	@DbField("authod_id")
@@ -36,52 +36,41 @@ public class Writing {
 	protected String label4;
 	@DbField("label5")
 	protected String label5;
+	@DbField("update_time")
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	protected Date updateTime;
 	@DbField("create_time")
 	protected Date createTime;
-	@DbField("update_time")
-	protected Date updateTime;
 	@DbField("liked")
 	protected int liked;//点赞数
 	@DbField("collected")
 	protected int collected;//收藏数
 
-	@Override
-	public String toString() {
-		return "Article{" +
-				"id=" + id +
-				", category='" + category + '\'' +
-				", authorId='" + authorId + '\'' +
-				", title='" + title + '\'' +
-				", content='" + content + '\'' +
-				", label1='" + label1 + '\'' +
-				", label2='" + label2 + '\'' +
-				", label3='" + label3 + '\'' +
-				", label4='" + label4 + '\'' +
-				", label5='" + label5 + '\'' +
-				", createTime=" + createTime +
-				", updateTime=" + updateTime +
-				", liked=" + liked +
-				", collected=" + collected +
-				'}';
+	protected Partition partition;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Writing(String category, String authorId, String title, String content,
-	               String label1, String label2, String label3, String label4, String label5,
-	               Date createTime, Date updateTime) {
-		this.category = category;
-		this.authorId = authorId;
-		this.title = title;
-		this.content = content;
-		this.label1 = label1;
-		this.label2 = label2;
-		this.label3 = label3;
-		this.label4 = label4;
-		this.label5 = label5;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
+	public Long getId() {
+		return id;
 	}
 
-	public Writing() {
+	public String getPartitionStr() {
+		return partitionStr;
+	}
+
+	public void setPartitionStr(String partitionStr) {
+		this.partitionStr = partitionStr;
+	}
+
+	public Partition getPartition() {
+		return partition;
+	}
+
+	public void setPartition(Partition partition) {
+		this.partition = partition;
+		setPartitionStr(partition.val());
 	}
 
 	public String getCategory() {
@@ -186,5 +175,46 @@ public class Writing {
 
 	public void setCollected(int collected) {
 		this.collected = collected;
+	}
+
+	@Override
+	public String toString() {
+		return "Writing{" +
+				"id=" + id +
+				", partitionStr='" + partitionStr + '\'' +
+				", category='" + category + '\'' +
+				", authorId='" + authorId + '\'' +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", label1='" + label1 + '\'' +
+				", label2='" + label2 + '\'' +
+				", label3='" + label3 + '\'' +
+				", label4='" + label4 + '\'' +
+				", label5='" + label5 + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", liked=" + liked +
+				", collected=" + collected +
+				", partition=" + partition +
+				'}';
+	}
+
+	public Writing() {}
+
+	public Writing(String category, String authorId, String title, String content,
+	               String label1, String label2, String label3, String label4, String label5,
+	               Date createTime, Date updateTime, Partition partition) {
+		this.category = category;
+		this.authorId = authorId;
+		this.title = title;
+		this.content = content;
+		this.label1 = label1;
+		this.label2 = label2;
+		this.label3 = label3;
+		this.label4 = label4;
+		this.label5 = label5;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.partition = partition;
 	}
 }

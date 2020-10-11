@@ -21,30 +21,31 @@ public enum ResultState {
 	/** 账号已登录 */
 	LOGGED("LOGGED", "账号已登录"),
 
+	IS_REGISTED("IS_REGISTED", "账号已注册"),
 
 	;//这里加一个分号方便添加新枚举
 
-	private final String state;
+	private final String code;
 	/**
 	 * 给前端的描述信息
 	 */
 	private final String msg;
 
 	ResultState(String code, String msg){
-		this.state = code;
+		this.code = code;
 		this.msg = msg;
 	}
 
 	public String toString(){
-		return state + ":" + msg;
+		return code + ":" + msg;
 	}
 
 	public String val(){
-		return state;
+		return code;
 	}
 
-	public String  getState() {
-		return state;
+	public String getCode() {
+		return code;
 	}
 
 	public String getMsg() {

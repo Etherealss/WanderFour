@@ -25,7 +25,7 @@ public class ValidateLoginFilter implements Filter {
 	 * 需要拦截并判断登录状态的路径
 	 */
 	private static final Set<String> CHECK_PATHS = Collections.unmodifiableSet(
-			new HashSet<>(Arrays.asList("/index.html","/manage.html", "/write.html",
+			new HashSet<>(Arrays.asList("/manage.html", "/write.html",
 					"/UserSettingServlet")));
 
 
@@ -40,7 +40,7 @@ public class ValidateLoginFilter implements Filter {
 			if (email == null) {
 				//未登录，跳转到登录页面
 				logger.trace("检查用户的登录状态 未登录，拦截");
-				resp.sendRedirect("login.html");
+//				resp.sendRedirect("login.html");
 			}else{
 				//已登录，放行
 				chain.doFilter(req, resp);

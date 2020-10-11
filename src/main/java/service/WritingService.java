@@ -1,7 +1,7 @@
 package service;
 
 import common.dto.ResultState;
-import pojo.Writing;
+import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -10,9 +10,30 @@ import pojo.Writing;
  */
 public interface WritingService<T extends Writing> {
 	/**
-	 * 新发布博客
-	 * @param writing
+	 * 发布新作品
+	 * @param t
 	 * @return
 	 */
-	ResultState publishNewWriting(Writing writing);
+	ResultState publishNewWriting(T t);
+
+	/**
+	 * 获取作品
+	 * @param id
+	 * @return
+	 */
+	T getWriting(Long id);
+
+	/**
+	 * 修改作品
+	 * @param t
+	 * @return
+	 */
+	ResultState updateWriting(T t);
+
+	/**
+	 * 删除作品
+	 * @param id
+	 * @return
+	 */
+	ResultState deleteWriting(Long id);
 }
