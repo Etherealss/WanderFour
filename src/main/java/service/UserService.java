@@ -1,7 +1,7 @@
 package service;
 
 import pojo.po.User;
-import common.dto.ResultState;
+import common.enums.ResultState;
 
 /**
  * @author 寒洲

@@ -1,7 +1,7 @@
 package service.impl;
 
 import pojo.po.User;
-import common.dto.ResultState;
+import common.enums.ResultState;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.UserDao;

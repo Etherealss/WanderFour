@@ -1,4 +1,4 @@
-import common.dto.ResultState;
+import common.enums.ResultState;
 import common.enums.Partition;
 import org.junit.Test;
 

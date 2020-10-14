@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +27,10 @@ public class RegTest {
 		} else {
 			System.out.println("NOT MATCH");
 		}
-
 	}
 
+	@Test
+	public void dateTest() {
+		System.out.println(new Date());
+	}
 }

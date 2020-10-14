@@ -17,28 +17,16 @@ import java.util.Date;
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "user")
 public class User {
-	@DbFieldId
-	@DbField("email")
 	private String userid; // 用邮箱作为id
-	@DbField("u_password")
 	private String password;
-	@DbField("nickname")
 	private String nickname;
-	@DbField("birthday")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
-	@DbField("sex")
 	private Boolean sex; // true为小哥哥，false为小姐姐
-	@DbField("avatar")
 	private String avatarPath;
-	@DbField("u_type")
 	private String userType;
-	@DbField("u_liked")
-	private int liked; // 获赞数
-	@DbField("u_collected")
-	private int collected; // 被收藏数
-	@DbField("register_date")
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Long liked; // 获赞数
+	private Long collected; // 被收藏数
 	private Date registerDate; // 注册时间
 
 	private UserType userTypeEmun;
@@ -100,19 +88,19 @@ public class User {
 		this.userTypeEmun = UserType.getPartition(userType);
 	}
 
-	public int getLiked() {
+	public Long getLiked() {
 		return liked;
 	}
 
-	public void setLiked(int liked) {
+	public void setLiked(Long liked) {
 		this.liked = liked;
 	}
 
-	public int getCollected() {
+	public Long getCollected() {
 		return collected;
 	}
 
-	public void setCollected(int collected) {
+	public void setCollected(Long collected) {
 		this.collected = collected;
 	}
 
@@ -146,7 +134,7 @@ public class User {
 	 * @param collected
 	 * @param registerDate
 	 */
-	public User(String userid, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, int liked, int collected, Date registerDate) {
+	public User(String userid, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, Long liked, Long collected, Date registerDate) {
 		this.userid = userid;
 		this.password = password;
 		this.nickname = nickname;

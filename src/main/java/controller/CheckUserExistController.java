@@ -1,7 +1,8 @@
 package controller;
 
-import common.dto.ResultState;
+import common.enums.ResultState;
 import common.factory.ServiceFactory;
+import common.util.ControllerUtil;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -19,14 +21,18 @@ import java.util.Map;
 @WebServlet("/CheckUserExistServlet")
 public class CheckUserExistController extends BaseServlet {
 
-	public void checkUserExist(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+	}
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
 		ResultState state = us.checkUserExist(email);
 		logger.debug("email = " + email + ", state = " + state);
+		Map<String, Object> info = new Hashtable<>();
 		info.put("state", state);
-		responseToBrowser(resp, info);
+		ControllerUtil.responseToBrowser(resp, info);
 	}
 }

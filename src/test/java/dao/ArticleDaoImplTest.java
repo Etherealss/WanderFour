@@ -2,20 +2,16 @@ package dao;
 
 import common.enums.Partition;
 import common.factory.DaoFactory;
-import common.factory.ServiceFactory;
 import common.util.JdbcUtil;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pojo.po.Article;
-import service.WritingService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class ArticleDaoImplTest {
 	private final Logger logger = Logger.getLogger(UserDaoImplTest.class);
@@ -56,12 +52,12 @@ public class ArticleDaoImplTest {
 
 		writing.setCreateTime(new Date());
 		writing.setUpdateTime(new Date());
-		dao.updateArticle(conn, writing);
+		dao.updateWritingInfo(conn, writing);
 	}
 
 	@Test
 	public void selectArticleById() throws SQLException {
-		System.out.println(dao.selectArticleById(conn, 2L));
+		System.out.println(dao.selectWritingById(conn, 2L));
 	}
 
 	@Test

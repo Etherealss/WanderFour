@@ -12,6 +12,6 @@ import common.enums.Partition;
  */
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "article")
-@DbTableFK(foreignKey = {"user", "partition"})
+@DbTableFK(foreignKey = {"user", "partition", "article_content"})
 public class Article extends Writing {
 }

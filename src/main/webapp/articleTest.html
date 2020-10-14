@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章发表页面测试</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .outsideBox{
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f00;
+        }
+        /* 左栏用户 */
+        .userMessage{
+            width: 150px;
+            height: 600px;
+            border: 1px solid #0f0;
+        }
+
+        .userIcon{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            /*background: url(img/LearningWorld_highSchoolStudent_head.png) no-repeat -1px -1.5px;*/
+            background-size: 100%;
+        }
+
+        /* 右栏文章Part */
+        .articleBox{
+            width: 650px;
+            height: 600px;
+            border: 1px solid #00f;
+        }
+
+        .userId{
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .articleTitleBox{
+            width: 100%;
+            height: 60px;
+            position: relative;
+            border: 1px solid #0f0;
+        }     
+
+        .articleTitleBox span{
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .articleTitleBox > input{
+            width: 60%;
+            height: 25px;
+            position: absolute;
+            top: 20px;
+            left: 80px;
+        }  
+
+        .articleContent{
+            width: 100%;
+            height: 400px;
+            position: relative;
+            border: 1px solid #0f0;
+        }
+
+        .articleContent textarea{
+            width: 550px;
+            height: 90%;
+            margin: 15px 30px 50px;
+            padding: 10px;
+            font-size: 16px;
+            line-height: 25px;
+        }
+        /* 添加标签的区域 */
+        .articleLabelBox{
+            width: 100%;
+            height: 120px;
+            border: 1px solid #0f0;
+        }
+
+        .partitionBox{
+            margin: 8px;
+            padding: 10px;
+            border: 1px solid #00f;
+        }
+
+        .secondaryLabelBox{
+            height: 60px;
+            margin: 0 10px;
+            border: 1px solid #00f;
+        }
+
+        .secondaryLabelBox ul{
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+        }
+
+        .secondaryLabelBox ul li{
+            width: 55px;
+            height: 30px;
+            margin: 10px;
+            position: relative;
+            background: #f7f7f7;
+            border-radius: 5px;
+            border: .5px solid #7f7f7f;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+        }
+
+        .secondaryLabelBox ul li p{
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 15px;
+        }
+
+        .secondaryLabelBox ul li > a{
+            width: 10px;
+            height: 10px;
+            line-height: 10px;
+            position: absolute;
+            top: 2px;
+            right: 3px;
+            font-size: 13px;
+            transform: rotate(45deg);
+            background: #ccc;
+            border-radius: 50%;
+            border: 1px solid #7f7f7f;
+            cursor: pointer;
+        }
+
+        .secondaryLabelBox button{
+            margin: 10px;
+            padding: 0 5px 0 0;  
+        }
+
+        .secondaryLabelBox button > span{
+            margin: 0 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .secondaryLabelBox .txt{
+            width: 100px;
+            height: 25px;
+            margin: 10px 0 0 0;
+            /* display: none; */
+        }
+
+        .txtShow{display: none;}
+    </style>
+</head>
+<body>
+    <div class="outsideBox">
+        <div class="userMessage">
+            <div class="userIcon"></div>
+            <div class="userId">Mr.MUSHROOM</div>
+        </div>
+        <div class="articleBox">
+            <div class="articleTitleBox">
+                <span>Title:</span>
+                <input type="text" name="" id="articleTitleVal"/>
+            </div>
+            <div class="articleContent">
+                <textarea name="" id="articleContentVal" cols="30" rows="10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse, tempora explicabo id optio mollitia veritatis! Omnis quisquam temporibus unde cumque. Similique modi earum neque quasi ab. Quos, libero facere.</textarea>
+            </div>
+            <div class="articleLabelBox">
+                <div class="partitionBox">
+                    <input type="radio" name="partition" id="" checked/> 学习天地
+                    <input type="radio" name="partition" id=""/> 专业学习
+                    <input type="radio" name="partition" id=""/> 学校生活
+                </div>
+                <div class="secondaryLabelBox">
+                    <ul id="list">
+                        <!-- <li>
+                            <p id="label">英语</p>
+                            <a class="delete" number="0">+</a>
+                        </li>
+                        <li>
+                            <p id="label2">语文</p>
+                            <a class="delete" number="0">+</a>
+                        </li> -->
+                        <button id="btn">
+                            <span>+</span>添加标签
+                        </button>
+                        <input type="text" name="" class="txt"/>
+                    </ul>
+                    <button id="submit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="JS/jQuery.js"></script>
+<script>
+    var i = 1;
+    $("#btn").on("click",function()
+    {
+        // $(".txt").toggleClass("txtShow");
+        var li = $("<li></li>");
+        li.html("<p id='label"+i+"'>"+$(".txt").val()+"</p> <a class='delete' number="+i+">+</a>");
+        $("#list").prepend(li);
+        $(".txt").val("");
+        i++;
+        console.log(i);
+    });
+
+    // 点击右上角删除此处<li>
+    $("#list").on("click",".delete",function()
+    {
+        var index = $(this).attr("number");
+        // $("#list li").eq(index).css({background: "#f00"});
+        $("#list li").eq(index).remove();
+        // $("#list li").eq(index).empty();
+    });
+
+
+    // function getDataVal()articleTitleVal,articleContentVal,label1,label2
+    // {
+    // }
+
+    $("#submit").on("click",function()
+    {
+        toPublishArticle();
+    });
+
+
+    
+    function toPublishArticle() {
+        var articleTitleVal = $("#articleTitleVal").val();
+        var articleContentVal = $("#articleContentVal").val();
+        var label1 = $("#label1").html();
+        var label2 = $("#label2").html();
+        var b = checkArticleInput(articleTitleVal, articleContentVal, label1, label2);
+        if (b){
+            articleSubmit(articleTitleVal, articleContentVal, label1, label2);
+        }
+    }
+
+    function checkArticleInput(articleTitleVal, articleContentVal, label1, label2) {
+        if (articleTitleVal == "" || articleTitleVal == undefined){
+            //添加提示信息
+            return false;
+        }
+        return true;
+    }
+
+    function articleSubmit(articleTitleVal, articleContentVal, label1, label2){
+        $.ajax({
+            type:'POST',
+            url:'/WritingServlet',
+            data:{
+                method : "writingCRUD", //文章的操作，CRUD即增删改查，具体百度
+                type: "article",
+                action : "add", //增add删delete改post查get，通俗易懂
+                partition : "学习天地", //分区
+                category : "文章二级分类",
+                authorId : "123456@qq.com",
+                title : articleTitleVal,
+                content : articleContentVal,
+                //标签可以为空；如果为空，直接不写
+                label1 : label1,
+                label2 : label2,
+            },
+            dataType:'json',
+            success:function(res){//成功的回调函数
+                console.log(res);
+            },
+            error:function(){//XX失败
+                console.log("ArticlePost ERROR");
+            }
+        });
+    }
+
+</script>
+</html>

@@ -7,11 +7,11 @@ package common.enums;
  */
 public enum  Partition {
 	/** 学习天地 */
-	LEARNING(1, "学习天地"),
+	LEARNING(1, "learning"),
 	/** 专业介绍 */
-	COLLEGE(2, "专业介绍"),
+	COLLEGE(2, "major"),
 	/** 大学风采 */
-	MAJOR(3,"大学风采"),
+	MAJOR(3,"college"),
 	;
 
 	private final int CODE;

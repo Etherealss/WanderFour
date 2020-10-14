@@ -1,7 +1,6 @@
 package pojo;
 
-import common.enums.Partition;
-import common.enums.WritingType;
+import common.enums.WritingEnum;
 import pojo.po.Writing;
 
 /**
@@ -11,7 +10,7 @@ import pojo.po.Writing;
  */
 public class WritingBean {
 	Writing writing; //对应数据库的实体
-	WritingType writingType; //作品类型
+	WritingEnum writingType; //作品类型
 
 	public Writing getWriting() {
 		return writing;
@@ -21,15 +20,15 @@ public class WritingBean {
 		this.writing = writing;
 	}
 
-	public WritingType getWritingType() {
+	public WritingEnum getWritingType() {
 		return writingType;
 	}
 
-	public void setWritingType(WritingType writingType) {
+	public void setWritingType(WritingEnum writingType) {
 		this.writingType = writingType;
 	}
 
-	public WritingBean(Writing writing, WritingType writingType) {
+	public WritingBean(Writing writing, WritingEnum writingType) {
 		this.writing = writing;
 		this.writingType = writingType;
 	}

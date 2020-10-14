@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  * @author 寒洲
- * @description
+ * @description 用户DAO
  * @date 2020/10/2
  */
 public interface UserDao {

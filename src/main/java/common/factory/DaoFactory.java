@@ -3,11 +3,9 @@ package common.factory;
 import dao.WritingDao;
 import dao.UserDao;
 import dao.impl.ArticleDaoImpl;
-import dao.impl.PostsDaoImpl;
 import dao.impl.UserDaoImpl;
 import pojo.po.Article;
 import pojo.po.Posts;
-import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -33,7 +31,7 @@ public class DaoFactory {
 		return new ArticleDaoImpl();
 	}
 
-	public static WritingDao<Posts> getPostsDao() {
-		return new PostsDaoImpl();
-	}
+//	public static WritingDao<Posts> getPostsDao() {
+//		return new PostsDaoImpl();
+//	}
 }

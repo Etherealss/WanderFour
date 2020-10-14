@@ -1,5 +1,7 @@
 package controller;
 
+import pojo.po.LikeRecord;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,11 @@ import java.util.Map;
 @WebServlet("/UserSettingServlet")
 public class UserSettingController extends BaseServlet {
 
-	public void changePw(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户修改密码...");
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.doPost(request, response);
 	}
 }

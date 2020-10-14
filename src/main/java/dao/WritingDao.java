@@ -13,13 +13,26 @@ import java.util.List;
  */
 public interface WritingDao<T extends Writing>{
 
+	Long selectMaxWritingId(Connection conn) throws SQLException;
+
 	/**
-	 * 发布新文章
+	 * 发布新作品
 	 * @param conn
 	 * @param t
 	 * @throws SQLException
+	 * @return
 	 */
-	void updateNewArticle(Connection conn, T t) throws SQLException;
+	boolean updateNewWritingInfo(Connection conn, T t) throws SQLException;
+
+	/***
+	 * 储存新作品的内容
+	 * @param conn
+	 * @param id
+	 * @param content
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean updateNewWritingContent(Connection conn, Long id, String content) throws SQLException;
 
 	/**
 	 * 更新文章
@@ -27,7 +40,18 @@ public interface WritingDao<T extends Writing>{
 	 * @param t
 	 * @throws SQLException
 	 */
-	void updateArticle(Connection conn, T t) throws SQLException;
+	boolean updateWritingInfo(Connection conn, T t) throws SQLException;
+
+	/**
+	 * 更新作品内容
+	 * @param conn
+	 * @param id
+	 * @param content
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean updateWritingContent(Connection conn, Long id, String content) throws SQLException;
+
 	/**
 	 * 获取文章的具体数据
 	 * @param conn
@@ -35,24 +59,33 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	T selectArticleById(Connection conn, Long id) throws SQLException;
+	T selectWritingById(Connection conn, Long id) throws SQLException;
 
+	/**
+	 * 获取作品内容
+	 * @param conn
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	String selectWritingContent(Connection conn, Long id) throws SQLException;
 	/**
 	 * 删除文章
 	 * @param conn
 	 * @param id
 	 * @throws SQLException
+	 * @return
 	 */
-	void deleteArticleById(Connection conn, Long id) throws SQLException;
+	boolean deleteWritingById(Connection conn, Long id) throws SQLException;
 
 	/**
-	 * 查询一共有多少文章，用于分页
+	 * 查询一共有多少文章
 	 * @param conn
 	 * @param partition
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countArticle(Connection conn, int partition) throws SQLException;
+	Long countWriting(Connection conn, int partition) throws SQLException;
 
 	/**
 	 * 按页码查询每页的文章记录
@@ -71,5 +104,14 @@ public interface WritingDao<T extends Writing>{
 	 * @param userid 用户id
 	 * @return 用户发表的文章数
 	 */
-	int getUserArticleCount(Connection conn, String userid) throws SQLException;
+	Long getUserWritingCount(Connection conn, String userid) throws SQLException;
+
+	/**
+	 * 根据编号获取作者
+	 * @param conn
+	 * @param articleId
+	 * @return
+	 * @throws SQLException
+	 */
+	String getAuthorByWritingId(Connection conn, Long articleId) throws SQLException;
 }

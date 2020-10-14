@@ -1,9 +1,11 @@
 package common.util;
 
-import common.enums.Partition;
+import com.alibaba.fastjson.JSONObject;
 import pojo.po.Writing;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -35,5 +37,20 @@ public class ControllerUtil {
 		p.setLabel3(label3);
 		p.setLabel4(label4);
 		p.setLabel5(label5);
+	}
+
+	/**
+	 * 传输返回给浏览器的json包
+	 * @param response
+	 * @param jsonObject 返回给浏览器的json包
+	 */
+	public static void responseToBrowser(HttpServletResponse response, JSONObject jsonObject) {
+		//将map转为JSON
+		//发送给客户端
+		try {
+			response.getWriter().write(jsonObject.toJSONString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

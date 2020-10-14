@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  * @date 2020/10/2
  */
 public class BaseDaoImpl<T> {
-	protected Logger logger = Logger.getLogger(BaseDaoImpl.class);
+	private Logger logger = Logger.getLogger(BaseDaoImpl.class);
 	protected QueryRunner qr = new QueryRunner();
 
 	/** 子类的泛型类 */

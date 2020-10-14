@@ -6,6 +6,7 @@ import common.annontation.DbFieldId;
 import common.enums.Partition;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author 寒洲
@@ -24,8 +25,6 @@ public class Writing {
 	protected String authorId;
 	@DbField("title")
 	protected String title;
-	@DbField("content")
-	protected String content;
 	@DbField("label1")
 	protected String label1;
 	@DbField("label2")
@@ -46,6 +45,7 @@ public class Writing {
 	@DbField("collected")
 	protected int collected;//收藏数
 
+	protected String content;
 	protected Partition partition;
 
 	public void setId(Long id) {
@@ -62,6 +62,9 @@ public class Writing {
 
 	public void setPartitionStr(String partitionStr) {
 		this.partitionStr = partitionStr;
+		//不调用函数避免死循环
+		System.out.println(partitionStr);
+		partition = (Objects.requireNonNull(Partition.getPartition(partitionStr)));
 	}
 
 	public Partition getPartition() {
@@ -70,7 +73,8 @@ public class Writing {
 
 	public void setPartition(Partition partition) {
 		this.partition = partition;
-		setPartitionStr(partition.val());
+		//不调用函数避免死循环
+		partitionStr = partition.val();
 	}
 
 	public String getCategory() {

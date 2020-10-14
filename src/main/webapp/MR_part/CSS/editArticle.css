@@ -1,0 +1,440 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #f7f7f7;
+}
+
+.editArticle_Header{
+    width: 100%;
+    /* height: 500px; */
+    margin: 0 auto;
+    background: #f7f7f7;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    min-width: 1200px; 
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmargin{
+    width: 1200px;
+    height: 65px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 5px;
+    left: -3px;
+    border-radius: 50%;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat -0.3px -1px;
+    background-size: 52px 52px;
+    border: 1px solid #a9a9a9;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    left: 98px;
+    top: 19px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.topmargin_target > li a{
+    padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 16px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 11px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 150px;
+    height: 70px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 105px;
+    height: 65px;
+    line-height: 65px;
+    padding-left: 40px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 18px 22px;
+    background-size: 20px;
+    color: #333333;
+    font-size: 19px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 120px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 150px;
+    height: 145px;
+    margin-top: 65px;
+    padding: 22px 0 20px 0; 
+    display: none;
+    position: absolute;
+    top: 15px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 146px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+}
+
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+
+/* ————————————————————————— 文本内容Part ————————————————————————————————— */
+.editArticle_Content{
+    width: 1200px;
+    /* height: 800px; */
+    margin: 0 auto;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_editBox{
+    width: 1200px;
+    height: 1200px;
+    margin: 107px 0 241px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.4);
+}
+
+.editArticle_userMessage{
+    width: 100%;
+    height: 75px;
+    position: relative;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_headIcon{
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    top: -55px;
+    left: 28px;
+    border-radius: 50%;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat 0 -2px;
+    background-size: 100%;
+    /* border: 1px solid #333; */
+}
+
+
+.editArticle_userMessage > p{
+    position: absolute;
+    top: 20px;
+    left: 184px;
+    font-size: 18px;
+    color: #333333;
+    letter-spacing: 2px;
+}
+
+/* ——————————————— 编辑文章Part ————————————————— */
+.editArticle_titleBox{
+    margin-top: 45px;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_titleBox > p{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 0 28px;
+}
+
+.editArticle_titleBox > input{
+    width: 1120px;
+    height: 37px;
+    margin: 24px 33px 0 27px;
+    padding: 5px 15px;
+    font-size: 20px;
+    color: #666;
+    border: none;
+    outline: none;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+/* ——————————— 文章编辑内容 ————————————— */
+.editArticle_editContent{
+    margin: 5px 0 0 28px;
+}
+
+.editArticle_editContent textarea{
+    width: 1110px;
+    height: 400px;
+    line-height: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    resize:none;    /*右下角禁止拉伸*/
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.editArticle_editContent textarea:focus{background: #f7f7f7;}
+
+/* ——————————————————— 标签 ——————————————————————— */
+.editArticle_mainTagsBox{
+    width: 1110px;
+    height: 400px;
+    padding: 10px 0 0 50px;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_mainTagsBox > input[type="radio"]{
+    margin: 8px 5px 8px 25px;
+}
+
+/* —————————————————— 分区 —————————————————————— */
+.editArticle_secondaryPartition{
+    width: 520px;
+    height: 325px;
+    margin: 15px 0 15px 60px;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 5px;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_secondaryPartition > ul{
+    list-style-type: none;
+}
+
+/* ————— 大标题 —————— */
+.editArticle_secondaryPartition > ul > li p{
+    height: 26px;
+    line-height: 30px;
+    margin-left: 12px;
+    /* border: 1px solid #f00; */
+}
+/* —————————— 二级标签 ————————————— */
+.editArticle_secondaryPartition ol{
+    margin-left: 50px;
+    display: flex;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+/* 小标题 */
+.editArticle_secondaryPartition ol > span{
+    height: 40px;
+    line-height: 40px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.editArticle_secondaryPartition ol > li{
+    margin: 5px 7px;
+    padding: 6px 9px;
+    color: #9A9A9A;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 1px 1px 5px rgba(193, 193, 193,0.25);
+    cursor: pointer;
+}
+
+.editArticle_secondaryPartition ol > li:hover{
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.25);
+}
+
+/* —————————————————————— 自定义标签 ————————————————————————— */
+.editArticle_customTagsBox{
+    height: 68px;
+    padding: 0 50px 5px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: 1px solid #f00; */
+}
+
+.editArticle_customTagsBox span{
+    position: absolute;
+    top: 20px;
+}
+/* ——— 标签列表（限制五个） ——— */
+#editArticle_tagsList{
+    height: 25px;
+    margin: 0 10px 0 48px;
+    display: inline-block;
+    list-style-type: none;
+    /* border: 1px solid #00f; */
+}
+
+#editArticle_tagsList li{
+    margin: -12px 0 0 12px;
+    padding: 8px 15px 8px 8px;
+    position: relative;
+    float: left;
+    border-radius: 5px;
+    background: #f7f7f7;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+    /* border: 1px solid #0f0; */
+}
+
+.EA_delete{
+    width: 14px;
+    height: 14px;
+    line-height: 15px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 13px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+}
+
+/* —————— input添加框 ———————— */
+#EA_addTagsBox{
+    width: 165px;
+    height: 36px;
+    margin-left: -2px;
+    display: inline-block;
+    position: relative;
+    border-radius: 20px;
+    background: #addfd6;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    /* border: 1px solid #0f0;transition: all ease-in-out .5s; */
+}
+
+#EA_addBtn{
+    width: 36px;
+    height: 36px;
+    line-height: 32px;
+    border-radius: 50%;
+    font-size: 25px;
+    color: #625f60;
+    background: #addfd6;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+}
+
+/* ——— 自定义标签输入Part ——— */
+#editTags{
+    width: 90px;
+    height: 28px;
+    padding: 0 5px;
+    position: absolute;
+    left: 45px;
+    top: 2px;
+    font-size: 15px;
+    outline: none;
+}
+
+/* #EA_addTags:hover{} */
+
+/* ———————————————— 按钮 ——————————————————— */
+.editArticle_btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.editArticle_btn button{
+    width: 100px;
+    height: 30px;
+    margin-right: 30px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 8px rgba(193, 193, 193,0.25);
+}
+
+#editArticle_save{
+    background: #bababa;
+}
+
+#editArticle_publish{
+    background: #81cbbf;
+}
+
+
+
+/* 保存：保存到本地存储；
+   发表： */

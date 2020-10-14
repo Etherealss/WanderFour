@@ -73,37 +73,20 @@ public class BaseServlet extends HttpServlet {
 		return method;
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Method method = getMethod(request);
-		try {
-			// 让方法执行
-			Map<String, Object> info = new Hashtable<>();
-			logger.trace(method.getName() + "()执行");
-			method.invoke(this, info, request, response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	/**
-	 * 传输返回给客户端的Map信息包
-	 * @param response
-	 * @param info     信息包
-	 */
-	protected void responseToBrowser(HttpServletResponse response, Map<String, Object> info) {
-		//将map转为JSON
-		ObjectMapper mapper = new ObjectMapper();
-		//发送给客户端
-		try {
-			logger.trace("response...");
-			mapper.writeValue(response.getWriter(), info);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		Method method = getMethod(request);
+//		try {
+//			// 让方法执行
+//			Map<String, Object> info = new Hashtable<>();
+//			logger.trace(method.getName() + "()执行");
+//			method.invoke(this, info, request, response);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		doPost(request, response);
+//	}
 }

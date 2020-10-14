@@ -1,8 +1,9 @@
 package controller;
 
 import com.alibaba.druid.util.StringUtils;
+import common.util.ControllerUtil;
 import pojo.po.User;
-import common.dto.ResultState;
+import common.enums.ResultState;
 import common.factory.ServiceFactory;
 import service.UserService;
 import service.impl.UserServiceImpl;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -25,8 +27,25 @@ import java.util.Map;
 @WebServlet("/UserEnterServlet")
 public class UserEnterController extends BaseServlet {
 
-	public void login(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String action = req.getParameter("action");
+		if ("login".equals(action)){
+			login(req, resp);
+		} else if ("register".equals(action)){
+			register(req, resp);
+		} else {
+			logger.error("错误的方法: action = " + action);
+			throw new ServletException("错误的方法");
+		}
+	}
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
+
+	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//TODO 策略
 		logger.trace("用户登录...");
 
 		String email = req.getParameter("email");
@@ -44,7 +63,7 @@ public class UserEnterController extends BaseServlet {
 
 			//通过ServletContext检查异地登录
 			ServletContext servletContext = session.getServletContext();
-			if (servletContext.getAttribute(email) == "null"){
+			if (servletContext.getAttribute(email) == null){
 				//未登录，用email做标识，存入请求的sessionId
 				logger.trace("未登录，好了，现在登录了");
 				servletContext.setAttribute(email, sessionId);
@@ -63,12 +82,14 @@ public class UserEnterController extends BaseServlet {
 			}
 		}
 		logger.info(state);
+		Map<String, Object> info = new Hashtable<>();
 		info.put("state", state);
-		responseToBrowser(resp, info);
+		ControllerUtil.responseToBrowser(resp, info);
 	}
 
-	public void register(Map<String, Object> info, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户注册...");
+		//node.js
 		//获取请求参数
 		String nickname = req.getParameter("nickname");
 		String email = req.getParameter("email");
@@ -90,7 +111,8 @@ public class UserEnterController extends BaseServlet {
 		logger.debug(user);
 		//提交用户信息
 		UserService us = new UserServiceImpl();
+		Map<String, Object> info = new Hashtable<>();
 		info.put("state", us.registerNewUser(user));
-		responseToBrowser(resp, info);
+		ControllerUtil.responseToBrowser(resp, info);
 	}
 }
