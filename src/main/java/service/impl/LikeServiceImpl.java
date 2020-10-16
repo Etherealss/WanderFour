@@ -1,6 +1,6 @@
 package service.impl;
 
-import common.enums.ResultState;
+import common.enums.ResultType;
 import common.enums.TargetType;
 import common.strategy.LikeStategyChoose;
 import common.strategy.impl.LikeStategyImpl;
@@ -19,7 +19,7 @@ public class LikeServiceImpl implements LikeService {
 
 
 	@Override
-	public ResultState LikeOrUnlike(LikeRecord likeRecord) {
+	public ResultType LikeOrUnlike(LikeRecord likeRecord) {
 		try {
 			if (likeRecord.getTargetTypeEnum() == null) {
 				logger.debug("点赞类型为null 异常！");
@@ -39,7 +39,7 @@ public class LikeServiceImpl implements LikeService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResultState.EXCEPTION;
+			return ResultType.EXCEPTION;
 		}
 
 		return null;

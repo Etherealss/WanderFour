@@ -30,7 +30,6 @@ public class LikeStategyImpl implements LikeStategy {
 			//未点赞或者无记录，修改记录
 			jedis.hset(likeKey, "state", String.valueOf(likeState));
 			jedis.hset(likeKey, "type", likeType.val());
-			jedis.hset(likeKey, "date", String.valueOf(new Date().getTime()));
 		}
 		jedis.close();
 	}

@@ -42,7 +42,6 @@ public class BaseDaoImpl<T> {
 	 */
 	protected String getTableName(){
 		DbTable table = CLAZZ.getAnnotation(DbTable.class);
-		logger.trace(table.tableName());
 		return "`" + table.tableName() + "`";
 	}
 

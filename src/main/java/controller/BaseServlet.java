@@ -41,8 +41,9 @@ public class BaseServlet extends HttpServlet {
 		try {
 			super.service(req, resp);
 		} catch (Exception ex) {
-			logger.error("服务运行异常" + ex.getMessage());
-			resp.sendRedirect("505.html");
+			logger.error("（服务运行异常）" + ex.getMessage());
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//			resp.sendRedirect("505.html");
 		}
 		//执行完成之后回调
 		afterService(req, resp);

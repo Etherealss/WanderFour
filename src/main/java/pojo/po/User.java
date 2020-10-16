@@ -2,8 +2,6 @@ package pojo.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import common.annontation.Db;
-import common.annontation.DbField;
-import common.annontation.DbFieldId;
 import common.annontation.DbTable;
 import common.enums.UserType;
 
@@ -17,17 +15,29 @@ import java.util.Date;
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "user")
 public class User {
-	private String userid; // 用邮箱作为id
+	/**
+	 * 邮箱作为ID
+	 */
+	private String userid;
 	private String password;
 	private String nickname;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
-	private Boolean sex; // true为小哥哥，false为小姐姐
+	/**
+	 * true为小哥哥，false为小姐姐
+	 */
+	private Boolean sex;
 	private String avatarPath;
 	private String userType;
-	private Long liked; // 获赞数
-	private Long collected; // 被收藏数
-	private Date registerDate; // 注册时间
+	private Long liked;
+	/**
+	 * 被收藏数
+	 */
+	private Long collected;
+	/**
+	 * 注册时间
+	 */
+	private Date registerDate;
 
 	private UserType userTypeEmun;
 

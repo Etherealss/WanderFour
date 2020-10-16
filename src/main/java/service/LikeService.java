@@ -1,6 +1,6 @@
 package service;
 
-import common.enums.ResultState;
+import common.enums.ResultType;
 import pojo.po.LikeRecord;
 
 /**
@@ -10,5 +10,5 @@ import pojo.po.LikeRecord;
  */
 public interface LikeService {
 
-	ResultState LikeOrUnlike(LikeRecord likeRecord);
+	ResultType LikeOrUnlike(LikeRecord likeRecord);
 }

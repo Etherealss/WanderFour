@@ -1,7 +1,7 @@
 package service.impl;
 
 import pojo.po.User;
-import common.enums.ResultState;
+import common.enums.ResultType;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.UserDao;
@@ -18,23 +18,23 @@ public class UserServiceImpl implements UserService {
 	private final UserDao ud = DaoFactory.getUserDAO();
 
 	@Override
-	public ResultState checkUserExist(String email)  {
+	public ResultType checkUserExist(String email)  {
 		Connection conn = null;
 		try {
 			conn = JdbcUtil.getConnection();
 			//检查账号是否已存在
 			if (ud.countUserByEmail(conn, email)){
 				//存在
-				return ResultState.IS_REGISTED;
+				return ResultType.IS_REGISTED;
 			}else{
 				//不存在
-				return ResultState.USER_UN_FOUND;
+				return ResultType.USER_UN_FOUND;
 			}
 		} catch (Exception throwables) {
 			throwables.printStackTrace();
 		}
 		//出现异常
-		return ResultState.EXCEPTION;
+		return ResultType.EXCEPTION;
 	}
 
 	/**
@@ -54,38 +54,38 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultState validateUserLogin(String email, String paasword) {
+	public ResultType validateUserLogin(String email, String paasword) {
 		Connection conn = null;
 		try {
 			conn = JdbcUtil.getConnection();
 			if (!checkUserExist(conn, email)) {
 				//账号不存在
-				return ResultState.USER_UN_FOUND;
+				return ResultType.USER_UN_FOUND;
 			}
 			if (ud.countUserByPw(conn, email, paasword)) {
 				//密码正确，登录成功
-				return ResultState.SUCCESS;
+				return ResultType.SUCCESS;
 			} else {
 				//密码错误
-				return ResultState.PW_ERROR;
+				return ResultType.PW_ERROR;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		//出现异常
-		return ResultState.EXCEPTION;
+		return ResultType.EXCEPTION;
 	}
 
 	@Override
-	public ResultState registerNewUser(User user) {
+	public ResultType registerNewUser(User user) {
 		Connection conn = null;
 		try {
 			conn = JdbcUtil.getConnection();
 			ud.updateNewUser(conn, user);
-			return ResultState.SUCCESS;
+			return ResultType.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResultState.EXCEPTION;
+			return ResultType.EXCEPTION;
 		}
 	}
 }

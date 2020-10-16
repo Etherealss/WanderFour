@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface WritingDao<T extends Writing>{
 
+	/**
+	 * 获取合适的数据库Id
+	 * @param conn
+	 * @return
+	 * @throws SQLException
+	 */
 	Long selectMaxWritingId(Connection conn) throws SQLException;
 
 	/**
@@ -38,6 +44,7 @@ public interface WritingDao<T extends Writing>{
 	 * 更新文章
 	 * @param conn
 	 * @param t
+	 * @return
 	 * @throws SQLException
 	 */
 	boolean updateWritingInfo(Connection conn, T t) throws SQLException;
@@ -103,6 +110,7 @@ public interface WritingDao<T extends Writing>{
 	 * @param conn 数据库
 	 * @param userid 用户id
 	 * @return 用户发表的文章数
+	 * @throws SQLException
 	 */
 	Long getUserWritingCount(Connection conn, String userid) throws SQLException;
 

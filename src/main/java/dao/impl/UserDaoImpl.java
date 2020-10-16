@@ -18,7 +18,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@Override
 	public boolean countUserByPw(Connection conn, String email, String password) throws SQLException {
-		String sql = "SELECT count(*) FROM " + getTableName() + " WHERE `email` = ? AND u_password = ?";
+		String sql = "SELECT count(*) FROM " + getTableName() + " WHERE `email` = ? AND user_password = ?";
 		Long count = qr.query(conn, sql, new ScalarHandler<Long>(), email, password);
 		//email唯一，结果至多为1
 		assert count < 2;
@@ -35,19 +35,20 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@Override
 	public void updateNewUser(Connection conn, User u) throws SQLException {
-		String sql = "insert into " + getTableName() + "(email, u_password, nickname, sex, avatar," +
-				"register_date, u_type)values(?,?,?,?, ?,?,?)";
+		String sql = "insert into " + getTableName() + "(email, user_password, nickname, sex, avatar," +
+				"register_date, user_type)values(?,?,?,?, ?,?,?)";
+		//userType传int
 		Object[] params = {u.getUserid(), u.getPassword(), u.getNickname(), u.getSex(),
-				u.getAvatarPath(), new Date(), u.getUserTypeEmun().code()}; //userType传int
+				u.getAvatarPath(), new Date(), u.getUserTypeEmun().code()};
 		int res = qr.update(conn, sql, params);
 		assert res == 1;
 	}
 
 	@Override
 	public User selectUserByEmail(Connection conn, String email) throws SQLException {
-		String sql = "SELECT `email` `userid`, `u_password` `password`, `nickname`, `birthday`, `type` `userType`, u_liked liked, u_collected collected, register_date registerDate " +
+		String sql = "SELECT `email` `userid`, `user_password` `password`, `nickname`, `birthday`, `type` `userType`, liked_count liked, collected_count collected, register_date registerDate " +
 				"FROM  `user`, `user_type` " +
-				"WHERE `user`.u_type = `user_type`.id";
+				"WHERE `user`.user_type = `user_type`.id";
 		return qr.query(conn, sql, new BeanHandler<>(User.class));
 	}
 }

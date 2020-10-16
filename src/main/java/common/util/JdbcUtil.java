@@ -34,7 +34,9 @@ public class JdbcUtil {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (is != null) is.close();
+				if (is != null) {
+					is.close();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -74,10 +76,10 @@ public class JdbcUtil {
 	 * @throws Exception
 	 */
 	public static void commitTransaction() throws Exception {
-		logger.trace("获取连接，提交事务");
 		Connection conn = getConnection();
-		if (conn != null)
+		if (conn != null) {
 			conn.commit();
+		}
 	}
 
 	/**
@@ -87,8 +89,9 @@ public class JdbcUtil {
 	public static void rollbackTransaction() throws Exception {
 		logger.trace("获取连接，回滚事务");
 		Connection conn = getConnection();
-		if (conn != null)
+		if (conn != null) {
 			conn.rollback();
+		}
 	}
 
 	/**
@@ -98,8 +101,9 @@ public class JdbcUtil {
 	public static void closeTransaction() throws Exception {
 		logger.trace("获取连接，结束事务");
 		Connection conn = getConnection();
-		if (conn != null)
+		if (conn != null) {
 			conn.close();
+		}
 		threadLocal.remove();
 	}
 

@@ -1,6 +1,8 @@
 package controller;
 
-import common.enums.ResultState;
+import com.alibaba.fastjson.JSONObject;
+import common.dto.ResultState;
+import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.util.ControllerUtil;
 import service.UserService;
@@ -10,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * @author 寒洲
@@ -21,18 +21,25 @@ import java.util.Map;
 @WebServlet("/CheckUserExistServlet")
 public class CheckUserExistController extends BaseServlet {
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String email = req.getParameter("email");
+		String email = req.getParameter("id");
+		if (email==null){
+			ControllerUtil.respNoParameterEeeor(resp, "检查账号是否已注册");
+		}
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
-		ResultState state = us.checkUserExist(email);
+		ResultType state = us.checkUserExist(email);
 		logger.debug("email = " + email + ", state = " + state);
-		Map<String, Object> info = new Hashtable<>();
-		info.put("state", state);
-		ControllerUtil.responseToBrowser(resp, info);
+		//因为接口规范所以需要再次包装json对象，而不是直接发送state.getJson()
+		JSONObject jsonObject = new JSONObject();
+		ResultState result = new ResultState(state, "账号查询结果");
+		jsonObject.put("state", result);
+		ControllerUtil.respToBrowser(resp, jsonObject);
 	}
 }

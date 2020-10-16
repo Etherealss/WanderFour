@@ -15,9 +15,11 @@ import java.io.IOException;
 @WebServlet("/ValidateUserLoginServlet")
 public class ValidateUserLoginServlet extends BaseServlet {
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Object email = req.getServletContext().getAttribute("email");
 		if (email == null) {

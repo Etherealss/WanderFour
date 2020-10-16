@@ -1,6 +1,6 @@
 package service;
 
-import common.enums.ResultState;
+import common.enums.ResultType;
 import pojo.po.Writing;
 
 /**
@@ -14,7 +14,7 @@ public interface WritingService<T extends Writing> {
 	 * @param t
 	 * @return
 	 */
-	ResultState publishNewWriting(T t);
+	ResultType publishNewWriting(T t);
 
 	/**
 	 * 获取作品
@@ -28,7 +28,7 @@ public interface WritingService<T extends Writing> {
 	 * @param t
 	 * @return
 	 */
-	ResultState updateWriting(T t);
+	ResultType updateWriting(T t);
 
 	/**
 	 * 删除作品
@@ -36,5 +36,5 @@ public interface WritingService<T extends Writing> {
 	 * @param deleterId 删除者账号
 	 * @return
 	 */
-	ResultState deleteWriting(Long writingId, String deleterId);
+	ResultType deleteWriting(Long writingId, String deleterId);
 }

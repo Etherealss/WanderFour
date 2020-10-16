@@ -39,7 +39,6 @@ public class ProxyUtil {
 	 * @return 被代理后的对象
 	 */
 	public static <T> T getProxyForTransaction(T toBeProxy) {
-		logger.debug(toBeProxy.getClass());
 		// 传入要代理的对象，获取被代理后的对象
 		return (T) getInstance(toBeProxy.getClass(),
 				ServiceTransactionProxyWrapper.create(toBeProxy));

@@ -20,10 +20,12 @@ import java.util.Map;
 @WebServlet("/UserLikeServlet")
 public class UserLikeController extends BaseServlet {
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LikeRecord likeRecord = getUserLikeData(req);
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
 	}

@@ -26,7 +26,9 @@ public class ServiceTransactionProxyWrapper implements InvocationHandler {
 
 	/** 要代理的对象 */
 	private final Object serviceRunner;
-	//构造方法私有化，传入要代理的事物对象
+	/**
+	 *	 构造方法私有化，传入要代理的事物对象
+	 */
 	private ServiceTransactionProxyWrapper(Object serviceRunner) {
 		this.serviceRunner = serviceRunner;
 	}

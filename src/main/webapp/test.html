@@ -29,7 +29,7 @@
         <div class="search">
             <input type="email" name="" id="email">
         </div>
-        <p id="info">请输入正确的邮箱</p>
+        <p id="info">请输入</p>
     </div>
 
     <script src="./jQuery.js"></script>
@@ -39,33 +39,19 @@
         var emailInt = 0;
         email.onblur = function () {
             emailInt = this.value;
-            alert(emailInt);
             f(emailInt);
         }
 
-        /*ajax({
-            type: 'POST',
-            url: '/LoginServlet',
-            data: {
-                key: emailInt,
-            },
-            header: {
-                'Content-Type': 'application/json'
-            },
-            success: function (res) {//成功的回调函数
-                console.log(res);
-            }
-        })*/
         function f(emailInt) {
             $.ajax({
-                type: 'POST',
-                url: '/UserSettingServlet',
-                data: {
-                    method:"changePw",
-                    key: emailInt
-                },
+                type: 'PUT',
+                url: '/WritingServlet',
                 async:'true',
                 dataType:'json',
+                contentType:"application/json",
+                data:{
+                    type:"article"
+                },
                 /**
                  * @param res
                  * @param res.msg 提示信息
@@ -74,12 +60,9 @@
                  */
                 success:function(res){//成功的回调函数
                     console.log(res);
-                    console.log(res.msg);
-                    console.log(res.user);
-                    alert(res);
-                    alert(res.msg);
-                    alert(res.user);
-                    alert(res.user.userid);
+                    console.log(res.state.code);
+                    console.log(res.state.msg);
+                    console.log(res.article);
                 }
             })
         }

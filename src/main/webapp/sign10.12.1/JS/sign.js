@@ -105,20 +105,19 @@ $(function () {
         //获取已被选中的单选框的value值
         var signIdentity = $('input[name="sign_identity"]:checked').val();
         var signSex = $('input[name="sign_sex"]:checked').val();
+        //男为true
+        var sex = signSex.indexOf("women") == -1;
+        console.log("sex = " + sex);
         //调用函数发送数据
-        registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, signSex);
+        registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, sex);
     })
 
     //检验邮箱是否已被注册
     $("#registerEmail").blur(function () {
         $.ajax({
-            type: 'post',
-            url: 'http://192.168.137.138:8080/CheckUserExistServlet',
-            data: {
-                method: "checkUserExist",
-                //传递邮箱
-                email: $('#registerEmail').val(),
-            },
+            type: 'get',
+            // url: 'http://192.168.137.138:8080/CheckUserExistServlet',
+            url: '/CheckUserExistServlet?email=' + $('#registerEmail').val(),
             dataType: 'json',
             success: function (data) {
                 console.log(data);
@@ -128,9 +127,6 @@ $(function () {
                     $("#registerEmail").addClass('errorRed');
                 }
             },
-            error: function () {
-                console.log("11111");
-            }
         })
     })
 
@@ -143,7 +139,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
         type: 'post',
         url: '/UserEnterServlet',
         data: {
-            method: "login",
+            action: "login",
             //传递邮箱
             email: loginEmailVal,
             //传递密码
@@ -153,6 +149,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
         success: function (data) {
             //TODO 成功：跳转至首页（后端实现）
             //异常情况
+            console.log(data);
             if (data.state.code == "PW_ERROR") {
                 clearStyle($("#loginPwSuccess"), $("#loginPwSuccess"), $("#check5"), $("#check5"), $("#sign_login_password"));
                 $("#loginPwError").css("display", "block");
@@ -171,8 +168,13 @@ function loginSumbit(loginEmailVal, loginPwVal) {
                 $("#bug5").css("display", "block");
                 $("#sign_login_email").addClass('errorRed');
             } else if (data.state.code == "EXCEPTION") {
-                alert("请刷新页面！")
+                alert("出错了...请刷新页面")
+            } else if (data.state.code == "SUCCESS") {
+                alert("登录成功！");
             }
+        },
+        error: function () {
+            console.log("登录异常！")
         }
     })
 }
@@ -184,7 +186,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, regi
         type: 'post',
         url: '/UserEnterServlet',
         data: {
-            method: "register",
+            action: "register",
             //传递用户名
             nickname: registerUseridVal,
             //传递邮箱
@@ -200,6 +202,9 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, regi
         success: function (res) {
             //TODO 跳转至登录，即重新跳转到本页面（后端实现）
             console.log(res);
+        },
+        error: function () {
+            console.log("注册异常！")
         }
     })
 }

@@ -1,7 +1,7 @@
 package service;
 
 import pojo.po.User;
-import common.enums.ResultState;
+import common.enums.ResultType;
 
 /**
  * @author 寒洲
@@ -14,7 +14,7 @@ public interface UserService {
 	 * @param email
 	 * @return
 	 */
-	ResultState checkUserExist(String email);
+	ResultType checkUserExist(String email);
 
 	/**
 	 * 验证登录的账号密码
@@ -22,12 +22,12 @@ public interface UserService {
 	 * @param paasword
 	 * @return
 	 */
-	ResultState validateUserLogin(String email, String paasword);
+	ResultType validateUserLogin(String email, String paasword);
 
 	/**
 	 * 注册
 	 * @param user
 	 * @return
 	 */
-	ResultState registerNewUser(User user);
+	ResultType registerNewUser(User user);
 }

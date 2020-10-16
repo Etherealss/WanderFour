@@ -1,6 +1,6 @@
 package service.impl;
 
-import common.enums.ResultState;
+import common.enums.ResultType;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.WritingDao;
@@ -23,7 +23,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	private WritingDao<Article> dao = DaoFactory.getArticleDao();
 
 	@Override
-	public ResultState publishNewWriting(Article article) {
+	public ResultType publishNewWriting(Article article) {
 		logger.trace("发表新文章");
 		Connection conn;
 		try {
@@ -39,13 +39,13 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			boolean b2 = dao.updateNewWritingContent(conn, maxId, article.getContent());
 			// 同时没有异常返回
 			if (b1 && b2) {
-				return ResultState.SUCCESS;
+				return ResultType.SUCCESS;
 			} else {
 				throw new Exception("发表新文章异常");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResultState.EXCEPTION;
+			return ResultType.EXCEPTION;
 		}
 	}
 
@@ -65,7 +65,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	}
 
 	@Override
-	public ResultState updateWriting(Article article) {
+	public ResultType updateWriting(Article article) {
 		logger.trace("修改文章");
 		Connection conn;
 		try {
@@ -75,21 +75,21 @@ public class ArticleServiceImpl implements WritingService<Article> {
 				boolean b1 = dao.updateWritingInfo(conn, article);
 				boolean b2 = dao.updateWritingContent(conn, article.getId(), article.getContent());
 				if (b1 && b2) {
-					return ResultState.SUCCESS;
+					return ResultType.SUCCESS;
 				} else {
 					throw new Exception("修改文章异常");
 				}
 			} else {
-				return ResultState.NOT_AUTHOR;
+				return ResultType.NOT_AUTHOR;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResultState.EXCEPTION;
+			return ResultType.EXCEPTION;
 		}
 	}
 
 	@Override
-	public ResultState deleteWriting(Long writingId, String deleterId) {
+	public ResultType deleteWriting(Long writingId, String deleterId) {
 		logger.trace("删除文章");
 		Connection conn;
 		try {
@@ -97,17 +97,17 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			if (deleterId.equals(dao.getAuthorByWritingId(conn, writingId))) {
 				boolean b = dao.deleteWritingById(conn, writingId);
 				if (b) {
-					return ResultState.SUCCESS;
+					return ResultType.SUCCESS;
 				} else {
 					throw new Exception("删除文章异常");
 				}
 			} else {
-				return ResultState.NOT_AUTHOR;
+				return ResultType.NOT_AUTHOR;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResultState.EXCEPTION;
+			return ResultType.EXCEPTION;
 		}
 	}
 

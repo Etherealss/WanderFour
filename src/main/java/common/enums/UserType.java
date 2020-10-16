@@ -6,9 +6,21 @@ package common.enums;
  * @date 2020/10/10
  */
 public enum UserType {
+	/**
+	 * 高中生
+	 */
 	SENIOR(1, "高中生"),
+	/**
+	 * 大学生
+	 */
 	COLLEGE(2, "大学生"),
+	/**
+	 * 教师
+	 */
 	TEACHER(3,"教师"),
+	/**
+	 * 其他用户
+	 */
 	OTHERS(4,"其他用户"),
 	;
 

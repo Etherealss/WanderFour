@@ -17,10 +17,12 @@ import java.util.Map;
 @WebServlet("/UserSettingServlet")
 public class UserSettingController extends BaseServlet {
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户修改密码...");
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
 	}

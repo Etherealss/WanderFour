@@ -28,7 +28,7 @@ public class Log4jTest {
 			int i = 1/0;
 		}catch (Exception e){
 //			e.printStackTrace();
-			logger.fatal(e);
+			logger.error(e.getMessage());
 		}
 	}
 }

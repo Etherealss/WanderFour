@@ -14,17 +14,19 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/*"})
 public class EncodingFilter implements Filter {
 	private final Logger logger = Logger.getLogger(EncodingFilter.class);
+	@Override
 	public void destroy() {
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
-
 		//转换编码后放行
 		chain.doFilter(req, resp);
 	}
 
+	@Override
 	public void init(FilterConfig config) throws ServletException {
 
 	}

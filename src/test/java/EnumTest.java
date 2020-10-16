@@ -1,4 +1,4 @@
-import common.enums.ResultState;
+import common.enums.ResultType;
 import common.enums.Partition;
 import org.junit.Test;
 
@@ -14,10 +14,10 @@ public class EnumTest {
 
 	@Test
 	public void resultStateTest(){
-		System.out.println(ResultState.EXCEPTION);
+		System.out.println(ResultType.EXCEPTION);
 		Map<String, Object> map = new HashMap<>();
-		map.put("code1", ResultState.SUCCESS);
-		map.put("code2", ResultState.EXCEPTION);
+		map.put("code1", ResultType.SUCCESS);
+		map.put("code2", ResultType.EXCEPTION);
 		System.out.println(map);
 	}
 
