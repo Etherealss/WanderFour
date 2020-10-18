@@ -15,10 +15,8 @@ import java.util.Date;
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "user")
 public class User {
-	/**
-	 * 邮箱作为ID
-	 */
-	private String userid;
+	private Long id;
+	private String email;
 	private String password;
 	private String nickname;
 	@JsonFormat(pattern = "yyyy-MM-dd")
@@ -28,7 +26,7 @@ public class User {
 	 */
 	private Boolean sex;
 	private String avatarPath;
-	private String userType;
+	private UserType userType;
 	private Long liked;
 	/**
 	 * 被收藏数
@@ -39,14 +37,20 @@ public class User {
 	 */
 	private Date registerDate;
 
-	private UserType userTypeEmun;
-
-	public String getUserid() {
-		return userid;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -89,13 +93,12 @@ public class User {
 		this.avatarPath = avatarPath;
 	}
 
-	public String getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
 
 	public void setUserType(String userType) {
-		this.userType = userType;
-		this.userTypeEmun = UserType.getPartition(userType);
+		this.userType = UserType.getPartition(userType);
 	}
 
 	public Long getLiked() {
@@ -122,18 +125,26 @@ public class User {
 		this.registerDate = registerDate;
 	}
 
-	public UserType getUserTypeEmun() {
-		return userTypeEmun;
-	}
-
-	public void setUserTypeEmun(UserType userTypeEmun) {
-		this.userTypeEmun = userTypeEmun;
-	}
-
 	public User() {}
 
+	public User(Long id, String email, String password, String nickname, Date birthday,
+	            Boolean sex, String avatarPath, String userType, Long liked, Long collected,
+	            Date registerDate) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.birthday = birthday;
+		this.sex = sex;
+		this.avatarPath = avatarPath;
+		this.userType = UserType.getPartition(userType);
+		this.liked = liked;
+		this.collected = collected;
+		this.registerDate = registerDate;
+	}
+
 	/**
-	 * @param userid
+	 * @param email
 	 * @param password
 	 * @param nickname
 	 * @param sex
@@ -144,15 +155,15 @@ public class User {
 	 * @param collected
 	 * @param registerDate
 	 */
-	public User(String userid, String password, String nickname, Boolean sex, Date birthday, String avatarPath, String userType, Long liked, Long collected, Date registerDate) {
-		this.userid = userid;
+	public User(String email, String password, String nickname, Boolean sex, Date birthday,
+	            String avatarPath, String userType, Long liked, Long collected, Date registerDate) {
+		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
 		this.birthday = birthday;
 		this.avatarPath = avatarPath;
-		this.userType = userType;
-		this.userTypeEmun = UserType.getPartition(userType);
+		this.userType = UserType.getPartition(userType);
 		this.liked = liked;
 		this.collected = collected;
 		this.registerDate = registerDate;
@@ -168,35 +179,35 @@ public class User {
 	 * @param registerDate
 	 */
 	public User(String email, String password, String nickname, Boolean sex, String avatarPath, String userType, Date registerDate) {
-		this.userid = email;
+		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
 		this.avatarPath = avatarPath;
-		this.userType = userType;
-		this.userTypeEmun = UserType.getPartition(userType);
+		this.userType = UserType.getPartition(userType);
 		this.registerDate = registerDate;
 	}
 
 	/**
-	 * @param userid
+	 * @param email
 	 * @param password
 	 */
-	public User(String userid, String password) {
-		this.userid = userid;
+	public User(String email, String password) {
+		this.email = email;
 		this.password = password;
 	}
 
 	@Override
 	public String toString() {
 		return "User{" +
-				"email='" + userid + '\'' +
+				"id=" + id +
+				", email='" + email + '\'' +
 				", password='" + password + '\'' +
 				", nickname='" + nickname + '\'' +
-				", sex=" + sex +
 				", birthday=" + birthday +
+				", sex=" + sex +
 				", avatarPath='" + avatarPath + '\'' +
-				", userType='" + userType + '\'' +
+				", userType=" + userType +
 				", liked=" + liked +
 				", collected=" + collected +
 				", registerDate=" + registerDate +

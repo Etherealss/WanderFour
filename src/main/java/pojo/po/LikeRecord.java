@@ -18,7 +18,7 @@ public class LikeRecord {
 	/**
 	 * 点赞的用户账号
 	 */
-	private String userid;
+	private Long userid;
 	/**
 	 * 点赞的目标编号
 	 */
@@ -47,11 +47,11 @@ public class LikeRecord {
 		this.id = id;
 	}
 
-	public String getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 

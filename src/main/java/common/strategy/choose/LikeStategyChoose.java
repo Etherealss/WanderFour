@@ -1,6 +1,7 @@
-package common.strategy;
+package common.strategy.choose;
 
 import common.enums.TargetType;
+import common.strategy.LikeStategy;
 import common.strategy.impl.LikeStategyImpl;
 
 /**
@@ -22,7 +23,7 @@ public class LikeStategyChoose {
 	 * @param likeState 点赞状态 1-点赞 0-未点赞/取消点赞
 	 * @param likeType 被点赞的目标类型 文章/帖子/评论
 	 */
-	public void like(String userid, Long targetId, int likeState, TargetType likeType) {
+	public void like(Long userid, Long targetId, int likeState, TargetType likeType) {
 		//...
 		likeStategy.like(userid, targetId, likeState, likeType);
 	}
@@ -34,7 +35,7 @@ public class LikeStategyChoose {
 	 * @param likeState
 	 * @param likeType
 	 */
-	public void unlike(String userid, Long targetId, int likeState, TargetType likeType) {
+	public void unlike(Long userid, Long targetId, int likeState, TargetType likeType) {
 		likeStategy.unlike(userid, targetId, likeState, likeType);
 	}
 

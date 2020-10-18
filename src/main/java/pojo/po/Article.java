@@ -4,9 +4,9 @@ import common.annontation.Db;
 import common.annontation.DbTable;
 import common.annontation.DbTableFK;
 import common.enums.Partition;
+import org.apache.log4j.Logger;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * @author 寒洲
@@ -17,35 +17,37 @@ import java.util.Objects;
 @DbTable(tableName = "article")
 @DbTableFK(foreignKey = {"user", "partition", "article_content"})
 public class Article extends Writing {
+
+	private Logger logger = Logger.getLogger(Article.class);
+
 	/** 数据库表id */
-	protected Long id;
-
-//	protected String partitionStr;
+	private Long id;
 	/** 分类 */
-	protected String category;
+	private String category;
 	/** 用户id */
-	protected String authorId;
-	protected String title;
-	protected String label1;
-	protected String label2;
-	protected String label3;
-	protected String label4;
-	protected String label5;
-	protected Date updateTime;
-	protected Date createTime;
+	private Long authorId;
+	private String title;
+	private String label1;
+	private String label2;
+	private String label3;
+	private String label4;
+	private String label5;
+	private Date updateTime;
+	private Date createTime;
 	/** 点赞数 */
-	protected int liked;
+	private int liked;
 	/** 收藏数 */
-	protected int collected;
+	private int collected;
 
-	protected String content;
+	private String content;
 	/** 社区分区 */
-	protected Partition partition;
+	private Partition partition;
+	private String partitionStr;
 
 	public Article() {
 	}
 
-	public Article(Long id, String category, String authorId,
+	public Article(Long id, String category, Long authorId,
 	               String title, String label1, String label2, String label3, String label4,
 	               String label5, Date updateTime, Date createTime, int liked, int collected,
 	               String content, Partition partition) {
@@ -66,7 +68,28 @@ public class Article extends Writing {
 		this.partition = partition;
 	}
 
-	public Article(String category, String authorId, String title,
+	public Article(Long id, String category, Long authorId,
+	               String title, String label1, String label2, String label3, String label4,
+	               String label5, Date updateTime, Date createTime, int liked, int collected,
+	               String content, String partition) {
+		this.id = id;
+		this.category = category;
+		this.authorId = authorId;
+		this.title = title;
+		this.label1 = label1;
+		this.label2 = label2;
+		this.label3 = label3;
+		this.label4 = label4;
+		this.label5 = label5;
+		this.updateTime = updateTime;
+		this.createTime = createTime;
+		this.liked = liked;
+		this.collected = collected;
+		this.content = content;
+		this.partition = Partition.getPartition(partition);
+	}
+
+	public Article(String category, Long authorId, String title,
 	               String label1, String label2, String label3, String label4, String label5,
 	               String content) {
 		this.category = category;
@@ -82,9 +105,13 @@ public class Article extends Writing {
 
 	@Override
 	public String toString() {
-		return "Article{" +
-				"id=" + id +
-				", category='" + category + '\'' +
+		String str = "Article{id=" + id + ", partition=";
+		if (partition != null) {
+			str += partition.val();
+		} else {
+			str += "null";
+		}
+		str += ", category='" + category + '\'' +
 				", authorId='" + authorId + '\'' +
 				", title='" + title + '\'' +
 				", label1='" + label1 + '\'' +
@@ -96,9 +123,8 @@ public class Article extends Writing {
 				", createTime=" + createTime +
 				", liked=" + liked +
 				", collected=" + collected +
-				", content='" + content + '\'' +
-				", partition=" + partition +
-				'}';
+				", content='" + content + "'}";
+		return str;
 	}
 
 	public Long getId() {
@@ -109,17 +135,6 @@ public class Article extends Writing {
 		this.id = id;
 	}
 
-
-//	public void setPartitionStr(String partitionStr) {
-//		this.partitionStr = partitionStr;
-//		//不调用set函数避免死循环
-//		if ("".equals(partitionStr) || partitionStr!=null){
-//			partition = Partition.getPartition(partitionStr);
-//			System.out.println();
-//			System.out.println(partition);
-//		}
-//	}
-
 	public String getCategory() {
 		return category;
 	}
@@ -128,11 +143,11 @@ public class Article extends Writing {
 		this.category = category;
 	}
 
-	public String getAuthorId() {
+	public Long getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(String authorId) {
+	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
 
@@ -226,7 +241,17 @@ public class Article extends Writing {
 
 	public Partition getPartition() {
 		return partition;
+	}
 
+	/**
+	 * @param partitionStr
+	 */
+	public void setPartitionStr(String partitionStr){
+		/*
+		QueryRunner无法直接调用setPartition(Partition)给枚举赋值
+		使用这个方法让QueryRunner调用该方法给partition枚举赋值
+		 */
+		setPartition(partitionStr);
 	}
 
 	public void setPartition(Partition partition) {
@@ -235,6 +260,7 @@ public class Article extends Writing {
 
 	public void setPartition(String partitionStr) {
 		this.partition = Partition.getPartition(partitionStr);
-		System.out.println("setPartition = " + partition);
+		logger.debug("setPartition = " + this.partition);
 	}
+
 }

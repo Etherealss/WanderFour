@@ -32,8 +32,8 @@ public class ArticleServiceImplTest {
 	public void updateWriting() {
 		Article writing = new Article();
 		writing.setId(2L);
-		writing.setPartition(Partition.LEARNING);
-		writing.setAuthorId("1@qq.com");
+		writing.setPartition(Partition.LEARNING.val());
+		writing.setAuthorId(1L);
 		writing.setCategory("二级分类a");
 
 		writing.setTitle("我是标题a");
@@ -49,7 +49,7 @@ public class ArticleServiceImplTest {
 
 	@Test
 	public void deleteWriting() {
-		ResultType resultType = service.deleteWriting(18L,"1@qq.com");
+		ResultType resultType = service.deleteWriting(18L,2L);
 		logger.debug(resultType);
 	}
 }

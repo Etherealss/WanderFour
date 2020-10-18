@@ -3,7 +3,8 @@ package controller;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import common.dto.ResultState;
-import common.util.ControllerUtil;
+import common.strategy.choose.GetParamChoose;
+import common.strategy.choose.ResponseChoose;
 import pojo.po.User;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -26,24 +27,27 @@ import java.io.IOException;
 @WebServlet("/UserEnterServlet")
 public class UserEnterController extends BaseServlet {
 
+	private final static String ACTION_LOGIN = "login";
+	private final static String ACTION_REGISTER = "register";
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String action = req.getParameter("action");
-		if ("login".equals(action)){
+		if (ACTION_LOGIN.equals(action)) {
 			login(req, resp);
-		} else if ("register".equals(action)){
+		} else if (ACTION_REGISTER.equals(action)) {
 			register(req, resp);
 		} else {
 			logger.error("错误的方法: action = " + action);
-			ControllerUtil.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查method参数：method=login(/register)");
+			ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查method参数：method=login(/register)");
 			throw new ServletException("错误的方法action");
 		}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		logger.trace("DoGet!");
 	}
 
 	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,7 +61,7 @@ public class UserEnterController extends BaseServlet {
 		UserService us = ServiceFactory.getUserService();
 		ResultType state = us.validateUserLogin(email, password);
 
-		if (state == ResultType.SUCCESS){
+		if (state == ResultType.SUCCESS) {
 			//密码正确，检查异地登录
 			logger.trace("密码正确，检查异地登录");
 			HttpSession session = req.getSession();
@@ -65,12 +69,12 @@ public class UserEnterController extends BaseServlet {
 
 			//通过ServletContext检查异地登录
 			ServletContext servletContext = session.getServletContext();
-			if (servletContext.getAttribute(email) == null){
+			if (servletContext.getAttribute(email) == null) {
 				//未登录，用email做标识，存入请求的sessionId
 				logger.trace("未登录，好了，现在登录了");
 				servletContext.setAttribute(email, sessionId);
-			} else if(servletContext.getAttribute(email)!= null &&
-					!StringUtils.equals(sessionId ,servletContext.getAttribute(email).toString())){
+			} else if (servletContext.getAttribute(email) != null &&
+					!StringUtils.equals(sessionId, servletContext.getAttribute(email).toString())) {
 				//如果servletContext中存在email，说明已登录，比较两个sessionId
 				//如果两个sessionId相同，说明是同个地点登录
 				//输出“您已登录”
@@ -87,16 +91,16 @@ public class UserEnterController extends BaseServlet {
 		JSONObject jsonObject = new JSONObject();
 		ResultState info = new ResultState(state, "登录结果");
 		jsonObject.put("state", info);
-		ControllerUtil.respToBrowser(resp, jsonObject);
+		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
 	public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("用户注册...");
 		//获取请求参数，封装到实体中
-		User user = ControllerUtil.getForm(req, User.class);
+		User user = GetParamChoose.getObjByForm(req, User.class);
 
 		if (user == null) {
-			ControllerUtil.respNoParameterEeeor(resp, "注册");
+			ResponseChoose.respNoParameterError(resp, "注册");
 			return;
 		}
 		// 封装到user对象中
@@ -111,7 +115,25 @@ public class UserEnterController extends BaseServlet {
 		user.setAvatarPath(avatarPath);
 		logger.debug(user);
 		//提交用户信息，获取业务结果
-		ResultType resultType = new UserServiceImpl().registerNewUser(user);
-		ControllerUtil.respOnlyStateToBrowser(resp, resultType, "注册结果");
+		Long userid = new UserServiceImpl().registerNewUser(user);
+
+		//注册结果返回浏览器
+		respRegisterResult(resp, userid);
+
+	}
+
+	/**
+	 * 注册结果返回浏览器
+	 * @param resp
+	 * @param userid
+	 */
+	private void respRegisterResult(HttpServletResponse resp, Long userid) {
+		logger.debug(userid);
+		ResultType resultType = userid == null ? ResultType.EXCEPTION : ResultType.SUCCESS;
+		ResultState state = new ResultState(resultType, "注册结果，包含userid");
+		JSONObject json = new JSONObject();
+		json.put("state", state);
+		json.put("userid", userid);
+		ResponseChoose.respToBrowser(resp, json);
 	}
 }

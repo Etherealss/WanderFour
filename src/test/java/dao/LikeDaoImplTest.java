@@ -42,7 +42,7 @@ public class LikeDaoImplTest {
 		record.setLikeState(1);
 		record.setTargetId(2L);
 		record.setTargetType(1);
-		record.setUserid("123456@qq.com");
+		record.setUserid(2L);
 		boolean b = dao.insertLikeRecord(conn, record);
 		logger.debug(b);
 	}
@@ -64,7 +64,7 @@ public class LikeDaoImplTest {
 		LikeRecord record = new LikeRecord();
 		record.setTargetId(2L);
 		record.setTargetType(1);
-		record.setUserid("123456@qq.com");
+		record.setUserid(2L);
 		boolean b = dao.deleteLikeRecord(conn, record);
 		logger.debug(b);
 	}

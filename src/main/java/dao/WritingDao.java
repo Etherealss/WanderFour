@@ -2,6 +2,7 @@ package dao;
 
 import pojo.po.Writing;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	Long selectMaxWritingId(Connection conn) throws SQLException;
+	BigInteger selectLastInsertId(Connection conn) throws SQLException;
 
 	/**
 	 * 发布新作品
@@ -121,5 +122,5 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	String getAuthorByWritingId(Connection conn, Long articleId) throws SQLException;
+	Long getAuthorByWritingId(Connection conn, Long articleId) throws SQLException;
 }

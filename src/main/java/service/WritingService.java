@@ -36,5 +36,5 @@ public interface WritingService<T extends Writing> {
 	 * @param deleterId 删除者账号
 	 * @return
 	 */
-	ResultType deleteWriting(Long writingId, String deleterId);
+	ResultType deleteWriting(Long writingId, Long deleterId);
 }

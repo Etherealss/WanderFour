@@ -28,6 +28,7 @@
                 </ul>
                 <div class="topmargin_searchBox">
                     <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                    <button></button>
                 </div>
                 <div class="topmargin_personal_center">
                     <a id="topmargin_PC" href="#">个人中心</a>
@@ -62,14 +63,17 @@
                 <input type="text" id="articleTitleVal" placeholder="请输入标题..."/>
             </div>
             <div class="editArticle_editContent">
-                <textarea name="" id="articleContentVal" cols="30" rows="10" placeholder="请输入正文...">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil similique non nostrum eveniet tempora facilis aperiam omnis! Alias, doloremque! Cumque fugiat dolorem ex voluptatibus, magni aut dolore placeat esse quis!</textarea>
+                <textarea name="" id="articleContentVal" cols="30" rows="10" placeholder="请输入正文...">大家好，我是小华er，这是我写的第一篇文章</textarea>
+                <span>
+                    已书写<span id="EA_textNum">0</span>字
+                </span>
             </div>
             <!-- ———————————— 标签Part ———————————— -->
             <div class="editArticle_mainTagsBox">
                 <span>分区</span>
-                <input type="radio" name="theBigPartition" class="theBigPartition" id="editArticle_learningWorld" value="learning" checked/>学习天地
-                <input type="radio" name="theBigPartition" class="theBigPartition" id="editArticle_" value="major"/>专业学习
-                <input type="radio" name="theBigPartition" class="theBigPartition" id="editArticle_xxsh" value="college"/>学校生活
+                <input type="radio" name="theBigPartition" class="theBigPartition" num="0" value="learning" checked/>学习天地
+                <input type="radio" name="theBigPartition" class="theBigPartition" num="1" value="major"/>专业介绍
+                <input type="radio" name="theBigPartition" class="theBigPartition" num="2" value="college"/>学校生活
                 <div class="editArticle_secondaryPartitionBox">
                     <div class="editArticle_secondaryPartition">
                         <ul>
@@ -126,6 +130,50 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="editArticle_secondaryPartition">专业介绍
+                        <ul>
+                            <li>
+                                <p>高中</p>
+                                <ol>
+                                    <span>主科</span>
+                                    <li>语文</li>
+                                    <li>数学</li>
+                                    <li>英语</li>
+                                </ol>
+                                <ol>
+                                    <span>辅科</span>
+                                    <li>物理</li>
+                                    <li>化学</li>
+                                    <li>生物</li>
+                                    <li>历史</li>
+                                    <li>政治</li>
+                                    <li>地理</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="editArticle_secondaryPartition">学校生活
+                        <ul>
+                            <li>
+                                <p>高中</p>
+                                <ol>
+                                    <span>主科</span>
+                                    <li>语文</li>
+                                    <li>数学</li>
+                                    <li>英语</li>
+                                </ol>
+                                <ol>
+                                    <span>辅科</span>
+                                    <li>物理</li>
+                                    <li>化学</li>
+                                    <li>生物</li>
+                                    <li>历史</li>
+                                    <li>政治</li>
+                                    <li>地理</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!-- —————————— 自定义标签Part —————————— -->
@@ -139,6 +187,7 @@
                         </li> -->
                     </ul>
                     <div id="EA_addTagsBox">
+                        <button id="EA_displayBtn">+</button>
                         <button id="EA_addBtn">+</button>
                         <input type="text" name="" id="editTags" placeholder="添加标签"/>
                     </div>
@@ -149,6 +198,7 @@
                 <button id="editArticle_publish">发表</button>
             </div>
         </div>
+        <p id="textTxt"></p>
     </div>
 
     <script src="JS/jQuery.js"></script>

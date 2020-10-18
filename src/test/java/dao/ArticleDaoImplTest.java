@@ -34,6 +34,12 @@ public class ArticleDaoImplTest {
 	}
 
 	@Test
+	public void selectLastInsert() throws SQLException {
+		Long aLong = dao.selectLastInsertId(conn).longValue();
+		System.out.println(aLong);
+	}
+
+	@Test
 	public void updateNewArticle() {
 	}
 
@@ -41,8 +47,8 @@ public class ArticleDaoImplTest {
 	public void updateArticle() throws SQLException {
 		Article writing = new Article();
 		writing.setId(2L);
-		writing.setPartition(Partition.LEARNING);
-		writing.setAuthorId("1@qq.com");
+		writing.setPartition(Partition.LEARNING.val());
+		writing.setAuthorId(1L);
 		writing.setCategory("二级分类");
 
 		writing.setTitle("我是标题");

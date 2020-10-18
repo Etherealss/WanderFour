@@ -5,6 +5,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import pojo.po.Article;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,15 +18,8 @@ import java.util.List;
 public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<Article> {
 
 	@Override
-	public Long selectMaxWritingId(Connection conn) throws SQLException {
-		String sql = "SELECT MAX(`id`) FROM `article`";
-		return qr.query(conn, sql, new ScalarHandler<Long>());
-	}
-
-	@Override
 	public boolean updateNewWritingInfo(Connection conn, Article a) throws SQLException {
-		String sql = "insert into " + getTableName() +
-				"(`id`, `partition`, `category`, `author_id`, `title`," +
+		String sql = "insert into `article` (`id`, `partition`, `category`, `author_id`, `title`," +
 				"`label1`, `label2`, `label3`, `label4`, `label5`," +
 				"`create_time`, `update_time`, `liked`, `collected`)" +
 				"values(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)";
@@ -38,6 +32,11 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 	}
 
 	@Override
+	public BigInteger selectLastInsertId(Connection conn) throws SQLException {
+		return super.selectLastInsertId(conn);
+	}
+
+	@Override
 	public boolean updateNewWritingContent(Connection conn, Long id, String content) throws SQLException {
 		String sql = "INSERT INTO `article_content` (`article_id`, `content`) VALUES(?, ?);";
 		return qr.update(conn, sql, id, content) == 1;
@@ -45,15 +44,14 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 
 	@Override
 	public boolean updateWritingInfo(Connection conn, Article a) throws SQLException {
-		String sql = "UPDATE " + getTableName() + " SET " +
+		String sql = "UPDATE `article` SET " +
 				"`partition`=?, `category`=?, `author_id`=?, `title`=?," +
 				"`label1`=?, `label2`=?, `label3`=?, `label4`=?, `label5`=?, " +
-				"`create_time`=?, `update_time`=?, `liked`=?, `collected`=? " +
-				"WHERE id=?";
-		Object[] params = {
-				a.getPartition().code(), a.getCategory(), a.getAuthorId(), a.getTitle(),
+				"`update_time`=? WHERE id=?";
+		Object[] params = { a.getPartition().code(),
+				a.getCategory(), a.getAuthorId(), a.getTitle(),
 				a.getLabel1(), a.getLabel2(), a.getLabel3(), a.getLabel4(), a.getLabel5(),
-				a.getCreateTime(), a.getUpdateTime(), a.getLiked(), a.getCollected(), a.getId()
+				a.getUpdateTime(), a.getId()
 		};
 		int res = qr.update(conn, sql, params);
 		return res == 1;
@@ -71,7 +69,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 		String sql = "SELECT `article`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`," +
 				" `title`, `label1`, `label2`, `label3`, `label4`,`label5`, " +
 				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `collected`" +
-				" FROM `article`,`partition` WHERE `article`.`id`= ? AND `partition` = `partition`.`id`;";
+				" FROM `article` LEFT JOIN `partition` ON `article`.`partition` = `partition`.`id` WHERE `article`.`id`= ?;";
 		return qr.query(conn, sql, new BeanHandler<>(Article.class), id);
 	}
 
@@ -104,8 +102,8 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 	}
 
 	@Override
-	public String getAuthorByWritingId(Connection conn, Long articleId) throws SQLException {
+	public Long getAuthorByWritingId(Connection conn, Long articleId) throws SQLException {
 		String sql = "SELECT `author_id` FROM `article` WHERE `id`=?";
-		return qr.query(conn, sql, new ScalarHandler<String>(), articleId);
+		return qr.query(conn, sql, new ScalarHandler<Long>(), articleId);
 	}
 }

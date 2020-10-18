@@ -16,7 +16,7 @@ public interface LikeStategy {
 	 * @param likeState
 	 * @param likeType
 	 */
-	void like(String userid, Long targetId, int likeState, TargetType likeType);
+	void like(Long userid, Long targetId, int likeState, TargetType likeType);
 
 	/**
 	 * 取消点赞 / 未点赞
@@ -25,7 +25,7 @@ public interface LikeStategy {
 	 * @param likeState
 	 * @param likeType
 	 */
-	void unlike(String userid, Long targetId, int likeState, TargetType likeType);
+	void unlike(Long userid, Long targetId, int likeState, TargetType likeType);
 
 	/**
 	 * 踩 / 不喜欢
@@ -34,5 +34,5 @@ public interface LikeStategy {
 	 * @param likeState
 	 * @param likeType
 	 */
-	void dislike(String userid, Long targetId, int likeState, TargetType likeType);
+	void dislike(Long userid, Long targetId, int likeState, TargetType likeType);
 }

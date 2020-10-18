@@ -32,13 +32,18 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			article.setCreateTime(new Date());
 			article.setUpdateTime(new Date());
 			logger.debug(article);
-			// 查找合适的id
-			Long maxId = dao.selectMaxWritingId(conn) + 1L;
-			article.setId(maxId);
+
+			//添加文章信息
 			boolean b1 = dao.updateNewWritingInfo(conn, article);
+			//获取自增的主键Id
+			Long maxId = dao.selectLastInsertId(conn).longValue();
+			logger.debug("maxId = " + maxId);
+			article.setId(maxId);
+			//添加文章内容
 			boolean b2 = dao.updateNewWritingContent(conn, maxId, article.getContent());
-			// 同时没有异常返回
+
 			if (b1 && b2) {
+				// 两次操作均无异常时返回
 				return ResultType.SUCCESS;
 			} else {
 				throw new Exception("发表新文章异常");
@@ -89,12 +94,14 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	}
 
 	@Override
-	public ResultType deleteWriting(Long writingId, String deleterId) {
+	public ResultType deleteWriting(Long writingId, Long deleterId) {
 		logger.trace("删除文章");
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
+			// 检查是否作者本人删除
 			if (deleterId.equals(dao.getAuthorByWritingId(conn, writingId))) {
+				//如果是，执行删除操作
 				boolean b = dao.deleteWritingById(conn, writingId);
 				if (b) {
 					return ResultType.SUCCESS;

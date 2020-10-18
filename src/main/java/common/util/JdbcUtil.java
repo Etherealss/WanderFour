@@ -2,14 +2,11 @@ package common.util;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 /**

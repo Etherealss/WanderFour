@@ -29,5 +29,5 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	ResultType registerNewUser(User user);
+	Long registerNewUser(User user);
 }

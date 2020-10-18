@@ -18,7 +18,7 @@ public class LikeStategyImpl implements LikeStategy {
 	private Logger logger = Logger.getLogger(LikeStategyImpl.class);
 
 	@Override
-	public void like(String userid, Long targetId, int likeState, TargetType likeType) {
+	public void like(Long userid, Long targetId, int likeState, TargetType likeType) {
 		logger.trace("userid=" + userid + ", targetId=" + targetId + ", likeState=" + likeState + ", likeType=" + likeType);
 		String likeKey = getLikeKey(userid, targetId);
 		Jedis jedis = JedisUtil.getJedis();
@@ -35,7 +35,7 @@ public class LikeStategyImpl implements LikeStategy {
 	}
 
 	@Override
-	public void unlike(String userid, Long targetId, int likeState, TargetType likeType) {
+	public void unlike(Long userid, Long targetId, int likeState, TargetType likeType) {
 		logger.trace("userid=" + userid + ", targetId=" + targetId + ", likeState=" + likeState + ", likeType=" + likeType);
 		String likeKey = getLikeKey(userid, targetId);
 		Jedis jedis = JedisUtil.getJedis();
@@ -52,11 +52,11 @@ public class LikeStategyImpl implements LikeStategy {
 	}
 
 	@Override
-	public void dislike(String userid, Long targetId, int likeState, TargetType likeType) {
+	public void dislike(Long userid, Long targetId, int likeState, TargetType likeType) {
 
 	}
 
-	private String getLikeKey(String userid, Long targetId) {
+	private String getLikeKey(Long userid, Long targetId) {
 		String likeKey = userid + "::" + targetId;
 		return likeKey;
 	}

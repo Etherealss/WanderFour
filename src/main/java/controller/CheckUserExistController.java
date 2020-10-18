@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import common.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
-import common.util.ControllerUtil;
+import common.strategy.choose.ResponseChoose;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -28,9 +28,11 @@ public class CheckUserExistController extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String email = req.getParameter("id");
+		String email = req.getParameter("email");
+		logger.debug(email);
 		if (email==null){
-			ControllerUtil.respNoParameterEeeor(resp, "检查账号是否已注册");
+			ResponseChoose.respNoParameterError(resp, "检查账号是否已注册");
+			return;
 		}
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
@@ -40,6 +42,6 @@ public class CheckUserExistController extends BaseServlet {
 		JSONObject jsonObject = new JSONObject();
 		ResultState result = new ResultState(state, "账号查询结果");
 		jsonObject.put("state", result);
-		ControllerUtil.respToBrowser(resp, jsonObject);
+		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 }

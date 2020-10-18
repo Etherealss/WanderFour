@@ -2,7 +2,7 @@ package service.impl;
 
 import common.enums.ResultType;
 import common.enums.TargetType;
-import common.strategy.LikeStategyChoose;
+import common.strategy.choose.LikeStategyChoose;
 import common.strategy.impl.LikeStategyImpl;
 import org.apache.log4j.Logger;
 import pojo.po.LikeRecord;
@@ -25,7 +25,7 @@ public class LikeServiceImpl implements LikeService {
 				logger.debug("点赞类型为null 异常！");
 				throw new Exception("点赞类型为null");
 			}
-			String userid = likeRecord.getUserid();
+			Long userid = likeRecord.getUserid();
 			Long targetId = likeRecord.getTargetId();
 			int likeState = likeRecord.getLikeState();
 			TargetType likeType = likeRecord.getTargetTypeEnum();

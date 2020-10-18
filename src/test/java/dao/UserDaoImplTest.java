@@ -38,15 +38,15 @@ public class UserDaoImplTest {
 		String email = "123123L";
 		String pw = "123123";
 
-		boolean b = dao.countUserByPw(conn, email, pw);
+		boolean b = dao.countUserByEmailPw(conn, email, pw);
 		logger.debug("selectUserByPw()测试结果：" + (b ? "存在" : "不存在"));
 	}
 
 	@Test
 	public void testSelectUserById() throws Exception{
-		String email = "123123@qq.com";
+		String email = "1L";
 		boolean b = dao.countUserByEmail(conn, email);
-		logger.debug("selectUserByPw()测试结果：" + (b ? "存在" : "不存在"));
+		logger.debug("testSelectUserById()测试结果：" + (b ? "存在" : "不存在"));
 	}
 	@Test
 	public void testUpdateNewUser() throws SQLException {

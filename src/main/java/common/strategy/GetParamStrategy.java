@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @description
  * @date 2020/10/16
  */
-public interface GetParameterStrategy {
+public interface GetParamStrategy {
 
 	/**
 	 * 通过前端的json数据获取json对象
@@ -32,5 +32,15 @@ public interface GetParameterStrategy {
 	 * @param <T> 转化的Java类型
 	 * @return 封装了参数的Java对象
 	 */
-	<T> T getForm(HttpServletRequest req, Class<T> clazz);
+	<T> T getObjByForm(HttpServletRequest req, Class<T> clazz);
+
+	/**
+	 * 通过传入的json参数集合获取指定对象
+	 * @param jsonObject json参数集合
+	 * @param clazz
+	 * @param <T>
+	 * @return 封装的实例
+	 * @throws Exception json解析错误
+	 */
+	<T> T getObjByParam(JSONObject jsonObject, Class<T> clazz);
 }

@@ -32,7 +32,7 @@ public class UserLikeController extends BaseServlet {
 
 	private LikeRecord getUserLikeData(HttpServletRequest req){
 		LikeRecord likeRecord = new LikeRecord();
-		likeRecord.setUserid(req.getParameter("userid"));
+		likeRecord.setUserid(Long.valueOf(req.getParameter("userid")));
 		likeRecord.setTargetId(Long.valueOf(req.getParameter("targetId")));
 		likeRecord.setTargetType(TargetType.getCode(req.getParameter("targetType")));
 		likeRecord.setLikeState(Integer.parseInt(req.getParameter("likeState")));
