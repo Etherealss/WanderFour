@@ -4,11 +4,107 @@ $(".topmargin_personal_center").hover(function(){
 });
 
 
+//———————————————————————————— 文本编辑问题 ——————————————————————————————————————
+//——————————————————— 测试键盘事件的keyCode码 —————————————————————
+function textareaEnter(textareaBox)
+{
+    textareaBox.on({
+    keydown: function(event)
+    {
+        // console.log(event.keyCode);  //输出的值即为该按键的keyCode
+        if(event.keyCode == 13){
+            event.preventDefault();
+            //重写Enter事件，按下Enter键盘后换行
+            $(this).html($(this).html()+"<br/><br/>");
+            // $(this).append("<br/><br/>");
+            //将光标置于内容的最后位置
+            setFocus($(this));
+        }
+    },
+    // focus: function(){
+    //     $(this).css({
+    //         boxShadow: "1px 1px 5px rgba(0,0,0,0.25)",
+    //         transition: "all ease-in-out .3s"
+    //     });
+    // },
+    // blur: function(){
+    //     $(this).css({
+    //         boxShadow: "none",
+    //         transition: "all ease-in-out .3s"
+    //     });
+    // }
+});
+}
+
+//———————————————————— 设置光标始终在文本最后 ————————————————————
+function setFocus(object){
+    object = object[0]; // jquery 对象转dom对象  
+    object.focus();
+    var range = document.createRange();
+    range.selectNodeContents(object);
+    range.collapse(false);
+    var sel = window.getSelection();
+
+    sel.removeAllRanges();
+    sel.addRange(range);
+}; 
+
+//————————————————————————————————— 插入图片 —————————————————————————————————————
+//图片转Base64码再存储
+function changeImgSrc(inputFile,index)
+{
+    inputFile.on({
+        change: function()
+        {
+            //点击后在textareaBox里增添一个img标签
+            $("#articleContentVal").append("<img id='articleUpImage"+index+"' src=''/><br/><br/>");
+            
+            var filePath = $(this).val();	//读取图片的本地存储路径
+            
+            var fr = new FileReader();	//创建FileReader()对象
+            var imgObject = this.files[0];	//获取图片（FileReader为JavaScript的类，故要转换为DOM对象）
+
+            fr.readAsDataURL(imgObject);	//将图片读取为DaraURL
+            var obj = $("#articleUpImage"+index)[0];		//获取要显示图片的<img>标签
+
+            //分割地址（常见图片格式：jpg、png）
+            if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) 
+            {
+                // var arr = filePath.split('\\');
+                // var fileName = arr[arr.length - 1];
+            
+                $("#articleUpImage"+index).css({width: 400});   //限制下图片显示的尺寸
+                $("#articleUpImage"+index).show(); //图片显示
+                index++;    //图片下标增加（为了可以上传多张图片）
+                fr.onload = function(){
+                    obj.src = this.result;	//<img>标签的src属性获取图片的转码
+                    imgGetSrc(obj.src);	//直接在fr.onload里当作参数传送到函数里，函数写在和inputFile同一层次
+                } 
+            }
+            else{
+                return false;
+            }
+        }
+    });
+
+    //从fr.onload里传递过来的参数，放入图片中
+    function imgGetSrc(img)
+    {
+        $("#articleUpImage"+index).attr("src",img);
+    }
+}
+
+//换行以及光标永远置于编辑的最后位置
+textareaEnter($("#articleContentVal"));
+//点击上传插入不同数量的图片
+changeImgSrc($("#imgFileBtn"),0); 
+
 //——————————————————————— 获取textarea的字数 —————————————————————————
-$("#EA_textNum").text($("textarea").val().length);
-$("textarea").on("keyup",function(){
+$("#EA_textNum").text($("#articleContentVal").html().length);
+$("#articleContentVal").on("keyup",function(){
     $("#EA_textNum").text($(this).val().length);
 });
+
 
 //—————————————————————— 切换分区，更改二级分区 ——————————————————————————
 $(".editArticle_secondaryPartition").eq(1).hide();
@@ -84,18 +180,66 @@ $("#EA_displayBtn").on({
     }
 });
 
-//动态创建
+//———— 点击除了.editArticle_customTagsBox之外的其他区域执行 ————————————
+$("body").on({
+    click: function(event){
+        if(!$(event.target).closest(".editArticle_customTagsBox").length)
+        {
+            $("#EA_addTagsBox").css({
+            width: 36,
+            transition: "all ease-in-out .5s"
+        });
+
+            $("#EA_displayBtn").css({
+                zIndex: 0
+            });
+
+            $("#editTags").html("");
+        }
+    }
+});
+
+
+//—————————————— 限制可编辑div输入的字符长度 ———————————————
+$("#editTags").on({
+    keyup: function()
+    {
+        // var re = /^[0-9a-zA-Z]*$/g;
+        // if(re.text($(this).html())) //判断输入是否为字母
+        // {
+            
+        // }else 
+        if($(this).html().length > 10)
+        {
+            alert("长度超过了限制");
+            $(this).html("");   //超过长度后清空，重新输入
+        }
+        
+    },
+    keydown: function(event)
+    {//按下Enter键盘后禁止换行
+        if(event.keyCode == 13)
+        {
+            event.preventDefault();
+        }
+    }
+});
+
+
+//—————————————————————— 动态创建 ——————————————————————
+//可编辑的div获取内容要用html()，input获取内容要用val()
 $("#EA_addBtn").on({
-    click: function(){
-        if($("#editTags").val() == "" || $("#editTags").val() == undefined)
+    click: function()
+    {
+        if($("#editTags").html() == "" || $("#editTags").html() == undefined)
         {
             alert("请在输入框内输入内容");
         }
         else{
             var li = $("<li></li>");
-            li.html("<p id='label'>"+$("#editTags").val()+"</p> <a class='EA_delete'>×</a>");
+            li.html("<p id='label'>"+$("#editTags").html()+"</p> <a class='EA_delete'>×</a>");
             $("#editArticle_tagsList").append(li); //将动态创建的<li>添加到<ul>里
-            $("#editTags").val(""); //点击添加后清空搜索框
+            $("#editTags").html(""); //点击添加后清空搜索框
             
             // 点击删除
             $(".EA_delete").on({
@@ -125,18 +269,7 @@ $("#EA_addBtn").on({
     }
 });
 
-$(".editArticle_addCustomTags").on({
-    mouseleave: function(){
-        $("#EA_addTagsBox").css({
-            width: 36,
-            transition: "all ease-in-out .5s"
-        });
 
-        $("#EA_displayBtn").css({
-            zIndex: 0
-        });
-    }
-});
 
 // ——————————————————————— AJAX相关Part ———————————————————————————————
 //获取label的值（给label后添加i下标）
@@ -154,11 +287,12 @@ function getLabelNum()
 //获取需要的参数的值
 function obtainVal()
 {
-    var articleTitleVal = txtLineBreak($("#articleTitleVal")).val();  //文章标题
-    var articleContentVal = $("#articleContentVal").val(); //文章内容
+    var articleTitleVal = $("#articleTitleVal").val();  //文章标题
+    var articleContentVal = $("#articleContentVal").html(); //文章内容
     var paritition = $("input[name='theBigPartition']:checked").val();  //获取分区
-    var category = $("#secondary").html(); //文章二级分类
-    var authorId = "123456@qq.com";
+    // var category = $("#secondary").attr("backstage-data"); //文章二级分类
+    var category = 1;    //二级分区的参数 compareData(1)
+    var authorId = "1";
      
         //通过返回一个对象的形式来使用
     var massage = {
@@ -173,18 +307,16 @@ function obtainVal()
 }
 
 //将textarea中的换行“\n”替换成“<br/>”
-function txtLineBreak(articleContent)
-{
-    var txt = articleContent.val();
-    txt = txt.replace(/\n/g,"<br/>");   //替换
-    articleContent.val(txt);
+// function txtLineBreak(articleContent)
+// {
+//     var txt = articleContent.val();
+//     txt = txt.replace(/\n/g,"<br/>");   //替换
+//     articleContent.val(txt);
 
-    return articleContent;
-} 
+//     return articleContent;
+// } 
 
-//使textarea支持Tab键
-
-
+// ————————————————————————————————————————————————————————————————————————————————————————
 //Ajax传递参数
 function submitVal(partition,category,authorId,articleTitleVal,articleContentVal,label)
 {
@@ -192,9 +324,7 @@ function submitVal(partition,category,authorId,articleTitleVal,articleContentVal
        type:'POST',
        url:'/WritingServlet',
        data:{
-           method: "writingCRUD", //文章的操作，CRUD即增删改查，具体百度
            type: "article",
-           action: "add", //增add删delete改post查get，通俗易懂
            partition: partition,
            category: category,
            authorId: authorId, 
@@ -222,7 +352,7 @@ function checkEmpty(){
     {
         alert("请输入文章标题");
     }
-    else if($("#articleContentVal").val() == "" || $("#articleContentVal").val() == undefined)
+    else if($("#articleContentVal").html() == "" || $("#articleContentVal").html() == undefined)
     {
         alert("请输入文章内容");
     }
@@ -236,12 +366,13 @@ function checkEmpty(){
 $("#editArticle_save").on({
     click: function(){
         // console.log(obtainVal().articleTitleVal);
-        console.log(obtainVal().articleContentVal);
+        // console.log(obtainVal().articleContentVal);
         // console.log(obtainVal().paritition);
         // console.log(obtainVal().category);
         // console.log(obtainVal().authorId);
         // console.log(getLabelNum());
 
+        // $("#textTxt").html(obtainVal().articleContentVal);
         //判空
         checkEmpty();
         // 传递参数给$.AJAX()
@@ -250,4 +381,46 @@ $("#editArticle_save").on({
     }
 });
 
+
+//——————————————————————————— 向后端请求分区编号对应的数据 ———————————————————————————————————
+function getBackstageData(partitionNumber)
+{
+    $.ajax({
+        type:'get',
+        url:'/CategoryServlet?partition='+partitionNumber,
+        data:{},
+        dataType:'json',
+        success:function(res)
+        {
+            var categoryNum = JSON.parse(res.category); //把传递数据的JSON格式转换为对象存储来用
+            compareData(categoryNum);   //传递到页面进行配对比较
+            console.log(res);
+        },
+        error:function()
+        {
+            console.log("数据传送失败");
+        }
+    })
+}
+
+// ——————————————— 传入获取大分区 —————————————————————————
+function getPartitionNum()
+{
+    var partitionNumber = $("input[name='theBigPartition']:checked").attr("num");
+    getBackstageData(partitionNumber);
+}
+
+getPartitionNum();
+
+// —————————————————— 传出匹配二级分区 ——————————————————————
+function compareData(categoryNum)
+{
+    // var category = $("#secondary").attr("backstage-data"); //文章二级分类
+    var category = $("#secondary").text();  //文章二级分类的文本
+    for(var i = 1;i <= Object.keys(categoryNum).length;i++)
+    {
+        if(category == categoryNum[i])
+        return i;
+    }
+}
 

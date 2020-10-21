@@ -36,7 +36,12 @@ public class CheckUserExistController extends BaseServlet {
 		}
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
-		ResultType state = us.checkUserExist(email);
+		ResultType state = null;
+		try {
+			state = us.checkUserExist(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		logger.debug("email = " + email + ", state = " + state);
 		//因为接口规范所以需要再次包装json对象，而不是直接发送state.getJson()
 		JSONObject jsonObject = new JSONObject();

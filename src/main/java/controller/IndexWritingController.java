@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @author 寒洲
- * @description 分区首页
+ * @description 分区首页按页获取文章
  * @date 2020/10/18
  */
 public class IndexWritingController extends BaseServlet{

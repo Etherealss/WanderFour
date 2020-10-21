@@ -118,9 +118,27 @@ public interface WritingDao<T extends Writing>{
 	/**
 	 * 根据编号获取作者
 	 * @param conn
-	 * @param articleId
+	 * @param id
 	 * @return
 	 * @throws SQLException
 	 */
-	Long getAuthorByWritingId(Connection conn, Long articleId) throws SQLException;
+	Long getAuthorByWritingId(Connection conn, Long id) throws SQLException;
+
+	/**
+	 * 获取作品当前的点赞数
+	 * @param conn
+	 * @param id
+	 * @throws SQLException
+	 * @return
+	 */
+	Integer selectLikeCount(Connection conn, Long id) throws SQLException;
+
+	/**
+	 * 更新作品的点赞数
+	 * @param conn
+	 * @param id
+	 * @param count 新点赞数
+	 * @throws SQLException
+	 */
+	void updateLikeCount(Connection conn, Long id, Integer count) throws SQLException;
 }

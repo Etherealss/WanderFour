@@ -4,9 +4,7 @@ import common.enums.ResultType;
 import org.junit.Test;
 import pojo.po.Article;
 import pojo.po.User;
-import util.TestUtil;
-
-import java.lang.reflect.Field;
+import common.util.TestUtil;
 
 /**
  * @author 寒洲

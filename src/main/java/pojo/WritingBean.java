@@ -9,8 +9,14 @@ import pojo.po.Writing;
  * @date 2020/10/9
  */
 public class WritingBean {
-	Writing writing; //对应数据库的实体
-	WritingEnum writingType; //作品类型
+	/**
+	 * 对应数据库的实体
+	 */
+	Writing writing;
+	/**
+	 * 作品类型
+	 */
+	WritingEnum writingType;
 
 	public Writing getWriting() {
 		return writing;

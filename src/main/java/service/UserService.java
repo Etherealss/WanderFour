@@ -13,21 +13,24 @@ public interface UserService {
 	 * 检查账号是否存在
 	 * @param email
 	 * @return
+	 * @throws Exception
 	 */
-	ResultType checkUserExist(String email);
+	ResultType checkUserExist(String email) throws Exception;
 
 	/**
 	 * 验证登录的账号密码
 	 * @param email
 	 * @param paasword
 	 * @return
+	 * @throws Exception
 	 */
-	ResultType validateUserLogin(String email, String paasword);
+	ResultType validateUserLogin(String email, String paasword) throws Exception;
 
 	/**
 	 * 注册
 	 * @param user
 	 * @return
+	 * @throws Exception
 	 */
-	Long registerNewUser(User user);
+	Long registerNewUser(User user) throws Exception;
 }

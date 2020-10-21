@@ -11,16 +11,16 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f3f3f3;
+    background: #AEE1D8;    
 }
 
 .sign_container{
     position: relative;
     width: 800px;
     height: 500px;
-    /* background-color: #fff; */
-    box-shadow: 1px 1px 8px rgba(0,0,0,0.15),
-    -1px -1px 8px rgba(0,0,0,0.15);
+    box-shadow: -8px 0px 70px 25px rgba(0, 0, 0, 0.08);
+    /* box-shadow: 1px 1px 8px rgba(0,0,0,0.15),
+    -1px -1px 8px rgba(0,0,0,0.15); */
     overflow: hidden;
 }
 
@@ -41,7 +41,7 @@ section{
     position: relative;
     width: 50%;
     height: 100%;
-    background-color: skyblue;
+    background: #81CBBF;
     transition: all ease-in-out .8s;
     /* z-index: 10; */
 }
@@ -95,6 +95,10 @@ section{
     box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
     background-color: #f5f5f5;
 }
+.sign_container .sign_user .sign_formBox form .inputBlur {
+    border-radius: 4px;
+    border: 1px solid #81CBBF;
+}
 
 /* -------------------------------------------------------三种状态的提示效果-------------------------------------------------------- */
 .sign_container .sign_user .sign_formBox form .successGreen,
@@ -103,29 +107,29 @@ section{
     position: relative;
     border: 1px solid #3c763d;
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); */
 }
 .sign_container .sign_user .sign_formBox form .successGreen:focus {
     border-color: #3c763d;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d;
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d; */
 }
 .sign_container .sign_user .sign_formBox form .errorRed {
     border: 1px solid #a94442;
 }
 .sign_container .sign_user .sign_formBox form .errorRed:focus {
     border-color: #a94442;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442; */
 }
 .sign_container .sign_user .sign_formBox form .warningBrown {
     border: 1px solid  #8a6d3b;
 }
 .sign_container .sign_user .sign_formBox form .warningBrown:focus {
     border-color:  #8a6d3b;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b;
+    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b; */
 }
 .success{
   color: #3c763d;
@@ -134,10 +138,10 @@ section{
 .testLogo {
     position: absolute;
     display: none;
-    width: 25px;
-    height: 25px;
+    width: 14px;
+    height: 14px;
     right: 7px;
-    bottom: 14px;
+    bottom: 19px;
 }
 .error {
     color: #a94442;
@@ -159,7 +163,7 @@ section{
     cursor: pointer;
     font-size: 15px;
     letter-spacing: 2px;
-    background-color: #677eff;
+    background: #74CBBF;
 }
 
 .sign_container .sign_user .sign_formBox form input[type="radio"]{
@@ -178,11 +182,17 @@ section{
     text-transform: uppercase;
 }
 
-.sign_container .sign_user .sign_formBox form p a,
 .sign_container .sign_user .sign_formBox form p a {
     text-decoration: none;
     font-weight: bold;
-    color: #677eff;
+    color: #20AB9F;
+    padding-left: 22px;
+    background: url(../img/change.png) no-repeat left / 15px 16px;
+}
+.sign_container .sign_user .sign_formBox form p .turnRight {
+    padding-left: 0px;
+    padding-right: 22px;
+    background: url(../img/changeRight.png) no-repeat right / 15px 16px;
 }
 
 /* 切换 */

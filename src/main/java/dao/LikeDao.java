@@ -40,12 +40,30 @@ public interface LikeDao {
 	boolean deleteLikeRecord(Connection conn, LikeRecord record) throws SQLException;
 
 	/**
-	 * 统计点赞数
+	 * 查看用户的点赞状态
 	 * @param conn
-	 * @param targetId
-	 * @param targetType
+	 * @param record
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countLikeRecord(Connection conn, Long targetId, int targetType) throws SQLException;
+	boolean countUserLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+
+	/**
+	 * 统计点赞数
+	 * @param conn
+	 * @param targetId
+	 * @return
+	 * @throws SQLException
+	 */
+	Long countLikeRecord(Connection conn, Long targetId) throws SQLException;
+
+	/**
+	 * 检查用户的点赞状态
+	 * @param conn
+	 * @param userid
+	 * @param targetId
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean checkUserLikeRecord(Connection conn, Long userid, Long targetId) throws SQLException;
 }

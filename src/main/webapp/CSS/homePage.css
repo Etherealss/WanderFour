@@ -6,82 +6,255 @@
 
 /* ————————————————————— 头部 ——————————————————————— */
 .homePage_Header{
-    max-width: 1600px;
-    min-width: 1260px;
-    /* width: 100%; */
-    /* min-height: 422.5px; */
-    /* max-height: 845px; */
-    height: 848px;
+    /* max-width: 1600px; */
+    width: 100%;
+    height: 1000px;
+    /* height: 848px; */
     margin: 0 auto;
-    display: flex;
-    flex-direction: row;
     position: relative;
+    /* border: 1px solid #f00; */
 }
-
-.homePage_Header img{
-    position: absolute;
+.homePage_Header img {
     width: 100%;
     height: 100%;
 }
 
-.homePage_topBox{
-    width: 500px;
-    height: 30px;
-    position: absolute;
-    top: 35px;
-    left: 140px;
-    z-index: 10;
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    /* width: 1500px; */
+    height: 52px;
+    margin: -50px auto 0;
+    position: fixed;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 10px rgba(0,0,0,.15);
+    /* border: 1px solid #0f0; */
+}
+
+.HP_topmargin{
+    width: 1200px;
+    height: 52px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #00f; */
+}
+
+.topmargin_head_portrait{
+    width: 45px;
+    height: 45px;
+    margin-top: 2px;
+    float: left;
+    border-radius: 50%;
+    background: url(../img/homePage_highSchoolStudent_head.png);
+    background-size: 45px;
+}
+
+.topmargin_target{
+    width: 400px;
+    margin: 10px 20px;
+    float: left;
     display: flex;
     list-style-type: none;
     /* border: 1px solid #f00; */
 }
 
-.homePage_topBox li{
-    width: 100px;
-    height: 25px;
-    margin-right: 80px;
-    text-align: center;
-    color: #666666;
-    font-size: 18px;
-    letter-spacing: 2px;
-    text-shadow: .1px .1px .1px rgba(0,0,0,0.4);
+.topmargin_target > li{
+    margin: 0 10px;
+    padding: 5px 10px;
     cursor: pointer;
     /* border: 1px solid #0f0; */
 }
 
-.homePage_side{
+.topmargin_target > li:hover{color: #72c3b6;}
+
+/* —————————————— 搜索框 ———————————————— */
+.topmargin_searchBox{
+    width: 350px;
+    height: 45px;
     position: absolute;
-    right: 45px;
-    top: 35px;
-    display: flex;
-    z-index: 10;
-    list-style-type: none;
+    left: 470px;
+    top: 5px;
     /* border: 1px solid #f00; */
 }
 
-.homePage_side span{
-    margin-top: 2px;
-    color: #fff;
+.topmargin_searchBox input{
+    width: 320px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
     font-size: 15px;
-    text-shadow: .2px .2px .1px rgba(0,0,0,.5);
 }
 
-.homePage_side li{
-    width: 60px;
-    height: 20px;
-    margin: 0 15px;
-    text-align: center;
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
 }
 
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 40px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+}
 
-.homePage_side li > a{
+/* ———————————— 登录注册 ———————————————— */
+.homePage_side{
+    position: absolute;
+    top: 5px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
     text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-    letter-spacing: 4px;
-    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+    cursor: pointer;
 }
 
+.homePage_side > span{padding: 10px 5px;}
+
+/* —————————————————————— 轮播图 —————————————————————————————————— */
+.HP_carouselBox{
+    width: 1400px;
+    height: 650px;
+    margin: 50px auto 0;
+    /* border: 1px solid #f00; */
+}
+
+.HP_carousel{
+    width: 1400px;
+    height: 650px;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #fff;
+}
+
+.HP_carousel .HP_list{
+    width: 1400px;
+    height: 420px;
+    margin-top: 120px;
+    list-style-type: none;
+    /* border-bottom: 3px solid #f7f7f7; */
+}
+
+.HP_item{
+    width: 700px;
+    height: 350px;
+    position: absolute;
+    font-size: 40px;
+    opacity: 0.5;
+    border-radius: 4px;
+    box-shadow: 1px 1px 16px rgba(0, 0, 0,0.1);
+    /* border: 1px solid #00f; */
+}
+
+.HP_item:nth-child(1){
+    left: 0;
+    background: url(../img/homePage_carousel2.png);
+    background-size: 100%;
+}
+
+.HP_item:nth-child(2){
+    left: 350;
+    /* background-color: rgba(178, 227, 218,0.8); */
+    background-color: #fff;
+    background-image: url(../img/homePage_banner.png);
+    background-size: 100% 350px;
+    background-repeat: no-repeat;
+}
+
+.HP_item:nth-child(3){
+    left: 700;
+    background: #ffd995;
+}
+
+/* 轮播主图里的文本 */
+.HP_item:nth-child(2) > span{
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    border: 1px solid #f00;
+}
+
+.HP_item:nth-child(2) > p{
+    font-size: 16px;
+    line-height: 50px;
+}
+
+/* ———————————— 按钮Part —————————————— */
+.HP_carouselBtn{
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 320px;
+    z-index: 100;
+    color: #72c3b6;
+    font-size: 50px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.HP_carouselBtn:hover{
+    background: rgba(0, 0, 0,0.1);
+}
+
+#HP_Pre{
+    left: 20px;
+}
+
+#HP_Next{
+    right: 20px;
+}
+
+.HP_item.active{
+    transform: scaleX(1.25) scaleY(1.15);
+    margin-top: -25px;
+    z-index: 10;
+    opacity: 1;
+    box-shadow: 1px 1px 16px rgba(0, 0, 0,0.2);
+}
+
+/* ———————————— 小圆点悬浮切换 —————————————— */
+.HP_pointList{
+    position: absolute;
+    left: calc(50% - 80px);
+    bottom: 140px;
+    display: flex;
+    list-style-type: none;
+}
+
+.HP_pointList > .HP_point{
+    width: 30px;
+    height: 5px;
+    margin-right: 20px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    cursor: pointer;
+}
+
+.HP_point.active{
+    background: rgba(0,0,0,.4);
+}
 
 /* ———————————————————————————— 中部 —————————————————————————————— */
 .homePage_Content{
@@ -96,6 +269,30 @@
 .homePage_Content h1 a{
     display: inline-block;
     padding-top: 28px;
+}
+
+/* —————————————————————— 首页文本区域 —————————————————————————— */
+.HP_textPart{
+    width: 1500px;
+    height: 400px;
+    margin: -20px auto 0;
+    position: relative;
+    /* border: 1px solid #f00; */
+}
+
+.HP_textPart > p{
+    line-height: 50px;
+    position: absolute;
+    left: 210px;
+    top: 35px;
+    letter-spacing: 4px;
+    font-size: 21px;
+    color: #666;
+}
+
+.HP_textPart > .HP_titleImage{
+    position: absolute;
+    right: 221px;
 }
 
 /* ————————————————————— 学习天地 ————————————————————————— */
@@ -485,7 +682,7 @@
     width: 80px;
     height: 145px;
     padding: 5px 0;
-    border-radius: 3px 0 0 3px;
+    border-radius: 4px 0 0 4px;
     background: #fff;
     box-shadow: 2px 2px 10px rgba(0,0,0,.25);
     transition: all ease-in-out .5s;
@@ -514,6 +711,7 @@
     outline: none;
     cursor: pointer;
     box-shadow: -2px 2px 10px rgba(0,0,0,.15);
+    display: none;
 }
 
 .homePage_returnTopBox ul span{

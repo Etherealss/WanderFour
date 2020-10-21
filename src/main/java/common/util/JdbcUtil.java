@@ -15,10 +15,11 @@ import java.util.Properties;
  * @date 2020/7/24
  */
 public class JdbcUtil {
-	/** 数据库DataSource  */
+	/** 数据库DataSource */
 	private static DataSource source = null;
 	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 	private static Logger logger = Logger.getLogger(JdbcUtil.class);
+
 	static {
 		InputStream is = null;
 		Properties pros;

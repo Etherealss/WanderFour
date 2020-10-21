@@ -25,7 +25,7 @@ body{
 
 .topmargin{
     width: 1200px;
-    height: 65px;
+    height: 52px;
     margin: 0 auto;
     position: relative;
     /* border: 1px solid #0f0; */
@@ -33,15 +33,15 @@ body{
 
 /* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
-    width: 52px;
-    height: 52px;
+    width: 45px;
+    height: 45px;
     position: absolute;
-    top: 5px;
+    top: 3px;
     left: -3px;
     border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat -0.3px -1px;
-    background-size: 52px 52px;
-    border: 1px solid #a9a9a9;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
+    background-size: 45px;
+    /* border: 1px solid #a9a9a9; */
     box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
 }
 
@@ -49,7 +49,7 @@ body{
 .topmargin_target{
     position: absolute;
     left: 98px;
-    top: 19px;
+    top: 12px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
@@ -69,12 +69,12 @@ body{
 .topmargin_searchBox{
     position: absolute;
     left: 470px;
-    top: 11px;
+    top: 6px;
 }
 
 .topmargin_searchBox input{
     width: 320px;
-    height: 45px;
+    height: 40px;
     padding: 0 20px;
     border-radius: 20px;
     border: none;
@@ -89,10 +89,24 @@ body{
     font-size: 15px;
 }
 
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+    /* border: 1px solid #f00; */
+}
+
 /* —————————— 个人中心 ———————————— */
 .topmargin_personal_center{
     width: 150px;
-    height: 70px;
+    height: 50px;
     position: absolute;
     left: 1050px;
     /* border: 1px solid #f00; */
@@ -100,12 +114,12 @@ body{
 
 .topmargin_personal_center #topmargin_PC{
     width: 105px;
-    height: 65px;
-    line-height: 65px;
+    height: 50px;
+    line-height: 50px;
     padding-left: 40px;
     display: inline-block;
     position: absolute;
-    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 18px 22px;
+    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 15px;
     background-size: 20px;
     color: #333333;
     font-size: 19px;
@@ -116,7 +130,7 @@ body{
 .topmargin_personal_center > img{
     width: 14px;
     position: absolute;
-    top: 27px;
+    top: 20px;
     left: 120px;
     display: inline-block;
 }
@@ -125,7 +139,7 @@ body{
 .topmargin_personal_center > ul{
     width: 150px;
     height: 145px;
-    margin-top: 65px;
+    margin-top: 45px;
     padding: 22px 0 20px 0; 
     display: none;
     position: absolute;
@@ -194,9 +208,13 @@ body{
     display: flex;
     flex-direction: row;
     list-style-type: none;
-    background: #fff;
+    background-color: #fff;
     border-radius: 24px;
     box-shadow: 1px 1px 8px rgba(204, 204, 204,0.25);
+    background-image: url(../img/learningWorld_subjectIcon.png);
+    background-repeat: no-repeat;
+    background-position: 28px 10px;
+    background-size: 27px;
 }
 
 .LearningWorld_navPlate > ul li{
@@ -205,16 +223,16 @@ body{
     /* border: 1px solid #f00; */
 }
 
-.LearningWorld_navPlate > ul li:nth-child(1){
-    padding-right: 28px;
-    font-size: 16.5px;
-    color: #333333;
-}
-
 .LearningWorld_navPlate > ul li a{
     text-decoration: none;
     color: #a9a9a9;
     letter-spacing: 1.5px;
+}
+
+.LearningWorld_navPlate > ul li:nth-child(1){
+    padding-right: 28px;
+    font-size: 16.5px;
+    color: #333333;
 }
 
 .LearningWorld_navPlate > ul li a:hover{
@@ -236,7 +254,7 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* border: 1px solid #f00; */
+    /* border: 1px solid #0f0; */
 }
 
 .LearningWorld_toAskBox h2{
@@ -257,6 +275,7 @@ body{
     padding-bottom: 80px;
     margin-bottom: 100px;
     border-bottom: 2px solid #E7E7E7;
+    /* border: 1px solid #f00; */
 }
 
 /* ——————— 左边上下滑动Part ————————— */
@@ -332,6 +351,8 @@ body{
     /* border: 1px solid #00f; */
 }
 
+.LearningWorld_TA_write > li span:hover{color: #81cbbf;}
+
 /* —————— 侧栏两个小线圈 —————— */
 .LearningWorld_TA_slideBox > .toAskBox_coil{
     width: 18px;
@@ -350,15 +371,13 @@ body{
 /* ——————————— 右边问贴板块 ——————————— */
 .LearningWorld_TA_mainContentBox{
     width: 895px;
-    /* height: 265px; */
-    /* padding-bottom: 50px; */
     margin: 18px 0 0 18px;
     /* overflow: hidden; */
     /* border: 1px solid #0f0; */
 }
 
 .LearningWorld_TA_mainContent{
-    padding-bottom: 5px;
+    padding-bottom: 65px;
     position: relative;
     /* border: 1px solid #f00; */
 }
@@ -399,7 +418,7 @@ body{
     font-size: 16px;
 }
 
-
+/* —————————— 悬浮伸缩 ———————————— */
 .LearningWorld_TA_askPost > ul{
     margin: 16px 0 0 35px;
     /* “评论”二字的样式 */
@@ -414,7 +433,6 @@ body{
 }
 
 .LearningWorld_TA_askPost > ul li:nth-child(1){margin-top: 8px;}
-
 
 /* ———————————————————— 文章Part —————————————————————————— */
 .LearningWorld_learning_experience{
@@ -499,6 +517,7 @@ body{
 }
 
 .LearningWorld_LE_article:hover{
+    cursor: pointer;
     box-shadow: 1px 1px 10px rgba(0, 0, 0,0.28);
 }
 
@@ -571,8 +590,7 @@ body{
 /* 悬浮效果 */
 .LearningWorld_LE_slideBox > ul > li:nth-child(2) a:hover,
 .LearningWorld_LE_slideBox > ul > li:nth-child(3) a:hover{
-    background: rgba(129, 203, 191, 0.7);
-    color: #fff;
+    background: #efefef;
     text-shadow: .1px .1px .1px rgba(0,0,0,0.25);
 }
 
@@ -599,6 +617,17 @@ body{
     background: #8adb98;
 }
 
+.LearningWorld_LE_write li > span{cursor: pointer;}
+
+.LearningWorld_LE_write li > span:hover{color: #81cbbf;}
+
+.LearningWorld_LE_write li > span a{
+    text-decoration: none;
+    color: #333;
+}
+
+.LearningWorld_LE_write li > span a:hover{color: #81cbbf;}
+
 /* ———————————— 查看更多 —————————————— */
 .LearningWorld_seeMore{
     padding: 8px 8px;
@@ -611,7 +640,7 @@ body{
 .LearningWorld_packUp{
     padding: 8px 20px;
     position: absolute;
-    bottom: -50px;
+    bottom: -40px;
     right: 50px;
     cursor: pointer;
     display: none;

@@ -8,6 +8,7 @@ import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import pojo.po.Article;
 import pojo.po.Posts;
+import pojo.po.Writing;
 import service.WritingService;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * @author 寒洲
@@ -27,6 +27,7 @@ public class WritingController extends BaseServlet {
 
 	private final static String TYPE_ARTICLE = "article";
 	private final static String TYPE_POSTS = "posts";
+	private final static String TYPE_UNDEFINED = "undefined";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +37,8 @@ public class WritingController extends BaseServlet {
 			//空参为异常，需要有参数才能获取指定数据
 			ResponseChoose.respNoParameterError(resp, "查询作品");
 			return;
+		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
+			ResponseChoose.respNoParameterError(resp, "参数undefined！！！");
 		}
 		logger.trace("获取作品 params = " + params);
 
@@ -45,35 +48,58 @@ public class WritingController extends BaseServlet {
 		if (isArticle) {
 			logger.trace("Article get:" + params.get(TYPE_ARTICLE));
 			WritingService<Article> artivleService = ServiceFactory.getArticleService();
-			Article article = artivleService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))));
-
-			JSONObject jsonObject = new JSONObject();
-			ResultState state;
-
-			if (article == null) {
-				// 查不到文章 跳转到404
-				state = new ResultState(ResultType.ERROR, "参数错误，查询不到文章");
-				jsonObject.put("state", state);
-				throw new ServletException("参数错误，查询不到文章，跳转");
-			} else {
-				//查询到，传给前端
-				jsonObject.put("article", article);
-				state = new ResultState(ResultType.SUCCESS, "查询结果");
+			Article article = null;
+			try {
+				article = artivleService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
-			jsonObject.put("state", state);
-			logger.trace(jsonObject);
-			ResponseChoose.respToBrowser(resp, jsonObject);
+			//判空并返回客户端
+			checkResultAndResp(resp, article);
 
-		} else {
-			if (params.get(TYPE_POSTS) == null) {
-				ResponseChoose.respNoParameterError(resp, "获取作品");
-				return;
-			}
-			logger.trace("Posts get:" + params.get(TYPE_POSTS));
+		} else if (params.get(TYPE_POSTS) != null) {
+			//获取问贴
 			WritingService<Posts> postsService = ServiceFactory.getPostsService();
-			//TODO 帖子GET
+			Posts posts = null;
+			try {
+				posts = postsService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_POSTS))));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			//判空并返回客户端
+			checkResultAndResp(resp, posts);
+		} else {
+			logger.error("获取作品空参");
+			ResponseChoose.respNoParameterError(resp, "获取作品");
 		}
+	}
+
+	/**
+	 * 判空并返回客户端
+	 * @param writing
+	 * @param resp
+	 * @throws ServletException
+	 */
+	private void checkResultAndResp(HttpServletResponse resp, Writing writing) throws ServletException {
+		JSONObject jsonObject = new JSONObject();
+		ResultState state;
+
+		if (writing == null) {
+			// 查不到文章 跳转到404
+			state = new ResultState(ResultType.ERROR, "参数错误，查询不到作品");
+			jsonObject.put("state", state);
+			throw new ServletException("参数错误，查询不到作品，跳转404");
+		} else {
+			//查询到，传给前端
+			jsonObject.put("article", writing);
+			state = new ResultState(ResultType.SUCCESS, "查询结果");
+		}
+
+		jsonObject.put("state", state);
+		logger.trace(jsonObject);
+		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
 	@Override
@@ -82,32 +108,78 @@ public class WritingController extends BaseServlet {
 		String type = req.getParameter("type");
 		// 空参检查
 		if ("".equals(type) || type == null) {
+			logger.error("发表作品时却说参数type");
 			ResponseChoose.respNoParameterError(resp, "发表作品");
 			return;
 		}
 		//确定类型
-		boolean isArticle = (TYPE_ARTICLE.equals(type));
 		//根据类型获取实体和Service
-		if (isArticle) {
+		if (TYPE_ARTICLE.equals(type)) {
 			Article article = GetParamChoose.getObjByForm(req, Article.class);
 			logger.debug(article);
 
 			if (article == null) {
-				logger.fatal("发表文章空参");
+				logger.error("发表文章空参");
 				ResponseChoose.respNoParameterError(resp, "发表文章");
 				return;
 			}
 
 			WritingService<Article> service = ServiceFactory.getArticleService();
 			//发表新文章
-			ResultType state = service.publishNewWriting(article);
+			Long articleId = null;
+			try {
+				articleId = service.publishNewWriting(article);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-			ResponseChoose.respOnlyStateToBrowser(resp, state, "发表结果");
+			//判空并返回客户端
+			checkResultAndResp(resp, articleId);
+
+		} else if (TYPE_POSTS.equals(type)) {
+			//获取参数
+			Posts posts = GetParamChoose.getObjByForm(req, Posts.class);
+			logger.debug(posts);
+
+			if (posts == null) {
+				logger.fatal("发表问贴空参");
+				ResponseChoose.respNoParameterError(resp, "发表问贴（参数）");
+				return;
+			}
+
+			WritingService<Posts> service = ServiceFactory.getPostsService();
+			//发表新文章
+			Long postsId = null;
+			try {
+				postsId = service.publishNewWriting(posts);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			//判空并返回客户端
+			checkResultAndResp(resp, postsId);
 		} else {
-			logger.trace("Posts post:" + type);
-			WritingService<Posts> postsService = ServiceFactory.getPostsService();
-			//TODO 帖子POST
+			logger.error("doPost参数错误type =" + type);
+			ResponseChoose.respNoParameterError(resp, "发表作品（type）");
 		}
+	}
+
+	/**
+	 * 判空并返回客户端
+	 * @param writingId
+	 * @param resp
+	 * @throws ServletException
+	 */
+	private void checkResultAndResp(HttpServletResponse resp, Long writingId) throws ServletException {
+		JSONObject json = new JSONObject();
+		if (writingId != null) {
+			json.put("writingId", writingId);
+			json.put("state", new ResultState(ResultType.SUCCESS, "发表结果"));
+		} else {
+			json.put("state", new ResultState(ResultType.EXCEPTION, "发表失败"));
+		}
+
+		ResponseChoose.respToBrowser(resp, json);
 	}
 
 	@Override
@@ -123,8 +195,6 @@ public class WritingController extends BaseServlet {
 		String type = param.getString("type");
 		logger.trace("修改作品 type = " + type);
 
-		boolean isArticle = (TYPE_ARTICLE.equals(type));
-
 		//空参检查
 		if ("".equals(type) || type == null) {
 			ResponseChoose.respNoParameterError(resp, "修改作品(type参数)");
@@ -132,25 +202,54 @@ public class WritingController extends BaseServlet {
 		}
 
 		//根据类型获取实体和Service
-		if (isArticle) {
+		if (TYPE_ARTICLE.equals(type)) {
 			Article article = GetParamChoose.getObjByParam(param, Article.class);
 			logger.debug("获取article参数：\n\t" + article);
 
 			//空参检查
 			if (article == null) {
-				ResponseChoose.respNoParameterError(resp, "修改文章");
+				ResponseChoose.respNoParameterError(resp, "修改文章（文章信息）");
 				return;
 			}
 
 			WritingService<Article> service = ServiceFactory.getArticleService();
-			article.setUpdateTime(new Date());
 			//修改文章
-			ResultType state = service.updateWriting(article);
+			ResultType resultType = null;
+			try {
+				resultType = service.updateWriting(article);
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultType = ResultType.EXCEPTION;
+			}
 
-			ResponseChoose.respOnlyStateToBrowser(resp, state, "修改结果");
-		} else {
+			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章修改结果");
+		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("Posts put:" + type);
-			//TODO 帖子PUT
+
+			Posts posts = GetParamChoose.getObjByParam(param, Posts.class);
+			logger.debug("获取article参数：\n\t" + posts);
+
+			//空参检查
+			if (posts == null) {
+				ResponseChoose.respNoParameterError(resp, "修改文章");
+				return;
+			}
+
+			WritingService<Posts> service = ServiceFactory.getPostsService();
+			//修改文章
+			ResultType resultType = null;
+			try {
+				resultType = service.updateWriting(posts);
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultType = ResultType.EXCEPTION;
+			}
+
+			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "问贴修改结果");
+		} else {
+			//空参
+			logger.error("doPut空参");
+			ResponseChoose.respNoParameterError(resp, "修改作品(type参数)");
 		}
 	}
 
@@ -165,21 +264,32 @@ public class WritingController extends BaseServlet {
 		}
 
 		Long articleId = param.getLong(TYPE_ARTICLE);
-		boolean isArticle = articleId != null;
-		if (isArticle) {
+		if (articleId != null) {
 			//删除文章
 			WritingService<Article> service = ServiceFactory.getArticleService();
-			ResultType resultType = service.deleteWriting(articleId, param.getLong("deleterId"));
-			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "删除结果");
-		} else {
-			Long postsId = param.getLong(TYPE_POSTS);
-			//空参检查
-			if (postsId == null) {
-				ResponseChoose.respNoParameterError(resp, "参数(type)错误");
-				return;
+			ResultType resultType = null;
+			try {
+				resultType = service.deleteWriting(articleId, param.getLong("deleterId"));
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultType = ResultType.EXCEPTION;
 			}
+			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章删除结果");
+		} else if (param.getLong(TYPE_POSTS) != null) {
+			//删除问贴
+			Long postsId = param.getLong(TYPE_POSTS);
 			WritingService<Posts> service = ServiceFactory.getPostsService();
-			//Posts delete
+			ResultType resultType = null;
+			try {
+				resultType = service.deleteWriting(postsId, param.getLong("deleterId"));
+			} catch (Exception e) {
+				resultType = ResultType.EXCEPTION;
+				e.printStackTrace();
+			}
+			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "问贴删除结果");
+		} else {
+			//空参
+			ResponseChoose.respNoParameterError(resp, "删除作品(type参数)");
 		}
 	}
 

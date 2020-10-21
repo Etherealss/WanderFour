@@ -14,27 +14,30 @@ public interface WritingService<T extends Writing> {
 	 * @param t
 	 * @return
 	 */
-	ResultType publishNewWriting(T t);
+	Long publishNewWriting(T t) throws Exception;
 
 	/**
 	 * 获取作品
 	 * @param id
 	 * @return
+	 * @throws Exception
 	 */
-	T getWriting(Long id);
+	T getWriting(Long id) throws Exception;
 
 	/**
 	 * 修改作品
 	 * @param t
 	 * @return
+	 * @throws Exception
 	 */
-	ResultType updateWriting(T t);
+	ResultType updateWriting(T t) throws Exception;
 
 	/**
 	 * 删除作品
 	 * @param writingId 作品编号
 	 * @param deleterId 删除者账号
 	 * @return
+	 * @throws Exception
 	 */
-	ResultType deleteWriting(Long writingId, Long deleterId);
+	ResultType deleteWriting(Long writingId, Long deleterId) throws Exception;
 }

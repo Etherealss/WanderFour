@@ -6,6 +6,13 @@ function toggleForm() {
 
 $(function () {
 
+    $('input').focus(function () {
+        $(this).addClass('inputBlur');
+    })
+    $('input').blur(function () {
+        $(this).removeClass('inputBlur');
+    })
+
     //封装清除样式函数
     function clearStyle(success, error, check, bug, a) {
         success.css("display", "none");
@@ -47,7 +54,7 @@ $(function () {
                 len++;
             }
         }
-        if (len > 16) {
+        if (len > 16 || len == 0) {
             $("#registerIdError").css("display", "block");
             $("#bug1").css("display", "block");
             $("#registerUserid").addClass('errorRed');
@@ -57,8 +64,6 @@ $(function () {
             $("#registerUserid").addClass('successGreen');
         }
     })
-    // var regID = /[\u4e00-\u9fa5_a-zA-Z0-9_]{4,12}/;
-    // checkInputVal($("#registerUserid"), $("#registerIdSuccess"), $("#registerIdError"), $("#check1"), $("#bug1"), regID);
 
     //注册板块 判断用户输入的邮箱是否符合格式
     // var regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
@@ -105,32 +110,17 @@ $(function () {
         //获取已被选中的单选框的value值
         var signIdentity = $('input[name="sign_identity"]:checked').val();
         var signSex = $('input[name="sign_sex"]:checked').val();
-        //男为true
-        var sex = signSex.indexOf("women") == -1;
-        console.log("sex = " + sex);
         //调用函数发送数据
-        registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, sex);
+        registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, signSex);
     })
 
     //检验邮箱是否已被注册
-    $("#registerEmail").blur(function () {
-        $.ajax({
-            type: 'get',
-            // url: 'http://192.168.137.138:8080/CheckUserExistServlet',
-            url: '/CheckUserExistServlet?email=' + $('#registerEmail').val(),
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                if (data.state.code == "IS_REGISTED") {
-                    $("#registerEmailErrorRepeat").css("display", "block");
-                    $("#bug2").css("display", "block");
-                    $("#registerEmail").addClass('errorRed');
-                }
-            },
-        })
-    })
-
+    //在邮箱格式正确后再发送给后端检查
+    if ($("#registerEmailSuccess").css('display') == 'block') {
+        checkEmailRepeat();
+    }
 })
+
 
 /*--------------------------------------登录板块---------------------------------------*/
 function loginSumbit(loginEmailVal, loginPwVal) {
@@ -147,10 +137,17 @@ function loginSumbit(loginEmailVal, loginPwVal) {
         },
         dataType: 'json',
         success: function (data) {
-            //TODO 成功：跳转至首页（后端实现）
+            //TODO 成功：跳转至首页
             //异常情况
-            console.log(data);
-            if (data.state.code == "PW_ERROR") {
+            if (data.state.code == "SUCCESS") {
+
+
+
+                window.location.href = "/MR_part/homePage.html";
+
+
+
+            } else if (data.state.code == "PW_ERROR") {
                 clearStyle($("#loginPwSuccess"), $("#loginPwSuccess"), $("#check5"), $("#check5"), $("#sign_login_password"));
                 $("#loginPwError").css("display", "block");
                 $("#bug6").css("display", "block");
@@ -168,18 +165,42 @@ function loginSumbit(loginEmailVal, loginPwVal) {
                 $("#bug5").css("display", "block");
                 $("#sign_login_email").addClass('errorRed');
             } else if (data.state.code == "EXCEPTION") {
-                alert("出错了...请刷新页面")
-            } else if (data.state.code == "SUCCESS") {
-                alert("登录成功！");
+                alert("请刷新页面！")
             }
-        },
-        error: function () {
-            console.log("登录异常！")
         }
     })
 }
 
 /*--------------------------------------注册板块---------------------------------------*/
+//检验邮箱是否已被注册发送的ajax
+function checkEmailRepeat() {
+    $("#registerEmail").blur(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/CheckUserExistServlet',
+            data: {
+                // method: "checkUserExist",
+                //传递邮箱
+                email: $('#registerEmail').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.state.code == "IS_REGISTED") {
+                    clearStyle($("#registerEmailSuccess"), $("#registerEmailError"), $("#check2"), $("#bug2"), $("#registerEmail"));
+                    $("#registerEmailErrorRepeat").css("display", "block");
+                    $("#bug2").css("display", "block");
+                    $("#registerEmail").addClass('errorRed');
+                }
+            },
+            error: function () {
+                console.log("11111");
+            }
+        })
+    })
+}
+
+//点击注册发送的ajax
 function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, signSex) {
     //创建注册ajax对象 向后端发送
     $.ajax({
@@ -199,12 +220,10 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, regi
             sex: signSex,
         },
         dataType: 'json',
-        success: function (res) {
-            //TODO 跳转至登录，即重新跳转到本页面（后端实现）
-            console.log(res);
-        },
-        error: function () {
-            console.log("注册异常！")
+        success: function (data) {
+            if (data.state.code == "SUCCESS") {
+                window.location.href = "sign.html";
+            }
         }
     })
 }

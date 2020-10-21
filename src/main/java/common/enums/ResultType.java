@@ -26,7 +26,11 @@ public enum ResultType {
 	IS_REGISTED("IS_REGISTED"),
 
 	NOT_AUTHOR("NOT_AUTHOR"),
-	;//这里加一个分号方便添加新枚举
+
+	/**已点赞*/
+	HAVE_LIKED("HAS_LIKED"),
+	HAVE_NOT_LIKED("HAVE_NOT_LIKED")
+	;
 
 	private final String code;
 

@@ -1,0 +1,550 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* ————————————————————— 头部 ——————————————————————— */
+.homePage_Header{
+    max-width: 1600px;
+    min-width: 1260px;
+    /* width: 100%; */
+    /* min-height: 422.5px; */
+    /* max-height: 845px; */
+    height: 848px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.homePage_Header img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.homePage_topBox{
+    width: 500px;
+    height: 30px;
+    position: absolute;
+    top: 35px;
+    left: 140px;
+    z-index: 10;
+    display: flex;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_topBox li{
+    width: 100px;
+    height: 25px;
+    margin-right: 80px;
+    text-align: center;
+    color: #666666;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,0.4);
+    cursor: pointer;
+    /* border: 1px solid #0f0; */
+}
+
+.homePage_side{
+    position: absolute;
+    right: 45px;
+    top: 35px;
+    display: flex;
+    z-index: 10;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_side span{
+    margin-top: 2px;
+    color: #fff;
+    font-size: 15px;
+    text-shadow: .2px .2px .1px rgba(0,0,0,.5);
+}
+
+.homePage_side li{
+    width: 60px;
+    height: 20px;
+    margin: 0 15px;
+    text-align: center;
+}
+
+
+.homePage_side li > a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+}
+
+
+/* ———————————————————————————— 中部 —————————————————————————————— */
+.homePage_Content{
+    max-width: 1600px;
+    min-width: 1260px;
+    /* max-width: 1260px; */
+    width: 100%;
+    margin: 0 auto;
+    /* height: 500px; */
+}
+
+.homePage_Content h1 a{
+    display: inline-block;
+    padding-top: 28px;
+}
+
+/* ————————————————————— 学习天地 ————————————————————————— */
+.homePage_LearningWorld{
+    max-width: 1600px;
+    min-width: 1260px;
+    width: 100%;
+    margin-top: 20px;
+    /* height: 500px; */
+    position: relative;
+}
+
+.homePage_LW_titleBox{
+    width: 100%;
+    height: 420px;
+    /* 820px 40px */
+    background: url(../img/homePage_LearningWorld_Communication.png) no-repeat 750px 40px;
+    background-size: 516.9px 365.6px;
+    border: 1px solid #fff;
+}
+
+.homePage_LW_titleBox h1{
+    position: absolute;
+    top: 28px;
+    left: 60px;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+
+.homePage_LW_titleBox p{
+    position: absolute;
+    top: 124px;
+    left: 60px;
+    line-height: 30px;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+/* ——————————— 身份该有的功能 ————————————————— */
+.homePage_LW_identity{
+    max-width: 1600px;
+    /* max-width: 1260px; */
+    width: 100%;
+    height: 420px;
+    position: relative;
+    background: url(../img/homePage_LearningWorld_headLamp.png) no-repeat 55px 0;
+    background-size: 100%;
+}
+
+.homePage_LWid_box{
+    /* width: 720px; */
+    /* height: 250px; */
+    width: 57%;
+    height: 70%;
+    position: absolute;
+    top: 42px;
+    right: 46px;
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_LWid_box > div{
+    /* height: 232px; */
+    width: 30%;
+    max-width: 218px;
+    height: 93%;
+    position: relative;
+    margin-left: 38px;
+    border-radius: 4px;
+    background-color: #95c9ae;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+}
+
+.homePage_LWid_box > div .homePage_LWid_boxImg{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    position: absolute;
+    left: calc(50% - 50px);
+    display: block;
+    z-index: 5;
+    border: 5px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+}
+
+/* 头像的扩散动画效果 */
+.homePage_LWid_box > div:hover .homePage_LWid_boxImg{
+    /* animation: shady 4s linear; */
+    transition: all ease-in-out .8s;
+}
+
+/* @keyframes shady{
+	0%{
+		box-shadow: 0 0 0 0px rgba(255,255,255,0.5);
+	}
+	50%{
+		box-shadow: 0 0 0 80px rgba(255,255,255,0.5);
+	}
+} */
+
+.homePage_LWid_box > div h3{
+    padding: 15px;
+    position: absolute;
+    top: 110px;
+    left: calc(50% - 58px);
+    font-size: 24px;
+    font-weight: normal;
+    text-align: center;
+    letter-spacing: 6px;
+    color: #fff;   
+    z-index: 5; 
+    text-shadow: .1px .1px .1px rgba(0,0,0,.8);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div:nth-child(3) h3{left: calc(50% - 45px);}
+
+/* 点击后才出现的部分 */
+.homePage_LWid_box > div ul{
+    margin-top: 400px;
+    margin: 400px 0 25px 50px;
+    line-height: 25px;
+    font-size: 14px;
+    list-style-type: disc;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div ul li{
+    letter-spacing: 2px;
+    font-size: 12.5px;
+}
+
+/* 点击进入的按钮 */
+.homePage_LWid_box > div button{
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: -50px;
+    left: 55px;
+    font-size: 12px;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.1);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div button > a{
+    padding: 5px 30px;
+    display: inline-block;
+    text-decoration: none;
+    color: #95c9ae;
+    font-weight: bold;
+}
+
+/* "+" 和 "-" */
+.homePage_LWid_box > div a.homePage_expend{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 50%;
+    bottom: 30px;
+    transform: translateX(50%);
+    display: block;
+    border-radius: 50%;
+    background: #fff;
+    line-height: 40px;
+    text-align: center;
+    transition: all ease-in-out .5s;
+    cursor: pointer;
+}
+
+.homePage_LWid_box > div a.homePage_expend .homePage_plus{
+    width: 40px;
+    display: inline-block;
+    opacity: 1;
+    color: #787878;
+    font-size: 24px;
+}
+
+.homePage_LWid_box > div a.homePage_expend .homePage_minus{
+    opacity: 0;
+    color: #95c9ae;
+    font-size: 24px;
+}
+
+/* —————————————— 有特殊属性 homePage_selected —————————————— */
+.homePage_LWid_box > div.homePage_selected h3{
+    width: 70%;
+    top: 28px;
+    left: 12%;
+    z-index: 15;
+    border-bottom: 1px solid rgba(255,255,255,0.8);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected ul{
+    opacity: 1;
+    margin-top: 82px;
+}
+
+.homePage_LWid_box > div.homePage_selected button{
+    bottom: 20px;
+    transition: all ease-in-out .5s;
+}
+
+/* 装加减号的盒子 */
+.homePage_LWid_box > div.homePage_selected a.homePage_expend{
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    right: -20px;
+    bottom: -15px;
+    display: block;
+    background: #fff;
+    transform: rotate(-45deg);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend span{
+    position: absolute;
+    top: -5px;
+    left: 40px;
+    display: block;
+    transform: rotate(45deg);
+    font-size: 24px;
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend .homePage_minus{
+    opacity: 1;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend .homePage_plus{
+    opacity: 0;
+}
+
+.homePage_LWid_box > div.homePage_selected .homePage_LWid_boxImg{
+    position: absolute;
+    top: -20px;
+    left: -5px;
+    transform: scale(1.5);
+    opacity: 0.5;
+    transition: all ease-in-out 1s;
+}
+
+.homePage_LWid_box > div.homePage_selected:hover .homePage_LWid_boxImg{
+    animation: none;
+}
+
+/* ————————————————————— 专业介绍 ————————————————————————— */
+.homePage_Professional_Introduction{
+    max-width: 1600px;
+    /* max-width: 1260px; */
+    width: 100%;
+    height: 800px;
+    margin-right: 10%;
+    display: flex;
+    /* border: 1px solid #0ff; */
+}
+
+.homePage_PI_subjectBg{
+    width: 520px;
+    height: 600px;
+    margin: 130px 0 0 55px;
+    background: url(../img/homePage_Professional_Introduction_subjects.png) no-repeat;
+    background-size: 100%;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_PI_title{
+    width: calc(100% - 520px);
+    position: relative;
+    background: url(../img/homePage_Professional_Introduction_people.png) no-repeat 460px 360px;
+    background-size: 57px 246px;
+    /* border: 1px solid #0f0; */
+}
+
+.homePage_PI_title h1{
+    position: absolute;
+    top: 28px;
+    right: 140px;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+
+.homePage_PI_title p{
+    position: absolute;
+    top: 124px;
+    right: 132px;
+    line-height: 30px;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.homePage_PI_title button{
+    position: absolute;
+    top: 225px;
+    right: 140px;
+    background-color: #72c3b6;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.homePage_PI_title button > a{
+    display: inline-block;
+    padding: 10px 27px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.homePage_PI_title button:hover{box-shadow: 1px 1px 10px rgba(0,0,0,0.3);}
+
+/* ————————————————————— 大学生活 ————————————————————————— */
+.homePage_University_Life{
+    max-width: 1600px;
+    /* max-width: 1260px; */
+    width: 100%;
+    /* height: 800px; */
+    position: relative;
+    /* border: 1px solid #ff0; */
+}
+
+.homePage_University_Life h1{
+    position: absolute;
+    top: 28px;
+    left: 80px;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+
+.homePage_University_Life p{
+    position: absolute;
+    top: 124px;
+    left: 80px;
+    line-height: 30px;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.homePage_University_Life button{
+    position: absolute;
+    top: 225px;
+    left: 80px;
+    background-color: #72c3b6;
+    border: none;
+    outline: none;
+    z-index: 10;
+    border-radius: 2px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.homePage_University_Life button > a{
+    display: inline-block;
+    padding: 10px 27px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.homePage_University_Life button:hover{box-shadow: 1px 1px 10px rgba(0,0,0,0.3);}
+
+.homePage_University_Life img{
+    width: 100%;
+    position: absolute;
+    top: 78px;
+}
+
+/* ———————————————————————— 返回顶部 ——————————————————————————— */
+.homePage_returnTopBox{
+    position: fixed;
+    /* right: 0; */
+    right: -70px;
+    bottom: 50px;
+    width: 80px;
+    height: 145px;
+    padding: 5px 0;
+    border-radius: 3px 0 0 3px;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,.25);
+    transition: all ease-in-out .5s;
+}
+
+/* 侧边栏隐藏出现 */
+.homePage_appear{right: 0;}
+.homePage_hide{right: -100px;}
+
+.homePage_returnTopBox ul{
+    position: relative;
+    list-style-type: none;
+    background: #fff;
+}
+
+.homePage_returnTopBox ul button{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 62px;
+    left: -10px;
+    transform: rotate(45deg);
+    background: #fff;
+    /* background: rgba(85, 146, 146, 0.8); */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: -2px 2px 10px rgba(0,0,0,.15);
+}
+
+.homePage_returnTopBox ul span{
+    width: 25px;
+    height: 52px;
+    position: absolute;
+    top: 48px;
+    background: #fff;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_returnTopBox ul li{
+    position: absolute;
+    left: 5px;
+    height: 27px;
+    margin: 8px 4px;
+    text-align: center;
+    z-index: 100;
+    font-size: 15px;
+    color: #333;
+    letter-spacing: 1px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_returnTopBox ul li:nth-child(1){top: 0;}
+.homePage_returnTopBox ul li:nth-child(2){top: 35px;}
+.homePage_returnTopBox ul li:nth-child(3){top: 70px;}
+.homePage_returnTopBox ul li:nth-child(4){top: 105px;}
+
+
+
+
+

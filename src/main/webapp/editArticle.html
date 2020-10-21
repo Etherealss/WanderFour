@@ -17,7 +17,7 @@
                 </div>
                 <ul class="topmargin_target">
                     <li>
-                        <a href="">学习天地</a>
+                        <a href="./LearningWorld_HS.html">学习天地</a>
                     </li>
                     <li>
                         <a href="">专业介绍</a>
@@ -63,10 +63,14 @@
                 <input type="text" id="articleTitleVal" placeholder="请输入标题..."/>
             </div>
             <div class="editArticle_editContent">
-                <textarea name="" id="articleContentVal" cols="30" rows="10" placeholder="请输入正文...">大家好，我是小华er，这是我写的第一篇文章</textarea>
+                <!-- <textarea name="" id="articleContentVal" cols="30" rows="10" placeholder="请输入正文...">大家好，我是小华er，这是我写的第一篇文章</textarea> -->
+                <div id="articleContentVal" contenteditable="true"></div>
                 <span>
                     已书写<span id="EA_textNum">0</span>字
                 </span>
+                <!-- 点击上传图片的按钮 -->
+                <button id="imgUpShowBtn">+</button>
+                <input type="file" name="" title="" id="imgFileBtn" accept="image/*" capture="camera"/>
             </div>
             <!-- ———————————— 标签Part ———————————— -->
             <div class="editArticle_mainTagsBox">
@@ -158,18 +162,18 @@
                                 <p>高中</p>
                                 <ol>
                                     <span>主科</span>
-                                    <li>语文</li>
-                                    <li>数学</li>
-                                    <li>英语</li>
+                                    <li backstage-data="1">语文</li>
+                                    <li backstage-data="2">数学</li>
+                                    <li backstage-data="3">英语</li>
                                 </ol>
                                 <ol>
                                     <span>辅科</span>
-                                    <li>物理</li>
-                                    <li>化学</li>
-                                    <li>生物</li>
-                                    <li>历史</li>
-                                    <li>政治</li>
-                                    <li>地理</li>
+                                    <li backstage-data="4">物理</li>
+                                    <li backstage-data="5">化学</li>
+                                    <li backstage-data="6">生物</li>
+                                    <li backstage-data="7">历史</li>
+                                    <li backstage-data="9">政治</li>
+                                    <li backstage-data="8">地理</li>
                                 </ol>
                             </li>
                         </ul>
@@ -189,7 +193,8 @@
                     <div id="EA_addTagsBox">
                         <button id="EA_displayBtn">+</button>
                         <button id="EA_addBtn">+</button>
-                        <input type="text" name="" id="editTags" placeholder="添加标签"/>
+                        <div contenteditable="true" id="editTags" placeholder="添加标签"></div>
+                        <!-- <input id="editTags" placeholder="添加标签"/> -->
                     </div>
                 </div>
             </div>

@@ -54,4 +54,11 @@ public class JedisUtil {
 	public static Jedis getJedis() {
 		return pool.getResource();
 	}
+
+	/**
+	 * 关闭Jedis连接池
+	 */
+	public static void closeJedisPool(){
+		pool.close();
+	}
 }

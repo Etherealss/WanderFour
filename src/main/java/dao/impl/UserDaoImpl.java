@@ -15,7 +15,7 @@ import java.util.Date;
  * @description 用户DAO
  * @date 2020/10/2
  */
-public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 	@Override
 	public BigInteger selectLastInsertId(Connection conn) throws SQLException {

@@ -1,9 +1,11 @@
 package common.factory;
 
+import common.enums.TargetType;
+import dao.CategoryDao;
+import dao.LikeDao;
 import dao.WritingDao;
 import dao.UserDao;
-import dao.impl.ArticleDaoImpl;
-import dao.impl.UserDaoImpl;
+import dao.impl.*;
 import pojo.po.Article;
 import pojo.po.Posts;
 
@@ -31,7 +33,28 @@ public class DaoFactory {
 		return new ArticleDaoImpl();
 	}
 
-//	public static WritingDao<Posts> getPostsDao() {
-//		return new PostsDaoImpl();
-//	}
+	/**
+	 * 获取各分区问贴的DAO
+	 * @return
+	 */
+	public static WritingDao<Posts> getPostsDao() {
+		return new PostsDaoImpl();
+	}
+
+	/**
+	 * 获取点赞DAO
+	 * @return
+	 */
+	public static LikeDao getLikeDao(TargetType type) {
+		return new LikeDaoImpl(type);
+	}
+
+	/**
+	 * 获取分类DAO
+	 * @return
+	 */
+	public static CategoryDao getCategoryDao() {
+		return new CategoryDaoImpl();
+	}
+
 }

@@ -23,7 +23,7 @@ public class Article extends Writing {
 	/** 数据库表id */
 	private Long id;
 	/** 分类 */
-	private String category;
+	private int category;
 	/** 用户id */
 	private Long authorId;
 	private String title;
@@ -47,7 +47,7 @@ public class Article extends Writing {
 	public Article() {
 	}
 
-	public Article(Long id, String category, Long authorId,
+	public Article(Long id, int category, Long authorId,
 	               String title, String label1, String label2, String label3, String label4,
 	               String label5, Date updateTime, Date createTime, int liked, int collected,
 	               String content, Partition partition) {
@@ -68,7 +68,7 @@ public class Article extends Writing {
 		this.partition = partition;
 	}
 
-	public Article(Long id, String category, Long authorId,
+	public Article(Long id, int category, Long authorId,
 	               String title, String label1, String label2, String label3, String label4,
 	               String label5, Date updateTime, Date createTime, int liked, int collected,
 	               String content, String partition) {
@@ -89,7 +89,7 @@ public class Article extends Writing {
 		this.partition = Partition.getPartition(partition);
 	}
 
-	public Article(String category, Long authorId, String title,
+	public Article(int category, Long authorId, String title,
 	               String label1, String label2, String label3, String label4, String label5,
 	               String content) {
 		this.category = category;
@@ -135,11 +135,11 @@ public class Article extends Writing {
 		this.id = id;
 	}
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 

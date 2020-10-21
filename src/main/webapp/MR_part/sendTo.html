@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跟贴的</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .outsideBox{
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #f00;
+        }
+
+        .question{
+            padding: 20px;
+            border: 1px solid #0f0;
+        }
+
+        .btn{
+            padding: 5px 20px;
+        }
+
+        textarea{
+            outline: none;
+            font-size: 16px;
+            line-height: 25px;
+        }
+
+        ul{
+            width: 450px;
+            /* padding-left: ; */
+            list-style-type: none;
+        }
+
+        ul li{
+            height: 50px;
+            position: relative;
+            border-bottom: 1px solid #cccccc;
+            /* display: none; */
+        }
+
+        ul li .content{
+            position: absolute;
+            top: 20px;
+            left: 10px;
+        }
+
+        ul li .time{
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outsideBox">
+        <div class="question">问题：跟帖怎么做</div>
+        <textarea name="" class="txt" cols="50" rows="5"></textarea>
+        <button class="btn">发表</button>
+        <ul>
+            <li>楼主楼层</li>
+        </ul>
+    </div>
+</body>
+
+<script src="./JS/jQuery.js"></script>
+<script>
+    // 1、点击发布按钮，动态增加一个楼层，楼层内内容为文本框内输入的内容
+    var myDate = new Date();
+    
+    let index = 0;
+    $(".btn").on("click",function()
+    {
+        var li = $("<li></li>");
+        // var date = myDate.toLocaleTimeString(); //获取当前时间
+        // li.html("<p class='content'>"+$(".txt").val()+"</p>"+"<span class='time'>"+date+"</span>");
+        li.html("<p class='content'>"+$(".txt").val()+"</p>"+"<span class='time'>第"+(++index)+"楼</span>");
+        $("ul").prepend(li);    //添加为该元素的字结点
+        li.slideDown(); //为增加楼层有个缓冲效果
+        $(".txt").val(""); 
+    });
+
+    //读取本地存储数据
+    function getDate()
+    {
+        var data = localStorage.getItem("list");
+        if(data != null)
+        {
+            return JSON.parse(data);
+        }
+        else{
+            return [];
+        }
+    }
+
+    //存储本地数据
+    function saveDate(data)
+    {
+        localStorage.setItem("list",JSON.stringify(data));
+    }
+
+    //按钮事件
+    // $(".txt").on("keydown",function(e)
+    // {
+    //     if(e.keyCode==13){
+    //         console.log(e.keyCode);
+    //         var li = $("<li></li>");
+    //         var date = myDate.toLocaleTimeString(); //获取当前时间
+    //         li.html($(".txt").val()+""+date);
+    //         $("ul").prepend(li);    //添加为该元素的字结点
+    //         li.slideDown(); //为增加楼层有个缓冲效果
+    //         $(".txt").val("");
+    //     }   
+    // });
+</script>
+</html>
+

@@ -67,6 +67,12 @@ function LearningWorld_changeHeight(outsideHeight,insideHeight)
     outsideHeight.height(insideHeight.height());
 }
 
+function aaa()
+{
+    console.log("$('.LearningWorld_TA_mainBox'):"+$(".LearningWorld_TA_mainBox").height());
+console.log("$('.LearningWorld_TA_mainContent'):"+$(".LearningWorld_TA_mainContent").height());
+}
+
 //问贴Part
 LearningWorld_changeHeight($(".LearningWorld_TA_mainBox"),$(".LearningWorld_TA_mainContent"));
 //文章Part
@@ -89,7 +95,15 @@ function moreContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
         LearningWorld_changeHeight(outsideHeight,insideHeight);
     });
 }
+$(function () {
+    $("#test-box").click(function () {
+        window.location.href = "/article.html";
+    });
+});
 
+function toArticle() {
+   window.location.href = "/articleShow.html?article=63";
+}
 // 点击收起更多
 function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 {
@@ -99,7 +113,7 @@ function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
         {
             articlePart.eq(i).hide();
         }
-        $(this).css({display : "none"});    
+        $(this).css({display : "none"});
         anotherBtn.css({display : "block"});
 
         //动态增加更改LearningWorld_LE_mainBox的高度
@@ -124,7 +138,7 @@ function autoPickUp(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 
     //动态增加更改LearningWorld_LE_mainBox的高度
     LearningWorld_changeHeight(outsideHeight,insideHeight);
-
+ 
 }
 
 // 问贴部分（只有一个）
@@ -157,3 +171,35 @@ scrollLimitation($(".LearningWorld_LE_mainBox"),$(".LearningWorld_LE_slideBox"))
 slowToTop($(".LearningWorld_returnTopBtn"));
 
 //———————————————————————— 问贴悬浮后的效果 ——————————————————————————————
+
+askDefault();
+function askDefault()
+{
+    $(".LearningWorld_TA_askPost").eq(0).css({
+        height: 265
+    }).find(".LearningWorld_TA_comment").show();
+    
+    $(".LearningWorld_TA_askPost").eq(0).siblings().css({
+        height: 167.7
+    }).find(".LearningWorld_TA_comment").hide();
+}
+
+// $(".LearningWorld_TA_askPost").on({
+//     mouseenter: function()
+//     {
+//         $(this).stop().animate({
+//             height: 265
+//         },1000);
+
+//         $(this).siblings().stop().animate({
+//             height: 167.7
+//         },1000);
+
+        
+//     }
+// });
+
+//——————————————————————— 跳转到指定位置 ———————————————————————————
+slowToTarget($(".LearningWorld_toAsk"),$(".LearningWorld_toAskBox > h2"));
+slowToTarget($(".LearningWorld_toWriting"),$(".LearningWorld_learning_experience > h2"));
+

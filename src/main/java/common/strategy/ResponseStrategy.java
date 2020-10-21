@@ -28,7 +28,7 @@ public interface ResponseStrategy {
 	void respToBrowser(HttpServletResponse response, JSONObject jsonObject);
 
 	/**
-	 * 只返回转态state给浏览器
+	 * 只返回状态state给浏览器
 	 * @param response
 	 * @param resultType
 	 * @param msg

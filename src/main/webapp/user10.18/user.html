@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+    <link rel="stylesheet" href="./CSS/user.css">
+    <script src="./JS/jQuery.js"></script>
+    <script src="./JS/user.js"></script>
+
+</head>
+
+<body>
+    <div class="user_top">
+        <img src="./img/userLogo/userLogo.png" class="userSmallAvatar">
+        <div class="userTopNav">
+            <a href="#">学习天地</a>
+            <a href="#">专业介绍</a>
+            <a href="#">大学生活</a>
+        </div>
+        <input type="text" name="" id="" placeholder="搜索" class="userSearch">
+        <div class="userPersonal">
+            <a href="#" class="userPersonalCenter">个人中心</a>
+            <div class="userTopNavMore" id="userTopNavMore">
+                <a href="#" class="userTopNavMoreCurrent">toDoList</a>
+                <a href="#">收藏</a>
+                <a href="#">创作</a>
+                <a href="#">个人信息修改</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="user_header">
+        <div class="userAvatar">
+            <img src="./img/userAvatar/userAvatar.png" alt="">
+        </div>
+        <span>小华er</span>
+        <div class="userToDoList">
+            <span>ToDoList</span>
+            <div class="userClickAdd">
+                <!-- <img src="./img/userClickAdd/userClickAdd.png" alt=""> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="user_body">
+        <div class="user_body_main">
+            <div class="user_nav">
+                <ul>
+                    <li class="userNavCurrent" id="userNavLi1">
+                        <span>用户信息</span>
+                    </li>
+                    <li id="userNavLi2">
+                        <span>我的收藏</span>
+                    </li>
+                    <li id="userNavLi3">
+                        <span>我的创作</span>
+                    </li>
+                    <li id="userNavLi4">
+                        <span>收件箱</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="user_details">
+                <div class="differentDetails detailCurrent userInformation" id="differentDetails1">
+                    <div class="accountInformation detailsContent">
+                        <div class="hopHr">
+                            <h2>账号信息</h2>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>账号</span> <input type="text" name="" id="" readonly="readonly" value="123456789">
+                        </div>
+                        <div>
+                            <span>昵称</span> <input type="text" name="" id="" readonly="readonly" value="小华er">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <span>姓名</span> <input type="text" name="" id="" readonly="readonly" value="李华">
+                        </div>
+                        <div>
+                            <span>生日</span> <input type="text" name="" id="" readonly="readonly" value="">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <span>性别</span> <input type="text" name="" id="" readonly="readonly" value="男">
+                        </div>
+                        <div>
+                            <span>身份</span> <input type="text" name="" id="" readonly="readonly" value="高中生">
+                        </div>
+                        <div>
+                            <span>简介</span> <input type="text" name="" id="" readonly="readonly" value="...">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="userQualification detailsContent">
+                        <div class="hopHr">
+                            <h2>学历信息</h2>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>在读学校</span> <input type="text" name="" id="" readonly="readonly" value="广州一中">
+                        </div>
+                        <div>
+                            <span>入学年份</span> <input type="text" name="" id="" readonly="readonly" value="2019年">
+                        </div>
+                        <div>
+                            <span>选科</span> <input type="text" name="" id="" readonly="readonly" value="">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="differentDetails userMyCollection" id="differentDetails2">
+                    <h1>语文</h1>
+                    <div class="userColBox">
+                        <ul>
+                            <li class="userColBoxCurrent" id="userColBox1">文章</li>
+                            <li id="userColBox2">问贴</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="userColBoxContent userColBoxContentCurrent" id="userMyCollection1">
+                            <div class="userColBoxContentMain">
+                                <h1>文章一</h1>
+                                <div>
+                                    <span>古诗</span>
+                                    <span>古诗鉴赏</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章二</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章三</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章四</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章五</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                        </div>
+                        <div class="userColBoxContent" id="userMyCollection2">
+                            待开发！
+                        </div>
+                    </div>
+
+                </div>
+                <div class="differentDetails userCreate" id="differentDetails3">
+                    我的创作开发中
+                </div>
+                <div class="differentDetails userInboxes" id="differentDetails4">
+                    收件箱开发中
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

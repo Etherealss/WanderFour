@@ -15,18 +15,16 @@ import java.util.List;
  * @description 文章DAO
  * @date 2020/10/5
  */
-public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<Article> {
+public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 
 	@Override
 	public boolean updateNewWritingInfo(Connection conn, Article a) throws SQLException {
-		String sql = "insert into `article` (`id`, `partition`, `category`, `author_id`, `title`," +
-				"`label1`, `label2`, `label3`, `label4`, `label5`," +
-				"`create_time`, `update_time`, `liked`, `collected`)" +
-				"values(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)";
-		Object[] params = {a.getId(),
-				a.getPartition().code(), a.getCategory(), a.getAuthorId(), a.getTitle(),
+		String sql = "insert into `article` (`partition`, `category`, `author_id`, `title`," +
+				"`label1`, `label2`, `label3`, `label4`, `label5`, `liked`, `collected`)" +
+				"values(?,?,?,?, ?,?,?,?,?, ?,?)";
+		Object[] params = {a.getPartition().code(), a.getCategory(), a.getAuthorId(), a.getTitle(),
 				a.getLabel1(), a.getLabel2(), a.getLabel3(), a.getLabel4(), a.getLabel5(),
-				a.getCreateTime(), a.getUpdateTime(), a.getLiked(), a.getCollected()
+				a.getLiked(), a.getCollected()
 		};
 		return qr.update(conn, sql, params) == 1;
 	}
@@ -46,12 +44,12 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 	public boolean updateWritingInfo(Connection conn, Article a) throws SQLException {
 		String sql = "UPDATE `article` SET " +
 				"`partition`=?, `category`=?, `author_id`=?, `title`=?," +
-				"`label1`=?, `label2`=?, `label3`=?, `label4`=?, `label5`=?, " +
-				"`update_time`=? WHERE id=?";
-		Object[] params = { a.getPartition().code(),
+				"`label1`=?, `label2`=?, `label3`=?, `label4`=?, `label5`=? " +
+				"WHERE id=?";
+		Object[] params = {a.getPartition().code(),
 				a.getCategory(), a.getAuthorId(), a.getTitle(),
 				a.getLabel1(), a.getLabel2(), a.getLabel3(), a.getLabel4(), a.getLabel5(),
-				a.getUpdateTime(), a.getId()
+				a.getId()
 		};
 		int res = qr.update(conn, sql, params);
 		return res == 1;
@@ -66,6 +64,7 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 
 	@Override
 	public Article selectWritingById(Connection conn, Long id) throws SQLException {
+		// 在储存partitionStr时，会调用对应的set方法，但是数据是复制到枚举属性partition上的
 		String sql = "SELECT `article`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`," +
 				" `title`, `label1`, `label2`, `label3`, `label4`,`label5`, " +
 				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `collected`" +
@@ -105,5 +104,18 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article> implements WritingDao<A
 	public Long getAuthorByWritingId(Connection conn, Long articleId) throws SQLException {
 		String sql = "SELECT `author_id` FROM `article` WHERE `id`=?";
 		return qr.query(conn, sql, new ScalarHandler<Long>(), articleId);
+	}
+
+	@Override
+	public Integer selectLikeCount(Connection conn, Long id) throws SQLException {
+		String sql = "SELECT `liked` FROM `article` WHERE `id`=?";
+		return qr.query(conn, sql, new ScalarHandler<Integer>(), id);
+	}
+
+	@Override
+	public void updateLikeCount(Connection conn, Long id, Integer count) throws SQLException {
+		String sql = "UPDATE `article` SET `liked`=? WHERE `id`=?;";
+		int res = qr.update(conn, sql, count, id);
+		assert res == 1;
 	}
 }

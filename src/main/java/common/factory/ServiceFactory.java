@@ -2,10 +2,11 @@ package common.factory;
 
 import common.util.ProxyUtil;
 import pojo.po.Writing;
+import service.CategoryService;
+import service.LikeService;
 import service.UserService;
 import service.WritingService;
-import service.impl.ArticleServiceImpl;
-import service.impl.UserServiceImpl;
+import service.impl.*;
 
 /**
  * @author 寒洲
@@ -37,17 +38,8 @@ public class ServiceFactory {
 	 * @return 经过代理的帖子Service
 	 */
 	public static <T> T getPostsService() {
-//		return (T)ProxyUtil.getProxyForTransaction(new PostsServiceImpl());
-		return null;
+		return (T)ProxyUtil.getProxyForTransaction(new PostsServiceImpl());
 	}
-
-//	/**
-//	 * 获取代理的指定分区的文章Service
-//	 * @return 经过代理的文章Service对象
-//	 */
-//	public static <T> T getWritingService(T t) {
-//		return (T)ProxyUtil.getProxyForTransaction(t);
-//	}
 
 	/**
 	 * 获取代理的指定分区的文章Service
@@ -57,11 +49,30 @@ public class ServiceFactory {
 		return ProxyUtil.getProxyForTransaction(clazz);
 	}
 
+	/**
+	 * 获取经过代理的点赞Service
+	 * @return
+	 */
+	public static LikeService getLikeService(){
+		return ProxyUtil.getProxyForTransaction(new LikeServiceImpl());
+	}
+
+	public static CategoryService getCategoryService(){
+		return ProxyUtil.getProxyForTransaction(new CategoryServiceImpl());
+	}
 //	/**
 //	 * 获取代理的指定分区的文章Service
 //	 * @return 经过代理的文章Service对象
 //	 */
 //	public static ArticleServiceImpl<CollegeArticle> getCollegeArticleService() {
 //		return ProxyUtil.getProxyForTransaction(new ArticleServiceImpl<>());
+//	}
+
+	//	/**
+//	 * 获取代理的指定分区的文章Service
+//	 * @return 经过代理的文章Service对象
+//	 */
+//	public static <T> T getWritingService(T t) {
+//		return (T)ProxyUtil.getProxyForTransaction(t);
 //	}
 }

@@ -10,5 +10,23 @@ import pojo.po.LikeRecord;
  */
 public interface LikeService {
 
-	ResultType LikeOrUnlike(LikeRecord likeRecord);
+	/**
+	 * 点赞
+	 * @param likeRecord
+	 * @return
+	 * @throws Exception
+	 */
+	ResultType likeOrUnlike(LikeRecord likeRecord) throws Exception;
+
+	/**
+	 * 点赞关系记录持久化到数据库点赞表中
+	 * @throws Exception
+	 */
+	void persistLikeRecord() throws Exception;
+
+	/**
+	 * 点赞数量统计持久化到数据库作品表中
+	 * @throws Exception
+	 */
+	void persistLikeCount()  throws Exception;
 }

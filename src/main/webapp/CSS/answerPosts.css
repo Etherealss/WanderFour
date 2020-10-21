@@ -1,0 +1,515 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #f7f7f7;
+}
+
+.editArticle_Header{
+    width: 100%;
+    /* height: 500px; */
+    margin: 0 auto;
+    background: #f7f7f7;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    min-width: 1200px; 
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmargin{
+    width: 1200px;
+    height: 65px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 5px;
+    left: -3px;
+    border-radius: 50%;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat -1px -1px;
+    background-size: 54px 54px;
+    /* border: 1px solid #a9a9a9; */
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    left: 98px;
+    top: 19px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.topmargin_target > li a{
+    padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 16px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 11px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 150px;
+    height: 70px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 105px;
+    height: 65px;
+    line-height: 65px;
+    padding-left: 40px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 23px;
+    background-size: 20px;
+    color: #333333;
+    font-size: 19px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 120px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 150px;
+    height: 145px;
+    margin-top: 58px;
+    padding: 22px 0 20px 0; 
+    display: none;
+    position: absolute;
+    top: 15px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 146px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+}
+
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+
+/* ———————————————————————————————— 主体部分 ————————————————————————————————————————— */
+.answerPosts_Content{
+    width: 1250px;
+    height: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    font-family: "Microsoft YaHei UI";
+    border: 1px solid #f00;
+}
+
+/* —————————————————————— 侧栏Part ——————————————————————————— */
+.answerPosts_sideColumn{
+    width: 280px;
+    height: 100%;
+    margin: 40px 28px 0 15px;
+}
+
+/* ——————— 最新问贴 ————————— */
+.theNewPosts{
+    width: 265px;
+    height: 273px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 15px rgba(193, 193, 193,0.8);
+    /* border: 1px solid #f00; */
+}
+
+.theNewPosts ul{
+    background: #daf2ee;
+}
+
+.theNewPosts ul > div{
+    background-color: #E8F3F1;
+    background-position: 0 5px;
+    background-size: 90px 41px;
+    background-image: url(../img/answerPosts_new.png);
+}
+
+.theNewPosts ul li > a:hover{
+    color: #20AB9F;
+    background: #bce6df;
+    cursor: pointer;
+}
+
+/* ————————— 等你回答 ——————————— */
+.waitingAnswer{
+    width: 265px;
+    height: 273px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 15px rgba(193, 193, 193,0.8);
+}
+
+.waitingAnswer ul{background: #fae5bf;}
+
+.waitingAnswer ul > div{background-color: #f8f1e5;}
+
+#anwerImg{
+    width: 94px;
+    height: 94px;
+    position: absolute;
+    left: -20px;
+    top: -30px;
+}
+
+.waitingAnswer ul li > a:hover{
+    color: #D78B15;
+    background: #f9d89d;
+    cursor: pointer;
+}
+
+/* ————————————————— 相同样式Part ——————————————————— */
+.answerPosts_sideColumn > div ul{
+    border-radius: 10px;
+    list-style-type: none;
+}
+
+.answerPosts_sideColumn > div ul li a{
+    width: 219.5px;
+    height: 46px;
+    line-height: 46px;
+    padding-left: 46px;
+    display: inline-block;
+    color: #333333;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.answerPosts_sideColumn > div ul li:nth-child(6) a:hover{border-radius: 0 0 10px 10px;}
+
+.answerPosts_sideColumn > div ul div{
+    width: 265px;
+    height: 50px;
+    padding: 0;
+    position: relative;
+    background-repeat: no-repeat;
+    box-shadow: 1px 1px 5px rgba(193, 193, 193,0.25);
+    border-radius: 10px 10px 0 0;
+}
+
+.answerPosts_sideColumn > div ul > div p{
+    position: absolute;
+    top: 14px;
+    left: 103px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.answerPosts_sideColumn .answerPosts_leaf{
+    width: 115px;
+    height: 84px;
+    position: absolute;
+    left: 180px;
+    top: -24px;
+}
+
+
+
+
+/* —————————————————————— 问贴Part ——————————————————————————— */
+.answerPostsBox{
+    width: 914px;
+    height: 100%;
+    margin-top: 40px;
+    /* border: 1px solid #00f; */
+}
+
+/* ———————————————————— 问贴的问题 —————————————————————— */
+.answerPostsPart{
+    width: 914px;
+    height: 283px;
+    margin-bottom: 50px;
+    background: #fff;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.25);
+}
+
+.postOutsideBox{
+    width: 914px;
+    height: 283px;
+    border-radius: 10px;
+}
+
+.postsTitle{
+    width: 914px;
+    position: fixed;
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.25);
+    z-index: 10;
+}
+
+.postsTitle h3{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 36px;
+    font-size: 20px;
+    color: #333333;
+    border-bottom: 1px solid #f7f7f7;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.1);
+}
+
+.postsTitle > img{
+    width: 32px;
+    height: 60px;
+    position: absolute;
+    right: 31px;
+    top: -32px;
+}
+
+/* ———————————————————— 用户信息Part ———————————————————————— */
+.answerPosts_user{
+    height: 70px;
+    padding-top: 50px;
+    /* margin-top: 50px; */
+    position: relative;
+}
+
+.answerPostHead{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 62px;
+    left: 36px;
+    border-radius: 50%;
+    background: url(../img/homePage_highSchoolStudent_head.png);
+    background-size: 100%;
+}
+
+.answerPosts_user p{
+    position: absolute;
+    top: 72px;
+    left: 90px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answerPosts_user span{
+    position: absolute;
+    top: 95px;
+    left: 91px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* ——————— 对标题的描述 ————————— */
+.answerPosts_txt{
+    line-height: 25px;
+    padding: 16px 36px;
+    text-indent: 2rem;
+    /* border: 1px solid #0f0; */
+}
+
+/* ————————————— 下面的胶带 ——————————————— */
+.postOutsideBox > img{
+    width: 32px;
+    height: 60px;
+    position: absolute;
+    left: 46px;
+    bottom: -28px;
+}
+
+/* ——————————————————————————— 回答和评论 ———————————————————————————————————— */
+.answerPosts_answerAndComment{
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.3);
+}
+
+/* ————————————————— 输入回答 —————————————————————— */
+.answerPosts_answerBox{
+    width: 100%;
+    height: 390px;
+    position: relative;
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+    /* border: 1px solid #f00; */
+}
+
+.answerPosts_answerBox p{
+    padding: 27px 0 15px 30px;
+    font-size: 17px;
+    color: #333333;
+    border-radius: 10px 10px 0 0;
+}
+
+.answerPosts_answerBox textarea{
+    width: 840px;
+    height: 217px;
+    line-height: 25px;
+    margin: 0 0 0 30px;
+    padding: 15px 12px;
+    color: #666666;
+    font-size: 15px;
+    font-family: "Microsoft YaHei UI";
+    border-radius: 5px;
+    background: #f7f7f7;
+    outline: none;
+    border: none;
+    resize:none;
+}
+
+/* ————————————— 写在JS里会更好 ——————————————— */
+.answerPosts_answerBox textarea:focus{
+    transition: all ease-in-out .5s;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.1),
+    -1px -1px 10px rgba(0, 0, 0,0.1);
+}
+
+.answerPosts_answerBox button{
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    right: 24px;
+    top: 330px;
+    background: #81CBBF;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.answerPosts_answerBox button:hover{
+    box-shadow: 1px 1px 5px rgba(0, 0, 0,0.25);
+}
+
+/* ————————————————————————— 发帖楼内 ————————————————————————————— */
+.answerPosts_list{
+
+}
+
+/* ——————— 每层楼的样式 ——————— */
+.answerPosts_list > li{
+    border: 1px solid #f00;
+}
+
+/* ————— 楼页眉信息 ————— */
+.APlist_message{
+    height: 50px;
+    position: relative;
+    border: 1px solid #0f0;
+}
+
+.APlist_headIcon{
+    width: 37px;
+    height: 37px;
+    position: absolute;
+    border-radius: 50%;
+    background: #81cbbf;
+}
+
+.APlist_userName{
+
+}
+
+.APlist_postTime{
+
+}
+
+.APlist_position{
+
+}
+
+/* ———— 楼内文本 ———— */
+.APlist_content{
+
+}
+
+/* ———— 楼内页脚 ———— */
+.APlist_likeAndReply{
+
+}
+
+.APlist_like{
+
+}
+
+.APlist_reply{
+
+}

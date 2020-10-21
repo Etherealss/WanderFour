@@ -1,8 +1,7 @@
 package pojo.po;
 
 import common.enums.TargetType;
-
-import java.util.Date;
+import org.apache.log4j.Logger;
 
 /**
  * @author 寒洲
@@ -11,6 +10,7 @@ import java.util.Date;
  */
 public class LikeRecord {
 
+	private Logger logger = Logger.getLogger(LikeRecord.class);
 	/**
 	 * 数据库主键
 	 */
@@ -26,7 +26,7 @@ public class LikeRecord {
 	/**
 	 * 目标类型 文章/评论/帖子
 	 */
-	private int targetType;
+	private int targetTypeInt;
 	/**
 	 * 点赞状态
 	 * 1 为 点赞
@@ -34,7 +34,7 @@ public class LikeRecord {
 	 */
 	private int likeState;
 
-	private TargetType targetTypeEnum;
+	private TargetType targetType;
 
 	public LikeRecord() {
 	}
@@ -61,17 +61,28 @@ public class LikeRecord {
 
 	public void setTargetId(Long targetId) {
 		this.targetId = targetId;
-		if (targetTypeEnum == null){
-			this.targetTypeEnum = TargetType.getTargetType(targetType);
+	}
+
+	public void setTargetType(int targetTypeInt) {
+		logger.debug("targetTypeInt = " + targetTypeInt);
+		if (targetType == null) {
+			this.targetType = TargetType.getTargetType(targetTypeInt);
+		}
+	}
+	public void setTargetType(String targetTypeStr) {
+		logger.debug("targetTypeStr = " + targetTypeStr);
+		if (targetType == null) {
+			this.targetType = TargetType.getTargetType(targetTypeStr);
 		}
 	}
 
-	public int getTargetType() {
-		return targetType;
+	public void setTargetType(TargetType targetType) {
+		logger.debug("targetTypeEnum = " + targetType);
+		this.targetType = targetType;
 	}
 
-	public void setTargetType(int targetType) {
-		this.targetType = targetType;
+	public TargetType getTargetType() {
+		return targetType;
 	}
 
 	public int getLikeState() {
@@ -82,12 +93,16 @@ public class LikeRecord {
 		this.likeState = likeStatus;
 	}
 
-	public TargetType getTargetTypeEnum() {
-		return targetTypeEnum;
+	@Override
+	public String toString() {
+		return "LikeRecord{" +
+				"id=" + id +
+				", userid=" + userid +
+				", targetId=" + targetId +
+				", targetTypeInt=" + targetTypeInt +
+				", likeState=" + likeState +
+				", targetType=" + targetType +
+				'}';
 	}
 
-	public void setTargetTypeEnum(TargetType targetTypeEnum) {
-		this.targetTypeEnum = targetTypeEnum;
-		this.targetType = targetTypeEnum.code();
-	}
 }

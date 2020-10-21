@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homePage</title>
+    <link rel="stylesheet" href="CSS/homePage.css" type="text/css"/>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="homePage_Header">
+        <img src="img/homePage_topBox_background.png" alt=""/>
+        <ul class="homePage_topBox">
+            <li class="homePage_LearningWorld_btn">学习天地</li>
+            <li class="homePage_Professional_Introduction_btn">专业介绍</li>
+            <li class="homePage_University_Life_btn">大学生活</li>
+        </ul>
+        <ul class="homePage_side">
+            <li>
+                <a href="">登录</a>
+            </li>
+            <span>|</span>
+            <li>
+                <a href="">注册</a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- 中部 -->
+    <div class="homePage_Content">
+        <!-- 学习天地 -->
+        <div class="homePage_LearningWorld">
+            <div class="homePage_LW_titleBox">
+                <h1 id="homePage_LearningWorld_target">学习天地</h1>
+                <p>
+                    经验、资源、攻略这里都有，<br/>
+                    在这里开始探索你的学习之路吧。
+                </p>
+            </div>
+            <div class="homePage_LW_identity">
+                <div class="homePage_LWid_box">
+                    <div class="homePage_LWid">
+                        <img class="homePage_LWid_boxImg" src="img/homePage_highSchoolStudent_head.png" alt=""/>
+                        <h3>高中生</h3>
+                        <br/>
+                        <ul>
+                            <li>高中/高考</li>
+                            <li>学习方法/经验</li>
+                            <li>资源分享</li>
+                        </ul>
+                        <button>
+                            <a href="../LearningWorld_HS.html">进入</a>
+                        </button>
+                        <a class="homePage_expend">
+                            <span class="homePage_plus">+</span>
+                            <span class="homePage_minus">-</span>
+                        </a>
+                    </div>
+                    <div class="homePage_LWid">
+                        <img class="homePage_LWid_boxImg" src="img/homePage_universityStudent_head.png" alt=""/>
+                        <h3>大学生</h3>
+                        <br/>
+                        <ul>
+                            <li>高中/高考</li>
+                            <li>学习方法/经验</li>
+                            <li>资源分享</li>
+                        </ul>
+                        <button>
+                            <a href="">进入</a>
+                        </button>
+                        <a class="homePage_expend">
+                            <span class="homePage_plus">+</span>
+                            <span class="homePage_minus">-</span>
+                        </a>
+                    </div>
+                    <div class="homePage_LWid">
+                        <img class="homePage_LWid_boxImg" src="img/homePage_tourist_head.png" alt=""/>
+                        <h3>游客</h3>
+                        <br/>
+                        <ul>
+                            <li>高中/高考</li>
+                            <li>学习方法/经验</li>
+                            <li>资源分享</li>
+                        </ul>
+                        <button>
+                            <a href="">进入</a>
+                        </button>
+                        <a class="homePage_expend">
+                            <span class="homePage_plus">+</span>
+                            <span class="homePage_minus">-</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 专业介绍 -->
+        <div class="homePage_Professional_Introduction">
+            <div class="homePage_PI_subjectBg"></div>
+            <div class="homePage_PI_title">
+                <h1 id="homePage_Professional_Introduction_target">专业介绍</h1>
+                <p>
+                    希望你在踏入大学前，能够清楚自己想要的是什么。<br/>
+                    希望你在大学时，能够清楚自己在做什么。
+                </p>
+                <button>
+                    <a href="../LearningWorld_HS.html">点击进入</a>
+                </button>
+            </div>
+        </div>
+        <!-- 大学生活 -->
+        <div class="homePage_University_Life">
+            <h1 id="homePage_University_Life_target">大学生活</h1>
+            <p>
+                大学必知：自学、课外活动、证书、<br/>
+                综测、奖学金……
+            </p>
+            <button>
+                <a href="">点击进入</a>
+            </button>
+            <img src="img/homePage_University_Life_background.png" alt=""/>
+        </div>
+    </div>
+
+    <!-- 返回顶部 -->
+    <div class="homePage_returnTopBox">
+        <ul>
+            <li class="homePage_LearningWorld_btn">学习天地</li>
+            <li class="homePage_Professional_Introduction_btn">专业介绍</li>
+            <li class="homePage_University_Life_btn">大学生活</li>
+            <li id="homePage_returnTopBtn">回到顶部</li>
+            <button id="homePage_hideBtn"> </button>
+            <span> </span>
+        </ul>
+    </div>
+
+    <script src="JS/jQuery.js" type="text/javascript"></script>
+    <script src="JS/models.js" type="text/javascript"></script>
+    <script src="JS/homePage.js" type="text/javascript"></script>
+
+</body>
+</html>

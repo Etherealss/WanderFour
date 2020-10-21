@@ -59,7 +59,12 @@ public class UserEnterController extends BaseServlet {
 
 		//执行操作，获取结果
 		UserService us = ServiceFactory.getUserService();
-		ResultType state = us.validateUserLogin(email, password);
+		ResultType state = null;
+		try {
+			state = us.validateUserLogin(email, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (state == ResultType.SUCCESS) {
 			//密码正确，检查异地登录
@@ -115,7 +120,12 @@ public class UserEnterController extends BaseServlet {
 		user.setAvatarPath(avatarPath);
 		logger.debug(user);
 		//提交用户信息，获取业务结果
-		Long userid = new UserServiceImpl().registerNewUser(user);
+		Long userid = null;
+		try {
+			userid = new UserServiceImpl().registerNewUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		//注册结果返回浏览器
 		respRegisterResult(resp, userid);
