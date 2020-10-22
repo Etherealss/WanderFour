@@ -27,13 +27,13 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		logger.debug(article);
 
 		//添加文章信息
-		boolean b1 = dao.updateNewWritingInfo(conn, article);
+		boolean b1 = dao.createWritingInfo(conn, article);
 		//获取自增的主键Id
-		Long maxId = dao.selectLastInsertId(conn).longValue();
+		Long maxId = dao.getLastInsertId(conn).longValue();
 		logger.debug("maxId = " + maxId);
 		article.setId(maxId);
 		//添加文章内容
-		boolean b2 = dao.updateNewWritingContent(conn, maxId, article.getContent());
+		boolean b2 = dao.createWritingContent(conn, maxId, article.getContent());
 
 		if (b1 && b2) {
 			// 两次操作均无异常时返回
@@ -47,7 +47,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	public Article getWriting(Long id) throws Exception {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
-		Article article = dao.selectWritingById(conn, id);
+		Article article = dao.getWritingById(conn, id);
 		article.setContent(dao.selectWritingContent(conn, id));
 		return article;
 	}

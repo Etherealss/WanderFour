@@ -1,6 +1,5 @@
 package listener;
 
-import common.schedule.LikePersistencebyMinutes;
 import common.strategy.choose.LikePersistChoose;
 import common.util.JedisUtil;
 import org.apache.log4j.Logger;
@@ -25,16 +24,16 @@ public class TomcatListener implements ServletContextListener {
 		//关闭Jedis连接池
 		logger.info("关闭Jedis连接池.....");
 		JedisUtil.closeJedisPool();
-
-		//TODO 结束定时任务
-
+		//结束定时任务
+		logger.info("结束定时任务.....");
+		LikePersistChoose.shutDownPersistenceDelayMinutes();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		logger.info("tomcat初始化......");
 		//启动定时任务，周期性持久化redis数据
-		LikePersistChoose.persistWithFixedDelayMinutes();
+		LikePersistChoose.persistDelayMinutes();
 
 
 

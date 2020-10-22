@@ -20,7 +20,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	BigInteger selectLastInsertId(Connection conn) throws SQLException;
+	BigInteger getLastInsertId(Connection conn) throws SQLException;
 
 	/**
 	 * 发布新作品
@@ -29,7 +29,7 @@ public interface WritingDao<T extends Writing>{
 	 * @throws SQLException
 	 * @return
 	 */
-	boolean updateNewWritingInfo(Connection conn, T t) throws SQLException;
+	boolean createWritingInfo(Connection conn, T t) throws SQLException;
 
 	/***
 	 * 储存新作品的内容
@@ -39,7 +39,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean updateNewWritingContent(Connection conn, Long id, String content) throws SQLException;
+	boolean createWritingContent(Connection conn, Long id, String content) throws SQLException;
 
 	/**
 	 * 更新文章
@@ -67,7 +67,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	T selectWritingById(Connection conn, Long id) throws SQLException;
+	T getWritingById(Connection conn, Long id) throws SQLException;
 
 	/**
 	 * 获取作品内容
@@ -131,7 +131,7 @@ public interface WritingDao<T extends Writing>{
 	 * @throws SQLException
 	 * @return
 	 */
-	Integer selectLikeCount(Connection conn, Long id) throws SQLException;
+	Integer getLikeCount(Connection conn, Long id) throws SQLException;
 
 	/**
 	 * 更新作品的点赞数

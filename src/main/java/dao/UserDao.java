@@ -19,7 +19,7 @@ public interface UserDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	BigInteger selectLastInsertId(Connection conn) throws SQLException;
+	BigInteger getLastInsertId(Connection conn) throws SQLException;
 
 	/**
 	 * 通过账号密码查询用户
@@ -56,6 +56,6 @@ public interface UserDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	User selectUserByEmail(Connection conn, String email) throws SQLException;
+	User getUserByEmail(Connection conn, String email) throws SQLException;
 	
 }

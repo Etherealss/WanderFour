@@ -40,7 +40,7 @@ public class LikeDaoImplTest {
 		record.setTargetId(2L);
 		record.setTargetType(1);
 		record.setUserid(2L);
-		boolean b = dao.insertLikeRecord(conn, record);
+		boolean b = dao.createLikeRecord(conn, record);
 		logger.debug(b);
 	}
 

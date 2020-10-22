@@ -1,12 +1,11 @@
 package common.strategy.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.strategy.ResponseStrategy;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 /**

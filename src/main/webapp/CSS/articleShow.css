@@ -20,19 +20,23 @@ a {
 
 /* ---------------------------------------------articleShow_top------------------------------ */
 .articleShow_top {
-    position: relative;
     width: 100%;
     min-width: 1500px;
     height: 52px;
     background: #FFFFFF;
     box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.22);
 }
+.articleShow_topMain {
+    width: 1210px;
+    height: 52px;
+    margin: 0 auto;
+}
 .articleShowSmallAvatar {
     float: left;
     width: 40px;
     height: 40px;
-    margin-left: 150px;
     margin-top: 5px;
+    margin-left: 20px;
 }
 .articleShowTopNav {
     float: left;
@@ -76,8 +80,10 @@ a {
     background-position: 334px 7px;
 }
 .articleShowPersonal {
+    /* overflow: hidden; */
+    position: relative;
     float: left;
-    margin-left: 322px;
+    margin-left: 205px;
     width: 127px;
     margin-top: 19px;
 }
@@ -95,8 +101,8 @@ a {
     background: #FFFFFF;
     box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
-    top: 60px;
-    right: 59px;
+    top: 40px;
+    right: -5px;
     padding-top: 22px;
 }
 .articleShowTopNavMore a {
@@ -136,7 +142,7 @@ a {
     background-size: 301px 315px;
 }
 .showHotNav {
-    margin-top: 15px;
+    margin-top: 33px;
     background: url(../img/articleShowBG/ASyellow.png);
     background-position: 0 0;
     background-size: 301px 315px;
@@ -233,28 +239,24 @@ a {
     margin-left: 15px;
     margin-top: 24px;
 }
-.asmainTagsaaa{
-    margin-top: 2px;
-    margin-right: 2px;
-}
 .asmainTag {
-    text-align: center;
     height: 30px;
     /* background-color: #F9D89D; */
     margin-top: 10px;
 }
 .asmainTag span {
+    display: none;
     float: left;
     font-size: 13px;
 }
 .asmainTag div {
+    display: none;
     float: left;
-    width: 60px;
+    width: 65px;
     height: 25px;
-    background: rgba(174, 225, 216, 0.48);
+    background: #AEE1D8;
     border-radius: 13px;    
     margin-left: 5px;
-    font-size: 14px;
 }
 .asmainArtical {
     /* background-color: aquamarine; */
@@ -269,8 +271,7 @@ a {
     float: left;
     height: 13px;
     margin-top: 10px;
-    font-size: 14px;
-    /*margin-left: 29px;*/
+    margin-left: 29px;
 }
 .asmainComment input {
     float: left;
@@ -283,7 +284,9 @@ a {
     margin-left: 9px;
 }
 .asmainLike,
-.asmainCol {
+.asmainCol,
+.asamainLikeOver,
+.asmainColOver {
     float: right;
     margin-left: 15px;
     color: #81CBBF;
@@ -294,15 +297,30 @@ a {
     cursor: pointer;
 }
 .asmainLike {
+    display: block;
     padding-left: 27px;
     padding-top: 4px;
     margin-right: 33px;
     background: url(../img/articleShowIcon/asUnLike.png) no-repeat left bottom / 19px 19px;
 }
+.asamainLikeOver {
+    display: none;
+    padding-left: 27px;
+    padding-top: 4px;
+    margin-right: 33px;
+    background: url(../img/articleShowIcon/asLike.png) no-repeat left bottom / 19px 19px;
+}
 .asmainCol {
+    display: block;
     padding-left: 29px;
     padding-top: 7px;
     background: url(../img/articleShowIcon/asUnCollection.png) no-repeat left / 25px 24px;
+}
+.asmainColOver {
+    display: none;
+    padding-left: 29px;
+    padding-top: 7px;
+    background: url(../img/articleShowIcon/asCollection.png) no-repeat left / 25px 24px;
 }
 .asmainComments {
     margin-top: 10px;
@@ -314,6 +332,16 @@ a {
     border-bottom: 1px solid #E7E7E7;
     margin-top: 3px;
     font-size: 14px;
+}
+.asLikeComment {
+    float: left;
+    width: 36px;
+    height: 36px;
+    margin-left: 16px;
+    margin-top: 7px;
+    padding-left: 0;
+    padding-top: 0;
+    margin-right: 0;
 }
 .asCommentsContent img {
     float: left;

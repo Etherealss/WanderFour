@@ -29,9 +29,9 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			logger.debug(posts);
 
 			//添加问贴
-			boolean b = dao.updateNewWritingInfo(conn, posts);
+			boolean b = dao.createWritingInfo(conn, posts);
 			//获取自增的主键Id
-			Long maxId = dao.selectLastInsertId(conn).longValue();
+			Long maxId = dao.getLastInsertId(conn).longValue();
 			logger.debug("maxId = " + maxId);
 			if (b) {
 				// 两次操作均无异常时返回
@@ -51,7 +51,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
-			Posts posts = dao.selectWritingById(conn, id);
+			Posts posts = dao.getWritingById(conn, id);
 			return posts;
 		} catch (Exception e) {
 			e.printStackTrace();

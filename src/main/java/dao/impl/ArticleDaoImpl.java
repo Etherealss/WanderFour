@@ -18,7 +18,7 @@ import java.util.List;
 public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 
 	@Override
-	public boolean updateNewWritingInfo(Connection conn, Article a) throws SQLException {
+	public boolean createWritingInfo(Connection conn, Article a) throws SQLException {
 		String sql = "insert into `article` (`partition`, `category`, `author_id`, `title`," +
 				"`label1`, `label2`, `label3`, `label4`, `label5`, `liked`, `collected`)" +
 				"values(?,?,?,?, ?,?,?,?,?, ?,?)";
@@ -30,12 +30,12 @@ public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 	}
 
 	@Override
-	public BigInteger selectLastInsertId(Connection conn) throws SQLException {
+	public BigInteger getLastInsertId(Connection conn) throws SQLException {
 		return super.selectLastInsertId(conn);
 	}
 
 	@Override
-	public boolean updateNewWritingContent(Connection conn, Long id, String content) throws SQLException {
+	public boolean createWritingContent(Connection conn, Long id, String content) throws SQLException {
 		String sql = "INSERT INTO `article_content` (`article_id`, `content`) VALUES(?, ?);";
 		return qr.update(conn, sql, id, content) == 1;
 	}
@@ -63,7 +63,7 @@ public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 	}
 
 	@Override
-	public Article selectWritingById(Connection conn, Long id) throws SQLException {
+	public Article getWritingById(Connection conn, Long id) throws SQLException {
 		// 在储存partitionStr时，会调用对应的set方法，但是数据是复制到枚举属性partition上的
 		String sql = "SELECT `article`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`," +
 				" `title`, `label1`, `label2`, `label3`, `label4`,`label5`, " +
@@ -107,7 +107,7 @@ public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 	}
 
 	@Override
-	public Integer selectLikeCount(Connection conn, Long id) throws SQLException {
+	public Integer getLikeCount(Connection conn, Long id) throws SQLException {
 		String sql = "SELECT `liked` FROM `article` WHERE `id`=?";
 		return qr.query(conn, sql, new ScalarHandler<Integer>(), id);
 	}

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * @author 寒洲
- * @description
+ * @description 点赞
  * @date 2020/10/13
  */
 @WebServlet("/LikeServlet")

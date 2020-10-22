@@ -18,7 +18,7 @@ public class CategoryDaoImpl extends BaseDaoImpl implements CategoryDao {
 	private Logger logger = Logger.getLogger(CategoryDaoImpl.class);
 
 	@Override
-	public List<Map<String, Object>> selectAllCategoryByPart(Connection conn, int partition) throws SQLException {
+	public List<Map<String, Object>> getAllCategoryByPart(Connection conn, int partition) throws SQLException {
 		String sql = "SELECT `id`, `name` FROM `category` WHERE `partition`= ?;";
 		return qr.query(conn, sql, new MapListHandler(), partition);
 	}

@@ -1,7 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
@@ -108,7 +108,7 @@ public class WritingController extends BaseServlet {
 		String type = req.getParameter("type");
 		// 空参检查
 		if ("".equals(type) || type == null) {
-			logger.error("发表作品时却说参数type");
+			logger.error("发表作品时缺少参数type");
 			ResponseChoose.respNoParameterError(resp, "发表作品");
 			return;
 		}

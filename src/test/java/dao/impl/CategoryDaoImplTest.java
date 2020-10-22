@@ -38,7 +38,7 @@ public class CategoryDaoImplTest {
 	@Test
 	public void selectAllCategoryName() throws SQLException {
 		logger.debug("获取分类：");
-		List<Map<String, Object>> maps = dao.selectAllCategoryByPart(conn, 1);
+		List<Map<String, Object>> maps = dao.getAllCategoryByPart(conn, 1);
 		for(Map<String, Object> map : maps){
 			System.out.println(map.get("id") + ":" + map.get("name"));
 		}

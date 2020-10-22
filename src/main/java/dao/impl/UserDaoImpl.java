@@ -18,7 +18,7 @@ import java.util.Date;
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 	@Override
-	public BigInteger selectLastInsertId(Connection conn) throws SQLException {
+	public BigInteger getLastInsertId(Connection conn) throws SQLException {
 		return super.selectLastInsertId(conn);
 	}
 
@@ -51,7 +51,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User selectUserByEmail(Connection conn, String email) throws SQLException {
+	public User getUserByEmail(Connection conn, String email) throws SQLException {
 		String sql = "SELECT `user`.id , `email`, `user_password` `password`, `nickname`," +
 				" `birthday`, `type` `userType`, `liked_count` `liked`, `collected_count` `collected`," +
 				" `register_date` `registerDate` FROM  `user`, `user_type` " +

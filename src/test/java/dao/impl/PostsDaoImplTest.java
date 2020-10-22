@@ -38,7 +38,7 @@ public class PostsDaoImplTest {
 	@Test
 	public void updateNewWritingInfo() throws SQLException {
 		Posts posts = TestUtil.getDefaultPostsPo();
-		boolean b = dao.updateNewWritingInfo(conn, posts);
+		boolean b = dao.createWritingInfo(conn, posts);
 		logger.debug("发表新帖子：" + b);
 	}
 
@@ -55,7 +55,7 @@ public class PostsDaoImplTest {
 
 	@Test
 	public void selectWritingById() throws SQLException {
-		Posts posts = dao.selectWritingById(conn, 2L);
+		Posts posts = dao.getWritingById(conn, 2L);
 		logger.debug(posts);
 	}
 

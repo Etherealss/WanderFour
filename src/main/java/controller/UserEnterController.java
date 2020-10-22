@@ -2,7 +2,7 @@ package controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import pojo.po.User;

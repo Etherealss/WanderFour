@@ -1,10 +1,19 @@
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.bean.CommentBean;
+import pojo.bean.PageBean;
+import pojo.dto.CommentDto;
+import pojo.dto.ReplyDto;
+import pojo.dto.ResultState;
 import common.enums.ResultType;
 import org.junit.Test;
 import pojo.po.Article;
+import pojo.po.Comment;
 import pojo.po.User;
 import common.util.TestUtil;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 寒洲
@@ -14,7 +23,7 @@ import common.util.TestUtil;
 public class JsonTest {
 
 	@Test
-	public void testToJSONString(){
+	public void testToJSONString() {
 		//储存枚举输出
 		ResultType resultType = ResultType.SUCCESS;
 		String jsonString = JSONObject.toJSONString(resultType);
@@ -25,7 +34,7 @@ public class JsonTest {
 	}
 
 	@Test
-	public void testOutput(){
+	public void testOutput() {
 		//json输出
 		ResultType resultType = ResultType.SUCCESS;
 		// java.lang.String cannot be cast to com.alibaba.fastjson.JSONObject
@@ -36,7 +45,7 @@ public class JsonTest {
 	}
 
 	@Test
-	public void testPut(){
+	public void testPut() {
 		// 储存多个对象
 		ResultType state1 = ResultType.SUCCESS;
 		ResultType state2 = ResultType.EXCEPTION;
@@ -51,7 +60,7 @@ public class JsonTest {
 	}
 
 	@Test
-	public void testCombine(){
+	public void testCombine() {
 		// 合并JSONObject
 		ResultType state1 = ResultType.SUCCESS;
 		Article defaultArticlePo = TestUtil.getDefaultArticlePo();
@@ -69,7 +78,7 @@ public class JsonTest {
 	}
 
 	@Test
-	public void testDto(){
+	public void testDto() {
 		ResultState result = new ResultState(ResultType.SUCCESS, "响应结果");
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("state", result);
@@ -102,5 +111,55 @@ public class JsonTest {
 	public void testArticle() {
 		Article article = TestUtil.getDefaultArticlePo();
 		System.out.println(article.getPartition());
+	}
+
+	@Test
+	public void testListToJson() {
+		List<Article> list = new ArrayList<>();
+		list.add(TestUtil.getDefaultArticlePo());
+		list.add(TestUtil.getDefaultArticlePo());
+		list.add(TestUtil.getDefaultArticlePo());
+		JSONObject json = new JSONObject();
+		json.put("list", list);
+		System.out.println(json);
+	}
+
+	@Test
+	public void testCommentToJson() {
+		PageBean<CommentDto> pageBean = new PageBean<>();
+		pageBean.setCurrentPage(1);
+		pageBean.setTotalCount(6);
+		pageBean.setTotalCount(52);
+		pageBean.setRows(3);
+
+		List<CommentDto> list = new LinkedList<>();
+		for (int i = 0; i < 3; i++) {
+			CommentDto dto = TestUtil.getDeultCommentDto();
+			list.add(dto);
+		}
+		pageBean.setList(list);
+
+		JSONObject json = new JSONObject();
+		json.put("pageBean", pageBean);
+		System.out.println(json);
+	}
+
+	@Test
+	public void testReplyToJson() {
+		PageBean<ReplyDto> pageBean = new PageBean<>();
+		pageBean.setCurrentPage(1);
+		pageBean.setTotalPage(5);
+		pageBean.setTotalCount(14);
+		pageBean.setRows(3);
+		List<ReplyDto> list = new LinkedList<>();
+		for (int i = 0; i < 3; i++) {
+			ReplyDto dto = TestUtil.getDeultReplyDto();
+			list.add(dto);
+		}
+		pageBean.setList(list);
+
+		JSONObject json = new JSONObject();
+		json.put("pageBean", pageBean);
+		System.out.println(json);
 	}
 }

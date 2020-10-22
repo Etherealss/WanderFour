@@ -163,6 +163,7 @@ $(".editArticle_secondaryPartition ol > li").on("click",function()
 
     //二级分区里的小标题
     $(this).parent().find("span").css({color: "#000"});
+    console.log($("#secondary").attr("backstage-data"));
 });
 
 
@@ -290,9 +291,9 @@ function obtainVal()
     var articleTitleVal = $("#articleTitleVal").val();  //文章标题
     var articleContentVal = $("#articleContentVal").html(); //文章内容
     var paritition = $("input[name='theBigPartition']:checked").val();  //获取分区
-    // var category = $("#secondary").attr("backstage-data"); //文章二级分类
-    var category = 1;    //二级分区的参数 compareData(1)
-    var authorId = "1";
+    var category = $("#secondary").attr("backstage-data"); //文章二级分类
+    // var authorId = "123456@qq.com";
+    var authorId = "2";
      
         //通过返回一个对象的形式来使用
     var massage = {
@@ -324,7 +325,9 @@ function submitVal(partition,category,authorId,articleTitleVal,articleContentVal
        type:'POST',
        url:'/WritingServlet',
        data:{
+           method: "writingCRUD", //文章的操作，CRUD即增删改查，具体百度
            type: "article",
+           action: "add", //增add删delete改post查get，通俗易懂
            partition: partition,
            category: category,
            authorId: authorId, 
@@ -407,20 +410,46 @@ function getBackstageData(partitionNumber)
 function getPartitionNum()
 {
     var partitionNumber = $("input[name='theBigPartition']:checked").attr("num");
-    getBackstageData(partitionNumber);
+    getBackstageData(Number(partitionNumber+1));
 }
 
 getPartitionNum();
 
-// —————————————————— 传出匹配二级分区 ——————————————————————
+
+// —————————————————— 传出匹配二级分区（双层循环判断） ——————————————————————
 function compareData(categoryNum)
 {
-    // var category = $("#secondary").attr("backstage-data"); //文章二级分类
-    var category = $("#secondary").text();  //文章二级分类的文本
-    for(var i = 1;i <= Object.keys(categoryNum).length;i++)
+    // $(".secondary").eq(e-1).text() 文章的二级分区
+    for(i in categoryNum)
     {
-        if(category == categoryNum[i])
-        return i;
+        for(j in categoryNum)
+        {
+            if($(".secondary").eq(i-1).text() == categoryNum[j])
+            {
+                // console.log(categoryNum[e]);
+                $(".secondary").eq(i-1).attr("backstage-data",j); //文章二级分类
+            }
+        } 
     }
 }
+
+// —————————————————— 测试页面加载后是否把对应值赋值过去 ————————————————————
+// var categoryNum = {
+//     3: "语文",
+//     9: "数学",
+//     1: "英语",
+//     5: "物理",
+//     6: "化学",
+//     4: "生物",
+//     7: "历史",
+//     2: "政治",
+//     8: "地理"
+// };
+
+// compareData(categoryNum);
+// for(var i = 0;i < $(".secondary").length;i++)
+// {
+//    //若输出顺序与上面categoryNum的键数值顺序一致即为正确
+//     console.log($(".secondary").eq(i).attr("backstage-data"));
+// }
 

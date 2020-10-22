@@ -19,7 +19,7 @@ public interface LikeDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean insertLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+	boolean createLikeRecord(Connection conn, LikeRecord record) throws SQLException;
 
 //	/**
 //	 * 更新点赞记录

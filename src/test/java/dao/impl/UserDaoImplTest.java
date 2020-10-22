@@ -58,7 +58,7 @@ public class UserDaoImplTest {
 	@Test
 	public void testSelectUserByEmail() throws SQLException {
 		String emial = "1@qq.com";
-		User user = dao.selectUserByEmail(conn, emial);
+		User user = dao.getUserByEmail(conn, emial);
 		logger.debug(user.toString());
 	}
 }

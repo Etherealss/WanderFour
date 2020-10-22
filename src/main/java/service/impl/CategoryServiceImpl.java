@@ -1,11 +1,9 @@
 package service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import common.enums.ResultType;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.CategoryDao;
-import dao.impl.CategoryDaoImpl;
 import org.apache.log4j.Logger;
 import service.CategoryService;
 
@@ -28,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Connection conn = JdbcUtil.getConnection();
 			CategoryDao dao = DaoFactory.getCategoryDao();
 			//获取分类信息包
-			List<Map<String, Object>> maps = dao.selectAllCategoryByPart(conn, partition);
+			List<Map<String, Object>> maps = dao.getAllCategoryByPart(conn, partition);
 			//封装到json中
 			JSONObject json = new JSONObject();
 			for (Map<String, Object> map : maps) {

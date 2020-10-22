@@ -105,7 +105,7 @@ public class LikeServiceImpl implements LikeService {
 				//储存点赞记录
 				if (!b) {
 					//未点赞，添加记录
-					dao.insertLikeRecord(conn, likeRecord);
+					dao.createLikeRecord(conn, likeRecord);
 					logger.trace("添加点赞记录");
 				}
 				//else 已点赞，不操作
@@ -189,7 +189,7 @@ public class LikeServiceImpl implements LikeService {
 			if (String.valueOf(TargetType.ARTICLE.code()).equals(splitKey[0])) {
 				// 点赞了文章
 				// 获取文章当前的点赞数
-				int likeCount = aDao.selectLikeCount(conn, id);
+				int likeCount = aDao.getLikeCount(conn, id);
 				// 获取最终点赞数
 				int result = count + likeCount;
 				// 更新点赞数
@@ -197,7 +197,7 @@ public class LikeServiceImpl implements LikeService {
 			} else if (String.valueOf(TargetType.POSTS.code()).equals(splitKey[0])) {
 				// 点赞了问贴
 				// 获取问贴当前的点赞数
-				int likeCount = pDao.selectLikeCount(conn, id);
+				int likeCount = pDao.getLikeCount(conn, id);
 				// 获取最终点赞数
 				int result = count + likeCount;
 				// 更新点赞数

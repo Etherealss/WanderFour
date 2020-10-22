@@ -1,7 +1,7 @@
 package common.strategy.choose;
 
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.enums.ResultMsg;
 import common.enums.ResultType;
 import common.strategy.ResponseStrategy;

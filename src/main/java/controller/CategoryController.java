@@ -1,7 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.ResponseChoose;

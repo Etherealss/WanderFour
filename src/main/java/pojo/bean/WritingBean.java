@@ -1,4 +1,4 @@
-package pojo;
+package pojo.bean;
 
 import common.enums.WritingEnum;
 import pojo.po.Writing;

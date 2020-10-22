@@ -25,26 +25,26 @@ public class LikeDaoImpl extends BaseDaoImpl implements LikeDao {
 	 */
 	public LikeDaoImpl(TargetType type) {
 		// 文章点赞表
-		String likeArticle = "`article_like_record`";
+		String likeArticleTableName = "`article_like_record`";
 		// 问贴点赞表
-		String likePosts = "`posts_like_record`";
+		String likePostsTableName = "`posts_like_record`";
 		// 评论点赞表
-		String likeComment = "`posts_like_record`";
+		String likeCommentTableName = "`posts_like_record`";
 		switch (type) {
 			case ARTICLE:
-				LIKE_TABLE = likeArticle;
+				LIKE_TABLE = likeArticleTableName;
 				break;
 			case POSTS:
-				LIKE_TABLE = likePosts;
+				LIKE_TABLE = likePostsTableName;
 				break;
 			default:
-				LIKE_TABLE = likeComment;
+				LIKE_TABLE = likeCommentTableName;
 				break;
 		}
 	}
 
 	@Override
-	public boolean insertLikeRecord(Connection conn, LikeRecord record) throws SQLException {
+	public boolean createLikeRecord(Connection conn, LikeRecord record) throws SQLException {
 		String sql = "INSERT INTO " + LIKE_TABLE + " (`user_id`, `target_id`) VALUES(?,?);";
 		Object[] params = {
 				record.getUserid(), record.getTargetId()

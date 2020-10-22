@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import pojo.po.Article;
 import common.util.TestUtil;
-import pojo.po.LikeRecord;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -38,14 +37,14 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectLastInsert() throws SQLException {
-		Long aLong = dao.selectLastInsertId(conn).longValue();
+		Long aLong = dao.getLastInsertId(conn).longValue();
 		System.out.println(aLong);
 	}
 
 	@Test
 	public void updateNewArticle() throws SQLException {
 		Article article = TestUtil.getDefaultArticlePo();
-		dao.updateNewWritingContent(conn, article.getId(), article.getContent());
+		dao.createWritingContent(conn, article.getId(), article.getContent());
 	}
 
 	@Test
@@ -74,7 +73,7 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectArticleById() throws SQLException {
-		System.out.println(dao.selectWritingById(conn, 2L));
+		System.out.println(dao.getWritingById(conn, 2L));
 	}
 
 	@Test
@@ -91,7 +90,7 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectLikeCount() throws SQLException {
-		int count = dao.selectLikeCount(conn, 1L);
+		int count = dao.getLikeCount(conn, 1L);
 		logger.debug(count);
 	}
 

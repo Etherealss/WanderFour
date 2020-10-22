@@ -10,11 +10,39 @@ import common.schedule.LikePersistenceBySecond;
  */
 public class LikePersistChoose {
 
-	public static void persistWithFixedDelayMinutes(){
+	/**
+	 * 启动定时任务
+	 */
+	public static void persistDelayMinutes(){
 		LikePersistencebyMinutes.runScheduled();
 	}
 
-	public static void persistWithFixedDelaySecond(){
+	/**
+	 * 关闭定时任务
+	 */
+	public static void shutDownPersistenceDelayMinutes(){
+		try {
+			LikePersistencebyMinutes.shutDownScheduled();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 启动间隔时间端的定时任务（用于测试）
+	 */
+	public static void persistDelaySecond(){
 		LikePersistenceBySecond.runScheduled();
+	}
+
+	/**
+	 * 关闭定时任务
+	 */
+	public static void shutDownPersistenceDelaySecond(){
+		try {
+			LikePersistenceBySecond.shutDownScheduled();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

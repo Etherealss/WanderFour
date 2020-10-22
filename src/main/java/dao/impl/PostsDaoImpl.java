@@ -18,7 +18,7 @@ import java.util.List;
 public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 
 	@Override
-	public boolean updateNewWritingInfo(Connection conn, Posts p) throws SQLException {
+	public boolean createWritingInfo(Connection conn, Posts p) throws SQLException {
 		String sql = "insert into `posts` (`partition`, `category`, `author_id`, `title`," +
 				"`content`, `label1`, `label2`, `label3`, `label4`, `label5`, `liked`, `follow`)" +
 				"values(?,?,?,?,?, ?,?,?,?,?, ?,?)";
@@ -31,13 +31,13 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
-	public BigInteger selectLastInsertId(Connection conn) throws SQLException {
+	public BigInteger getLastInsertId(Connection conn) throws SQLException {
 		return super.selectLastInsertId(conn);
 
 	}
 
 	@Override
-	public boolean updateNewWritingContent(Connection conn, Long id, String content) throws SQLException {
+	public boolean createWritingContent(Connection conn, Long id, String content) throws SQLException {
 		return false;
 	}
 
@@ -62,7 +62,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
-	public Posts selectWritingById(Connection conn, Long id) throws SQLException {
+	public Posts getWritingById(Connection conn, Long id) throws SQLException {
 		// 在储存partitionStr时，会调用对应的set方法，但是数据是复制到枚举属性partition上的
 		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
 				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
@@ -105,7 +105,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
-	public Integer selectLikeCount(Connection conn, Long id) throws SQLException {
+	public Integer getLikeCount(Connection conn, Long id) throws SQLException {
 		String sql = "SELECT `liked` FROM `posts` WHERE `id`=?";
 		return qr.query(conn, sql, new ScalarHandler<Integer>(), id);
 	}

@@ -1,4 +1,4 @@
-package common.dto;
+package pojo.dto;
 
 import common.enums.ResultType;
 

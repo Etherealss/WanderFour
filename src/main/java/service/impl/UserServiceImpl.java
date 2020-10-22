@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	public Long registerNewUser(User user) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		boolean b1 = dao.updateNewUser(conn, user);
-		Long lastInsertId = dao.selectLastInsertId(conn).longValue();
+		Long lastInsertId = dao.getLastInsertId(conn).longValue();
 		return lastInsertId;
 	}
 }

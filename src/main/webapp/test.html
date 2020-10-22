@@ -32,6 +32,8 @@
         <p id="info">请输入</p>
     </div>
 
+    <button onclick="fun(1)">123</button>
+
     <script src="./jQuery.js"></script>
     <script>
         var email = document.querySelector('#email');
@@ -42,6 +44,10 @@
             f(emailInt);
         }
 
+        function fun(id) {
+            //js
+            window.location.href = "articleShow.html?article=" + id;
+        }
         function f(emailInt) {
             $.ajax({
                 type: 'PUT',

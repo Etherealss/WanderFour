@@ -1,7 +1,7 @@
 package common.strategy;
 
 import com.alibaba.fastjson.JSONObject;
-import common.dto.ResultState;
+import pojo.dto.ResultState;
 import common.enums.ResultType;
 
 import javax.servlet.http.HttpServletResponse;

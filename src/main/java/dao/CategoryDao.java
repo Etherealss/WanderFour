@@ -19,5 +19,5 @@ public interface CategoryDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Map<String, Object>> selectAllCategoryByPart(Connection conn, int partition) throws SQLException;
+	List<Map<String, Object>> getAllCategoryByPart(Connection conn, int partition) throws SQLException;
 }
