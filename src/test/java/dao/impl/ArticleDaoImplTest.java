@@ -20,14 +20,9 @@ public class ArticleDaoImplTest {
 	private WritingDao<Article> dao = null;
 	private Connection conn;
 	@Before
-	public void init() {
+	public void init() throws Exception{
 		dao = DaoFactory.getArticleDao();
-		try {
-			// 初始化数据连接
-			conn = JdbcUtil.getConnection();
-		} catch (Exception throwables) {
-			throwables.printStackTrace();
-		}
+		conn = JdbcUtil.beginTransaction();
 	}
 
 	@After

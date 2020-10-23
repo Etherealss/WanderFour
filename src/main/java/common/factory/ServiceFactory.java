@@ -1,11 +1,10 @@
 package common.factory;
 
 import common.util.ProxyUtil;
+import pojo.po.Article;
+import pojo.po.Posts;
 import pojo.po.Writing;
-import service.CategoryService;
-import service.LikeService;
-import service.UserService;
-import service.WritingService;
+import service.*;
 import service.impl.*;
 
 /**
@@ -57,8 +56,28 @@ public class ServiceFactory {
 		return ProxyUtil.getProxyForTransaction(new LikeServiceImpl());
 	}
 
+	/**
+	 * 获取经过代理的分类Service
+	 * @return
+	 */
 	public static CategoryService getCategoryService(){
 		return ProxyUtil.getProxyForTransaction(new CategoryServiceImpl());
+	}
+
+	/**
+	 * 获取经过代理的文章评论Service
+	 * @return
+	 */
+	public static CommentService getArticleCommentService(){
+		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(Article.class));
+	}
+
+	/**
+	 * 获取经过代理的问贴评论Service
+	 * @return
+	 */
+	public static CommentService getPostsCommentService(){
+		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(Posts.class));
 	}
 //	/**
 //	 * 获取代理的指定分区的文章Service

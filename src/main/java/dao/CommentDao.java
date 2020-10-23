@@ -30,6 +30,7 @@ public interface CommentDao {
 	 * @throws SQLException
 	 */
 	boolean createNewReply(Connection conn, Comment comment) throws SQLException;
+
 	/**
 	 * 删除评论或回复
 	 * @param conn
@@ -67,10 +68,27 @@ public interface CommentDao {
 	 * @param start
 	 * @param rows
 	 * @param parentId
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Comment> getReplyList(Connection conn, String orderByType, Long start, int rows, Long parentId) throws SQLException;
+
+	/**
+	 * 获取作品的评论总数
+	 * @param conn
+	 * @param parentId
+	 * @return
+	 * @throws SQLException
+	 */
+	Long countCommentByParentId(Connection conn, Long parentId) throws SQLException;
+
+	/**
+	 * 获取评论的回复总数
+	 * @param conn
+	 * @param parentId
 	 * @param targetId
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Comment> getReplyList(Connection conn, String orderByType, Long start, int rows, Long parentId, Long targetId) throws SQLException;
-
+	Long countReplyByTargetId(Connection conn, Long parentId, Long targetId) throws SQLException;
 }

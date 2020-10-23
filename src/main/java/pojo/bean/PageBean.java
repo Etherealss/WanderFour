@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class PageBean<T> {
 	/** 总记录数 */
-	private int totalCount;
+	private Long totalCount;
 	/** 总页码 */
 	private int totalPage;
 	/** 每页的数据 */
@@ -19,11 +19,11 @@ public class PageBean<T> {
 	/** 每一页显示的记录数 */
 	private int rows;
 
-	public int getTotalCount() {
+	public Long getTotalCount() {
 		return totalCount;
 	}
 
-	public void setTotalCount(int totalCount) {
+	public void setTotalCount(Long totalCount) {
 		this.totalCount = totalCount;
 	}
 
@@ -78,7 +78,7 @@ public class PageBean<T> {
 	 * @param currentPage 当前页码
 	 * @param rows        每一页显示的记录数
 	 */
-	public PageBean(int totalCount, int totalPage, List<T> list, int currentPage, int rows) {
+	public PageBean(Long totalCount, int totalPage, List<T> list, int currentPage, int rows) {
 		this.totalCount = totalCount;
 		this.totalPage = totalPage;
 		this.list = list;

@@ -42,7 +42,7 @@ public class CommentBean {
 		return "CommentBean{" +
 				"comment=" + comment +
 				", userNickname='" + userNickname + '\'' +
-				", userImg='" + userImg + '\'' +
+				", userImg='" + userImg.substring(0,20) + "...'" +
 				'}';
 	}
 

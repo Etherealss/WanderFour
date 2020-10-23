@@ -19,13 +19,8 @@ public class LikeDaoImplTest {
 	private Connection conn;
 
 	@Before
-	public void init() {
-		try {
-			// 初始化数据连接
-			conn = JdbcUtil.getConnection();
-		} catch (Exception throwables) {
-			throwables.printStackTrace();
-		}
+	public void init() throws Exception{
+		conn = JdbcUtil.beginTransaction();
 	}
 
 	@After

@@ -19,14 +19,9 @@ public class UserDaoImplTest {
 	private Connection conn;
 
 	@Before
-	public void init() {
+	public void init() throws Exception {
 		dao = DaoFactory.getUserDAO();
-		try {
-			// 初始化数据连接
-			conn = JdbcUtil.getConnection();
-		} catch (Exception throwables) {
-			throwables.printStackTrace();
-		}
+		conn = JdbcUtil.beginTransaction();
 	}
 
 	@After

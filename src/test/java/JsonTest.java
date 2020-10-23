@@ -128,8 +128,8 @@ public class JsonTest {
 	public void testCommentToJson() {
 		PageBean<CommentDto> pageBean = new PageBean<>();
 		pageBean.setCurrentPage(1);
-		pageBean.setTotalCount(6);
-		pageBean.setTotalCount(52);
+		pageBean.setTotalPage(6);
+		pageBean.setTotalCount(52L);
 		pageBean.setRows(3);
 
 		List<CommentDto> list = new LinkedList<>();
@@ -149,7 +149,7 @@ public class JsonTest {
 		PageBean<ReplyDto> pageBean = new PageBean<>();
 		pageBean.setCurrentPage(1);
 		pageBean.setTotalPage(5);
-		pageBean.setTotalCount(14);
+		pageBean.setTotalCount(14L);
 		pageBean.setRows(3);
 		List<ReplyDto> list = new LinkedList<>();
 		for (int i = 0; i < 3; i++) {

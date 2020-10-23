@@ -62,11 +62,12 @@ public class JdbcUtil {
 	 * 开启事务
 	 * @throws Exception
 	 */
-	public static void beginTransaction() throws Exception {
+	public static Connection beginTransaction() throws Exception {
 		logger.trace("开启事务，获取连接，关闭自动提交");
 		Connection conn = getConnection();
 		//关闭自动提交，开启事务
 		conn.setAutoCommit(false);
+		return conn;
 	}
 
 	/**

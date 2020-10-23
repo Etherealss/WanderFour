@@ -1,8 +1,7 @@
 package common.strategy.choose;
 
 import common.enums.TargetType;
-import common.strategy.LikeStategy;
-import common.strategy.impl.LikeStategyImpl;
+import common.strategy.LikeStrategy;
 
 /**
  * @author 寒洲
@@ -10,33 +9,19 @@ import common.strategy.impl.LikeStategyImpl;
  * @date 2020/10/14
  */
 public class LikeStategyChoose {
-	private LikeStategy likeStategy;
+	private LikeStrategy likeStrategy;
 
-	public LikeStategyChoose(LikeStategy likeStategy){
-		this.likeStategy = likeStategy;
+	public LikeStategyChoose(LikeStrategy likeStrategy){
+		this.likeStrategy = likeStrategy;
 	}
 
 	/**
-	 * 点赞
+	 * 点赞相关操作
 	 * @param userid 点赞的用户
 	 * @param targetId 被点赞的目标
-	 * @param likeState 点赞状态 1-点赞 0-未点赞/取消点赞
 	 * @param likeType 被点赞的目标类型 文章/帖子/评论
 	 */
-	public void like(Long userid, Long targetId, int likeState, TargetType likeType) {
-		//...
-		likeStategy.like(userid, targetId, likeState, likeType);
+	public void likeOperator(Long userid, Long targetId, TargetType likeType) {
+		likeStrategy.likeOperate(userid, targetId, likeType);
 	}
-
-	/**
-	 * 取消点赞
-	 * @param userid
-	 * @param targetId
-	 * @param likeState
-	 * @param likeType
-	 */
-	public void unlike(Long userid, Long targetId, int likeState, TargetType likeType) {
-		likeStategy.unlike(userid, targetId, likeState, likeType);
-	}
-
 }

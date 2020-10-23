@@ -15,7 +15,6 @@ import java.sql.SQLException;
  * @date 2020/10/14
  */
 public class LikeDaoImpl extends BaseDaoImpl implements LikeDao {
-	private Logger logger = Logger.getLogger(LikeDaoImpl.class);
 
 	/** 指定数据库表 */
 	private final String LIKE_TABLE;

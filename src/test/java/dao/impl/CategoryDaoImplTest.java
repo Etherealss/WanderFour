@@ -22,12 +22,7 @@ public class CategoryDaoImplTest {
 	@Before
 	public void setUp() throws Exception {
 		dao = DaoFactory.getCategoryDao();
-		try {
-			// 初始化数据连接
-			conn = JdbcUtil.getConnection();
-		} catch (Exception throwables) {
-			throwables.printStackTrace();
-		}
+		conn = JdbcUtil.beginTransaction();
 	}
 
 	@After

@@ -5,7 +5,8 @@ import common.enums.ResultType;
 import common.enums.TargetType;
 import common.factory.DaoFactory;
 import common.strategy.choose.LikeStategyChoose;
-import common.strategy.impl.LikeStategyImpl;
+import common.strategy.impl.LikeStrategyImpl;
+import common.strategy.impl.CancelLikeStrategyImpl;
 import common.util.JdbcUtil;
 import common.util.JedisUtil;
 import dao.LikeDao;
@@ -46,29 +47,15 @@ public class LikeServiceImpl implements LikeService {
 		Long targetId = likeRecord.getTargetId();
 		int likeState = likeRecord.getLikeState();
 		TargetType likeType = likeRecord.getTargetType();
-		//检查当前数据库的点赞状态
-//		//根据点赞类型获取不同的数据库表的DAO
-//		LikeDao dao = DaoFactory.getLikeDao(likeType);
-//		//检查数据库当前用户的点赞状态
-//		boolean currentLikeState = dao.checkUserLikeRecord(conn, userid, targetId, likeType.code());
-		LikeStategyChoose stategyChoose = new LikeStategyChoose(new LikeStategyImpl());
+
 		if (likeState == 1) {
 			//想要点赞
-
-//			if (currentLikeState) {
-//				//已点赞，不可以重复点赞
-//				return ResultType.HAVE_LIKED;
-//			}
-			//可以点赞，执行策略
-			stategyChoose.like(userid, targetId, likeState, likeType);
+			LikeStategyChoose stategyChoose = new LikeStategyChoose(new LikeStrategyImpl());
+			stategyChoose.likeOperator(userid, targetId, likeType);
 		} else if (likeState == 0) {
 			//想要取消点赞
-//			if (!currentLikeState) {
-//				//未点赞，不可以取消点赞
-//				return ResultType.HAVE_NOT_LIKED;
-//			}
-			//可以取消点赞
-			stategyChoose.unlike(userid, targetId, likeState, likeType);
+			LikeStategyChoose stategyChoose = new LikeStategyChoose(new CancelLikeStrategyImpl());
+			stategyChoose.likeOperator(userid, targetId, likeType);
 		}
 		return ResultType.SUCCESS;
 	}

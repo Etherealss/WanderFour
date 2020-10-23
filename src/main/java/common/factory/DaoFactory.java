@@ -1,13 +1,11 @@
 package common.factory;
 
 import common.enums.TargetType;
-import dao.CategoryDao;
-import dao.LikeDao;
-import dao.WritingDao;
-import dao.UserDao;
+import dao.*;
 import dao.impl.*;
 import pojo.po.Article;
 import pojo.po.Posts;
+import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -43,6 +41,7 @@ public class DaoFactory {
 
 	/**
 	 * 获取点赞DAO
+	 * @param type 请求的表类型
 	 * @return
 	 */
 	public static LikeDao getLikeDao(TargetType type) {
@@ -55,6 +54,21 @@ public class DaoFactory {
 	 */
 	public static CategoryDao getCategoryDao() {
 		return new CategoryDaoImpl();
+	}
+
+
+	/**
+	 * 按表获取评论DAO
+	 * @param clazz 确定评论表
+	 * @return
+	 */
+	public static <T extends Writing> CommentDao getCommentDao(Class<T> clazz){
+		try {
+			return new CommentDaoImpl(clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

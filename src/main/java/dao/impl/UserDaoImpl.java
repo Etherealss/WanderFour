@@ -58,4 +58,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				"WHERE `user`.user_type = `user_type`.id AND `user`.email = ? ";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), email);
 	}
+
+	@Override
+	public User getReviewerInfoById(Connection conn, Long id) throws SQLException {
+		String sql = "SELECT `nickname`, `avatar` `avatarPath` FROM `user` WHERE `id`=?";
+		return qr.query(conn, sql, new BeanHandler<>(User.class), id);
+	}
 }

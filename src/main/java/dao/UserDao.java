@@ -57,5 +57,14 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	User getUserByEmail(Connection conn, String email) throws SQLException;
+
+	/**
+	 * 根据id获取评论用户的头像和昵称
+	 * @param conn
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	User getReviewerInfoById(Connection conn, Long id) throws SQLException;
 	
 }

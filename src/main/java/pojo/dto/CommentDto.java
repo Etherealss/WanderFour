@@ -54,4 +54,12 @@ public class CommentDto {
 
 	public CommentDto() {
 	}
+
+	@Override
+	public String toString() {
+		return "CommentDto{" +
+				"\n\tparentComment=" + parentComment +
+				", \n\treplys=" + replys +
+				"\n}";
+	}
 }
