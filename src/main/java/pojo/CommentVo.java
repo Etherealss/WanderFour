@@ -10,14 +10,18 @@ import java.sql.Connection;
  * @date 2020/10/23
  */
 public class CommentVo {
+
+
 	/** 数据库连接 */
 	private Connection conn;
 	/** 评论DAO */
 	private CommentDao dao;
 	/** 查询数据库的排序方式 */
 	private String order;
-	/** 记录起始值 */
-	private Long start;
+	/** 评论记录起始值 */
+	private Long commentStart;
+	/** 回复记录起始值 */
+	private Long replyStart;
 	/** 显示的评论行数 */
 	private int commentRows;
 	/** 显示的回复行数 */
@@ -53,12 +57,20 @@ public class CommentVo {
 		this.order = order;
 	}
 
-	public Long getStart() {
-		return start;
+	public Long getCommentStart() {
+		return commentStart;
 	}
 
-	public void setStart(Long start) {
-		this.start = start;
+	public void setCommentStart(Long commentStart) {
+		this.commentStart = commentStart;
+	}
+
+	public Long getReplyStart() {
+		return replyStart;
+	}
+
+	public void setReplyStart(Long replyStart) {
+		this.replyStart = replyStart;
 	}
 
 	public int getCommentRows() {
@@ -101,11 +113,22 @@ public class CommentVo {
 		this.replyRows = replyRows;
 	}
 
-	public CommentVo(Connection conn, CommentDao dao, Long start, int commentRows,
+	/**
+	 * 有targetId 有commentRows 和 replyRows
+	 * @param conn
+	 * @param dao
+	 * @param commentStart
+	 * @param commentRows
+	 * @param replyRows
+	 * @param parentId
+	 * @param targetId
+	 * @param userid
+	 */
+	public CommentVo(Connection conn, CommentDao dao, Long commentStart, int commentRows,
 	                 int replyRows, Long parentId, Long targetId, Long userid) {
 		this.conn = conn;
 		this.dao = dao;
-		this.start = start;
+		this.commentStart = commentStart;
 		this.commentRows = commentRows;
 		this.replyRows = replyRows;
 		this.parentId = parentId;
@@ -113,34 +136,67 @@ public class CommentVo {
 		this.userid = userid;
 	}
 
-	public CommentVo(Connection conn, CommentDao dao, Long start, int commentRows,
+	/**
+	 * 没有targetId 右replyRows
+	 * @param conn
+	 * @param dao
+	 * @param commentStart
+	 * @param commentRows
+	 * @param replyRows
+	 * @param parentId
+	 * @param userid
+	 */
+	public CommentVo(Connection conn, CommentDao dao, Long commentStart, int commentRows,
 	                 int replyRows, Long parentId, Long userid) {
 		this.conn = conn;
 		this.dao = dao;
-		this.start = start;
+		this.commentStart = commentStart;
 		this.commentRows = commentRows;
 		this.replyRows = replyRows;
 		this.parentId = parentId;
 		this.userid = userid;
 	}
 
-	public CommentVo(Connection conn, CommentDao dao, String order, Long start,
+	/**
+	 * 没有targetId 有commentRows
+	 * @param conn
+	 * @param dao
+	 * @param order
+	 * @param commentStart
+	 * @param commentRows
+	 * @param replyRows
+	 * @param parentId
+	 * @param userid
+	 */
+	public CommentVo(Connection conn, CommentDao dao, String order, Long commentStart,
 	                 int commentRows, int replyRows, Long parentId, Long userid) {
 		this.conn = conn;
 		this.dao = dao;
 		this.order = order;
-		this.start = start;
+		this.commentStart = commentStart;
 		this.commentRows = commentRows;
 		this.replyRows = replyRows;
 		this.parentId = parentId;
 		this.userid = userid;
 	}
 
-	public CommentVo(Connection conn, CommentDao dao, String order, Long start, int commentRows, int replyRows, Long parentId, Long targetId, Long userid) {
+	/**
+	 * 啥都有
+	 * @param conn
+	 * @param dao
+	 * @param order
+	 * @param commentStart
+	 * @param commentRows
+	 * @param replyRows
+	 * @param parentId
+	 * @param targetId
+	 * @param userid
+	 */
+	public CommentVo(Connection conn, CommentDao dao, String order, Long commentStart, int commentRows, int replyRows, Long parentId, Long targetId, Long userid) {
 		this.conn = conn;
 		this.dao = dao;
 		this.order = order;
-		this.start = start;
+		this.commentStart = commentStart;
 		this.commentRows = commentRows;
 		this.replyRows = replyRows;
 		this.parentId = parentId;

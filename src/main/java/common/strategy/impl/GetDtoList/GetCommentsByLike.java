@@ -10,30 +10,26 @@ import java.util.List;
 
 /**
  * @author 寒洲
- * @description 策略：在文章加载时获取评论
- * 获取3条点赞数最高的评论，并同时每条评论获取3条点赞数最高的回复
+ * @description 策略：在显示所有评论时获取评论
+ * 获取10条最新的评论，并同时每条评论获取3条点赞数最高的回复
  * 不添加回复引用
- * @date 2020/10/23
+ * @date 2020/10/24
  */
-public class GetHeadCommentsByLike extends GetCommentsStrategyDecorator {
-
-	/**
-	 * @param vo 需要 dao conn parentId userId
-	 * @return
-	 * @throws SQLException
-	 */
+public class GetCommentsByLike extends GetCommentsStrategyDecorator {
 	@Override
 	public List<CommentDto> getComments(CommentVo vo) throws SQLException {
 		/*
-		 * 策略：在文章加载时获取评论
-         * 获取3条点赞数最高的评论，并同时每条评论获取3条点赞数最高的回复
-         * 不添加回复引用
+		策略：在显示所有评论时获取评论
+	    获取10条最新的评论，并同时每条评论获取3条点赞数最高的回复
+        不添加回复引用
 		 */
 		vo.setOrder(CommentEnum.FIELD_ORDER_BY_LIKE);
 
-		vo.setCommentRows(CommentEnum.COMMENT_ROWS_THREE);
+		//10+3
+		vo.setCommentRows(CommentEnum.COMMENT_ROWS_TEN);
 		vo.setReplyRows(CommentEnum.REPLY_ROWS_THREE);
 
+		//从0开始
 		vo.setCommentStart(CommentEnum.START_FROM_ZERO);
 		vo.setReplyStart(CommentEnum.START_FROM_ZERO);
 

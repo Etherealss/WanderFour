@@ -50,6 +50,7 @@ public class ResponseChoose {
 	public static void respOnlyStateToBrowser(HttpServletResponse resp, ResultType resultType, String msg){
 		strategy.respOnlyStateToBrowser(resp, resultType, msg);
 	}
+
 	/**
 	 * 遇到空参错误，返回错误状态给浏览器
 	 * @param resp

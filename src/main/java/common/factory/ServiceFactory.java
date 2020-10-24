@@ -65,20 +65,13 @@ public class ServiceFactory {
 	}
 
 	/**
-	 * 获取经过代理的文章评论Service
+	 * 获取经过代理的评论Service
 	 * @return
 	 */
-	public static CommentService getArticleCommentService(){
-		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(Article.class));
+	public static CommentService getCommentService(Class<? extends Writing> clazz){
+		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(clazz));
 	}
 
-	/**
-	 * 获取经过代理的问贴评论Service
-	 * @return
-	 */
-	public static CommentService getPostsCommentService(){
-		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(Posts.class));
-	}
 //	/**
 //	 * 获取代理的指定分区的文章Service
 //	 * @return 经过代理的文章Service对象

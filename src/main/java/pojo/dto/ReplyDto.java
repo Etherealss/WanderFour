@@ -16,30 +16,20 @@ public class ReplyDto {
 	/**
 	 * 评论的回复
 	 */
-	private List<CommentBean> replys = new ArrayList<>();
+	private CommentBean replys;
 
 	public ReplyDto() {
 	}
 
-	public ReplyDto(List<CommentBean> replys) {
+	public ReplyDto(CommentBean replys) {
 		this.replys = replys;
 	}
 
-	public List<CommentBean> getReplys() {
+	public CommentBean getReplys() {
 		return replys;
 	}
 
-	public void setReplys(List<CommentBean> replys) {
+	public void setReplys(CommentBean replys) {
 		this.replys = replys;
 	}
-
-	/**
-	 * 添加回复实例
-	 * @param reply
-	 */
-	public void addReplys(CommentBean reply) {
-		this.replys.add(reply);
-	}
-
-
 }

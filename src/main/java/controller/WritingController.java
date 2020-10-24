@@ -143,7 +143,7 @@ public class WritingController extends BaseServlet {
 
 			if (posts == null) {
 				logger.fatal("发表问贴空参");
-				ResponseChoose.respNoParameterError(resp, "发表问贴（参数）");
+				ResponseChoose.respNoParameterError(resp, "发表问贴");
 				return;
 			}
 
@@ -188,7 +188,7 @@ public class WritingController extends BaseServlet {
 		logger.trace(param);
 		//空参检查
 		if (param == null) {
-			ResponseChoose.respNoParameterError(resp, "修改作品(参数)");
+			ResponseChoose.respNoParameterError(resp, "修改作品");
 			return;
 		}
 
@@ -259,7 +259,7 @@ public class WritingController extends BaseServlet {
 		logger.trace("删除作品" + param);
 		//空参检查
 		if (param == null) {
-			ResponseChoose.respNoParameterError(resp, "修改作品(参数)");
+			ResponseChoose.respNoParameterError(resp, "修改作品");
 			return;
 		}
 

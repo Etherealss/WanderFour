@@ -62,7 +62,7 @@ public class DaoFactory {
 	 * @param clazz 确定评论表
 	 * @return
 	 */
-	public static <T extends Writing> CommentDao getCommentDao(Class<T> clazz){
+	public static CommentDao getCommentDao(Class<? extends Writing> clazz){
 		try {
 			return new CommentDaoImpl(clazz);
 		} catch (Exception e) {

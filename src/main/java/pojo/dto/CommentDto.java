@@ -9,6 +9,8 @@ import java.util.List;
  * @author 寒洲
  * @description 评论Dto
  * 当用户浏览文章（帖子）的评论时会获取评论以及评论的三条回复，包装在这个类中返回
+ * 本来还要ReplyDto，因为发现有些累赘所以删掉了
+ * ReplyDto就相当于没有replys的CommentDto，也相当于一个普通的CommentBean
  * @date 2020/10/22
  */
 public class CommentDto {
