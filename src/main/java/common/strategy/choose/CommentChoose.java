@@ -1,6 +1,6 @@
 package common.strategy.choose;
 
-import common.strategy.GetCommentsStrategyDecorator;
+import common.strategy.AbstractCommentsStrategy;
 import pojo.CommentVo;
 import pojo.dto.CommentDto;
 
@@ -9,21 +9,20 @@ import java.util.List;
 
 /**
  * @author 寒洲
- * @description
+ * @description 获取评论的策略选择
  * @date 2020/10/23
  */
-public class CommentDtoChoose {
-
+public class CommentChoose {
 
 	/**
 	 * 获取评论的策略
 	 */
-	private GetCommentsStrategyDecorator strategy;
+	private AbstractCommentsStrategy strategy;
 
 	/**
 	 * @param strategy 获取评论的策略
 	 */
-	public CommentDtoChoose(GetCommentsStrategyDecorator strategy){
+	public CommentChoose(AbstractCommentsStrategy strategy){
 		this.strategy = strategy;
 	}
 
@@ -32,7 +31,7 @@ public class CommentDtoChoose {
 	 * @param vo
 	 * 需要conn dao userid parentId commentRows replyRows start order
 	 */
-	public List<CommentDto> getCommentDtoList(CommentVo vo) throws SQLException {
-		return strategy.getComments(vo);
+	public List<CommentDto> doGet(CommentVo vo) throws SQLException {
+		return strategy.getCommentsWithReplys(vo);
 	}
 }

@@ -1,7 +1,6 @@
 package common.strategy;
 
 import common.enums.CommentEnum;
-import common.strategy.impl.GetDtoList.CommentAndReplyStrategy;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import org.apache.log4j.Logger;
@@ -17,30 +16,32 @@ import java.util.List;
 
 /**
  * @author 寒洲
- * @description 获取评论的策略
+ * @description 获取评论的抽象策略
+ * 主要作用是提供给策略实现类一个方法getCommentDto
+ * 策略实现类将确定参数并调用getCommentDto方法
  * @date 2020/10/23
  */
-public abstract class GetCommentsStrategyDecorator extends CommentAndReplyStrategy {
+public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplyStrategy {
 
-	protected Logger logger = Logger.getLogger(GetCommentsStrategyDecorator.class);
+	protected Logger logger = Logger.getLogger(AbstractCommentsStrategy.class);
 
 	/**
-	 * 获取CommentDto列表
+	 * 装饰方法
+	 * 获取经过包装的评论列表，评论带回复
 	 * @param vo
 	 * @return
 	 * @throws SQLException
 	 */
-	public abstract List<CommentDto> getComments(CommentVo vo) throws SQLException;
+	public abstract List<CommentDto> getCommentsWithReplys(CommentVo vo) throws SQLException;
 
 	/**
 	 * 获取CommentDto列表
 	 * @param vo 封装函数参数的对象
-	 *           需要 dao conn order parentId userId
-	 * @param addReplyReference 是否添加回复引用
+	 *           需要传入 dao conn order parentId userId
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CommentDto> getCommentDto(CommentVo vo, boolean addReplyReference) throws SQLException {
+	public List<CommentDto> getCommentDto(CommentVo vo) throws SQLException {
 		CommentDao dao = vo.getDao();
 		Connection conn = vo.getConn();
 		String order = vo.getOrder();
@@ -77,8 +78,8 @@ public abstract class GetCommentsStrategyDecorator extends CommentAndReplyStrate
 			TODO 此处按获赞数获取回复
 			 */
 			CommentVo voForReply = vo;
-			voForReply.setOrder(CommentEnum.ORDER_BY_LIKE);
-			List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, addReplyReference);
+			voForReply.setOrder(CommentEnum.FIELD_ORDER_BY_LIKE);
+			List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, false);
 			//封装到Dto
 			CommentDto dto = new CommentDto(commentBean, replysCommentBean);
 			returnDtoList.add(dto);

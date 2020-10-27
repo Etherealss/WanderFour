@@ -21,5 +21,29 @@ function slowToTop(clickBtn)
 }
 
 
+//跟随外框定义，顶着浏览器页面顶部走
+//在框内随页面滑动而滑动
+//outsideBox：外框限制的box，insideBox：随页面滑动的box
+function scrollLimiteHeight(outsideBox,insideBox)
+{ 
+    $(window).scroll(function()
+    {
+        var scrollLen = $(window).scrollTop();    //滑动条滑动的位移
+        var distance = scrollLen - outsideBox.offset().top;   //insideBox的位移
+
+        if(scrollLen < outsideBox.offset().top){
+            insideBox.css({top: 0});
+        }
+        else if(scrollLen >= outsideBox.offset().top && 
+        scrollLen <= outsideBox.offset().top+outsideBox.height()-insideBox.height()+40){
+            insideBox.css({top: distance});
+        }
+        else{   //scrollLen > outsideBox.offset().top+outsideBox.height()-insideBox.height()
+            // insideBox.css({top: outsideBox.height()-insideBox.height()+45});  
+            insideBox.css({bottom: 0});
+        }   
+    });
+}
+
 
 

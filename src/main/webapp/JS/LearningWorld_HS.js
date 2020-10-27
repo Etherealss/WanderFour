@@ -21,8 +21,7 @@ function scrollLimitation(outsideBox,insideBox)
         }
         else{   //scrollLen > outsideBox.offset().top+outsideBox.height()-insideBox.height()
             insideBox.css({top: outsideBox.height()-insideBox.height()+45});  
-        }   
-        
+        }     
     });
 }
 
@@ -33,8 +32,15 @@ function switchover(switchPartBox,num,switchPart)
     {
         switchPart.css({zIndex: 10});
         switchPart.siblings().css({zIndex: 0});
-        switchPartBox.find("button").eq(num).css({color: "#81cbbf"});
-        switchPartBox.find("button").eq(num).siblings().css({color: "#000000"});
+        switchPartBox.find("button").eq(num).css({
+            color: "#81cbbf",
+            background: "url(img/LW_toggleBackground.png) no-repeat",
+            backgroundSize: "100% 48px"
+        });
+        switchPartBox.find("button").eq(num).siblings().css({
+            color: "#000000",
+            background: "none"
+        });
 
         autoPickUp($(".LearningWorld_packUp"),$(".LearningWorld_seeMore"),$(".LearningWorld_LE_article"),
         $(".LearningWorld_LE_mainBox"),$(".LearningWorld_LE_mainContent"));
@@ -95,15 +101,7 @@ function moreContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
         LearningWorld_changeHeight(outsideHeight,insideHeight);
     });
 }
-$(function () {
-    $("#test-box").click(function () {
-        window.location.href = "/article.html";
-    });
-});
 
-function toArticle() {
-   window.location.href = "/articleShow.html?article=63";
-}
 // 点击收起更多
 function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 {
@@ -113,7 +111,7 @@ function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
         {
             articlePart.eq(i).hide();
         }
-        $(this).css({display : "none"});
+        $(this).css({display : "none"});    
         anotherBtn.css({display : "block"});
 
         //动态增加更改LearningWorld_LE_mainBox的高度
@@ -171,10 +169,8 @@ scrollLimitation($(".LearningWorld_LE_mainBox"),$(".LearningWorld_LE_slideBox"))
 slowToTop($(".LearningWorld_returnTopBtn"));
 
 //———————————————————————— 问贴悬浮后的效果 ——————————————————————————————
-
-askDefault();
-function askDefault()
-{
+function LW_askDefault()
+{   
     $(".LearningWorld_TA_askPost").eq(0).css({
         height: 265
     }).find(".LearningWorld_TA_comment").show();
@@ -184,20 +180,25 @@ function askDefault()
     }).find(".LearningWorld_TA_comment").hide();
 }
 
-// $(".LearningWorld_TA_askPost").on({
-//     mouseenter: function()
-//     {
-//         $(this).stop().animate({
-//             height: 265
-//         },1000);
+//点击的显示，其他的收起
+function LW_askArticle()
+{
+    $(".LearningWorld_TA_askPost").on({
+        click: function()
+        {
+            $(this).stop().animate({
+                height: 265
+            }).find(".LearningWorld_TA_comment").show();
 
-//         $(this).siblings().stop().animate({
-//             height: 167.7
-//         },1000);
+            $(this).siblings(".LearningWorld_TA_askPost").stop().animate({
+                height: 167.7
+            }).find(".LearningWorld_TA_comment").hide();
+        }
+    });
+}
 
-        
-//     }
-// });
+LW_askDefault();    //默认的时候，只第一个显示
+LW_askArticle();    //点击高度增加
 
 //——————————————————————— 跳转到指定位置 ———————————————————————————
 slowToTarget($(".LearningWorld_toAsk"),$(".LearningWorld_toAskBox > h2"));

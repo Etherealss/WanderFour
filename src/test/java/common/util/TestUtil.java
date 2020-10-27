@@ -1,14 +1,14 @@
 package common.util;
 
-import common.enums.Partition;
 import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
-import pojo.dto.ReplyDto;
 import pojo.po.Article;
 import pojo.po.Comment;
 import pojo.po.Posts;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -133,8 +133,9 @@ public class TestUtil {
 	 * 回复Dto
 	 * @return
 	 */
-	public static ReplyDto getDeultReplyDto(){
-		ReplyDto dto = new ReplyDto();
+	public static List<CommentDto> getDeultReplyDto(){
+		List<CommentDto> list = new ArrayList<>();
+
 		//一下是评论1的回复
 		Comment comment1 = new Comment(2L, 2L, 1L, 1L,
 				"我是回复2，我回复一条评论，评论id是1", new Date(), true, 0);
@@ -148,9 +149,12 @@ public class TestUtil {
 		reply2.setRelayComment(comment1);
 		CommentBean reply3 = TestUtil.getDefaultReplyBean(comment3);
 		reply2.setRelayComment(comment1);
-		dto.addReplys(reply1);
-		dto.addReplys(reply2);
-		dto.addReplys(reply3);
-		return dto;
+		CommentDto dto2 = new CommentDto();
+		dto2.setParentComment(reply2);
+		list.add(dto2);
+		CommentDto dto3 = new CommentDto();
+		dto3.setParentComment(reply3);
+		list.add(dto3);
+		return list;
 	}
 }

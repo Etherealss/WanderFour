@@ -1,6 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.enums.TargetType;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -19,14 +20,14 @@ import java.io.IOException;
 
 /**
  * @author 寒洲
- * @description 作品（文章和帖子）的控制器
+ * @description 作品（文章和帖子）
  * @date 2020/10/7
  */
 @WebServlet("/WritingServlet")
 public class WritingController extends BaseServlet {
 
-	private final static String TYPE_ARTICLE = "article";
-	private final static String TYPE_POSTS = "posts";
+	private final static String TYPE_ARTICLE = TargetType.ARTICLE.val();
+	private final static String TYPE_POSTS = TargetType.POSTS.val();
 	private final static String TYPE_UNDEFINED = "undefined";
 
 	@Override
@@ -38,7 +39,7 @@ public class WritingController extends BaseServlet {
 			ResponseChoose.respNoParameterError(resp, "查询作品");
 			return;
 		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
-			ResponseChoose.respNoParameterError(resp, "参数undefined！！！");
+			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 		}
 		logger.trace("获取作品 params = " + params);
 
@@ -160,7 +161,7 @@ public class WritingController extends BaseServlet {
 			checkResultAndResp(resp, postsId);
 		} else {
 			logger.error("doPost参数错误type =" + type);
-			ResponseChoose.respNoParameterError(resp, "发表作品（type）");
+			ResponseChoose.respWrongParameterError(resp, "发表作品的type参数");
 		}
 	}
 

@@ -30,37 +30,13 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	/**
-	 * 提供给当前service内部的验证方法
-	 * 检查用户id是否存在
-	 * @param conn
-	 * @param email
-	 * @return
-	 */
-	private boolean checkUserExist(Connection conn, String email) {
-		try {
-			return dao.countUserByEmail(conn, email);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 	@Override
-	public ResultType validateUserLogin(String email, String paasword) throws Exception {
+	public Long validateUserLogin(String email, String paasword) throws Exception {
 		Connection conn;
 		conn = JdbcUtil.getConnection();
-		if (!checkUserExist(conn, email)) {
-			//账号不存在
-			return ResultType.USER_UN_FOUND;
-		}
-		if (dao.countUserByEmailPw(conn, email, paasword)) {
-			//密码正确，登录成功
-			return ResultType.SUCCESS;
-		} else {
-			//密码错误
-			return ResultType.PW_ERROR;
-		}
+		Long userid = dao.countUserBySign(conn, email, paasword);
+		return userid;
 	}
 
 	@Override

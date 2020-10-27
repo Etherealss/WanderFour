@@ -1,8 +1,10 @@
 package service;
 
+import common.enums.ResultType;
 import pojo.CommentVo;
 import pojo.bean.PageBean;
 import pojo.dto.CommentDto;
+import pojo.po.Comment;
 
 import java.util.List;
 
@@ -33,4 +35,19 @@ public interface CommentService {
 	 */
 	PageBean<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception;
 
+	/**
+	 * 发表新评论/回复
+	 * @param comment
+	 * @return
+	 * @throws Exception
+	 */
+	ResultType publishNewComment(Comment comment) throws Exception;
+
+	/**
+	 * 删除评论/回复
+	 *
+	 * @param id@return
+	 * @throws Exception
+	 */
+	ResultType deleteComment(Long id) throws Exception;
 }

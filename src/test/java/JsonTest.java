@@ -1,13 +1,10 @@
 import com.alibaba.fastjson.JSONObject;
-import pojo.bean.CommentBean;
 import pojo.bean.PageBean;
 import pojo.dto.CommentDto;
-import pojo.dto.ReplyDto;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import org.junit.Test;
 import pojo.po.Article;
-import pojo.po.Comment;
 import pojo.po.User;
 import common.util.TestUtil;
 
@@ -146,16 +143,12 @@ public class JsonTest {
 
 	@Test
 	public void testReplyToJson() {
-		PageBean<ReplyDto> pageBean = new PageBean<>();
+		PageBean<CommentDto> pageBean = new PageBean<>();
 		pageBean.setCurrentPage(1);
 		pageBean.setTotalPage(5);
 		pageBean.setTotalCount(14L);
 		pageBean.setRows(3);
-		List<ReplyDto> list = new LinkedList<>();
-		for (int i = 0; i < 3; i++) {
-			ReplyDto dto = TestUtil.getDeultReplyDto();
-			list.add(dto);
-		}
+		List<CommentDto> list = TestUtil.getDeultReplyDto();
 		pageBean.setList(list);
 
 		JSONObject json = new JSONObject();

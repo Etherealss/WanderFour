@@ -10,7 +10,7 @@ import java.util.Date;
 public class Comment {
 
 	private Long id;
-	private Long userId;
+	private Long userid;
 	/**
 	 * 记录悬挂的父对象Id，
 	 * 如评论悬挂在文章/帖子之下
@@ -42,12 +42,12 @@ public class Comment {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public Long getParentId() {
@@ -101,9 +101,9 @@ public class Comment {
 	public Comment() {
 	}
 
-	public Comment(Long id, Long userId, Long parentId, Long targetId, String content, Date createTime, boolean state, int liked) {
+	public Comment(Long id, Long userid, Long parentId, Long targetId, String content, Date createTime, boolean state, int liked) {
 		this.id = id;
-		this.userId = userId;
+		this.userid = userid;
 		this.parentId = parentId;
 		this.targetId = targetId;
 		this.content = content;
@@ -116,7 +116,7 @@ public class Comment {
 	public String toString() {
 		return "Comment{" +
 				"id=" + id +
-				", userId=" + userId +
+				", userId=" + userid +
 				", partenId=" + parentId +
 				", targetId=" + targetId +
 				", state=" + state +

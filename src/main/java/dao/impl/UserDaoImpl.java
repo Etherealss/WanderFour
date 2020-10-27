@@ -23,12 +23,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean countUserByEmailPw(Connection conn, String email, String password) throws SQLException {
-		String sql = "SELECT count(*) FROM `user` WHERE `email` = ? AND user_password = ?";
-		Long count = qr.query(conn, sql, new ScalarHandler<Long>(), email, password);
-		//email唯一，结果至多为1
-		assert count < 2;
-		return count > 0;
+	public Long countUserBySign(Connection conn, String email, String password) throws SQLException {
+		String sql = "SELECT `id` FROM `user` WHERE `email` = ? AND user_password = ?";
+		Long userid = qr.query(conn, sql, new ScalarHandler<Long>(), email, password);
+		return userid;
 	}
 
 	@Override

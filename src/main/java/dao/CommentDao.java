@@ -83,6 +83,15 @@ public interface CommentDao {
 	Long countCommentByParentId(Connection conn, Long parentId) throws SQLException;
 
 	/**
+	 * 获取作品的回复总数
+	 * @param conn
+	 * @param parentId
+	 * @return
+	 * @throws SQLException
+	 */
+	Long countReplyByParentId(Connection conn, Long parentId) throws SQLException;
+
+	/**
 	 * 获取评论的回复总数
 	 * @param conn
 	 * @param parentId

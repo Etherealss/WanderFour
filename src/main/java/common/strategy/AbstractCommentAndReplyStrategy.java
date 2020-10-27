@@ -1,4 +1,4 @@
-package common.strategy.impl.GetDtoList;
+package common.strategy;
 
 import common.util.CommentUtil;
 import dao.CommentDao;
@@ -22,17 +22,8 @@ import java.util.List;
  * 这样获取评论和获取回复都可以用到这个方法
  * @date 2020/10/24
  */
-public abstract class CommentAndReplyStrategy {
+public abstract class AbstractCommentAndReplyStrategy {
 
-	/**
-	 * 获取CommentDto列表
-	 * @param vo
-	 * @return
-	 * @throws SQLException
-	 */
-	public abstract List<CommentDto> getComments(CommentVo vo) throws SQLException;
-
-	
 	/**
 	 * 获取某一评论下的多条回复记录
 	 * @param vo

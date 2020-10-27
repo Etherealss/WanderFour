@@ -97,11 +97,11 @@ function goIndex()
     },400);
 
     //超过3张图片，剩下的全部都在正中间的这张的后面
-    // var num = [index-1,index,index+1];
-    // $(".HP_item").eq(num).siblings().animate({
-    //     left: 350,
-    //     opacity: 0.5
-    // },400);
+    var num = [index-1,index,index+1];
+    $(".HP_item").eq(num).siblings().animate({
+        left: 350,
+        opacity: 0.5
+    },400);
     // console.log(HP_index);
 }
 // console.log(HP_index);
@@ -153,21 +153,21 @@ for(var i = 0;i < $(".HP_point").length;i++)
             HP_index = pointIndex;
             goIndex();
             HP_time = 0;
-            console.log(HP_index);
+            // console.log(HP_index);
         }
     });
 }
 
 // 自动轮播（定时器）
-setInterval(function()
-{
-    HP_time++;
-    if(HP_time == 20)
-    {
-        goNext();
-        HP_time = 0;
-    }   
-},150);
+// setInterval(function()
+// {
+//     HP_time++;
+//     if(HP_time == 20)
+//     {
+//         goNext();
+//         HP_time = 0;
+//     }   
+// },150);
 
 
 

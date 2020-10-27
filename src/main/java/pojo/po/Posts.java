@@ -178,7 +178,7 @@ public class Posts extends Writing{
 
 	public void setPartition(String partitionStr) {
 		this.partition = Partition.getPartition(partitionStr);
-		logger.debug("setPartition = " + this.partition);
+		logger.debug("this.partition = " + this.partition);
 	}
 
 	public Posts() {

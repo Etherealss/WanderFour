@@ -1,7 +1,7 @@
 *{
     padding: 0;
     margin: 0;
-}
+} 
 
 body{
     background-color: #f7f7f7;
@@ -147,6 +147,7 @@ body{
     background: #fff;
     border-radius: 15px;
     box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 500;
     /* border: 1px solid #0f0; */
 }
 
@@ -175,19 +176,21 @@ body{
 /* ———————————————————————————————— 主体部分 ————————————————————————————————————————— */
 .answerPosts_Content{
     width: 1250px;
-    height: 800px;
-    margin: 0 auto;
+    /* height: 1000px; */
+    margin: 0 auto 50px;
+    position: relative;
     display: flex;
     flex-direction: row;
     font-family: "Microsoft YaHei UI";
-    border: 1px solid #f00;
+    /* border: 1px solid #0f0; */
 }
 
 /* —————————————————————— 侧栏Part ——————————————————————————— */
 .answerPosts_sideColumn{
     width: 280px;
-    height: 100%;
+    position: absolute;
     margin: 40px 28px 0 15px;
+    /* border: 1px solid #D78B15; */
 }
 
 /* ——————— 最新问贴 ————————— */
@@ -289,14 +292,12 @@ body{
     top: -24px;
 }
 
-
-
-
 /* —————————————————————— 问贴Part ——————————————————————————— */
 .answerPostsBox{
     width: 914px;
-    height: 100%;
     margin-top: 40px;
+    position: absolute;
+    left: 323px;
     /* border: 1px solid #00f; */
 }
 
@@ -315,15 +316,17 @@ body{
     width: 914px;
     height: 283px;
     border-radius: 10px;
+    /* border: 1px solid #0f0; */
 }
 
 .postsTitle{
     width: 914px;
-    position: fixed;
+    /* position: fixed; */
     border-radius: 10px 10px 0 0;
     background: #fff;
     box-shadow: 1px 1px 10px rgba(193, 193, 193,0.25);
     z-index: 10;
+    /* border: 1px solid #f00; */
 }
 
 .postsTitle h3{
@@ -344,19 +347,27 @@ body{
     top: -32px;
 }
 
+/* ————————————— 当页面滑动到看不到问贴时，就出现这个 ————————————— */
+#postsHidden{
+    position: absolute;
+    display: none;
+}
+
 /* ———————————————————— 用户信息Part ———————————————————————— */
 .answerPosts_user{
     height: 70px;
-    padding-top: 50px;
+    /* padding-top: 50px; */
     /* margin-top: 50px; */
     position: relative;
+    /* border: 1px solid #00f; */
 }
 
 .answerPostHead{
     width: 50px;
     height: 50px;
     position: absolute;
-    top: 62px;
+    top: 12px;
+    /* top: 62px; */
     left: 36px;
     border-radius: 50%;
     background: url(../img/homePage_highSchoolStudent_head.png);
@@ -365,7 +376,8 @@ body{
 
 .answerPosts_user p{
     position: absolute;
-    top: 72px;
+    /* top: 72px; */
+    top: 22px;
     left: 90px;
     font-size: 16px;
     color: #333;
@@ -373,7 +385,8 @@ body{
 
 .answerPosts_user span{
     position: absolute;
-    top: 95px;
+    /* top: 95px; */
+    top: 45px;
     left: 91px;
     font-size: 12px;
     color: #999;
@@ -398,7 +411,9 @@ body{
 
 /* ——————————————————————————— 回答和评论 ———————————————————————————————————— */
 .answerPosts_answerAndComment{
+    padding-bottom: 60px;
     border-radius: 10px;
+    background: #fff;
     box-shadow: 1px 1px 10px rgba(193, 193, 193,0.3);
 }
 
@@ -461,55 +476,155 @@ body{
 
 /* ————————————————————————— 发帖楼内 ————————————————————————————— */
 .answerPosts_list{
-
+    margin: 0 40px 0 30px;
+    list-style-type: none;
+    background: #fff;
+    border-top: 1px solid #e7e7e7;
+    /* border: 1px solid #f00; */
 }
 
 /* ——————— 每层楼的样式 ——————— */
 .answerPosts_list > li{
-    border: 1px solid #f00;
+    width: 840px;
+    padding: 18px 0;
+    position: relative;
+    border-bottom: 1px solid #e7e7e7;
+    /* border: 1px solid #0f0; */
 }
 
 /* ————— 楼页眉信息 ————— */
 .APlist_message{
     height: 50px;
     position: relative;
-    border: 1px solid #0f0;
+    /* border: 1px solid #0f0; */
 }
 
 .APlist_headIcon{
     width: 37px;
     height: 37px;
     position: absolute;
+    top: 3px;
     border-radius: 50%;
-    background: #81cbbf;
+    /* background: #81cbbf; */
+}
+
+.APlist_headIcon > img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    outline: none;
 }
 
 .APlist_userName{
+    position: absolute;
+    left: 50px;
+    line-height: 25px;
+    font-size: 14px;
+    color: #333333;
+}
 
+.APlist_userIntro{
+    position: absolute;
+    left: 50px;
+    top: 20px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #999999;
 }
 
 .APlist_postTime{
-
+    position: absolute;
+    left: 741px;
+    top: 2px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #999999;
 }
 
+/* ————— 当前属于第几楼 ————— */
 .APlist_position{
-
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #888787;
 }
 
 /* ———— 楼内文本 ———— */
 .APlist_content{
-
+    padding: 0 5px;
+    margin: 10px 0 15px;
+    line-height: 24px;
+    color: #333;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    text-indent: 2rem;
+    /* border: 1px solid #00f; */
 }
 
 /* ———— 楼内页脚 ———— */
 .APlist_likeAndReply{
-
+    /* margin-bottom: 10px; */
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    display: flex;
+    /* border: 1px solid #f0f; */
 }
-
+/* 中间那条小竖线 */
+.APlist_likeAndReply > span{
+    height: 11px;
+    position: absolute;
+    right: 37px;
+    top: 8px;
+    border-left: 1px solid #999999;
+}
+/* 点赞 */
 .APlist_like{
-
+    padding: 5px 14px 5px 24px;
+    font-size: 12px;
+    color: #666666;
+    background: url(../img/answerPosts_Like.png) no-repeat 5px 4.5px;
+    background-size: 15px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+/* 点赞后变色 */
+.APlist_likeHover{
+    color: #81CBBF;
+    background-image: url(../img/answerPosts_LikeHover.png);
 }
 
+/* .APlist_like:hover{
+    color: #81CBBF;
+} */
+
+/* 回复 */
 .APlist_reply{
-
+    padding: 5px 0 5px 14px;
+    font-size: 12px;
+    color: #666666;
+    cursor: pointer;
+    /* border: 1px solid #0f0; */
 }
+
+/* ———————————————————————— 回到顶部 ———————————————————————————— */
+#returnToTopBtn{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: calc(25% - 60px);
+    right: 60px;
+    border-radius: 50%;
+    background: url(../img/answerPosts_toTop.png) no-repeat;
+    background-size: 51px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+#returnToTopBtn:hover{
+    background-image: url(../img/answerPosts_toTopHover.png);
+}
+

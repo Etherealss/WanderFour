@@ -21,7 +21,7 @@ public class ValidateUserLoginServlet extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Object email = req.getServletContext().getAttribute("email");
+		Object email = req.getServletContext().getAttribute(req.getParameter("userid"));
 		if (email == null) {
 			//未登录，发送信息给前端
 			/*

@@ -57,44 +57,69 @@ public class UserEnterController extends BaseServlet {
 		String email = req.getParameter("email");
 		String password = req.getParameter("pw");
 
+		ResultType state;
+		JSONObject jsonObject = new JSONObject();
+		//默认为异常
+		ResultState info = new ResultState(ResultType.EXCEPTION, "登录异常");
 		//执行操作，获取结果
-		UserService us = ServiceFactory.getUserService();
-		ResultType state = null;
 		try {
-			state = us.validateUserLogin(email, password);
+			UserService us = ServiceFactory.getUserService();
+
+			state = us.checkUserExist(email);
+
+			//用户存在
+			if (state == ResultType.IS_REGISTED) {
+
+				Long userid = us.validateUserLogin(email, password);
+				if (userid != null) {
+					//密码正确，检查异地登录
+					logger.trace("密码正确，检查异地登录");
+					HttpSession session = req.getSession();
+					String sessionId = session.getId();
+
+					String useridStr = String.valueOf(userid);
+					//通过ServletContext检查异地登录
+					ServletContext servletContext = session.getServletContext();
+					if (servletContext.getAttribute(useridStr) != null &&
+							!StringUtils.equals(sessionId, servletContext.getAttribute(useridStr).toString())) {
+						//如果servletContext中存在email，说明已登录，比较两个sessionId
+						//如果两个sessionId相同，说明是同个地点登录
+						//输出“您已登录”
+						logger.trace("已经登录了");
+						state = ResultType.LOGGED;
+						info = new ResultState(state, "已登录");
+					} else {
+						//当前用户未登录
+						state = ResultType.SUCCESS;
+						if (servletContext.getAttribute(useridStr) == null) {
+							//未登录，用email做标识，存入请求的sessionId
+							logger.trace("未登录，好了，现在登录了");
+							info = new ResultState(state, "未登录，好了，现在登录了");
+						} else {
+							//如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
+							logger.trace("异地登录！");
+							servletContext.removeAttribute(useridStr);
+							info = new ResultState(state, "已异地登录！踢下异地用户");
+						}
+						//用servletContext判断登录状态，用session储存用户的信息
+						servletContext.setAttribute(useridStr, sessionId);
+						session.setAttribute("userid", userid);
+
+						logger.info("用户：" + userid + "登录");
+					}
+				} else {
+					//密码错误
+					state = ResultType.PW_ERROR;
+					info = new ResultState(state, "密码错误");
+				}
+			} else if (state == ResultType.USER_UN_FOUND) {
+				info = new ResultState(state, "用户不存在");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		logger.info(info);
 
-		if (state == ResultType.SUCCESS) {
-			//密码正确，检查异地登录
-			logger.trace("密码正确，检查异地登录");
-			HttpSession session = req.getSession();
-			String sessionId = session.getId();
-
-			//通过ServletContext检查异地登录
-			ServletContext servletContext = session.getServletContext();
-			if (servletContext.getAttribute(email) == null) {
-				//未登录，用email做标识，存入请求的sessionId
-				logger.trace("未登录，好了，现在登录了");
-				servletContext.setAttribute(email, sessionId);
-			} else if (servletContext.getAttribute(email) != null &&
-					!StringUtils.equals(sessionId, servletContext.getAttribute(email).toString())) {
-				//如果servletContext中存在email，说明已登录，比较两个sessionId
-				//如果两个sessionId相同，说明是同个地点登录
-				//输出“您已登录”
-				logger.trace("已经登录了");
-				state = ResultType.LOGGED;
-			} else {
-				//如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
-				logger.trace("异地登录！");
-				servletContext.removeAttribute(email);
-				servletContext.setAttribute(email, sessionId);
-			}
-		}
-		logger.info(state);
-		JSONObject jsonObject = new JSONObject();
-		ResultState info = new ResultState(state, "登录结果");
 		jsonObject.put("state", info);
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
@@ -112,9 +137,9 @@ public class UserEnterController extends BaseServlet {
 		String avatarPath;
 		//根据性别加载默认头像
 		if (user.getSex()) {
-			avatarPath = this.getServletContext().getRealPath("boy.png");
+			avatarPath = "D:\\WanderFourAvatar\\default\\boy.png";
 		} else {
-			avatarPath = this.getServletContext().getRealPath("girl.png");
+			avatarPath = "D:\\WanderFourAvatar\\default\\girl.png";
 		}
 		logger.debug("avatarPath = " + avatarPath);
 		user.setAvatarPath(avatarPath);

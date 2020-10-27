@@ -2,6 +2,8 @@ package common.strategy.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.GetParamStrategy;
+import common.util.SecurityUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +24,18 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 	@Override
 	public JSONObject getJsonByJson(HttpServletRequest req) {
 		try {
-			BufferedReader streamReader = new BufferedReader(new InputStreamReader(req.getInputStream(), StandardCharsets.UTF_8));
+			BufferedReader streamReader = new BufferedReader(new InputStreamReader(
+					req.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder responseStrBuilder = new StringBuilder();
 			String inputStr;
 			while ((inputStr = streamReader.readLine()) != null) {
+				logger.debug(inputStr);
 				responseStrBuilder.append(inputStr);
 			}
-
-			return JSONObject.parseObject(responseStrBuilder.toString());
+			JSONObject resultJson = JSONObject.parseObject(responseStrBuilder.toString());
+			//TODO 防止了js注入
+			JSONObject returnJson = SecurityUtil.ensureJsSafe(resultJson);
+			return resultJson;
 		} catch (Exception e) {
 			logger.error("解析json 失败 " + e.getMessage());
 			e.printStackTrace();
@@ -45,6 +51,7 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 				logger.error("无参数");
 				return null;
 			}
+			logger.debug(urlParams);
 			//切割 & ，得到一个个键值对
 			String[] params = urlParams.split("&");
 			JSONObject json = new JSONObject();
@@ -70,10 +77,12 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 				String parameter = req.getParameter(key);
 				json.put(key, parameter);
 			}
+			//TODO 防止了js注入
+//			json = SecurityUtil.ensureJsSafe(json);
 			logger.trace(json);
 			return json.toJavaObject(clazz);
 		} catch (Exception ex) {
-			logger.error("解析 formData 失败 " + ex.getMessage());
+			logger.error("解析 formData 失败。Message：" + ex.getMessage());
 			ex.printStackTrace();
 		}
 		return null;

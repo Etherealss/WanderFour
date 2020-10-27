@@ -106,4 +106,16 @@ public class JdbcUtil {
 		threadLocal.remove();
 	}
 
+	/**
+	 * 开启事务
+	 * @throws Exception
+	 */
+	public static Connection beginTransactionForTest() throws Exception {
+		logger.trace("开启事务，开启自动提交");
+		Connection conn = getConnection();
+		//关闭自动提交，开启事务
+		conn.setAutoCommit(true);
+		return conn;
+	}
+
 }

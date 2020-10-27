@@ -102,7 +102,7 @@ changeImgSrc($("#imgFileBtn"),0);
 //——————————————————————— 获取textarea的字数 —————————————————————————
 $("#EA_textNum").text($("#articleContentVal").html().length);
 $("#articleContentVal").on("keyup",function(){
-    $("#EA_textNum").text($(this).val().length);
+    $("#EA_textNum").text($(this).html().length);
 });
 
 
@@ -307,6 +307,8 @@ function obtainVal()
     return massage;
 }
 
+// console.log($("input[name='theBigPartition']:checked").val());
+
 //将textarea中的换行“\n”替换成“<br/>”
 // function txtLineBreak(articleContent)
 // {
@@ -325,9 +327,7 @@ function submitVal(partition,category,authorId,articleTitleVal,articleContentVal
        type:'POST',
        url:'/WritingServlet',
        data:{
-           method: "writingCRUD", //文章的操作，CRUD即增删改查，具体百度
            type: "article",
-           action: "add", //增add删delete改post查get，通俗易懂
            partition: partition,
            category: category,
            authorId: authorId, 
@@ -392,12 +392,11 @@ function getBackstageData(partitionNumber)
         type:'get',
         url:'/CategoryServlet?partition='+partitionNumber,
         data:{},
-        dataType:'json',
         success:function(res)
         {
+            console.log(res);
             var categoryNum = JSON.parse(res.category); //把传递数据的JSON格式转换为对象存储来用
             compareData(categoryNum);   //传递到页面进行配对比较
-            console.log(res);
         },
         error:function()
         {
@@ -429,7 +428,7 @@ function compareData(categoryNum)
                 // console.log(categoryNum[e]);
                 $(".secondary").eq(i-1).attr("backstage-data",j); //文章二级分类
             }
-        } 
+        }
     }
 }
 

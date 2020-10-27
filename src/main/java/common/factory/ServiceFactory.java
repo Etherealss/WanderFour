@@ -72,6 +72,10 @@ public class ServiceFactory {
 		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(clazz));
 	}
 
+	public static SensitiveService getSensitiveService(){
+		return ProxyUtil.getProxyForTransaction(new SensitiveServiceImpl());
+	}
+
 //	/**
 //	 * 获取代理的指定分区的文章Service
 //	 * @return 经过代理的文章Service对象

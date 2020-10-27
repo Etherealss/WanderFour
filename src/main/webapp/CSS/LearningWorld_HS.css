@@ -7,10 +7,23 @@ body{
     background-color: #f7f7f7;
 }
 
+/* .backgroundBox{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: url(../img/homePage_banner.png) no-repeat;
+    background-size: 100% 110%;
+    opacity: 0.12;
+    border: 1px solid #f00;
+} */
+/* ————————————————————————— 头部 ——————————————————————————— */
 .LearningWorld_Header{
     width: 100%;
     height: 500px;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
     background: #f7f7f7;
     /* border: 1px solid #f00; */
 }
@@ -28,6 +41,7 @@ body{
     height: 52px;
     margin: 0 auto;
     position: relative;
+    z-index: 10;
     /* border: 1px solid #0f0; */
 }
 
@@ -368,7 +382,7 @@ body{
 .LearningWorld_TA_slideBox > #toAskBox_coil1{left: 82px;}
 .LearningWorld_TA_slideBox > #toAskBox_coil2{left: 178px;}
 
-/* ——————————— 右边问贴板块 ——————————— */
+/* —————————————————————— 右边问贴板块 ————————————————————————————————— */
 .LearningWorld_TA_mainContentBox{
     width: 895px;
     margin: 18px 0 0 18px;
@@ -389,6 +403,7 @@ body{
     background: #fff;
     border-radius: 5px;
     box-shadow: 1px 1px 12px rgba(204, 204, 204,0.3);
+    cursor: pointer;
     /* border: 1px solid #0f0; */
 }
 
@@ -406,11 +421,15 @@ body{
 } */
 
 .LearningWorld_TA_askPost h3{
+    display: inline-block;
     padding: 20px 0 0 25px;
     color: #343434;
     font-size: 19px;
     letter-spacing: 2px;
+    /* border: 1px solid #f00; */
 }
+
+.LearningWorld_TA_askPost h3:hover{color: #81cbbf;}
 
 .LearningWorld_TA_askPost p{
     margin: 18px 25px 0 35px;
@@ -464,14 +483,19 @@ body{
     height: 50px;
     padding: 0 5px;
     margin-right: 50px;
-    font-size: 16px;
+    font-size: 17px;
+    text-shadow: .1px .1px .2px rgba(0, 0, 0,0.6);
+    background: none;
     border: none;
     outline: none;
-    background: none;
     cursor: pointer;
 }
 
-.LearningWorld_LE_optionBox button:nth-child(1){color: #81cbbf;}
+.LearningWorld_LE_optionBox button:nth-child(1){
+    color: #81cbbf;
+    background: url(../img/LW_toggleBackground.png) no-repeat;
+    background-size: 100% 48px;
+}
 
 /* .LearningWorld_LE_optionBox button:hover{
     color: #aee1d8;
@@ -514,10 +538,10 @@ body{
     border-radius: 5px;
     /* border: 1px solid #f00; */
     box-shadow: 1px 1px 12px rgba(204, 204, 204,0.3);
+    cursor: pointer;
 }
 
 .LearningWorld_LE_article:hover{
-    cursor: pointer;
     box-shadow: 1px 1px 10px rgba(0, 0, 0,0.28);
 }
 

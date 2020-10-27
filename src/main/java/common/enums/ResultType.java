@@ -29,7 +29,10 @@ public enum ResultType {
 
 	/**已点赞*/
 	HAVE_LIKED("HAS_LIKED"),
-	HAVE_NOT_LIKED("HAVE_NOT_LIKED")
+	HAVE_NOT_LIKED("HAVE_NOT_LIKED"),
+
+	/**没有记录*/
+	NO_RECORD("NO_RECORD"),
 	;
 
 	private final String code;

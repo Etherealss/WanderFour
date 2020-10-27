@@ -24,7 +24,7 @@ public interface UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	ResultType validateUserLogin(String email, String paasword) throws Exception;
+	Long validateUserLogin(String email, String paasword) throws Exception;
 
 	/**
 	 * 注册

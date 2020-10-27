@@ -1,0 +1,839 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #f7f7f7;
+}
+
+.professionalIntroduction_Header{
+    width: 100%;
+    /* height: 500px; */
+    margin: 0 auto 25px;
+    background: #f7f7f7;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    min-width: 1200px; 
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmargin{
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 6px;
+    left: -3px;
+    border-radius: 50%;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
+    background-size: 45px;
+    /* border: 1px solid #a9a9a9; */
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    left: 98px;
+    top: 12px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.topmargin_target > li a{
+    padding: 6px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 10px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+    /* border: 1px solid #f00; */
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 105px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 40px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 20px;
+    background-size: 20px;
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 10;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 25px;
+    left: 120px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 150px;
+    height: 145px;
+    margin-top: 52px;
+    padding: 16px 0 20px 0; 
+    display: none;
+    position: absolute;
+    top: 15px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 146px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+}
+
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+
+/* —————————————————————————— 中间内容 ——————————————————————————————— */
+.professionalIntroduction_Content{
+    width: 1200px;
+    height: 800px;
+    margin: 45px auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 板块标题 —————————————— */
+.professionalIntroduction_Title{
+    margin-bottom: 22px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: #333333;
+    /* border: 1px solid #f0f; */
+}
+
+.professionalIntroduction_Title > span{
+    font-size: 30px;
+}
+
+/* ———————————————————— 小人搜索框 —————————————————————— */
+.PI_searchBar{
+    width: 500px;
+    height: 100px;
+    position: absolute;
+    top: 30px;
+    left: 455px;
+    background: url(../img/professionalIntroduction_inputBackground.png) no-repeat 205px 3px;
+    background-size: 51px auto;
+    /* border: 1px solid #f00; */
+}
+
+.PI_searchBar .PI_inputBox{
+    width: 500px;
+    height: 50px;
+    margin-top: 50px;
+    background: #d9e9e6;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
+}
+
+.PI_searchBar .PI_inputBox > input{
+    width: 455px;
+    /* height: 40px; */
+    margin: 8px 10px;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.PI_searchBar .PI_inputBox > input::placeholder{
+    color: #B2B2B2;
+}
+
+/* ———————— 搜索按钮 —————————— */
+#professionalSearch{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 15px;
+    bottom: 9px;
+    background: url(../img/topmargin_search.png) no-repeat -2px -2px;
+    background-size: 30px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* #professionalSearch:hover{
+    border-bottom: 3px solid #72c3b6;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0,0.28);
+} */
+
+/* ———————————————————————— 专业盒子Part ———————————————————————————— */
+.professionalIntroduction_Box{
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid #00f; */
+}
+
+/* ——————————— 侧边栏 ——————————— */
+.PI_sideBarBox{
+    width: 200px;
+    height: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.15);
+}
+
+.PI_sideBarBox > p{
+    width: 176px;
+    height: 50px;
+    padding-left: 24px;
+    float: left;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.15);
+}
+
+/* ————————————— 侧栏内容 ————————————— */
+.PI_sideBarBox > ul{
+    margin-top: 50px;
+    list-style-type: none;
+}
+
+.PI_sideBarBox > ul li{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 43px;
+    letter-spacing: 1px;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.PI_sideBarBox > ul li:nth-last-child(1){
+    border-radius: 0 0 10px 10px;
+}
+
+.PI_sideBarBox > ul li:hover{
+    color: #5ec1b8;
+    /* background: #f7f7f7; */
+    /* box-shadow: 1px 1px 10px rgba(0,0,0,0.1); */
+}
+
+/* —————————————————————————————————————— */
+.PI_cardOutsideBox{
+    width: 1000px;
+    /* border: 1px solid #0f0;    */
+}
+
+/* ————— 换一换 ——————— */
+.PI_cardOutsideBox > .PI_change{
+    width: 100px;
+    height: 30px;
+    margin-top: 105px;
+    float: right;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #49b9b0;
+    background: url(../img/professionalIntroduction_change.png) no-repeat 17px 3px;
+    background-size: 22px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.PI_cardOutsideBox > .PI_change:hover{
+    text-shadow: .1px .1px .2px rgba(0,0,0,1);
+}
+
+.PI_cardBox{
+    width: 1000px;
+    margin: 145px 0 0 15px;
+    /* border: 1px solid #0f0; */
+}
+
+.PI_cardBox > ul{
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
+/* ——————————— 专业卡片里面的内容 ——————————— */
+.PI_cardBox > ul > li{
+    width: 230px;
+    height: 180px;
+    margin: 10px;
+    position: relative;
+    background: #fcecd0;
+    border-radius: 5px;
+    box-shadow: 4px 4px 0px 0px rgba(255, 217, 149, 0.24),
+                1px 1px 5px rgba(0,0,0,0.1);
+    background-image: url(../img/professionalIntroduction_inputBackground.png);
+    background-size: 117px 112px;
+    background-repeat: no-repeat;
+    background-position: 55px 55px;
+    /* border: 1px solid #00f; */
+}
+
+/* ——————————— 专业标题 ————————————— */
+.PI_cardBox > ul > li > span{
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: oblique;
+    letter-spacing: 3px;
+    color: #333333;
+    background: #fff;
+    border-radius: 5px 5px 0 0;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————— 悬浮才出现的部分（专业） ———————————————————— */
+.PI_hoverHiddenBox{
+    width: 400px;
+    height: 345px;
+    position: absolute;
+    z-index: 50;
+    border-radius: 5px;
+    color: #333;
+    background: #fff;
+    display: none;
+    box-shadow: 5px 6px 2px 0px rgba(139, 139, 139, 0.24);
+    /* border: 1px solid #f00; */
+}
+
+.PI_hoverHiddenBox > a{
+    margin: 15px 20px;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei UI";
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #333333;
+}
+
+.PI_hoverHiddenBox > p{
+    padding: 2px 20px 2px 28px;
+    font-size: 14px;
+    line-height: 23px;
+    /* border: 1px solid #f00; */
+}
+
+.PI_hoverHiddenBox > p > span{
+    color: #8B8B8B;
+}
+
+/* —————————————————————————— 学校板块Part —————————————————————————————— */
+.schoolIntroduction_Box{
+    width: 1200px;
+    margin: 120px 0;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————— 板块标题Part —————————————— */
+.SI_bannerBox{
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+.schoolIntroduction_Title{
+    margin-bottom: 22px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: #333333;
+    /* border: 1px solid #f0f; */
+}
+
+.schoolIntroduction_Title span{
+    font-size: 30px;
+}
+
+/* —————————————— 查看更多学校 ———————————————— */
+#lookMoreSchool{
+    width: 125px;
+    position: absolute;
+    top: 15px;
+    left: 100px;
+    /* border: 1px solid #f00; */
+}
+
+#lookMoreSchool > a{
+    font-size: 16px;
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#lookMoreSchool > a:hover{color: #5ec1b8}
+/* ————— 换一换 ——————— */
+.SI_bannerBox > .SI_change{
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    bottom: -15px;
+    right: 5px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #49b9b0;
+    background: url(../img/professionalIntroduction_change.png) no-repeat 17px 3px;
+    background-size: 22px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+/* ————————————————— 学校卡片板块Part ——————————————————— */
+.SI_cardBox{
+    width: 1200px;
+    /* margin-left: 5px; */
+}
+
+.SI_cardBox > ul{
+    margin-left: -15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.SI_cardBox > ul > li{
+    width: 225px;
+    height: 250px;
+    margin: 10px 0 10px 18px;
+    position: relative;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 5px 6px 0px 0px rgba(255, 217, 149, 0.24),
+                1px 1px 5px rgba(0,0,0,0.1);
+    /* border: 1px solid #f00; */
+}
+
+/* —————————————————————— 学校Card布局 ———————————————————————— */
+/* ————————— 校徽 ——————————— */
+.SI_cardBox .SI_card > img{
+    width: 129px;
+    height: 123px;
+    display: block;
+    margin: 10px auto 0;
+    /* border: 1px solid #f00; */
+}
+
+.SI_cardBox .SI_card > .schoolNameAndPosition{
+    width: 225px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 5px 5px;
+    box-shadow: -1px -1px 5px rgba(0,0,0,0.1);
+    /* border: 1px solid #f00; */
+}
+
+.SI_cardBox .SI_card > .schoolNameAndPosition > h3{
+    padding: 8px 0 2px 0;
+    text-align: center;
+    letter-spacing: 4px;
+    font-style: oblique;
+    font-size: 17px;
+    color: #333;
+    /* border: 1px solid #f00; */
+}
+
+.SI_cardBox .SI_card > .schoolNameAndPosition > span{
+    width: 225px;
+    padding-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 3px;
+    font-style: italic;
+    font-size: 13px;
+    color: #666;
+    /* border: 1px solid #0f0; */
+}
+
+.SI_cardBox .SI_card > .schoolNameAndPosition > p{
+    padding: 6px 8px 8px 30px;
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 3px;
+    color: #666;
+    background: url(../img/professionalIntroduction_site.png) no-repeat 8px 6px;
+    background-size: 18px;
+    /* border: 1px solid #00f; */
+}
+
+/* —————————————— 悬浮才出现的部分（学校） ———————————————————— */
+.SI_hoverHiddenBox{
+    width: 380px;
+    height: 455px;
+    position: absolute;
+    top: 0;
+    z-index: 50;
+    border-radius: 5px;
+    color: #333;
+    background: #fff;
+    display: none;
+    box-shadow: 5px 6px 2px 0px rgba(139, 139, 139, 0.24);
+    /* border: 1px solid #f00; */
+}
+
+.SI_hoverHiddenBox > a{
+    margin: 20px 20px 15px;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei UI";
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #333333;
+}
+
+.SI_hoverHiddenBox > p{
+    padding: 2px 20px 2px 28px;
+    font-size: 15.2px;
+    line-height: 23px;
+    /* border: 1px solid #f00; */
+} 
+
+/* —————————————————————————————————— 问贴Part ———————————————————————————————————————— */
+.PI_toAskBox{
+    width: 1200px;
+    margin: 0 auto 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* border: 1px solid #0f0; */
+}
+
+.PI_toAskBox h2{
+    width: 1200px;
+    height: 25px;
+    padding-bottom: 35px;
+    font-size: 25px;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #E7E7E7;
+}
+
+/* ——————— 左边文章及其他内容Part ————————— */
+.PI_TA_mainBox{
+    width: 1200px;
+    display: flex;
+    position: relative;
+    padding-bottom: 80px;
+    margin-bottom: 100px;
+    border-bottom: 2px solid #E7E7E7;
+    /* border: 1px solid #f00; */
+}
+
+/* ——————— 左边上下滑动Part ————————— */
+.PI_TA_slideBox{
+    width: 272px;
+    height: 385px;
+    margin: -2px 0 0 6px;
+    position: relative;
+    background: url(../img/LearingWorld_askPost_sideBackground.png) no-repeat;
+    background-size: 272px 100%;
+    border-radius: 5px;
+}
+
+/* 装内容 */
+.PI_TA_slideBox > ul{
+    margin-top: 20px;
+    height: 365px;
+    list-style-type: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    /* border: 1px solid #333; */
+}
+
+.PI_TA_slideBox > ul > li{
+    margin: 0 5px;
+}
+
+.PI_TA_slideBox > ul > li:nth-child(2),
+.PI_TA_slideBox > ul > li:nth-child(3){
+    width: 262px;
+    padding: 17px 0;
+    text-align: center;
+    border-radius: 4px;
+    border-top: 1px solid #e8e8e8;
+    cursor: pointer;
+    
+}
+
+.PI_TA_slideBox > ul > li:nth-child(2):hover,
+.PI_TA_slideBox > ul > li:nth-child(3):hover{
+    background: #efefef;
+}
+
+/* —————— 发问帖、问贴、草稿箱 ——————— */
+.PI_TA_write{
+    padding: 38px 0 26px 0;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.PI_TA_write > li{
+    height: 60px;
+    display: flex;
+    cursor: pointer;
+    /* border: 1px solid #0f0; */
+}
+
+.PI_TA_write > li > div{
+    width: 43px;
+    height: 45px;
+    margin: 20px 0 0 18px;
+    background: #d0edee;
+    border-radius: 10px;
+}
+
+.PI_TA_write > li > div img{
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+
+.PI_TA_write > li:nth-child(1) > div img{
+    width: 28px;
+    height: 28px;
+    margin: 8px;
+}
+
+.PI_TA_write > li span{
+    height: 30px;
+    line-height: 30px;
+    margin: 24px 0 0 18px;
+    display: inline-block;
+    color: #333;
+    font-size: 15px;
+    /* border: 1px solid #00f; */
+}
+
+.PI_TA_write > li span:hover{color: #81cbbf;}
+
+/* —————— 侧栏两个小线圈 —————— */
+.PI_TA_slideBox > .toAskBox_coil{
+    width: 18px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    background: #a5a5a5;
+    border-radius: 22px;
+    border: 1px solid rgba(165, 165, 165,0.9);
+}
+
+.PI_TA_slideBox > #toAskBox_coil1{left: 82px;}
+.PI_TA_slideBox > #toAskBox_coil2{left: 178px;}
+
+/* ——————————— 右边问贴板块 ——————————— */
+.PI_TA_mainContentBox{
+    width: 895px;
+    margin: 18px 0 0 18px;
+    /* overflow: hidden; */
+    /* border: 1px solid #0f0; */
+}
+
+.PI_TA_mainContent{
+    padding-bottom: 65px;
+    position: relative;
+    /* border: 1px solid #f00; */
+}
+
+.PI_TA_askPost{
+    width: 895px;
+    height: 167.7px;
+    margin: 0 0 15px 0;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 12px rgba(204, 204, 204,0.3);
+    /* border: 1px solid #0f0; */
+}
+
+.PI_TA_askPost:hover{
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.28);
+    cursor: pointer;
+}
+
+.PI_TA_askPost h3{
+    padding: 20px 0 0 25px;
+    color: #343434;
+    font-size: 19px;
+    letter-spacing: 2px;
+}
+
+.PI_TA_askPost p{
+    margin: 18px 25px 0 35px;
+    text-indent: 2rem;
+    font-size: 16px;
+    /* border: 1px solid #f00; */
+}
+
+/* —————————— 悬浮伸缩 ———————————— */
+.PI_TA_askPost > ul{
+    margin: 16px 0 0 35px;
+    /* “评论”二字的样式 */
+    color: #666;
+    font-size: 15px;
+    list-style-type: none;
+    /* display: none; */
+    /* border: 1px solid #f00; */
+}
+
+.PI_TA_askPost > ul li{
+    margin: 6px 0 0 15px;
+    font-size: 14px;
+}
+
+.PI_TA_askPost > ul li:nth-child(1){margin-top: 8px;}
+
+/* ———————————— 查看更多 —————————————— */
+.PI_seeMore{
+    padding: 8px 8px;
+    position: absolute;
+    bottom: -40px;
+    left: 380px;
+    cursor: pointer;
+}
+
+.PI_packUp{
+    padding: 8px 20px;
+    position: absolute;
+    bottom: -40px;
+    right: 50px;
+    cursor: pointer;
+    display: none;
+}
+
+.PI_TA_mainContent > button{
+    outline: none;
+    border: none;
+    background: none;
+    /* border-bottom: 1px solid #333333; */
+    /* background: #fff; */
+    /* border-radius: 4px; */
+    /* box-shadow: 2px 2px 10px rgba(204, 204, 204,0.4); */
+}
+
+.PI_TA_mainContent > button:hover{
+    color: #81cbbf;
+    /* background: #fff; */
+    /* box-shadow: 2px 2px 16px rgba(204, 204, 204,0.8); */
+}
+
+/* ———————————————————————— 回到顶部 ———————————————————————————— */
+#returnToTopBtn{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: calc(25% - 60px);
+    right: 60px;
+    border-radius: 50%;
+    background: url(../img/answerPosts_toTop.png) no-repeat;
+    background-size: 51px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+#returnToTopBtn:hover{
+    background-image: url(../img/answerPosts_toTopHover.png);
+}
+

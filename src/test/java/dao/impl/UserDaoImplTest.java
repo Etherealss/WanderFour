@@ -31,11 +31,11 @@ public class UserDaoImplTest {
 
 	@Test
 	public void testSelectUserByPw() throws Exception {
-		String email = "123123L";
+		String email = "1@qq.com";
 		String pw = "123123";
 
-		boolean b = dao.countUserByEmailPw(conn, email, pw);
-		logger.debug("selectUserByPw()测试结果：" + (b ? "存在" : "不存在"));
+		Long b = dao.countUserBySign(conn, email, pw);
+		logger.debug("selectUserByPw()测试结果：" + b);
 	}
 
 	@Test

@@ -29,7 +29,7 @@ public interface UserDao {
 	 * @return 存在返回true
 	 * @throws SQLException
 	 */
-	boolean countUserByEmailPw(Connection conn, String email, String password) throws SQLException;
+	Long countUserBySign(Connection conn, String email, String password) throws SQLException;
 
 	/**
 	 * 查询用户id是否存在

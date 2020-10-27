@@ -54,16 +54,6 @@ public class ResponseChoose {
 	/**
 	 * 遇到空参错误，返回错误状态给浏览器
 	 * @param resp
-	 * @throws ServletException
-	 */
-	public static void respNoParameterError(HttpServletResponse resp) throws ServletException{
-		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR, ResultMsg.NO_PARAMETER);
-		throw new ServletException(ResultMsg.NO_PARAMETER);
-	}
-
-	/**
-	 * 遇到空参错误，返回错误状态给浏览器
-	 * @param resp
 	 * @param msg 附加信息
 	 * @throws ServletException
 	 */
@@ -71,7 +61,18 @@ public class ResponseChoose {
 		// 拼接字符串结果举例： 注册 异常！没有获取到参数
 		resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
-					"[" + msg + "]" + ResultMsg.NO_PARAMETER);
-		throw new ServletException(msg + ResultMsg.NO_PARAMETER);
+					ResultMsg.NO_PARAMETER + msg);
+		throw new ServletException(ResultMsg.NO_PARAMETER + msg);
+	}
+
+	/**
+	 * 遇到参数错误，返回错误状态给浏览器
+	 * @param resp
+	 * @throws ServletException
+	 */
+	public static void respWrongParameterError(HttpServletResponse resp, String msg) throws ServletException{
+		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
+				ResultMsg.WRONG_PARAMETER + msg);
+		throw new ServletException(ResultMsg.WRONG_PARAMETER + msg);
 	}
 }

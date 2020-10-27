@@ -71,4 +71,11 @@ public class DaoFactory {
 		return null;
 	}
 
+	/**
+	 * 获取敏感词DAO
+	 * @return
+	 */
+	public static SensitiveDao getSensitiveDao(){
+		return new SensitiveDaoImpl();
+	}
 }

@@ -2,12 +2,13 @@ package common.util;
 
 import common.factory.DaoFactory;
 import dao.UserDao;
-import dao.impl.UserDaoImpl;
 import org.apache.log4j.Logger;
 import pojo.bean.CommentBean;
 import pojo.po.Comment;
 import pojo.po.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -24,8 +25,8 @@ public class CommentUtil {
 	 * 包装评论者的用户昵称和头像（base64转码）
 	 * @param conn
 	 * @param comment 当前评论的Comment对象
-	 * @param reply 回复对象的Comment对象
-	 * @param userid 当前用户
+	 * @param reply   回复对象的Comment对象
+	 * @param userid  当前用户
 	 * @return 包括评论信息、评论者昵称、评论者头像的CommentBean
 	 * @throws SQLException
 	 */
@@ -33,7 +34,7 @@ public class CommentUtil {
 	                                         Comment reply, Long userid) throws SQLException {
 		CommentBean cb = new CommentBean();
 		//判断是否为当前用户
-		Long reviewerUserId = comment.getUserId();
+		Long reviewerUserId = comment.getUserid();
 		cb.setCanDelete(reviewerUserId.equals(userid));
 		//封装回复数据，如果没有，则赋值为null，不影响
 		cb.setRelayComment(reply);
@@ -55,5 +56,16 @@ public class CommentUtil {
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;
+	}
+
+	/**
+	 * 从req中获取用户的userid
+	 * @param req
+	 * @return
+	 */
+	public Long getUserid(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Object userid = session.getAttribute("userid");
+		return (Long) userid;
 	}
 }

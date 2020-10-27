@@ -3,6 +3,7 @@ package controller;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
  * @description 问贴评论
  * @date 2020/10/23
  */
+@WebServlet("/PostsCommentServlet")
 public class PostsCommentController extends BaseServlet{
 
 	private Logger logger = Logger.getLogger(PostsCommentController.class);

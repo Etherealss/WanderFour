@@ -11,7 +11,6 @@ import java.sql.Connection;
  */
 public class CommentVo {
 
-
 	/** 数据库连接 */
 	private Connection conn;
 	/** 评论DAO */
@@ -205,5 +204,21 @@ public class CommentVo {
 	}
 
 	public CommentVo() {
+	}
+
+	@Override
+	public String toString() {
+		return "CommentVo{" +
+				"conn=" + conn +
+				", dao=" + dao +
+				", order='" + order + '\'' +
+				", commentStart=" + commentStart +
+				", replyStart=" + replyStart +
+				", commentRows=" + commentRows +
+				", replyRows=" + replyRows +
+				", parentId=" + parentId +
+				", targetId=" + targetId +
+				", userid=" + userid +
+				'}';
 	}
 }

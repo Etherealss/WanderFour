@@ -44,7 +44,7 @@ public class CommentDaoImpl extends BaseDaoImpl implements CommentDao {
 	@Override
 	public boolean createNewComment(Connection conn, Comment comment) throws SQLException {
 		String sql = "INSERT INTO " + COMMENT_TABLE + " (`user_id`,`parent_id`,`content`) VALUES(?,?,?);";
-		Object[] params = {comment.getUserId(), comment.getParentId(), comment.getContent()};
+		Object[] params = {comment.getUserid(), comment.getParentId(), comment.getContent()};
 		int res = qr.update(conn, sql, params);
 		return res == 1;
 	}
@@ -53,7 +53,7 @@ public class CommentDaoImpl extends BaseDaoImpl implements CommentDao {
 	public boolean createNewReply(Connection conn, Comment comment) throws SQLException {
 		String sql = "INSERT INTO " + COMMENT_TABLE + " (`user_id`,`parent_id`,`target_id`,`content`) VALUES(?,?,?,?);";
 		Object[] params = {
-				comment.getUserId(), comment.getParentId(), comment.getTargetId(), comment.getContent()
+				comment.getUserid(), comment.getParentId(), comment.getTargetId(), comment.getContent()
 		};
 		int res = qr.update(conn, sql, params);
 		return res == 1;
@@ -97,6 +97,13 @@ public class CommentDaoImpl extends BaseDaoImpl implements CommentDao {
 	@Override
 	public Long countCommentByParentId(Connection conn, Long parentId) throws SQLException {
 		String sql = "SELECT COUNT(*) FROM " + COMMENT_TABLE + " WHERE `parent_id`=? AND ISNULL(`target_id`);";
+		Long count = qr.query(conn, sql, new ScalarHandler<Long>(), parentId);
+		return count;
+	}
+
+	@Override
+	public Long countReplyByParentId(Connection conn, Long parentId) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM " + COMMENT_TABLE + " WHERE `parent_id`=? AND `target_id` IS NOT NULL;";
 		Long count = qr.query(conn, sql, new ScalarHandler<Long>(), parentId);
 		return count;
 	}

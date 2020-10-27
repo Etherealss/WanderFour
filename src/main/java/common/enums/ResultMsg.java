@@ -10,5 +10,10 @@ public class ResultMsg {
 	/**
 	 * 无参数
 	 */
-	public static final String NO_PARAMETER = "接口异常！没有获取到参数！";
+	public static final String NO_PARAMETER = "[空参异常]";
+
+	/**
+	 * 错误的参数
+	 */
+	public static final String WRONG_PARAMETER = "[错误的参数异常]";
 }

@@ -37,12 +37,6 @@ public class ArticleDaoImplTest {
 	}
 
 	@Test
-	public void updateNewArticle() throws SQLException {
-		Article article = TestUtil.getDefaultArticlePo();
-		dao.createWritingContent(conn, article.getId(), article.getContent());
-	}
-
-	@Test
 	public void updateArticle() {
 		Article writing = new Article();
 		writing.setId(68L);
