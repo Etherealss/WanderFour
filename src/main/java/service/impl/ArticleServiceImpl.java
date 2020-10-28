@@ -1,14 +1,23 @@
 package service.impl;
 
+import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
+import common.strategy.choose.GetWritingListChoose;
+import common.strategy.impl.GetArticleStrategyImpl;
+import common.util.FileUtil;
 import common.util.JdbcUtil;
+import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
+import pojo.dto.WritingBean;
 import pojo.po.Article;
+import pojo.po.User;
 import service.WritingService;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 寒洲
@@ -48,8 +57,40 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
 		Article article = dao.getWritingById(conn, id);
-		article.setContent(dao.selectWritingContent(conn, id));
+		article.setContent(dao.getWritingContent(conn, id));
 		return article;
+	}
+
+	@Override
+	public List<WritingBean> getWritingList(int partition, String order) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		GetWritingListChoose<Article> choose = new GetWritingListChoose<>(new GetArticleStrategyImpl());
+		//判断排序方式
+		List<Article> articleList = null;
+		if (DaoEnum.ORDER_BY_TIME.equals(order)) {
+			articleList = choose.getByTime(conn, partition);
+		} else if (DaoEnum.ORDER_BY_LIKE.equals(order)) {
+			articleList = choose.getByLike(conn, partition);
+		}
+		if (articleList == null) {
+			throw new Exception("获取列表结果为null");
+		}
+
+		UserDao userDao = DaoFactory.getUserDAO();
+		List<WritingBean> beanList = new ArrayList<>();
+		for (Article article : articleList) {
+			User reviewerInfo = userDao.getImgAndNicknameById(conn, article.getAuthorId());
+			WritingBean wb = new WritingBean();
+			//用户头像 使用base64转码
+			byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+
+			wb.setWriting(article);
+			wb.setUserNickname(reviewerInfo.getNickname());
+			wb.setUserImg(imgByBase64);
+			beanList.add(wb);
+		}
+		return beanList;
 	}
 
 	@Override

@@ -1,7 +1,10 @@
 package service;
 
 import common.enums.ResultType;
+import pojo.dto.WritingBean;
 import pojo.po.Writing;
+
+import java.util.List;
 
 /**
  * @author 寒洲
@@ -13,6 +16,7 @@ public interface WritingService<T extends Writing> {
 	 * 发布新作品
 	 * @param t
 	 * @return
+	 * @throws Exception
 	 */
 	Long publishNewWriting(T t) throws Exception;
 
@@ -23,6 +27,15 @@ public interface WritingService<T extends Writing> {
 	 * @throws Exception
 	 */
 	T getWriting(Long id) throws Exception;
+
+	/**
+	 * 获取作品列表
+	 * @param partition
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	List<WritingBean> getWritingList(int partition, String order) throws Exception;
 
 	/**
 	 * 修改作品

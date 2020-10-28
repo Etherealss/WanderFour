@@ -1,6 +1,6 @@
 package common.strategy.impl.comment;
 
-import common.enums.CommentEnum;
+import common.enums.DaoEnum;
 import common.strategy.AbstractReplysStrategy;
 import pojo.CommentVo;
 import pojo.dto.CommentDto;
@@ -22,10 +22,10 @@ public class GetReplysByTime extends AbstractReplysStrategy {
 	    获取10条最新回复
         不添加回复引用
 		 */
-		vo.setOrder(CommentEnum.FIELD_ORDER_BY_TIME);
+		vo.setOrder(DaoEnum.FIELD_ORDER_BY_TIME);
 
 		//10+3
-		vo.setReplyRows(CommentEnum.REPLY_ROWS_TEN);
+		vo.setReplyRows(DaoEnum.REPLY_ROWS_TEN);
 
 		//不添加回复引用
 		List<CommentDto> returnList = getReplysDtoList(vo);

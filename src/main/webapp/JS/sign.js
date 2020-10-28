@@ -4,6 +4,15 @@ function toggleForm() {
     container.classList.toggle('active');
 }
 
+//封装清除样式函数
+function clearStyle(success, error, check, bug, a) {
+    success.css("display", "none");
+    error.css("display", "none");
+    check.css("display", "none");
+    bug.css("display", "none");
+    a.removeClass();
+}
+
 $(function () {
 
     $('input').focus(function () {
@@ -12,15 +21,6 @@ $(function () {
     $('input').blur(function () {
         $(this).removeClass('inputBlur');
     })
-
-    //封装清除样式函数
-    function clearStyle(success, error, check, bug, a) {
-        success.css("display", "none");
-        error.css("display", "none");
-        check.css("display", "none");
-        bug.css("display", "none");
-        a.removeClass();
-    }
 
     //封装检测表单输入函数
     function checkInputVal(a, success, error, check, bug, reg) {
@@ -34,6 +34,11 @@ $(function () {
                 error.css("display", "block");
                 bug.css("display", "block");
                 a.addClass('errorRed');
+            }
+            //检验邮箱是否已被注册 (在邮箱格式正确后再发送给后端检查)
+            if ($("#registerEmailSuccess").css('display') == 'block') {
+                clearStyle($("#registerEmailSuccess"),$("#registerEmailSuccess"),$("#check2"),$("#check2"),$('#registerEmail'));
+                checkEmailRepeat();
             }
         })
     }
@@ -91,34 +96,46 @@ $(function () {
         }
     })
 
-    //点击登录按钮提交信息
-    $("#loginButton").click(function () {
-        //获取登录表单的值
-        var loginEmailVal = $('#sign_login_email').val();
-        var loginPwVal = $('#sign_login_password').val();
-        //调用函数发送数据
-        loginSumbit(loginEmailVal, loginPwVal);
-    })
+    //检查成功提示是否已显示 即检查输入是否正确
+    function checkInput(a) {
+        if (a.css('display') == 'block')
+            return 1;
+    }
 
+    //点击注册提交信息前再次检查输入框内容是否正确 若正确则发送到后端 减少服务器压力
     //点击注册按钮提交信息
     $("#registerButton").click(function () {
-        //获取注册表单的值
-        var registerUseridVal = $('#registerUserid').val();
-        var registerEmailVal = $('#registerEmail').val();
-        var registerPwVal = $('#registerPassword').val();
-        var registerPwAgainVal = $('#registerPasswordAgain').val();
-        //获取已被选中的单选框的value值
-        var signIdentity = $('input[name="sign_identity"]:checked').val();
-        var signSex = $('input[name="sign_sex"]:checked').val();
-        //调用函数发送数据
-        registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, signSex);
+        if (checkInput($('#registerIdSuccess')) && checkInput($('#registerEmailSuccess')) && checkInput($('#registerPwSuccess')) && checkInput($('#registerPwAgainSuccess'))) {
+            //获取注册表单的值
+            var registerUseridVal = $('#registerUserid').val();
+            var registerEmailVal = $('#registerEmail').val();
+            var registerPwVal = md5($('#registerPassword').val());  //密码加密后才传给后端
+            console.log(registerPwVal);
+            //获取已被选中的单选框的value值
+            var signIdentity = $('input[name="sign_identity"]:checked').val();
+            var signSex = $('input[name="sign_sex"]:checked').val() == "男";
+            //调用函数发送数据
+            registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, signIdentity, signSex);
+        } else {
+            alert('请输入正确的注册信息！');
+        }
     })
 
-    //检验邮箱是否已被注册
-    //在邮箱格式正确后再发送给后端检查
-    if ($("#registerEmailSuccess").css('display') == 'block') {
-        checkEmailRepeat();
-    }
+    //点击登录提交信息前再次检查输入框内容是否正确 若正确则发送到后端
+    //点击登录按钮提交信息
+    $("#loginButton").click(function () {
+        if (checkInput($('#loginEmailSuccess'))) {
+            //获取登录表单的值
+            var loginEmailVal = $('#sign_login_email').val();
+            var loginPwVal = md5($('#sign_login_password').val());  //密码加密后才传给后端
+            console.log(loginPwVal);
+            //调用函数发送数据
+            loginSumbit(loginEmailVal, loginPwVal);
+        } else {
+            alert('请输入正确的登录信息！');
+        }
+    })
+
 })
 
 
@@ -140,13 +157,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
             //TODO 成功：跳转至首页
             //异常情况
             if (data.state.code == "SUCCESS") {
-
-
-
-                window.location.href = "/MR_part/homePage.html";
-
-
-
+                window.location.href = "/homePage.html";
             } else if (data.state.code == "PW_ERROR") {
                 clearStyle($("#loginPwSuccess"), $("#loginPwSuccess"), $("#check5"), $("#check5"), $("#sign_login_password"));
                 $("#loginPwError").css("display", "block");
@@ -201,7 +212,7 @@ function checkEmailRepeat() {
 }
 
 //点击注册发送的ajax
-function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, registerPwAgainVal, signIdentity, signSex) {
+function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, signIdentity, signSex) {
     //创建注册ajax对象 向后端发送
     $.ajax({
         type: 'post',
@@ -222,7 +233,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, regi
         dataType: 'json',
         success: function (data) {
             if (data.state.code == "SUCCESS") {
-                window.location.href = "sign.html";
+                window.location.href = "/sign.html";
             }
         }
     })

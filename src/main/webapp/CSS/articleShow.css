@@ -104,6 +104,7 @@ a {
     top: 40px;
     right: -5px;
     padding-top: 22px;
+    z-index: 1;
 }
 .articleShowTopNavMore a {
     display: block;
@@ -123,6 +124,7 @@ a {
     width: 1210px;
     height: 1100px;
     margin: 0 auto;
+    position: relative;
 }
 
 /* -------------------------------------------articleShow_nav------------------------------------ */
@@ -195,7 +197,8 @@ a {
 .articleShow_main {
     float: left;
     width: 900px;
-    height: 1100px;
+    min-height: 1100px;
+    /* height: 1100px; */
     background: #FFFFFF;
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.08);
     border-radius: 10px;   
@@ -239,30 +242,47 @@ a {
     margin-left: 15px;
     margin-top: 24px;
 }
+.asmainID a {
+    float: right;
+    width: 30px;
+    height: 15px;
+    font-size: 15px;
+    color: #20AB9F;
+    margin: 25px 40px 0 0;
+    cursor: pointer;
+}
+.asmainID .asEdit {
+    margin: 25px 21px 0 0;
+}
 .asmainTag {
-    height: 30px;
-    /* background-color: #F9D89D; */
-    margin-top: 10px;
+    height: 25px;
+    margin-top: 11px;
+    margin-bottom: 25px; 
+    color: #20AB9F;
+    font-size: 15px;
+    /* line-height: 15px; */
 }
 .asmainTag span {
-    display: none;
     float: left;
     font-size: 13px;
+    color: #999999;
+    margin-top: 6px;
 }
 .asmainTag div {
-    display: none;
+    /* display: none; */
     float: left;
-    width: 65px;
-    height: 25px;
+    height: 21px;
     background: #AEE1D8;
-    border-radius: 13px;    
+    border-radius: 18px;    
     margin-left: 5px;
+    padding: 7px 10px;
 }
-.asmainArtical {
-    /* background-color: aquamarine; */
+.asmainTag .partitionsTag {
+    display: block;
+   background: rgb(254, 232, 234);
 }
 .asmainComment {
-    height: 44px;
+    height: 60px;
     margin-top: 15px;
     /* background-color: aquamarine; */
     border-bottom: 1px solid #E7E7E7;;
@@ -270,17 +290,19 @@ a {
 .asmainComment span {
     float: left;
     height: 13px;
-    margin-top: 10px;
+    margin-top: 24px;
     margin-left: 29px;
 }
 .asmainComment input {
+    outline: none;
     float: left;
-    width: 400px;
+    padding-left: 20px;
+    width: 380px;
     height: 30px;
     background: #F7F7F7;
     border: 1px solid #E7E7E7;
     border-radius: 15px;
-    margin-top: 6px;
+    margin-top: 15px;
     margin-left: 9px;
 }
 .asmainLike,
@@ -288,7 +310,7 @@ a {
 .asamainLikeOver,
 .asmainColOver {
     float: right;
-    margin-left: 15px;
+    margin-left: 20px;
     color: #81CBBF;
     margin-top: 14px;
     font-size: 14px;
@@ -298,14 +320,17 @@ a {
 }
 .asmainLike {
     display: block;
-    padding-left: 27px;
+    padding-left: 22px;
     padding-top: 4px;
     margin-right: 33px;
     background: url(../img/articleShowIcon/asUnLike.png) no-repeat left bottom / 19px 19px;
 }
+.asmainLike:hover {
+    background: url(../img/articleShowIcon/asLike.png) no-repeat left bottom / 19px 19px;
+}
 .asamainLikeOver {
     display: none;
-    padding-left: 27px;
+    padding-left: 22px;
     padding-top: 4px;
     margin-right: 33px;
     background: url(../img/articleShowIcon/asLike.png) no-repeat left bottom / 19px 19px;
@@ -313,25 +338,27 @@ a {
 .asmainCol {
     display: block;
     padding-left: 29px;
-    padding-top: 7px;
+    padding-top: 5px;
     background: url(../img/articleShowIcon/asUnCollection.png) no-repeat left / 25px 24px;
+}
+.asmainCol:hover {
+    background: url(../img/articleShowIcon/asCollection.png) no-repeat left / 25px 24px;
 }
 .asmainColOver {
     display: none;
     padding-left: 29px;
-    padding-top: 7px;
+    padding-top: 5px;
     background: url(../img/articleShowIcon/asCollection.png) no-repeat left / 25px 24px;
 }
-.asmainComments {
-    margin-top: 10px;
-    /* background-color: brown; */
-}
 .asCommentsContent {
-    height: 50px;
-    /* background-color: #E7E7E7; */
+    min-height: 50px;
     border-bottom: 1px solid #E7E7E7;
     margin-top: 3px;
     font-size: 14px;
+}
+.asCommentsContentOri {
+    width: 842px;
+    height: 51px;
 }
 .asLikeComment {
     float: left;
@@ -342,6 +369,10 @@ a {
     padding-left: 0;
     padding-top: 0;
     margin-right: 0;
+}
+.asCommentsContentBox{
+    min-width: 842px;
+    min-height: 36px;
 }
 .asCommentsContent img {
     float: left;
@@ -354,13 +385,19 @@ a {
     float: left;
     margin-top: 11px;
 }
-.asCommentsContent div {
+.asCommentsContent .asCommentInteract {
     float: right;
 }
 .asCommentsContentID {
     margin-left: 7px;
     margin-top: 11px;
-    color: rgb(154, 154, 154);
+    font-size: 14px;  
+    color: #6D7A70;
+    font-weight: bold;
+    cursor: pointer;
+}
+.asCommentsContentID:hover {
+    color: #81CBBF;
 }
 .asCommentConmain {
     margin-left: 10px;
@@ -370,20 +407,87 @@ a {
     width: 55px;
     height: 9px;
     font-size: 12px;
-    margin-left: 19px;
-    margin-top: 13px;
+    margin-right: 18px;
+    margin-top: 18px;
     color: #999999;
 }
 .asCommentInteract span {
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     color: #20AB9F;
     margin-top: 18px;
 }
 .asCommentInteract img {
-    width: 16px;
-    height: 17px;
+    width: 15px;
+    height: 14px;
     margin-top: 18px;
     margin-left: 22px;
     cursor: pointer;
+}
+.commentTocomment {
+    margin-left: 47px;
+    margin-top: 16px;
+    width: 795px;
+    min-height: 90px;
+    border-top: 1px solid #F7F7F7;
+}
+.commentTocomment div {
+    height: 45px;
+}
+.commentTocomment div img {
+    width: 25px;
+    height: 25px;
+}
+.commentTocomment .asCommentInteract img {
+    width: 15px;
+    height: 14px;
+}
+.asmainComments .clickComment {
+    width: 697px;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-left: 30px;
+}
+.clickComment input {
+    width: 580px;
+    height: 30px;
+    background: #F7F7F7;
+    border: 1px solid #E7E7E7;
+    border-radius: 15px;
+    margin-left: 4px;
+    outline: none;
+    padding-left: 20px;
+}
+.clickComment button {
+    width: 75px;
+    height: 30px;
+    background: #81CBBF;
+    border-radius: 15px;
+    border: 0;
+    font-size: 12px;
+    color: #FFFFFF;
+    margin-left: 11px;
+    cursor: pointer;
+    outline: none;
+}
+.addComment {
+    margin-left: 47px;
+    margin-top: 16px;
+    width: 795px;
+    min-height: 45px;
+    border-top: 1px solid #F7F7F7;
+}
+
+/* ---------------------------------------articleShow_back-------------------------- */
+.articleShow_back {
+    cursor: pointer;
+    position: fixed;
+    width: 43px;
+    height: 43px;
+    right: 77px;
+    top: 620px;
+    background: url(../img/articleShowIcon/asTop1.png) no-repeat left / 43px;
+}
+.articleShow_back:hover {
+    background: url(../img/articleShowIcon/asTop2.png) no-repeat left / 43px;
 }

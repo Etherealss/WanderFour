@@ -34,6 +34,13 @@ public class CommentDaoImplTest {
 		JdbcUtil.closeTransaction();
 	}
 
+
+	@Test
+	public void testUserId() throws Exception {
+		Long commentUserId = dao.getCommentUserId(conn, 1L);
+		logger.debug(commentUserId);
+	}
+
 	@Test
 	public void createNewComment() throws SQLException {
 		Comment defaultCommentPo = TestUtil.getDefaultCommentPo();

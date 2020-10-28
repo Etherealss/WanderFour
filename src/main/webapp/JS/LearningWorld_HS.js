@@ -56,15 +56,15 @@ switchover($(".LearningWorld_LE_optionBox"),1,$("#LearningWorld_suit"));
 // —————————————————————————— 查看更多 ——————————————————————————————
 // 默认时为收起状态
 //热点
-$("#LearningWorld_HOT .LearningWorld_LE_article").eq(3).hide();
 $("#LearningWorld_HOT .LearningWorld_LE_article").eq(4).hide();
+$("#LearningWorld_HOT .LearningWorld_LE_article").eq(5).hide();
 //适合部分
-$("#LearningWorld_suit .LearningWorld_LE_article").eq(3).hide();
 $("#LearningWorld_suit .LearningWorld_LE_article").eq(4).hide();
+$("#LearningWorld_suit .LearningWorld_LE_article").eq(5).hide();
 
 //问贴
-$("#LearningWorld_toAsk .LearningWorld_TA_askPost").eq(3).hide();
 $("#LearningWorld_toAsk .LearningWorld_TA_askPost").eq(4).hide();
+$("#LearningWorld_toAsk .LearningWorld_TA_askPost").eq(5).hide();
 
 
 //动态增加更改LearningWorld_LE_mainBox和LearningWorld_TA_mainBox的高度
@@ -89,7 +89,7 @@ function moreContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 {
     clickBtn.on("click",function()
     {
-        for(var i = 3;i < 5;i++)
+        for(var i = 4;i < 6;i++)
         {
             articlePart.eq(i).show();
         }
@@ -107,7 +107,7 @@ function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 {
     clickBtn.on("click",function()
     {
-        for(var i = 3;i < 5;i++)
+        for(var i = 4;i < 6;i++)
         {
             articlePart.eq(i).hide();
         }
@@ -124,7 +124,7 @@ function pickContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 //自动收起更多（如果在另外一个标签里点击了“查看更多”，切换标签时，自动收起）
 function autoPickUp(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)
 {
-    for(var i = 3;i < 5;i++)
+    for(var i = 3;i < 6;i++)    //不知道为啥，4~6不行，3~6就可以了
     {
         $("#English"+i).hide();
         $("#Chinese"+i).hide();
@@ -188,11 +188,11 @@ function LW_askArticle()
         {
             $(this).stop().animate({
                 height: 265
-            }).find(".LearningWorld_TA_comment").show();
+            },300).find(".LearningWorld_TA_comment").show(100);
 
             $(this).siblings(".LearningWorld_TA_askPost").stop().animate({
                 height: 167.7
-            }).find(".LearningWorld_TA_comment").hide();
+            },300).find(".LearningWorld_TA_comment").hide(100);
         }
     });
 }

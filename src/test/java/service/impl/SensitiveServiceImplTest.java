@@ -14,7 +14,8 @@ public class SensitiveServiceImplTest {
 
 	@Test
 	public void testInsertSensitiveWord() {
-		service.insertSensitiveWord();
+		String path = "C:\\Users\\寒洲\\Desktop\\sensitive-words-master\\暴恐.txt";
+		service.insertSensitiveWord(2, path);
 	}
 
 	@Test

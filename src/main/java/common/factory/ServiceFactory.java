@@ -40,13 +40,13 @@ public class ServiceFactory {
 		return (T)ProxyUtil.getProxyForTransaction(new PostsServiceImpl());
 	}
 
-	/**
-	 * 获取代理的指定分区的文章Service
-	 * @return 经过代理的文章Service对象
-	 */
-	public static <T> T getWritingService(Class<T> clazz) throws IllegalAccessException, InstantiationException {
-		return ProxyUtil.getProxyForTransaction(clazz);
-	}
+//	/**
+//	 * 获取代理的指定分区的文章Service
+//	 * @return 经过代理的文章Service对象
+//	 */
+//	public static <T> T getWritingService(Class<T> clazz) throws IllegalAccessException, InstantiationException {
+//		return ProxyUtil.getProxyForTransaction(clazz);
+//	}
 
 	/**
 	 * 获取经过代理的点赞Service

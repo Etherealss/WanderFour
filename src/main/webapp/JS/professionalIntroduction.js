@@ -90,7 +90,9 @@ function PI_changeHeight(outsideHeight,insideHeight)
 }
 
 //问贴Part
-PI_changeHeight($(".PI_TA_mainBox"),$(".PI_TA_mainContent"));
+// PI_changeHeight($(".PI_TA_mainBox"),$(".PI_TA_mainContent"));
+$(".PI_TA_mainBox").height($(".PI_TA_mainContent").height()+100);
+
 
 //点击加载更多
 function moreContent(clickBtn,anotherBtn,articlePart,outsideHeight,insideHeight)

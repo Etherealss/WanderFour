@@ -2,6 +2,8 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.enums.TargetType;
+import common.util.ControllerUtil;
+import common.util.SensitiveUtil;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -34,6 +36,8 @@ public class WritingController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//获取参数
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
+		Long userId = ControllerUtil.getUserId(req);
+		logger.debug(userId);
 		if (params == null) {
 			//空参为异常，需要有参数才能获取指定数据
 			ResponseChoose.respNoParameterError(resp, "查询作品");
@@ -107,10 +111,18 @@ public class WritingController extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("发布作品");
 		String type = req.getParameter("type");
+
 		// 空参检查
 		if ("".equals(type) || type == null) {
 			logger.error("发表作品时缺少参数type");
 			ResponseChoose.respNoParameterError(resp, "发表作品");
+			return;
+		}
+
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("发表作品时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
 			return;
 		}
 		//确定类型
@@ -125,10 +137,13 @@ public class WritingController extends BaseServlet {
 				return;
 			}
 
+			article.setAuthorId(userId);
 			WritingService<Article> service = ServiceFactory.getArticleService();
 			//发表新文章
 			Long articleId = null;
 			try {
+				//过滤敏感词
+				SensitiveUtil.filterArticle(article);
 				articleId = service.publishNewWriting(article);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -148,10 +163,13 @@ public class WritingController extends BaseServlet {
 				return;
 			}
 
+			posts.setAuthorId(userId);
 			WritingService<Posts> service = ServiceFactory.getPostsService();
 			//发表新文章
 			Long postsId = null;
 			try {
+				//过滤敏感词
+				SensitiveUtil.filterPosts(posts);
 				postsId = service.publishNewWriting(posts);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -192,7 +210,13 @@ public class WritingController extends BaseServlet {
 			ResponseChoose.respNoParameterError(resp, "修改作品");
 			return;
 		}
-
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("修改作品时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+		param.put("authorId", userId);
 		String type = param.getString("type");
 		logger.trace("修改作品 type = " + type);
 
@@ -217,6 +241,8 @@ public class WritingController extends BaseServlet {
 			//修改文章
 			ResultType resultType = null;
 			try {
+				//过滤敏感词
+				SensitiveUtil.filterArticle(article);
 				resultType = service.updateWriting(article);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -240,6 +266,8 @@ public class WritingController extends BaseServlet {
 			//修改文章
 			ResultType resultType = null;
 			try {
+				//过滤敏感词
+				SensitiveUtil.filterPosts(posts);
 				resultType = service.updateWriting(posts);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -263,6 +291,15 @@ public class WritingController extends BaseServlet {
 			ResponseChoose.respNoParameterError(resp, "修改作品");
 			return;
 		}
+
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("删除作品时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+		param.put("deleter", userId);
+
 
 		Long articleId = param.getLong(TYPE_ARTICLE);
 		if (articleId != null) {

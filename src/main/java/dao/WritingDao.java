@@ -76,7 +76,7 @@ public interface WritingDao<T extends Writing>{
 	 * @return
 	 * @throws SQLException
 	 */
-	String selectWritingContent(Connection conn, Long id) throws SQLException;
+	String getWritingContent(Connection conn, Long id) throws SQLException;
 	/**
 	 * 删除文章
 	 * @param conn
@@ -96,15 +96,16 @@ public interface WritingDao<T extends Writing>{
 	Long countWriting(Connection conn, int partition) throws SQLException;
 
 	/**
-	 * 按页码查询每页的文章记录
+	 * 按时间查询每页的文章记录
 	 * @param conn 数据库连接
 	 * @param partition
+	 * @param order
 	 * @param start 文章记录的起始索引
 	 * @param rows 每一页显示的记录行数，也就是每一次查询要获取的记录数
 	 * @return 包含了文章数据的List
 	 * @throws SQLException
 	 */
-	List<T> getWritingListByPage(Connection conn, int partition, int start, int rows) throws SQLException;
+	List<T> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
 
 	/**
 	 * 获取指定用户的博客总数
@@ -141,4 +142,5 @@ public interface WritingDao<T extends Writing>{
 	 * @throws SQLException
 	 */
 	void updateLikeCount(Connection conn, Long id, Integer count) throws SQLException;
+
 }

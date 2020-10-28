@@ -2,6 +2,7 @@ package controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import common.util.Md5Utils;
 import pojo.dto.ResultState;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
@@ -51,11 +52,13 @@ public class UserEnterController extends BaseServlet {
 	}
 
 	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//TODO 策略
 		logger.trace("用户登录...");
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("pw");
+		//密码再次加密
+		password = Md5Utils.md5Encode(email + password);
+		logger.debug(password);
 
 		ResultType state;
 		JSONObject jsonObject = new JSONObject();
@@ -118,7 +121,7 @@ public class UserEnterController extends BaseServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info(info);
+		logger.info(info.toString());
 
 		jsonObject.put("state", info);
 		ResponseChoose.respToBrowser(resp, jsonObject);
@@ -128,11 +131,12 @@ public class UserEnterController extends BaseServlet {
 		logger.trace("用户注册...");
 		//获取请求参数，封装到实体中
 		User user = GetParamChoose.getObjByForm(req, User.class);
-
 		if (user == null) {
 			ResponseChoose.respNoParameterError(resp, "注册");
 			return;
 		}
+		//密码再次加密
+		user.setPassword(Md5Utils.md5Encode(user.getEmail() + user.getPassword()));
 		// 封装到user对象中
 		String avatarPath;
 		//根据性别加载默认头像

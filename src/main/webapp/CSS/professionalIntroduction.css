@@ -56,7 +56,7 @@ body{
 }
 
 .topmargin_target > li a{
-    padding: 6px 11px;
+    padding: 5px 11px;
     display: inline-block;
     text-decoration: none;
     color: #343434;
@@ -69,7 +69,7 @@ body{
 .topmargin_searchBox{
     position: absolute;
     left: 470px;
-    top: 10px;
+    top: 12px;
 }
 
 .topmargin_searchBox input{
@@ -100,7 +100,6 @@ body{
     background: url(../img/topmargin_search.png) -1px -2px;
     background-size: 28px;
     cursor: pointer; 
-    /* border: 1px solid #f00; */
 }
 
 /* —————————— 个人中心 ———————————— */
@@ -125,7 +124,6 @@ body{
     font-size: 18px;
     text-decoration: none;
     z-index: 10;
-    /* border: 1px solid #f00; */
 }
 
 .topmargin_personal_center > img{
@@ -140,8 +138,8 @@ body{
 .topmargin_personal_center > ul{
     width: 150px;
     height: 145px;
-    margin-top: 52px;
-    padding: 16px 0 20px 0; 
+    margin-top: 45px;
+    padding: 18px 0 20px 0; 
     display: none;
     position: absolute;
     top: 15px;
@@ -149,6 +147,7 @@ body{
     background: #fff;
     border-radius: 15px;
     box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 100;
     /* border: 1px solid #0f0; */
 }
 
@@ -174,11 +173,12 @@ body{
     text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
 }
 
+
 /* —————————————————————————— 中间内容 ——————————————————————————————— */
 .professionalIntroduction_Content{
     width: 1200px;
     height: 800px;
-    margin: 45px auto;
+    margin: 30px auto;
     position: relative;
     /* border: 1px solid #0f0; */
 }
@@ -202,8 +202,8 @@ body{
     height: 100px;
     position: absolute;
     top: 30px;
-    left: 455px;
-    background: url(../img/professionalIntroduction_inputBackground.png) no-repeat 205px 3px;
+    left: 465px;
+    background: url(../img/professionalIntroduction_inputBackground.png) no-repeat 224px 3px;
     background-size: 51px auto;
     /* border: 1px solid #f00; */
 }
@@ -648,13 +648,14 @@ body{
 
 .PI_TA_slideBox > ul > li:nth-child(2),
 .PI_TA_slideBox > ul > li:nth-child(3){
-    width: 262px;
+    /* width: 262px; */
+    width: 100%;
+    margin-left: 0;
     padding: 17px 0;
     text-align: center;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     border-top: 1px solid #e8e8e8;
     cursor: pointer;
-    
 }
 
 .PI_TA_slideBox > ul > li:nth-child(2):hover,
@@ -671,6 +672,7 @@ body{
 
 .PI_TA_write > li{
     height: 60px;
+    position: relative;
     display: flex;
     cursor: pointer;
     /* border: 1px solid #0f0; */
@@ -696,17 +698,21 @@ body{
     margin: 8px;
 }
 
-.PI_TA_write > li span{
+.PI_TA_write > li a{
     height: 30px;
     line-height: 30px;
-    margin: 24px 0 0 18px;
+    position: absolute;
+    left: 10px;
+    margin-top: 20px;
+    padding: 7px 0 0 68px;
     display: inline-block;
+    text-decoration: none;
     color: #333;
     font-size: 15px;
     /* border: 1px solid #00f; */
 }
 
-.PI_TA_write > li span:hover{color: #81cbbf;}
+.PI_TA_write > li a:hover{color: #34b3a8;}
 
 /* —————— 侧栏两个小线圈 —————— */
 .PI_TA_slideBox > .toAskBox_coil{
@@ -828,8 +834,10 @@ body{
     border-radius: 50%;
     background: url(../img/answerPosts_toTop.png) no-repeat;
     background-size: 51px;
+    background-color: #fff;
     box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
     cursor: pointer;
+    transition-duration: 0.3s;
     /* border: 1px solid #f00; */
 }
 

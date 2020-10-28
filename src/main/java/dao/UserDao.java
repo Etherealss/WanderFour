@@ -65,6 +65,6 @@ public interface UserDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	User getReviewerInfoById(Connection conn, Long id) throws SQLException;
+	User getImgAndNicknameById(Connection conn, Long id) throws SQLException;
 	
 }

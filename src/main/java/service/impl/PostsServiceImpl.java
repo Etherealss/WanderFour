@@ -1,14 +1,24 @@
 package service.impl;
 
+import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
+import common.strategy.choose.GetWritingListChoose;
+import common.strategy.impl.GetPostsStrategyImpl;
+import common.util.FileUtil;
 import common.util.JdbcUtil;
+import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
+import pojo.dto.WritingBean;
+import pojo.po.Article;
 import pojo.po.Posts;
+import pojo.po.User;
 import service.WritingService;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 寒洲
@@ -57,6 +67,38 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public List<WritingBean> getWritingList(int partition, String order) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		GetWritingListChoose<Posts> choose = new GetWritingListChoose<>(new GetPostsStrategyImpl());
+		//判断排序方式
+		List<Posts> postsList = null;
+		if (DaoEnum.ORDER_BY_TIME.equals(order)) {
+			postsList = choose.getByTime(conn, partition);
+		} else if (DaoEnum.ORDER_BY_LIKE.equals(order)){
+			postsList = choose.getByLike(conn, partition);
+		}
+		if (postsList == null) {
+			throw new Exception("获取列表结果为null");
+		}
+
+		UserDao userDao = DaoFactory.getUserDAO();
+		List<WritingBean> beanList = new ArrayList<>();
+		for (Posts posts : postsList) {
+			User reviewerInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
+			WritingBean wb = new WritingBean();
+			//用户头像 使用base64转码
+			byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+
+			wb.setWriting(posts);
+			wb.setUserNickname(reviewerInfo.getNickname());
+			wb.setUserImg("用户头像Base64转码");
+			beanList.add(wb);
+		}
+		return beanList;
 	}
 
 	@Override

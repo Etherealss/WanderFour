@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.WritingDao;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import pojo.po.Posts;
 
@@ -72,7 +73,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
-	public String selectWritingContent(Connection conn, Long id) throws SQLException {
+	public String getWritingContent(Connection conn, Long id) throws SQLException {
 		return null;
 	}
 
@@ -89,8 +90,13 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
-	public List<Posts> getWritingListByPage(Connection conn, int partition, int start, int rows) throws SQLException {
-		return null;
+	public List<Posts> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
+				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
+				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow`" +
+				" FROM `posts` LEFT JOIN `partition` ON `posts`.`partition` = `partition`.`id` WHERE `posts`.`partition`= ?" +
+				" ORDER BY " + order + " DESC LIMIT ?,? ";
+		return qr.query(conn, sql, new BeanListHandler<>(Posts.class), partition, start, rows);
 	}
 
 	@Override

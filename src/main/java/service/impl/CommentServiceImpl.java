@@ -1,6 +1,6 @@
 package service.impl;
 
-import common.enums.CommentEnum;
+import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
 import common.strategy.choose.CommentChoose;
@@ -69,8 +69,8 @@ public class CommentServiceImpl implements CommentService {
 			//要获取评论
 
 			//TODO 此处按道理应该在策略中确定
-			int commentRows = CommentEnum.COMMENT_ROWS_TEN;
-			int replyRows = CommentEnum.REPLY_ROWS_THREE;
+			int commentRows = DaoEnum.COMMENT_ROWS_TEN;
+			int replyRows = DaoEnum.REPLY_ROWS_THREE;
 			vo.setCommentRows(commentRows);
 			vo.setReplyRows(replyRows);
 			Long parentId = vo.getParentId();
@@ -86,10 +86,10 @@ public class CommentServiceImpl implements CommentService {
 
 			//策略选择
 			CommentChoose choose;
-			if (vo.getOrder().equals(CommentEnum.ORDER_BY_LIKE)) {
+			if (vo.getOrder().equals(DaoEnum.ORDER_BY_LIKE)) {
 				//按点赞获取
 				choose = new CommentChoose(new GetCommentsByLike());
-			} else if (vo.getOrder().equals(CommentEnum.ORDER_BY_TIME)) {
+			} else if (vo.getOrder().equals(DaoEnum.ORDER_BY_TIME)) {
 				//按时间获取
 				choose = new CommentChoose(new GetCommentsByTime());
 			} else {
@@ -111,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
 			//要获取回复
 
 			//TODO 此处按道理应该在策略中确定
-			int replyRows = CommentEnum.REPLY_ROWS_TEN;
+			int replyRows = DaoEnum.REPLY_ROWS_TEN;
 			vo.setReplyRows(replyRows);
 			Long parentId = vo.getParentId();
 			Long targetId = vo.getTargetId();
@@ -129,10 +129,10 @@ public class CommentServiceImpl implements CommentService {
 
 			//策略选择
 			ReplyChoose choose;
-			if (vo.getOrder().equals(CommentEnum.ORDER_BY_LIKE)) {
+			if (vo.getOrder().equals(DaoEnum.ORDER_BY_LIKE)) {
 				//按点赞获取
 				choose = new ReplyChoose(new GetReplysByLike());
-			} else if (vo.getOrder().equals(CommentEnum.ORDER_BY_TIME)) {
+			} else if (vo.getOrder().equals(DaoEnum.ORDER_BY_TIME)) {
 				//按时间获取
 				choose = new ReplyChoose(new GetReplysByTime());
 			} else {
@@ -172,9 +172,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public ResultType deleteComment(Long id) throws Exception {
+	public ResultType deleteComment(Long commentId, Long userid) throws Exception {
 		Connection conn  = JdbcUtil.getConnection();
-		boolean success = dao.deleteComment(conn, id);
+		Long commentUserId = dao.getCommentUserId(conn, userid);
+		if (!commentId.equals(commentUserId)){
+			return ResultType.NOT_AUTHOR;
+		}
+		boolean success = dao.deleteComment(conn, commentId);
 		if (success){
 			return ResultType.SUCCESS;
 		}

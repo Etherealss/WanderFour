@@ -21,18 +21,21 @@ a {
 
 /* ---------------------------------------------user_top------------------------------ */
 .user_top {
-    margin: 0 auto;
     width: 100%;
     min-width: 1500px;
     height: 52px;
     background: #FFFFFF;
     box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.22);
 }
+.user_top_main {
+    width: 1210px;
+    height: 52px;
+    margin: 0 auto;
+}
 .userSmallAvatar {
     float: left;
     width: 40px;
     height: 40px;
-    margin-left: 150px;
     margin-top: 5px;
 }
 .userTopNav {
@@ -79,7 +82,7 @@ a {
 .userPersonal {
     position: relative;
     float: left;
-    margin-left: 322px;
+    margin-left: 205px;
     width: 127px;
     margin-top: 19px;
 }
@@ -115,10 +118,12 @@ a {
 
 /* --------------------------------------------------user_header-------------------------------------------- */
 .user_header {
-    width: 100%;
-    min-width: 1500px;
+    /* width: 100%; */
+    width: 1520px;
+    /* min-width: 1520px; */
+    margin: 0 auto;
     height: 258px;
-    background: url(../img/userBg/userBg.png) no-repeat left/1560px 258px;
+    background: url(../img/userBg/userBg.png) no-repeat left / 1520px 258px;
 }
 .userAvatar {
     float: left;
@@ -332,9 +337,10 @@ a {
     height: 100%;
 }
 
-/* -----------------------------userMyCollection--------------- */
-.userMyCollection h1 {
-    width: 40px;
+/* ------------------------userMyCollection--------------- */
+.userMyCollection h1,
+.userCreate h1 {
+    /* width: 40px; */
     height: 20px;
     font-size: 20px;
     font-family: Microsoft YaHei UI;
@@ -343,14 +349,16 @@ a {
     line-height: 22px;
     margin: 30px 0 0 30px;
 }
-.userColBox {
+.userColBox,
+.userCreateBox {
     margin-left: 30px;
     margin-top: 24px;
     width: 805px;
     height: 32px;
     border-bottom: 1px solid #E7E7E7;;
 }
-.userColBox ul li {
+.userColBox ul li,
+.userCreateBox ul li {
     float: left;
     height: 29px;
     margin-right: 30px;
@@ -415,5 +423,50 @@ a {
 }
 
 /* --------------------------userCreate--------------------- */
+.userCreateBoxContentMain {
+    width: 782px;
+    height: 141px;
+    margin-left: 48px;
+    margin-top: 0;
+    border-bottom: 1px solid #E7E7E7;
+}
+.userCreateBoxContentMain h1 {
+    height: 19px;
+    font-size: 19px;
+    color: #333333;
+    line-height: 16px;
+    margin: 18px 0 0 0;
+}
+.userCreateBox a {
+    float: right;
+    /* width: 56px; */
+    height: 14px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #20AB9F;
+    line-height: 22px;
+}
+.userCreateBoxContentMain p {
+    display: block;
+    width: 782px;
+    height: 61px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+    margin: 19px 0 0 1px;
+}
+.userCreateBoxContentMain div span {
+    /* width: 60px; */
+    height: 25px;
+    font-size: 15px;
+    color: #666666;
+    line-height: 15px;
+    padding: 5px 10px;
+    background: #FEE8EA;
+    border-radius: 13px;
+}
+.userCreateBoxContentMain div span:nth-child(2) {
+    background: #E4F4F1;
+}
 
 /* --------------------------userInboxes--------------------- */

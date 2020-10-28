@@ -260,7 +260,6 @@ public class Article extends Writing {
 
 	public void setPartition(String partitionStr) {
 		this.partition = Partition.getPartition(partitionStr);
-		logger.debug("setPartition = " + this.partition);
 	}
 
 }

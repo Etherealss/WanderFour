@@ -58,7 +58,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getReviewerInfoById(Connection conn, Long id) throws SQLException {
+	public User getImgAndNicknameById(Connection conn, Long id) throws SQLException {
 		String sql = "SELECT `nickname`, `avatar` `avatarPath` FROM `user` WHERE `id`=?";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), id);
 	}

@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface CommentService {
 
+
 	/**
 	 * 获取文章下方的评论
 	 * @param parentId
@@ -46,8 +47,10 @@ public interface CommentService {
 	/**
 	 * 删除评论/回复
 	 *
-	 * @param id@return
+	 * @param commentId
+	 * @param userid
+	 * @return
 	 * @throws Exception
 	 */
-	ResultType deleteComment(Long id) throws Exception;
+	ResultType deleteComment(Long commentId, Long userid) throws Exception;
 }

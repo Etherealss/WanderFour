@@ -19,10 +19,10 @@
 .topmargin_box{
     width: 100%;
     /* width: 1500px; */
-    height: 52px;
+    height: 60px;
     margin: -50px auto 0;
     position: fixed;
-    z-index: 100;
+    z-index: 150;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 1px 1px 10px rgba(0,0,0,.15);
     /* border: 1px solid #0f0; */
@@ -30,7 +30,7 @@
 
 .HP_topmargin{
     width: 1200px;
-    height: 52px;
+    height: 60px;
     margin: 0 auto;
     position: relative;
     /* border: 1px solid #00f; */
@@ -39,25 +39,29 @@
 .topmargin_head_portrait{
     width: 45px;
     height: 45px;
-    margin-top: 2px;
-    float: left;
+    position: absolute;
+    top: 6px;
+    left: -3px;
     border-radius: 50%;
-    background: url(../img/homePage_highSchoolStudent_head.png);
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
     background-size: 45px;
+    /* border: 1px solid #a9a9a9; */
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
 }
 
 .topmargin_target{
-    width: 400px;
-    margin: 10px 20px;
-    float: left;
+    position: absolute;
+    left: 98px;
+    top: 12px;
     display: flex;
+    flex-direction: row;
     list-style-type: none;
-    /* border: 1px solid #f00; */
 }
 
 .topmargin_target > li{
-    margin: 0 10px;
-    padding: 5px 10px;
+    /* margin: 0 10px; */
+    padding: 5px 11px;
+    font-size: 18px;
     cursor: pointer;
     /* border: 1px solid #0f0; */
 }
@@ -70,7 +74,7 @@
     height: 45px;
     position: absolute;
     left: 470px;
-    top: 5px;
+    top: 12px;
     /* border: 1px solid #f00; */
 }
 
@@ -107,7 +111,7 @@
 /* ———————————— 登录注册 ———————————————— */
 .homePage_side{
     position: absolute;
-    top: 5px;
+    top: 7px;
     right: 0;
     display: flex;
     list-style-type: none;
@@ -119,6 +123,7 @@
 
 .homePage_side > li a{
     color: #333;
+    font-size: 18px;
     text-decoration: none;
     cursor: pointer;
 }
@@ -128,14 +133,14 @@
 /* —————————————————————— 轮播图 —————————————————————————————————— */
 .HP_carouselBox{
     width: 1400px;
-    height: 650px;
-    margin: 50px auto 0;
+    height: 550px;
+    margin: 50px auto 50px;
     /* border: 1px solid #f00; */
 }
 
 .HP_carousel{
     width: 1400px;
-    height: 650px;
+    height: 550px;
     margin: 0 auto;
     position: relative;
     border: 1px solid #fff;
@@ -143,7 +148,7 @@
 
 .HP_carousel .HP_list{
     width: 1400px;
-    height: 420px;
+    height: 320px;
     margin-top: 120px;
     list-style-type: none;
     /* border-bottom: 3px solid #f7f7f7; */
@@ -180,6 +185,8 @@
     background: #ffd995;
 }
 
+.HP_item:nth-child(4){background: #f00;}
+
 /* 轮播主图里的文本 */
 .HP_item:nth-child(2) > span{
     position: absolute;
@@ -197,6 +204,7 @@
 .HP_carouselBtn{
     width: 80px;
     height: 80px;
+    display: none;
     position: absolute;
     top: 320px;
     z-index: 100;
@@ -233,7 +241,7 @@
 .HP_pointList{
     position: absolute;
     left: calc(50% - 80px);
-    bottom: 140px;
+    bottom: 40px;
     display: flex;
     list-style-type: none;
 }
@@ -249,17 +257,18 @@
 }
 
 .HP_point.active{
-    background: rgba(0,0,0,.4);
+    background: #72c3b6;
+    /* background: rgba(0,0,0,.4); */
 }
 
 /* ———————————————————————————— 中部 —————————————————————————————— */
 .homePage_Content{
     max-width: 1600px;
-    min-width: 1260px;
-    /* max-width: 1260px; */
+    min-width: 1200px;
     width: 100%;
+    /* width: 1200px; */
     margin: 0 auto;
-    /* height: 500px; */
+    /* border: 1px solid #f00; */
 }
 
 .homePage_Content h1 a{
@@ -269,43 +278,46 @@
 
 /* —————————————————————— 首页文本区域 —————————————————————————— */
 .HP_textPart{
-    width: 1500px;
-    height: 400px;
-    margin: -20px auto 0;
+    width: 1200px;
+    height: 300px;
+    margin: 0 auto;
     position: relative;
-    /* border: 1px solid #f00; */
+    /* border: 1px solid #0f0; */
 }
 
 .HP_textPart > p{
     line-height: 50px;
     position: absolute;
-    left: 210px;
+    left: 0;
     top: 35px;
     letter-spacing: 4px;
     font-size: 21px;
-    color: #666;
+    /* color: #666; */
+    color: #333;
 }
 
 .HP_textPart > .HP_titleImage{
     position: absolute;
-    right: 221px;
+    right: 0;
 }
 
 /* ————————————————————— 学习天地 ————————————————————————— */
 .homePage_LearningWorld{
     max-width: 1600px;
-    min-width: 1260px;
+    min-width: 1200px;
     width: 100%;
-    margin-top: 20px;
+    /* width: 1200px; */
     /* height: 500px; */
     position: relative;
 }
 
 .homePage_LW_titleBox{
-    width: 100%;
+    /* width: 100%; */
+    width: 1200px;
     height: 420px;
+    margin: 0 auto;
     /* 820px 40px */
-    background: url(../img/homePage_LearningWorld_Communication.png) no-repeat 750px 40px;
+    background: url(../img/homePage_LearningWorld_Communication.png) no-repeat 550px 40px;
     background-size: 516.9px 365.6px;
     border: 1px solid #fff;
 }
@@ -313,18 +325,21 @@
 .homePage_LW_titleBox h1{
     position: absolute;
     top: 28px;
-    left: 60px;
+    /* left: 60px; */
+    color: #333;
     font-weight: normal;
+    font-size: 48px;
     letter-spacing: 4px;
 }
 
 .homePage_LW_titleBox p{
     position: absolute;
     top: 124px;
-    left: 60px;
+    /* left: 60px; */
+    color: #333;
     line-height: 30px;
-    font-size: 15px;
-    letter-spacing: 2px;
+    font-size: 18px;
+    letter-spacing: 5px;
 }
 
 /* ——————————— 身份该有的功能 ————————————————— */
@@ -378,18 +393,8 @@
 
 /* 头像的扩散动画效果 */
 .homePage_LWid_box > div:hover .homePage_LWid_boxImg{
-    /* animation: shady 4s linear; */
     transition: all ease-in-out .8s;
 }
-
-/* @keyframes shady{
-	0%{
-		box-shadow: 0 0 0 0px rgba(255,255,255,0.5);
-	}
-	50%{
-		box-shadow: 0 0 0 80px rgba(255,255,255,0.5);
-	}
-} */
 
 .homePage_LWid_box > div h3{
     padding: 15px;
@@ -546,11 +551,12 @@
 
 /* ————————————————————— 专业介绍 ————————————————————————— */
 .homePage_Professional_Introduction{
-    max-width: 1600px;
+    /* max-width: 1600px; */
     /* max-width: 1260px; */
-    width: 100%;
+    /* width: 100%; */
+    width: 1200px;
     height: 800px;
-    margin-right: 10%;
+    margin: 0 auto;
     display: flex;
     /* border: 1px solid #0ff; */
 }
@@ -558,7 +564,7 @@
 .homePage_PI_subjectBg{
     width: 520px;
     height: 600px;
-    margin: 130px 0 0 55px;
+    margin: 130px 0 0 0;
     background: url(../img/homePage_Professional_Introduction_subjects.png) no-repeat;
     background-size: 100%;
     /* border: 1px solid #f00; */
@@ -567,7 +573,7 @@
 .homePage_PI_title{
     width: calc(100% - 520px);
     position: relative;
-    background: url(../img/homePage_Professional_Introduction_people.png) no-repeat 460px 360px;
+    background: url(../img/homePage_Professional_Introduction_people.png) no-repeat 400px 360px;
     background-size: 57px 246px;
     /* border: 1px solid #0f0; */
 }
@@ -575,7 +581,9 @@
 .homePage_PI_title h1{
     position: absolute;
     top: 28px;
-    right: 140px;
+    right: 0;
+    color: #333;
+    font-size: 48px;
     font-weight: normal;
     letter-spacing: 4px;
 }
@@ -583,16 +591,18 @@
 .homePage_PI_title p{
     position: absolute;
     top: 124px;
-    right: 132px;
+    right: -10px;
     line-height: 30px;
-    font-size: 15px;
-    letter-spacing: 2px;
+    color: #333;
+    font-size: 18px;
+    letter-spacing: 4px;
 }
 
 .homePage_PI_title button{
     position: absolute;
     top: 225px;
-    right: 140px;
+    /* right: 140px; */
+    right: 0;
     background-color: #72c3b6;
     border: none;
     outline: none;
@@ -622,27 +632,30 @@
     /* border: 1px solid #ff0; */
 }
 
+.HUL_txtBox{
+    width: 1200px;
+    height: 400px;
+    margin: 0 auto;
+    /* border: 1px solid #0f0; */
+}
+
 .homePage_University_Life h1{
-    position: absolute;
-    top: 28px;
-    left: 80px;
+    margin-top: 28px;
+    color: #333;
+    font-size: 48px;
     font-weight: normal;
     letter-spacing: 4px;
 }
 
 .homePage_University_Life p{
-    position: absolute;
-    top: 124px;
-    left: 80px;
+    margin-top: 32px;
     line-height: 30px;
-    font-size: 15px;
-    letter-spacing: 2px;
+    font-size: 18px;
+    letter-spacing: 4px;
 }
 
 .homePage_University_Life button{
-    position: absolute;
-    top: 225px;
-    left: 80px;
+    margin-top: 40px;
     background-color: #72c3b6;
     border: none;
     outline: none;
@@ -732,6 +745,8 @@
     cursor: pointer;
     /* border: 1px solid #f00; */
 }
+
+.homePage_returnTopBox ul li:hover{color: #72c3b6;}
 
 .homePage_returnTopBox ul li:nth-child(1){top: 0;}
 .homePage_returnTopBox ul li:nth-child(2){top: 35px;}

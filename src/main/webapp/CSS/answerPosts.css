@@ -25,7 +25,7 @@ body{
 
 .topmargin{
     width: 1200px;
-    height: 65px;
+    height: 60px;
     margin: 0 auto;
     position: relative;
     /* border: 1px solid #0f0; */
@@ -33,14 +33,14 @@ body{
 
 /* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
-    width: 52px;
-    height: 52px;
+    width: 45px;
+    height: 45px;
     position: absolute;
-    top: 5px;
+    top: 6px;
     left: -3px;
     border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat -1px -1px;
-    background-size: 54px 54px;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
+    background-size: 45px;
     /* border: 1px solid #a9a9a9; */
     box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
 }
@@ -49,7 +49,7 @@ body{
 .topmargin_target{
     position: absolute;
     left: 98px;
-    top: 19px;
+    top: 12px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
@@ -60,7 +60,7 @@ body{
     display: inline-block;
     text-decoration: none;
     color: #343434;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .topmargin_target > li a:hover{color: #81cbbf;}
@@ -69,12 +69,12 @@ body{
 .topmargin_searchBox{
     position: absolute;
     left: 470px;
-    top: 11px;
+    top: 12px;
 }
 
 .topmargin_searchBox input{
     width: 320px;
-    height: 45px;
+    height: 40px;
     padding: 0 20px;
     border-radius: 20px;
     border: none;
@@ -94,7 +94,7 @@ body{
     height: 28px;
     position: absolute;
     top: 8px;
-    right: 20px;
+    right: 10px;
     border: none;
     outline: none;
     background: url(../img/topmargin_search.png) -1px -2px;
@@ -105,7 +105,7 @@ body{
 /* —————————— 个人中心 ———————————— */
 .topmargin_personal_center{
     width: 150px;
-    height: 70px;
+    height: 50px;
     position: absolute;
     left: 1050px;
     /* border: 1px solid #f00; */
@@ -113,15 +113,15 @@ body{
 
 .topmargin_personal_center #topmargin_PC{
     width: 105px;
-    height: 65px;
-    line-height: 65px;
+    height: 60px;
+    line-height: 60px;
     padding-left: 40px;
     display: inline-block;
     position: absolute;
-    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 23px;
+    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 20px;
     background-size: 20px;
     color: #333333;
-    font-size: 19px;
+    font-size: 18px;
     text-decoration: none;
     z-index: 10;
 }
@@ -129,7 +129,7 @@ body{
 .topmargin_personal_center > img{
     width: 14px;
     position: absolute;
-    top: 27px;
+    top: 25px;
     left: 120px;
     display: inline-block;
 }
@@ -138,8 +138,8 @@ body{
 .topmargin_personal_center > ul{
     width: 150px;
     height: 145px;
-    margin-top: 58px;
-    padding: 22px 0 20px 0; 
+    margin-top: 45px;
+    padding: 18px 0 20px 0; 
     display: none;
     position: absolute;
     top: 15px;
@@ -147,7 +147,7 @@ body{
     background: #fff;
     border-radius: 15px;
     box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
-    z-index: 500;
+    z-index: 100;
     /* border: 1px solid #0f0; */
 }
 
@@ -619,8 +619,10 @@ body{
     border-radius: 50%;
     background: url(../img/answerPosts_toTop.png) no-repeat;
     background-size: 51px;
+    background-color: #fff;
     box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
     cursor: pointer;
+    transition-duration: 0.3s;
     /* border: 1px solid #f00; */
 }
 

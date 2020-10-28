@@ -9,18 +9,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pojo.po.Article;
-import common.util.TestUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 public class ArticleDaoImplTest {
 	private final Logger logger = Logger.getLogger(UserDaoImplTest.class);
 	private WritingDao<Article> dao = null;
 	private Connection conn;
+
 	@Before
-	public void init() throws Exception{
+	public void init() throws Exception {
 		dao = DaoFactory.getArticleDao();
 		conn = JdbcUtil.beginTransaction();
 	}
@@ -86,5 +87,15 @@ public class ArticleDaoImplTest {
 	@Test
 	public void updateLikeCount() throws SQLException {
 		dao.updateLikeCount(conn, 2L, 6);
+	}
+
+
+	@Test
+	public void testGetByTime() throws Exception {
+		List<Article> writingListByLike = dao.getWritingListByOrder(
+				conn, 1, "time", 0L, 5);
+		for (Article article : writingListByLike) {
+			logger.debug(article);
+		}
 	}
 }

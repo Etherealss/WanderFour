@@ -1,12 +1,13 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
-import common.enums.CommentEnum;
+import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.enums.TargetType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
+import common.util.ControllerUtil;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
 import pojo.bean.PageBean;
@@ -88,8 +89,8 @@ public class WritingCommentController extends BaseServlet {
 				/*
 				有该参数，说明是查看作品的评论或者回复
 				 */
-				if (orderBy.equals(CommentEnum.ORDER_BY_LIKE) ||
-						orderBy.equals(CommentEnum.ORDER_BY_TIME)) {
+				if (orderBy.equals(DaoEnum.ORDER_BY_LIKE) ||
+						orderBy.equals(DaoEnum.ORDER_BY_TIME)) {
 					//判断是按时间获取还是按点赞数获取
 					vo.setOrder(orderBy);
 					//具体是评论还是回复要看有无targetId，但是两种请求调用的方法相同，去下一层判断
@@ -125,6 +126,16 @@ public class WritingCommentController extends BaseServlet {
 		Comment comment = GetParamChoose.getObjByForm(req, Comment.class);
 		logger.trace("发表评论 comment=" + comment);
 		String type = req.getParameter("type");
+
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("评论时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+		comment.setUserid(userId);
+
+
 		CommentService service;
 		if (TYPE_ARTICLE.equals(type)) {
 			logger.trace("发表文章的评论");
@@ -158,17 +169,25 @@ public class WritingCommentController extends BaseServlet {
 		logger.trace("删除评论 paramJson: " + paramJson);
 		Long articleId = paramJson.getLong("article");
 		Long postsId = paramJson.getLong("posts");
+
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("评论时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+
 		ResultState state;
 		try {
 			if (articleId != null) {
 				//删除文章表中的评论记录
 				CommentService service = ServiceFactory.getCommentService(Article.class);
-				ResultType resultType = service.deleteComment(articleId);
+				ResultType resultType = service.deleteComment(articleId, userId);
 				state = new ResultState(resultType, "删除结果");
 			} else {
 				//删除问贴表中的评论记录
 				CommentService service = ServiceFactory.getCommentService(Posts.class);
-				ResultType resultType = service.deleteComment(postsId);
+				ResultType resultType = service.deleteComment(postsId, userId);
 				state = new ResultState(resultType, "删除结果");
 			}
 		} catch (Exception e) {

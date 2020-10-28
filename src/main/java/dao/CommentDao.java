@@ -14,6 +14,15 @@ import java.util.List;
 public interface CommentDao {
 
 	/**
+	 * 获取评论者的id
+	 * @param conn
+	 * @param commentId
+	 * @return
+	 * @throws SQLException
+	 */
+	Long getCommentUserId(Connection conn, Long commentId) throws SQLException;
+
+	/**
 	 * 发表评论
 	 * @param conn
 	 * @param comment

@@ -45,27 +45,17 @@ public class CommentUtil {
 		而comment的userid是评论者的userid，此处要封装评论者的用户信息（reviewerInfo）
 		需要用到的是reviewerUserId
 		 */
-		User reviewerInfo = userDao.getReviewerInfoById(conn, reviewerUserId);
+		User reviewerInfo = userDao.getImgAndNicknameById(conn, reviewerUserId);
 		cb.setUserNickname(reviewerInfo.getNickname());
 		//用户头像
 		//使用base64转码
 		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
 		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 		//TODO 图片转码
-		cb.setUserImg("Base64转码后的头像数据");
+		cb.setUserImg(imgByBase64);
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;
 	}
 
-	/**
-	 * 从req中获取用户的userid
-	 * @param req
-	 * @return
-	 */
-	public Long getUserid(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Object userid = session.getAttribute("userid");
-		return (Long) userid;
-	}
 }

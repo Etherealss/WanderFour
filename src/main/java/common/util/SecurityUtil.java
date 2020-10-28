@@ -32,7 +32,7 @@ public class SecurityUtil {
 			//再次包装
 			resultJson.put(vo.getKey(), s);
 		}
-		//TODO 防止了js注入
+		//TODO 防止了HTML注入
 		return resultJson;
 	}
 

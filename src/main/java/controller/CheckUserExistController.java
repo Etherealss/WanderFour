@@ -30,7 +30,7 @@ public class CheckUserExistController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		logger.debug(email);
-		if (email==null){
+		if (email == null) {
 			ResponseChoose.respNoParameterError(resp, "检查账号是否已注册");
 			return;
 		}

@@ -229,18 +229,6 @@ body{
     /* border: 1px solid #f00; */
 }
 
-#editPosts_label{
-    width: 120px;
-    padding: 20px 0 20px 25px;
-    position: absolute;
-    top: 25px;
-    left: -100px;
-    color: #333444;
-    font-size: 18px;
-    font-weight: bold;
-    background: url(../img/answerPosts_tapesSP.png) no-repeat;
-    /* border: 1px solid #f00; */
-}
 /* —————————————————————————— 右边编辑文本及提交Part —————————————————————————————— */
 .editPosts_rightTxtBox{
     width: 800px;
@@ -251,6 +239,7 @@ body{
 /* ——————————— 标题Part ————————————— */
 .editPosts_titleBox{
     margin-top: 20px;
+    position: relative;
     /* border: 1px solid #0f0; */
 }
 
@@ -265,6 +254,19 @@ body{
     outline: none;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
+}
+
+#editPosts_label{
+    width: 120px;
+    padding: 20px 0 20px 25px;
+    position: absolute;
+    top: -60px;
+    left: -10px;
+    color: #333444;
+    font-size: 18px;
+    font-weight: bold;
+    background: url(../img/answerPosts_tapesSP.png) no-repeat;
+    /* border: 1px solid #f00; */
 }
 
 /* ——————————— 文章编辑内容 ————————————— */
@@ -361,7 +363,7 @@ body{
     padding: 0 10px 10px;
     /* background: #f7f7f7; */
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #e7e7e7; /*#ccc*/
 }
 
 .editPosts_secondaryPartition > ul{
@@ -395,11 +397,11 @@ body{
 .editPosts_secondaryPartition ol > li{
     margin: 5px 7px;
     padding: 6px 9px;
-    color: #9A9A9A;
+    color: #666666;
     font-size: 14px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 1px 1px 5px rgba(193, 193, 193,0.25);
+    box-shadow: 1px 1px 5px rgba(193, 193, 193,0.6);
     cursor: pointer;
 }
 

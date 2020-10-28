@@ -19,8 +19,6 @@ section{
     width: 800px;
     height: 500px;
     box-shadow: -8px 0px 70px 25px rgba(0, 0, 0, 0.08);
-    /* box-shadow: 1px 1px 8px rgba(0,0,0,0.15),
-    -1px -1px 8px rgba(0,0,0,0.15); */
     overflow: hidden;
 }
 
@@ -107,29 +105,21 @@ section{
     position: relative;
     border: 1px solid #3c763d;
     border-radius: 4px;
-    /* -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); */
 }
 .sign_container .sign_user .sign_formBox form .successGreen:focus {
     border-color: #3c763d;
-    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #3c763d; */
 }
 .sign_container .sign_user .sign_formBox form .errorRed {
     border: 1px solid #a94442;
 }
 .sign_container .sign_user .sign_formBox form .errorRed:focus {
     border-color: #a94442;
-    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #a94442; */
 }
 .sign_container .sign_user .sign_formBox form .warningBrown {
     border: 1px solid  #8a6d3b;
 }
 .sign_container .sign_user .sign_formBox form .warningBrown:focus {
     border-color:  #8a6d3b;
-    /* -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px  #8a6d3b; */
 }
 .success{
   color: #3c763d;
@@ -141,7 +131,7 @@ section{
     width: 14px;
     height: 14px;
     right: 7px;
-    bottom: 19px;
+    top: 20px;
 }
 .error {
     color: #a94442;

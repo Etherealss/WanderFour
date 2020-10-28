@@ -1,7 +1,7 @@
 package service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import common.enums.CommentEnum;
+import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
@@ -36,7 +36,7 @@ public class CommentServiceImplTestTest {
 		vo.setParentId(1L);
 		vo.setCommentRows(10);
 		vo.setReplyRows(3);
-		vo.setOrder(CommentEnum.ORDER_BY_TIME);
+		vo.setOrder(DaoEnum.ORDER_BY_TIME);
 
 		PageBean<CommentDto> pageBean = service.getCommentListByPage(vo, 1);
 		JSONObject json = new JSONObject();
@@ -57,7 +57,7 @@ public class CommentServiceImplTestTest {
 
 	@Test
 	public void testDelete() throws Exception {
-		ResultType resultType = service.deleteComment(3L);
+		ResultType resultType = service.deleteComment(3L, 3L);
 		logger.debug(resultType);
 	}
 }

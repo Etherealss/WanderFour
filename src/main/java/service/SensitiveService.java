@@ -1,6 +1,5 @@
 package service;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,8 +11,10 @@ public interface SensitiveService {
 
 	/**
 	 * 插入敏感词记录
+	 * @param type
+	 * @param path
 	 */
-	void insertSensitiveWord();
+	void insertSensitiveWord(int type, String path);
 
 	/**
 	 * 获取敏感词列表

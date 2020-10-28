@@ -4,6 +4,7 @@ import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
+import common.util.ControllerUtil;
 import pojo.po.LikeRecord;
 import service.LikeService;
 
@@ -24,12 +25,19 @@ public class LikeController extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LikeRecord record = GetParamChoose.getObjByForm(req, LikeRecord.class);
-
 		//空参检查
 		if (record == null) {
 			ResponseChoose.respNoParameterError(resp, "点赞");
 			return;
 		}
+
+		Long userId = ControllerUtil.getUserId(req);
+		if (userId == null) {
+			logger.error("点赞时用户未登录");
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+		record.setUserid(userId);
 		logger.debug(record.toString());
 
 		//点赞

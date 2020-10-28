@@ -1,6 +1,6 @@
 package common.strategy;
 
-import common.enums.CommentEnum;
+import common.enums.DaoEnum;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import org.apache.log4j.Logger;
@@ -78,7 +78,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 			TODO 此处按获赞数获取回复
 			 */
 			CommentVo voForReply = vo;
-			voForReply.setOrder(CommentEnum.FIELD_ORDER_BY_LIKE);
+			voForReply.setOrder(DaoEnum.FIELD_ORDER_BY_LIKE);
 			List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, false);
 			//封装到Dto
 			CommentDto dto = new CommentDto(commentBean, replysCommentBean);

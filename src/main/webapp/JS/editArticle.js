@@ -339,9 +339,11 @@ function submitVal(partition,category,authorId,articleTitleVal,articleContentVal
            label4: label[4],
            label5: label[5]
        },
-       dataType: 'json',
+    //    dataType: 'json',
        success: function(res){//成功的回调函数
            console.log(res);
+           window.location.href = "articleShow.html?article=" + res.writingId;
+
        },
        error: function(){//XX失败
            console.log("ArticlePost ERROR");
@@ -365,8 +367,16 @@ function checkEmpty(){
     }
 }
 
-//点击提交信息
+//点击取消，刷新网页
 $("#editArticle_save").on({
+    click: function(){
+        location.reload();
+        //location.reload(true);
+    }
+});
+
+//点击提交信息
+$("#editArticle_publish").on({
     click: function(){
         // console.log(obtainVal().articleTitleVal);
         // console.log(obtainVal().articleContentVal);
@@ -392,11 +402,14 @@ function getBackstageData(partitionNumber)
         type:'get',
         url:'/CategoryServlet?partition='+partitionNumber,
         data:{},
+        dataType: 'json',
         success:function(res)
         {
-            console.log(res);
-            var categoryNum = JSON.parse(res.category); //把传递数据的JSON格式转换为对象存储来用
-            compareData(categoryNum);   //传递到页面进行配对比较
+            // var res = JSON.parse(res); //把传递数据的JSON格式转换为对象存储来用
+            console.log(typeof res);
+            console.log(typeof res.category);
+            console.log(res.category);
+            compareData(res.category);   //传递到页面进行配对比较
         },
         error:function()
         {
@@ -428,7 +441,7 @@ function compareData(categoryNum)
                 // console.log(categoryNum[e]);
                 $(".secondary").eq(i-1).attr("backstage-data",j); //文章二级分类
             }
-        }
+        } 
     }
 }
 
@@ -450,5 +463,39 @@ function compareData(categoryNum)
 // {
 //    //若输出顺序与上面categoryNum的键数值顺序一致即为正确
 //     console.log($(".secondary").eq(i).attr("backstage-data"));
+// }
+
+//————————————————————————————————— 获取要修改文章的AJAX ———————————————————————————
+// function getVal(){} 
+
+
+//————————————————————————————————— 修改文章的AJAX ———————————————————————————
+// function ChangeVal(partition,category,authorId,articleTitleVal,articleContentVal,label)
+// {
+//    $.ajax({
+//        type:'PUT',
+//        url:'/WritingServlet',
+//        data:{
+//            type: "article",
+//            id: "",
+//            partition: partition,
+//            category: category,
+//            authorId: authorId, 
+//            title: articleTitleVal,
+//            content: articleContentVal,
+//            label1: label[1], 
+//            label2: label[2],
+//            label3: label[3],
+//            label4: label[4],
+//            label5: label[5]
+//        },
+//        contentType: "application/json",
+//        success: function(res){//成功的回调函数
+//            console.log(res);
+//        },
+//        error: function(){//XX失败
+//            console.log("ArticleChange ERROR");
+//        }
+//    });
 // }
 

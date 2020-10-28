@@ -75,4 +75,14 @@ public class ResponseChoose {
 				ResultMsg.WRONG_PARAMETER + msg);
 		throw new ServletException(ResultMsg.WRONG_PARAMETER + msg);
 	}
+
+	/**
+	 * 用户未登录，返回错误状态给浏览器
+	 * @param resp
+	 * @throws ServletException
+	 */
+	public static void respUserUnloggedError(HttpServletResponse resp) throws ServletException{
+		strategy.respOnlyStateToBrowser(resp, ResultType.NOT_LOGGED, "用户未登录");
+		throw new ServletException("用户没有登录");
+	}
 }

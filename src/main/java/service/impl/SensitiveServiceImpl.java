@@ -2,11 +2,9 @@ package service.impl;
 
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
-import common.util.JedisUtil;
-import common.util.SensitiveUtil;
+import filter.SensitiveFilter;
 import dao.SensitiveDao;
 import org.apache.log4j.Logger;
-import redis.clients.jedis.Jedis;
 import service.SensitiveService;
 
 import java.io.*;
@@ -25,17 +23,15 @@ public class SensitiveServiceImpl implements SensitiveService {
 	private Logger logger = Logger.getLogger(SensitiveServiceImpl.class);
 
 	@Override
-	public void insertSensitiveWord() {
+	public void insertSensitiveWord(int type, String path) {
 		BufferedReader reader = null;
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
-			String path = "C:\\Users\\寒洲\\Desktop\\sensitive-words-master\\涉枪涉爆违法信息关键词.txt";
 			reader = new BufferedReader(new FileReader(path));
 			String temp;
 			while ((temp = reader.readLine()) != null) {
-				System.out.println(temp);
-				dao.insertSensitiveDao(conn, 2, temp);
+				dao.insertSensitiveDao(conn, type, temp);
 			}
 
 		} catch (Exception e) {
@@ -53,23 +49,15 @@ public class SensitiveServiceImpl implements SensitiveService {
 
 	@Override
 	public Map<String, Object> getSensitiveWordsMap() {
-		Map<String, Object> sensitiveWordMap = SensitiveUtil.getSensitiveWordMap();
-		if (sensitiveWordMap != null) {
-			//如果内存中已存在敏感词树，则获取并返回
-			return sensitiveWordMap;
-		} else {
-			//初始化敏感词树
-			Connection conn;
-			try {
-				conn = JdbcUtil.getConnection();
-				List<String> sensitiveWordsList = dao.getSensitiveWordsList(conn);
-				Map<String, Object> wordMap = SensitiveUtil.addSensitiveWordToHashMap(sensitiveWordsList);
-				//添加到内存
-				SensitiveUtil.setSensitiveWordMap(wordMap);
-				return wordMap;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		//初始化敏感词树
+		Connection conn;
+		try {
+			conn = JdbcUtil.getConnection();
+			List<String> sensitiveWordsList = dao.getSensitiveWordsList(conn);
+			Map<String, Object> wordMap = SensitiveFilter.transWordListToHashMap(sensitiveWordsList);
+			return wordMap;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

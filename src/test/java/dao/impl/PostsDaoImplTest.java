@@ -12,6 +12,7 @@ import pojo.po.Posts;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class PostsDaoImplTest {
 
@@ -76,5 +77,14 @@ public class PostsDaoImplTest {
 	public void getAuthorByWritingId() throws SQLException {
 		Long authorByWritingId = dao.getAuthorByWritingId(conn, 2L);
 		logger.debug("问贴作者：" + authorByWritingId);
+	}
+
+	@Test
+	public void testGetByTime() throws Exception {
+		List<Posts> writingListByTime = dao.getWritingListByOrder(
+				conn, 1, "`create_time`", 0L, 5);
+		for (Posts posts : writingListByTime) {
+			logger.debug(posts);
+		}
 	}
 }

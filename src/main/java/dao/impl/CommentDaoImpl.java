@@ -41,6 +41,19 @@ public class CommentDaoImpl extends BaseDaoImpl implements CommentDao {
 		}
 	}
 
+	/**
+	 * 获取评论者的id
+	 * @param conn
+	 * @param commentId
+	 * @return
+	 * @throws SQLException
+	 */
+	@Override
+	public Long getCommentUserId(Connection conn, Long commentId) throws SQLException {
+		String sql = "SELECT `user_id` FROM " + COMMENT_TABLE + " WHERE `id`=?";
+		return qr.query(conn, sql, new ScalarHandler<Long>(), commentId);
+	}
+
 	@Override
 	public boolean createNewComment(Connection conn, Comment comment) throws SQLException {
 		String sql = "INSERT INTO " + COMMENT_TABLE + " (`user_id`,`parent_id`,`content`) VALUES(?,?,?);";

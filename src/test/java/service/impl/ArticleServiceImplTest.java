@@ -1,13 +1,17 @@
 package service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.enums.Partition;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import pojo.dto.WritingBean;
 import pojo.po.Article;
 import service.WritingService;
 import common.util.TestUtil;
+
+import java.util.List;
 
 public class ArticleServiceImplTest {
 
@@ -67,5 +71,13 @@ public class ArticleServiceImplTest {
 			e.printStackTrace();
 		}
 		logger.debug(resultType);
+	}
+
+	@Test
+	public void testGetWritingByTime() throws Exception {
+		List<WritingBean> time = service.getWritingList(1, "time");
+		JSONObject json = new JSONObject();
+		json.put("articleList", time);
+		logger.debug(json);
 	}
 }

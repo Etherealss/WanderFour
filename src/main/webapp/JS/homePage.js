@@ -60,7 +60,6 @@ $(".HP_item").eq(1).css("left",350);
 $(".HP_item").eq(2).css("left",700);
 
 let HP_index = 1;  //表示第几张图片在中间
-let HP_time = 0;   //定时器图片跳转参数
 
 //去掉中间展示的那张的active
 function clearActive(){
@@ -80,31 +79,29 @@ function goIndex()
     $(".HP_item").eq(HP_index).prop("class",'HP_item active');
     $(".HP_point").eq(HP_index).prop("class",'HP_point active');
 
-    $(".HP_item").eq(HP_index).animate({
-        left: 350,
-        opacity: 1
-    },400);
-
     $(".HP_item").eq(HP_index-1).animate({
         left: 0,
         opacity: 0.5
     },400);
 
+    $(".HP_item").eq(HP_index).animate({
+        left: 350,
+        opacity: 1
+    },400);
+
     // 移动的这一张是2，切回0
-    $(".HP_item").eq((HP_index == 2)?0:(HP_index+1)).animate({
+    $(".HP_item").eq((HP_index == 2)?0:(Number(HP_index)+1)).animate({
         left: 700,
         opacity: 0.5
     },400);
 
     //超过3张图片，剩下的全部都在正中间的这张的后面
-    var num = [index-1,index,index+1];
-    $(".HP_item").eq(num).siblings().animate({
-        left: 350,
-        opacity: 0.5
-    },400);
-    // console.log(HP_index);
+    // var num = [HP_index-1,HP_index,HP_index+1];
+    // $(".HP_item").eq(num).siblings().animate({
+    //     left: 350,
+    //     opacity: 0.5
+    // },400);
 }
-// console.log(HP_index);
 
 //下一页，更改index的数值
 function goNext()
@@ -143,31 +140,43 @@ $("#HP_Pre").on({
     }
 });
 
+let HP_time = 0;   //定时器图片跳转参数
 //—————————————— 下面小圆点的绑定 ———————————————————
-for(var i = 0;i < $(".HP_point").length;i++)
-{
-    $(".HP_point").eq(i).on({
-        mouseenter: function()
-        {
-            let pointIndex = $(this).attr("number");
-            HP_index = pointIndex;
-            goIndex();
-            HP_time = 0;
-            // console.log(HP_index);
-        }
-    });
-}
+$(".HP_point").on({
+    mouseenter: function()
+    {
+        let pointIndex = $(this).attr("number");
+        HP_index = pointIndex;
+        goIndex();
+        HP_time = 0;
+        console.log(HP_index);
+    }
+});
+
+// ——————————————————— 鼠标移入后出现按钮 ———————————————————————
+$(".HP_carouselBox").on({
+    mouseover: function(){
+        $(".HP_carouselBtn").css({
+            display: "block"
+        });
+    },
+    mouseout: function(){
+        $(".HP_carouselBtn").css({
+            display: "none"
+        });
+    }
+});
 
 // 自动轮播（定时器）
-// setInterval(function()
-// {
-//     HP_time++;
-//     if(HP_time == 20)
-//     {
-//         goNext();
-//         HP_time = 0;
-//     }   
-// },150);
+setInterval(function()
+{
+    HP_time++;
+    if(HP_time == 20)
+    {
+        goNext();
+        HP_time = 0;
+    }   
+},150);
 
 
 
