@@ -7,19 +7,19 @@ import pojo.po.Writing;
  * @description
  * @date 2020/10/28
  */
-public class WritingBean {
-	/** 作品对象 */
-	private Writing writing;
-	/** 作者头像 */
-	private String userImg;
+public class WritingBean<T extends Writing> {
 	/** 作者昵称 */
 	private String userNickname;
+	/** 作者头像 */
+	private String userImg;
+	/** 作品对象 */
+	private T writing;
 
-	public Writing getWriting() {
+	public T getWriting() {
 		return writing;
 	}
 
-	public void setWriting(Writing writing) {
+	public void setWriting(T writing) {
 		this.writing = writing;
 	}
 
@@ -44,12 +44,21 @@ public class WritingBean {
 	 * @param userNickname
 	 * @param userImg
 	 */
-	public WritingBean(Writing writing, String userNickname, String userImg) {
+	public WritingBean(T writing, String userNickname, String userImg) {
 		this.writing = writing;
 		this.userImg = userImg;
 		this.userNickname = userNickname;
 	}
 
 	public WritingBean() {
+	}
+
+	@Override
+	public String toString() {
+		return "WritingBean{" +
+				"userNickname='" + userNickname + '\'' +
+				", userImg='" + userImg + '\'' +
+				", writing=" + writing +
+				'}';
 	}
 }

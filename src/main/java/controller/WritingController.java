@@ -3,12 +3,14 @@ package controller;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.TargetType;
 import common.util.ControllerUtil;
+import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
+import pojo.dto.WritingBean;
 import pojo.po.Article;
 import pojo.po.Posts;
 import pojo.po.Writing;
@@ -37,7 +39,6 @@ public class WritingController extends BaseServlet {
 		//获取参数
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		Long userId = ControllerUtil.getUserId(req);
-		logger.debug(userId);
 		if (params == null) {
 			//空参为异常，需要有参数才能获取指定数据
 			ResponseChoose.respNoParameterError(resp, "查询作品");
@@ -51,9 +52,8 @@ public class WritingController extends BaseServlet {
 		boolean isArticle = (params.get(TYPE_ARTICLE) != null);
 		//根据类型获取实体和Service
 		if (isArticle) {
-			logger.trace("Article get:" + params.get(TYPE_ARTICLE));
 			WritingService<Article> artivleService = ServiceFactory.getArticleService();
-			Article article = null;
+			WritingBean<Article> article = null;
 			try {
 				article = artivleService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))));
 			} catch (Exception e) {
@@ -66,7 +66,7 @@ public class WritingController extends BaseServlet {
 		} else if (params.get(TYPE_POSTS) != null) {
 			//获取问贴
 			WritingService<Posts> postsService = ServiceFactory.getPostsService();
-			Posts posts = null;
+			WritingBean<Posts> posts = null;
 			try {
 				posts = postsService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_POSTS))));
 			} catch (Exception e) {
@@ -87,7 +87,7 @@ public class WritingController extends BaseServlet {
 	 * @param resp
 	 * @throws ServletException
 	 */
-	private void checkResultAndResp(HttpServletResponse resp, Writing writing) throws ServletException {
+	private void checkResultAndResp(HttpServletResponse resp, WritingBean<? extends Writing> writing) throws ServletException {
 		JSONObject jsonObject = new JSONObject();
 		ResultState state;
 
@@ -98,12 +98,11 @@ public class WritingController extends BaseServlet {
 			throw new ServletException("参数错误，查询不到作品，跳转404");
 		} else {
 			//查询到，传给前端
-			jsonObject.put("article", writing);
+			jsonObject.put("writingBean", writing);
 			state = new ResultState(ResultType.SUCCESS, "查询结果");
 		}
 
 		jsonObject.put("state", state);
-		logger.trace(jsonObject);
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
@@ -125,6 +124,7 @@ public class WritingController extends BaseServlet {
 			ResponseChoose.respUserUnloggedError(resp);
 			return;
 		}
+
 		//确定类型
 		//根据类型获取实体和Service
 		if (TYPE_ARTICLE.equals(type)) {
@@ -141,9 +141,11 @@ public class WritingController extends BaseServlet {
 			WritingService<Article> service = ServiceFactory.getArticleService();
 			//发表新文章
 			Long articleId = null;
+			//过滤敏感词
+			SensitiveUtil.filterArticle(article);
+			//js防注入
+//			SecurityUtil.ensureJsSafe(article);
 			try {
-				//过滤敏感词
-				SensitiveUtil.filterArticle(article);
 				articleId = service.publishNewWriting(article);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -167,9 +169,11 @@ public class WritingController extends BaseServlet {
 			WritingService<Posts> service = ServiceFactory.getPostsService();
 			//发表新文章
 			Long postsId = null;
+			//过滤敏感词
+			SensitiveUtil.filterPosts(posts);
+			//js防注入
+//			SecurityUtil.ensureJsSafe(posts);
 			try {
-				//过滤敏感词
-				SensitiveUtil.filterPosts(posts);
 				postsId = service.publishNewWriting(posts);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -240,9 +244,11 @@ public class WritingController extends BaseServlet {
 			WritingService<Article> service = ServiceFactory.getArticleService();
 			//修改文章
 			ResultType resultType = null;
+			//过滤敏感词
+			SensitiveUtil.filterArticle(article);
+			//js防注入
+//			SecurityUtil.ensureJsSafe(article);
 			try {
-				//过滤敏感词
-				SensitiveUtil.filterArticle(article);
 				resultType = service.updateWriting(article);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -261,13 +267,15 @@ public class WritingController extends BaseServlet {
 				ResponseChoose.respNoParameterError(resp, "修改文章");
 				return;
 			}
-
 			WritingService<Posts> service = ServiceFactory.getPostsService();
 			//修改文章
 			ResultType resultType = null;
+
+			//过滤敏感词
+			SensitiveUtil.filterPosts(posts);
+			//Js防注入
+//			SecurityUtil.ensureJsSafe(posts);
 			try {
-				//过滤敏感词
-				SensitiveUtil.filterPosts(posts);
 				resultType = service.updateWriting(posts);
 			} catch (Exception e) {
 				e.printStackTrace();

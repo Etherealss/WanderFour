@@ -5,6 +5,7 @@ import common.factory.DaoFactory;
 import common.strategy.GetWritingStrategy;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
+import pojo.po.Article;
 import pojo.po.Posts;
 
 import java.sql.Connection;
@@ -23,12 +24,13 @@ public class GetPostsStrategyImpl implements GetWritingStrategy<Posts> {
 	private Logger logger = Logger.getLogger(GetArticleStrategyImpl.class);
 
 	@Override
-	public List<Posts> getWritingByTime(Connection conn, int partition, Long start, int rows) throws SQLException {
-		return dao.getWritingListByOrder(conn, partition, DaoEnum.FIELD_ORDER_BY_TIME, start, rows);
+	public List<Posts> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+		return dao.getWritingListByOrder(conn, partition, order, start, rows);
 	}
 
 	@Override
-	public List<Posts> getWritingByLike(Connection conn, int partition, Long start, int rows) throws SQLException {
-		return dao.getWritingListByOrder(conn, partition, DaoEnum.FIELD_ORDER_BY_LIKE, start, rows);
+	public List<Posts> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+		return dao.getSimpleWritingListByOrder(conn, partition, order, start, rows);
 	}
+
 }

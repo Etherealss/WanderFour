@@ -163,12 +163,12 @@ a {
 .showNewNav h1 {
     margin-left: 111px;
 }
-.showNewNavCurrent {
-    background: #BCE6DF; 
-}
-.showNewNavCurrentHot {
-    background: #F9D89D;
-}
+/*.showNewNavCurrent {*/
+/*    background: #BCE6DF; */
+/*}*/
+/*.showNewNavCurrentHot {*/
+/*    background: #F9D89D;*/
+/*}*/
 .articleShow_nav ul {
     margin-top: 16px;
     height: 230px;
@@ -180,16 +180,24 @@ a {
     height: 46px;
     cursor: pointer;
 }
-.articleShow_nav ul li span {
+.showHotNav ul li:hover{
+    background: #F9D89D;
+}
+.showNewNav ul li:hover{
+    background: #BCE6DF;
+}
+.articleShow_nav ul li a {
     display: block;
-    width: 100%;
+    width: 170px;
     height: 14px;
     font-size: 14px;
-    font-family: Microsoft YaHei UI;
     font-weight: 400;
-    line-height: 22px;
+    line-height: 15px;
     margin-top: 15px;
     margin-left: 43px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
 
@@ -269,7 +277,7 @@ a {
     margin-top: 6px;
 }
 .asmainTag div {
-    /* display: none; */
+    display: none;
     float: left;
     height: 21px;
     background: #AEE1D8;

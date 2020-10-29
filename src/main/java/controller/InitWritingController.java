@@ -3,6 +3,7 @@ package controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.Partition;
+import common.enums.TargetType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.ResponseChoose;
 import pojo.dto.WritingBean;
@@ -34,16 +35,28 @@ public class InitWritingController extends BaseServlet {
 		}
 		int partition = Integer.parseInt(partStr);
 		String order = req.getParameter("order");
-
+		if ("".equals(order) || order == null){
+			ResponseChoose.respNoParameterError(resp, "初始化分区页面，order参数缺失");
+			return;
+		}
+		String type = req.getParameter("type");
+		if ("".equals(type) || type == null){
+			ResponseChoose.respNoParameterError(resp, "初始化分区页面，type参数缺失");
+			return;
+		}
 		JSONObject resultJson = new JSONObject();
 
 		try {
-			WritingService<Article> articleService = ServiceFactory.getArticleService();
-			WritingService<Posts> postsService = ServiceFactory.getPostsService();
-			List<WritingBean> articleList = articleService.getWritingList(partition, order);
-			List<WritingBean> postsList = postsService.getWritingList(partition, order);
-			resultJson.put("articleList", articleList);
-			resultJson.put("postsList", postsList);
+			if (TargetType.ARTICLE.val().equals(type)){
+				WritingService<Article> articleService = ServiceFactory.getArticleService();
+				List<WritingBean> articleList = articleService.getWritingList(partition, order);
+				resultJson.put("writings", articleList);
+			} else if (TargetType.POSTS.val().equals(type)){
+				WritingService<Posts> postsService = ServiceFactory.getPostsService();
+				List<WritingBean> postsList = postsService.getWritingList(partition, order);
+				resultJson.put("writings", postsList);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

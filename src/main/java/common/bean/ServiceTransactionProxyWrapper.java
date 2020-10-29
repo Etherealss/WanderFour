@@ -37,7 +37,6 @@ public class ServiceTransactionProxyWrapper implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		Object value;
 		try{
-			log.trace("开启事务");
 			// 将受代理的事务执行
 			// 创建并获取数据库连接，并设置为手动提交，开启事务
 			JdbcUtil.beginTransaction();

@@ -15,6 +15,11 @@ public class DaoEnum {
 	 * 每页获取6条文章和问贴记录
 	 */
 	public static final int ROWS_SIX = 6;
+
+	/**
+	 * 每页获取5条文章和问贴记录
+	 */
+	public static final int ROWS_FIVE = 5;
 	/**
 	 * 每条评论获取3条回复
 	 */

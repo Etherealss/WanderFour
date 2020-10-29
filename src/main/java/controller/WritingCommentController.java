@@ -8,6 +8,8 @@ import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
+import common.util.SecurityUtil;
+import common.util.SensitiveUtil;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
 import pojo.bean.PageBean;
@@ -135,7 +137,6 @@ public class WritingCommentController extends BaseServlet {
 		}
 		comment.setUserid(userId);
 
-
 		CommentService service;
 		if (TYPE_ARTICLE.equals(type)) {
 			logger.trace("发表文章的评论");
@@ -150,6 +151,10 @@ public class WritingCommentController extends BaseServlet {
 			return;
 		}
 		ResultState state;
+		//敏感词过滤
+		SensitiveUtil.filterComment(comment);
+		//Js防注入
+//		SecurityUtil.ensureJsSafe(comment);
 		try {
 			ResultType resultType = service.publishNewComment(comment);
 			state = new ResultState(resultType, "发表结果");

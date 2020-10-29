@@ -1,4 +1,8 @@
+var params;
 $(function () {
+    params = getParams();
+    //写死 从学习天地获取,1就代表学习天地
+    getWritingList("1", "article");
 
     //顶部导航栏二级导航显示隐藏
     $("#asPersonalCenter").hover(function () {
@@ -14,10 +18,10 @@ $(function () {
     }
 
     //Nav调用点击切换函数
-    for (var i = 1; i <= 5; i++) {
-        asNavCurrent($('#showNewNav' + i + ''), 'showNewNavCurrent');
-        asNavCurrent($('#showHotNav' + i + ''), 'showNewNavCurrentHot');
-    }
+    // for (var i = 1; i <= 5; i++) {
+    //     asNavCurrent($('#showNewNav' + i + ''), 'showNewNavCurrent');
+    //     asNavCurrent($('#showHotNav' + i + ''), 'showNewNavCurrentHot');
+    // }
 
     //点赞收藏
     function LikeAndCol(a, b) {
@@ -26,13 +30,13 @@ $(function () {
             b.show();
         })
     }
+
     LikeAndCol($('.asmainLike'), $('.asamainLikeOver'));
     LikeAndCol($('.asamainLikeOver'), $('.asmainLike'));
     LikeAndCol($('.asmainCol'), $('.asmainColOver'));
     LikeAndCol($('.asmainColOver'), $('.asmainCol'));
 
     //调用获取url中参数函数 并传递给ajax对象中
-    var params = getParams();
     console.log(params.article);
 
     //调用获取文章相关内容ajax函数
@@ -40,7 +44,7 @@ $(function () {
 
     //点击右下角小箭头返回顶部
     $('.articleShow_back').click(function () {
-        $('html , body').animate({ scrollTop: 0 }, 'slow');
+        $('html , body').animate({scrollTop: 0}, 'slow');
     })
 
     //点击“编辑”调用编辑文章的ajax
@@ -95,45 +99,55 @@ function showArticle(id) {
         success: function (res) {
             console.log(res);
             if (res.state.code == "SUCCESS") {
+
+                //转码
+                unescape(res.article);
+
+                //获取res对象数据中的文章对象，方便调用
+                var article = res.writingBean.writing;
+
                 //检验测试
-                console.log('success');
                 //显示修改粉色标签
-                if (res.writing[i].category == 1) {
+                if (article.partition == "LEARNING") {
                     $('.partitionsTag').html('学习天地');
-                } else if (res.writing[i].category == 2) {
+                } else if (article.partition == "MAJOR") {
                     $('.partitionsTag').html('专业介绍');
-                } else if (res.writing[i].category == 3) {
+                } else if (article.partition == "COLLEGE") {
                     $('.partitionsTag').html('大学生活');
                 }
-                //修改id
-                $('#asUserId').html(res.writing.authorId);
-                //显示标题
-                $('#asmainTitle').html(res.writing.title);
+                //显示昵称
+                if (article.userNickname != undefined) {
+                    $('#asUserId').html(article.userNickname);
+                }
+                if (article.title != undefined) {
+                    //显示标题
+                    $('#asmainTitle').html(article.title);
+                }
                 //显示标签
-                if (res.writing.label1 != undefined) {
-                    $('#asmainTag1').html(res.writing.label1);
+                if (article.label1 != undefined) {
+                    $('#asmainTag1').html(article.label1);
                     $('#asmainTag1').show();
                 }
-                if (res.writing.label2 != undefined) {
-                    $('#asmainTag2').html(res.writing.label2);
+                if (article.label2 != undefined) {
+                    $('#asmainTag2').html(article.label2);
                     $('#asmainTag2').show();
                 }
-                if (res.writing.label3 != undefined) {
-                    $('#asmainTag3').html(res.writing.label3);
+                if (article.label3 != undefined) {
+                    $('#asmainTag3').html(article.label3);
                     $('#asmainTag3').show();
                 }
-                if (res.writing.label4 != undefined) {
-                    $('#asmainTag4').html(res.writing.label4);
+                if (article.label4 != undefined) {
+                    $('#asmainTag4').html(article.label4);
                     $('#asmainTag4').show();
                 }
-                if (res.writing.label5 != undefined) {
-                    $('#asmainTag5').html(res.writing.label5);
+                if (article.label5 != undefined) {
+                    $('#asmainTag5').html(article.label5);
                     $('#asmainTag5').show();
                 }
                 //显示文章内容
-                $('#asmainArtical').html(res.writing.content);
+                $('#asmainArtical').html(article.content);
                 //显示时间 时间毫秒数转换为年月日格式
-                var date = dateFormat(res.writing.createTime);
+                var date = dateFormat(article.createTime);
                 $('#asCreatTime').html(date);
             } else {
                 //检验测试
@@ -155,6 +169,7 @@ function editArticle(id) {
             partition: "learning",   //分区 learning / major / college
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             console.log(res);
             if (res.state.code == 'SUCCESS') {
@@ -193,15 +208,18 @@ function removeArticle(id) {
     })
 }
 
-//点赞ajax对象
-function sendLike() {
+/**
+ * 点赞ajax对象
+ * @param targetId
+ * @param targetType
+ */
+function sendLike(targetId, targetType) {
     $.ajax({
         type: 'POST ',
         url: '/LikeServlet',
         data: {
-            userid: 1,  //用户id
-            targetId: "2",  //目标作品id
-            targetType: "article",  //目标作品类型，文章点赞-article，帖子-posts，评论-comment
+            targetId: id,  //目标作品id
+            targetType: targetType,  //目标作品类型，文章点赞-article，帖子-posts，评论-comment
             likeState: "1"   //点赞状态，1-点赞 0-未点赞/取消赞
         },
         dataType: 'json',

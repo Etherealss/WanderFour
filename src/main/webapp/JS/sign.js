@@ -157,7 +157,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
             //TODO 成功：跳转至首页
             //异常情况
             if (data.state.code == "SUCCESS") {
-                window.location.href = "/homePage.html";
+                window.location.href = "/index.html";
             } else if (data.state.code == "PW_ERROR") {
                 clearStyle($("#loginPwSuccess"), $("#loginPwSuccess"), $("#check5"), $("#check5"), $("#sign_login_password"));
                 $("#loginPwError").css("display", "block");
@@ -202,10 +202,15 @@ function checkEmailRepeat() {
                     $("#registerEmailErrorRepeat").css("display", "block");
                     $("#bug2").css("display", "block");
                     $("#registerEmail").addClass('errorRed');
+                } else if (data.state.code == "USER_UN_FOUND") {
+                    clearStyle($("#registerEmailSuccess"), $("#registerEmailError"), $("#check2"), $("#bug2"), $("#registerEmail"));
+                    $("#registerEmailErrorRepeat").css("display", "block");
+                    $("#bug2").css("display", "block");
+                    $("#registerEmail").addClass('errorRed');
                 }
             },
             error: function () {
-                console.log("11111");
+                console.log("检验邮箱是否已被注册发送error");
             }
         })
     })
@@ -234,7 +239,12 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, sign
         success: function (data) {
             if (data.state.code == "SUCCESS") {
                 window.location.href = "/sign.html";
+            } else {
+                alert("注册失败！请重试");
             }
+        },
+        error: function () {
+            alert("注册失败！请重试");
         }
     })
 }

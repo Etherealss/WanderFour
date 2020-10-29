@@ -108,6 +108,19 @@ public interface WritingDao<T extends Writing>{
 	List<T> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
 
 	/**
+	 * 按时间查询每页的文章记录
+	 * @param conn 数据库连接
+	 * @param partition
+	 * @param order
+	 * @param start 文章记录的起始索引
+	 * @param rows 每一页显示的记录行数，也就是每一次查询要获取的记录数
+	 * @return 包含了文章数据的List
+	 * @throws SQLException
+	 */
+	List<T> getSimpleWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+
+
+	/**
 	 * 获取指定用户的博客总数
 	 * @param conn 数据库
 	 * @param userid 用户id

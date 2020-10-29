@@ -9,6 +9,9 @@
     <script src="./JS/jQuery.js"></script>
     <script src="./JS/articalShow.js"></script>
     <script src="./JS/comment.js"></script>
+    <script src="./JS/besideShow.js"></script>
+    <script src="./JS/unicodeUtil.js"></script>
+    <script src="./JS/safe.js"></script>
 </head>
 
 <body>
@@ -16,11 +19,11 @@
         <div class="articleShow_topMain">
             <img src="./img/articleShowLogo/userLogo.png" class="articleShowSmallAvatar">
             <div class="articleShowTopNav">
-                <a href="./LearningWorld_HS">学习天地</a>
-                <a href="./professionalIntroduction">专业介绍</a>
-                <a href="./universityLife">大学生活</a>
+                <a href="./LearningWorld_HS.html">学习天地</a>
+                <a href="./professionalIntroduction.html">专业介绍</a>
+                <a href="./universityLife.html">大学生活</a>
             </div>
-            <input type="text" name="" id="" placeholder="搜索" class="articleShowSearch">
+            <input type="text" name="" placeholder="搜索" class="articleShowSearch">
             <div class="articleShowPersonal">
                 <a href="./user.html" class="articleShowPersonalCenter" id="asPersonalCenter">个人中心</a>
                 <div class="articleShowTopNavMore" id="asTopNavMore">
@@ -40,20 +43,20 @@
             <div class="showNewNav">
                 <h1>最新文章</h1>
                 <ul>
-                    <li class="showNewNavCurrent" id="showNewNav1">
-                        <span>新高考如何选科？</span>
+                    <li id="showNewNav1">
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showNewNav2">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showNewNav3">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showNewNav4">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showNewNav5">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                 </ul>
             </div>
@@ -61,20 +64,20 @@
             <div class="showHotNav">
                 <h1>热门文章</h1>
                 <ul>
-                    <li class="showNewNavCurrentHot" id="showHotNav1">
-                        <span>新高考如何选科？</span>
+                    <li id="showHotNav1">
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showHotNav2">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showHotNav3">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showHotNav4">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                     <li id="showHotNav5">
-                        <span>新高考如何选科？</span>
+                        <a href="">新高考如何选科？</a>
                     </li>
                 </ul>
             </div>
@@ -203,90 +206,6 @@
                                     <div>
                                         <img src="./img/articleShowLogo/userLogo.png" alt="">
                                         <span class="asCommentsContentID">用户6:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户7:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户8:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户9:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户10:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户11:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户12:</span>
-                                        <span class="asCommentConmain">太棒了！</span>
-                                        <div class="asCommentInteract">
-                                            <span class="asCommmentTime">2020.10.13</span>
-                                            <span class="toComment">回复</span>
-                                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>
-                                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                        <span class="asCommentsContentID">用户13:</span>
                                         <span class="asCommentConmain">太棒了！</span>
                                         <div class="asCommentInteract">
                                             <span class="asCommmentTime">2020.10.13</span>

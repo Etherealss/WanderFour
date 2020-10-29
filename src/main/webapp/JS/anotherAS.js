@@ -46,11 +46,11 @@ $(function () {
             success: function (res) {
                 console.log(res);
                 //显示修改粉色标签
-                if (res.articleList[i].category == 1) {
+                if (res.articleList[i].partition == 1) {
                     $('.partitionsTag').html('学习天地');
-                } else if (res.articleList[i].category == 2) {
+                } else if (res.articleList[i].partition == 2) {
                     $('.partitionsTag').html('专业介绍');
-                } else if (res.articleList[i].category == 3) {
+                } else if (res.articleList[i].partition == 3) {
                     $('.partitionsTag').html('大学生活');
                 }
                 //显示时间 时间毫秒数转换为年月日格式

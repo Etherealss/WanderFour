@@ -69,7 +69,7 @@ public class UserEnterController extends BaseServlet {
 			UserService us = ServiceFactory.getUserService();
 
 			state = us.checkUserExist(email);
-
+			logger.trace(state);
 			//用户存在
 			if (state == ResultType.IS_REGISTED) {
 

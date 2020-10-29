@@ -32,9 +32,9 @@ public class ArticleServiceImplTest {
 
 	@Test
 	public void getWriting() {
-		Article writing = null;
+		WritingBean<Article> writing = null;
 		try {
-			writing = service.getWriting(2L);
+			writing = service.getWriting(1L);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

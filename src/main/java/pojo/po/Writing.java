@@ -11,6 +11,13 @@ import java.util.Objects;
  * @date 2020/10/7
  */
 public class Writing {
+
+	/*
+	本来是将属性都写在这里，但是遇到一个bug，无法通过子类映射父类属性
+	所以只好把属性都搬到子类中
+	TODO 待优化
+	 */
+
 //	/** 数据库表id */
 //	protected Long id;
 //	/** 社区分区 */

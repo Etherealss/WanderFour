@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class RegTest {
 
 	@Test
-	public void regTest1(){
+	public void regTest1() {
 		// 按指定模式在字符串查找
 		String line = "";
 		String pattern = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]+$";
@@ -31,6 +31,9 @@ public class RegTest {
 
 	@Test
 	public void dateTest() {
+
 		System.out.println(new Date());
 	}
+
+
 }

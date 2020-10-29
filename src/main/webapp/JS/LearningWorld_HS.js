@@ -3,6 +3,13 @@ $(".topmargin_personal_center").hover(function(){
     $(this).find("ul").stop().fadeToggle();
 });
 
+$(function () {
+    //获取最热的文章列表
+    getWritingList("article", 1, "like");
+    //获取最热的问贴列表
+    getWritingList("posts", 1, "like");
+})
+
 //在框内随页面滑动而滑动
 //outsideBox：外框限制的box，insideBox：随页面滑动的box
 function scrollLimitation(outsideBox,insideBox)

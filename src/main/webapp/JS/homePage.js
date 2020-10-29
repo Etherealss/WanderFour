@@ -59,7 +59,7 @@ $(".HP_item").eq(0).css("left",0);
 $(".HP_item").eq(1).css("left",350);
 $(".HP_item").eq(2).css("left",700);
 
-let HP_index = 1;  //表示第几张图片在中间
+var HP_index = 1;  //表示第几张图片在中间
 
 //去掉中间展示的那张的active
 function clearActive(){
@@ -140,12 +140,12 @@ $("#HP_Pre").on({
     }
 });
 
-let HP_time = 0;   //定时器图片跳转参数
+var HP_time = 0;   //定时器图片跳转参数
 //—————————————— 下面小圆点的绑定 ———————————————————
 $(".HP_point").on({
     mouseenter: function()
     {
-        let pointIndex = $(this).attr("number");
+        var pointIndex = $(this).attr("number");
         HP_index = pointIndex;
         goIndex();
         HP_time = 0;

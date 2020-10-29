@@ -190,16 +190,13 @@ body{
     width: 280px;
     position: absolute;
     margin: 40px 28px 0 15px;
-    /* border: 1px solid #D78B15; */
 }
 
 /* ——————— 最新问贴 ————————— */
 .theNewPosts{
     width: 265px;
     height: 273px;
-    border-radius: 10px;
     box-shadow: 1px 1px 15px rgba(193, 193, 193,0.8);
-    /* border: 1px solid #f00; */
 }
 
 .theNewPosts ul{
@@ -213,8 +210,7 @@ body{
     background-image: url(../img/answerPosts_new.png);
 }
 
-.theNewPosts ul li > a:hover{
-    color: #20AB9F;
+.theNewPosts ul li:hover{
     background: #bce6df;
     cursor: pointer;
 }
@@ -224,7 +220,6 @@ body{
     width: 265px;
     height: 273px;
     margin-top: 40px;
-    border-radius: 10px;
     box-shadow: 1px 1px 15px rgba(193, 193, 193,0.8);
 }
 
@@ -240,20 +235,18 @@ body{
     top: -30px;
 }
 
-.waitingAnswer ul li > a:hover{
-    color: #D78B15;
+.waitingAnswer ul li:hover{
     background: #f9d89d;
     cursor: pointer;
 }
 
 /* ————————————————— 相同样式Part ——————————————————— */
 .answerPosts_sideColumn > div ul{
-    border-radius: 10px;
     list-style-type: none;
 }
 
 .answerPosts_sideColumn > div ul li a{
-    width: 219.5px;
+    width: 170px;
     height: 46px;
     line-height: 46px;
     padding-left: 46px;
@@ -261,9 +254,12 @@ body{
     color: #333333;
     font-size: 15px;
     text-decoration: none;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
-.answerPosts_sideColumn > div ul li:nth-child(6) a:hover{border-radius: 0 0 10px 10px;}
+/* .answerPosts_sideColumn > div ul li:nth-child(6) a:hover{border-radius: 0 0 10px 10px;} */
 
 .answerPosts_sideColumn > div ul div{
     width: 265px;
@@ -469,10 +465,10 @@ body{
     outline: none;
     cursor: pointer;
 }
-
+/* 
 .answerPosts_answerBox button:hover{
     box-shadow: 1px 1px 5px rgba(0, 0, 0,0.25);
-}
+} */
 
 /* ————————————————————————— 发帖楼内 ————————————————————————————— */
 .answerPosts_list{

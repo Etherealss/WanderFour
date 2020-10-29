@@ -26,7 +26,7 @@ $(".HP_item").eq(0).css("left",0);
 $(".HP_item").eq(1).css("left",350);
 $(".HP_item").eq(2).css("left",700);
 
-let HP_index = 1;  //表示第几张图片在中间
+var HP_index = 1;  //表示第几张图片在中间
 
 //去掉中间展示的那张的active
 function clearActive(){
@@ -117,7 +117,7 @@ $(".HP_carouselBox").on({
 });
 
 
-let HP_time = 0;   //定时器图片跳转参数
+var HP_time = 0;   //定时器图片跳转参数
 
 // 自动轮播（定时器）
 setInterval(function()

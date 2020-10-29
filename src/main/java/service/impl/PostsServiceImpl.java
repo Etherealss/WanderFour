@@ -56,13 +56,21 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	@Override
-	public Posts getWriting(Long id) {
+	public WritingBean<Posts> getWriting(Long id) {
 		logger.trace("获取问贴");
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
 			Posts posts = dao.getWritingById(conn, id);
-			return posts;
+			WritingBean<Posts> bean = new WritingBean<>();
+			UserDao userDao = DaoFactory.getUserDAO();
+			User userInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
+			byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
+			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+			bean.setUserImg(imgByBase64);
+			bean.setWriting(posts);
+			bean.setUserNickname(userInfo.getNickname());
+			return bean;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,10 +103,24 @@ public class PostsServiceImpl implements WritingService<Posts> {
 
 			wb.setWriting(posts);
 			wb.setUserNickname(reviewerInfo.getNickname());
-			wb.setUserImg("用户头像Base64转码");
+			wb.setUserImg(imgByBase64);
 			beanList.add(wb);
 		}
 		return beanList;
+	}
+
+	@Override
+	public List<Posts> getSimpleWritingList(int partition, String order) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		GetWritingListChoose<Posts> choose = new GetWritingListChoose<>(new GetPostsStrategyImpl());
+
+		List<Posts> resList = null;
+		if (DaoEnum.ORDER_BY_LIKE.equals(order)){
+			resList = choose.getSimpleByLike(conn, partition);
+		} else if (DaoEnum.ORDER_BY_TIME.equals(order)){
+			resList = choose.getSimpleByTime(conn, partition);
+		}
+		return resList;
 	}
 
 	@Override

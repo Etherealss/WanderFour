@@ -100,6 +100,14 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	}
 
 	@Override
+	public List<Posts> getSimpleWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+		String sql = "SELECT `posts`.`id`, `title` " +
+				" FROM `posts` WHERE `posts`.`partition`= ? " +
+				" ORDER BY " + order + " DESC LIMIT ?,? ";
+		return qr.query(conn, sql, new BeanListHandler<>(Posts.class), partition, start, rows);
+	}
+
+	@Override
 	public Long getUserWritingCount(Connection conn, String userid) throws SQLException {
 		return null;
 	}

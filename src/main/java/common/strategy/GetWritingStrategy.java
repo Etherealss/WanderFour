@@ -15,22 +15,25 @@ public interface GetWritingStrategy<T> {
 	 * 按时间获取作品
 	 * @param conn
 	 * @param partition
+	 * @param order
 	 * @param start
 	 * @param rows
 	 * @return
 	 * @throws SQLException
 	 */
-	List<T> getWritingByTime(Connection conn, int partition, Long start, int rows) throws SQLException;
+	List<T> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+
 
 	/**
-	 * 按点赞数获取作品
+	 * 按时间获取作品
 	 * @param conn
 	 * @param partition
+	 * @param order
 	 * @param start
 	 * @param rows
 	 * @return
 	 * @throws SQLException
 	 */
-	List<T> getWritingByLike(Connection conn, int partition, Long start, int rows) throws SQLException;
+	List<T> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
 
 }

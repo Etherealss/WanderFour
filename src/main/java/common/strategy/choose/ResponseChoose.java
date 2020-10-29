@@ -83,6 +83,5 @@ public class ResponseChoose {
 	 */
 	public static void respUserUnloggedError(HttpServletResponse resp) throws ServletException{
 		strategy.respOnlyStateToBrowser(resp, ResultType.NOT_LOGGED, "用户未登录");
-		throw new ServletException("用户没有登录");
 	}
 }

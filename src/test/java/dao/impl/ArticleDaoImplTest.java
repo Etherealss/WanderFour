@@ -1,5 +1,6 @@
 package dao.impl;
 
+import common.enums.DaoEnum;
 import common.enums.Partition;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
@@ -64,6 +65,15 @@ public class ArticleDaoImplTest {
 	@Test
 	public void selectArticleById() throws SQLException {
 		System.out.println(dao.getWritingById(conn, 2L));
+	}
+
+	@Test
+	public void testGetSimpleWriting() throws Exception {
+		List<Article> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(conn, 1, DaoEnum.FIELD_ORDER_BY_LIKE,
+				DaoEnum.START_FROM_ZERO, 6);
+		for (Article article : simpleWritingListByOrder) {
+			logger.debug(article);
+		}
 	}
 
 	@Test

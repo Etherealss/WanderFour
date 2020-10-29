@@ -103,6 +103,14 @@ public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 	}
 
 	@Override
+	public List<Article> getSimpleWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+		String sql = "SELECT `article`.`id`, `title` " +
+				"FROM `article` WHERE `article`.`partition`=? " +
+				"ORDER BY " + order + " DESC LIMIT ?,? ";
+		return qr.query(conn, sql, new BeanListHandler<>(Article.class), partition, start, rows);
+	}
+
+	@Override
 	public Long getUserWritingCount(Connection conn, String userid) throws SQLException {
 		return 0L;
 	}

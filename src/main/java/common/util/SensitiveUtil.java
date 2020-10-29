@@ -2,11 +2,12 @@ package common.util;
 
 import filter.SensitiveFilter;
 import pojo.po.Article;
+import pojo.po.Comment;
 import pojo.po.Posts;
 
 /**
  * @author 寒洲
- * @description
+ * @description 敏感词
  * @date 2020/10/28
  */
 public class SensitiveUtil {
@@ -48,5 +49,14 @@ public class SensitiveUtil {
 		posts.setLabel3(filter.checkString(posts.getLabel3()));
 		posts.setLabel4(filter.checkString(posts.getLabel4()));
 		posts.setLabel5(filter.checkString(posts.getLabel5()));
+	}
+
+	/**
+	 * 过滤评论的敏感词
+	 * @param comment
+	 */
+	public static void filterComment(Comment comment){
+		SensitiveFilter filter = new SensitiveFilter();
+		comment.setContent(filter.checkString(comment.getContent()));
 	}
 }

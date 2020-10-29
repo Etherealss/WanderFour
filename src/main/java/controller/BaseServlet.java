@@ -17,8 +17,7 @@ import java.util.TreeMap;
 /**
  * @author 寒洲
  * @description Servlet基类
- * 利用反射调用Controller的方法
- * 且提供预设的日志对象和返回信息报以及异常捕捉
+ * 提供预设的日志对象和返回信息报以及异常捕捉
  * @date 2020/10/2
  */
 public class BaseServlet extends HttpServlet {
