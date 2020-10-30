@@ -3,8 +3,10 @@ package common.util;
 import static org.junit.Assert.*;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import pojo.po.Article;
 
 public class SecurityUtilTest {
 
@@ -53,7 +55,7 @@ public class SecurityUtilTest {
 	}
 
 	/**
-	 * 【Unicode转中文】
+	 * Unicode转中文
 	 * @param unicode
 	 * @return 返回转码后的字符串 - 中文格式
 	 */
@@ -90,4 +92,16 @@ public class SecurityUtilTest {
 		}
 		return string.toString();
 	}
+
+	@Test
+	public void testEnsureJsSafe2() throws Exception {
+		Article article = new Article();
+		article.setTitle("slakjdjd<br/><button>按钮</button>");
+		article.setLabel1("<h1>标题</h1>");
+//		SecurityUtil.ensureHtmlSafe(article);
+		String s = SecurityUtil.htmlEncode("slakjdjd<br/>&qq&<p></p><button>按钮</button>");
+		logger.debug(s);
+	}
+
+
 }

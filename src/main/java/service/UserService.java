@@ -18,13 +18,14 @@ public interface UserService {
 	ResultType checkUserExist(String email) throws Exception;
 
 	/**
-	 * 验证登录的账号密码
+	 * 验证登录的账号密码，获取用户数据
 	 * @param email
 	 * @param paasword
 	 * @return
 	 * @throws Exception
 	 */
-	Long validateUserLogin(String email, String paasword) throws Exception;
+	User validateUserLogin(String email, String paasword) throws Exception;
+
 
 	/**
 	 * 注册
@@ -33,4 +34,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	Long registerNewUser(User user) throws Exception;
+
+	/**
+	 * 获取已登录的用户的信息
+	 * @param userid
+	 * @return
+	 * @throws Exception
+	 */
+	User getLoggedUserInfo(Long userid) throws Exception;
 }

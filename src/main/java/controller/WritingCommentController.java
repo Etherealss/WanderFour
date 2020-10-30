@@ -153,8 +153,9 @@ public class WritingCommentController extends BaseServlet {
 		ResultState state;
 		//敏感词过滤
 		SensitiveUtil.filterComment(comment);
-		//Js防注入
+		//html防注入
 //		SecurityUtil.ensureJsSafe(comment);
+		SecurityUtil.htmlEncode(comment);
 		try {
 			ResultType resultType = service.publishNewComment(comment);
 			state = new ResultState(resultType, "发表结果");

@@ -27,6 +27,7 @@ public class User {
 	private Boolean sex;
 	private String avatarPath;
 	private UserType userType;
+	private String userTypeStr;
 	private Long liked;
 	/**
 	 * 被收藏数
@@ -97,10 +98,21 @@ public class User {
 		return userType;
 	}
 
+	/**
+	 * 获取前端的参数时会使用
+	 * @param userType
+	 */
 	public void setUserType(String userType) {
 		this.userType = UserType.getPartition(userType);
 	}
 
+	/**
+	 * 获取数据库数据时会使用
+	 * @param userTypeStr
+	 */
+	public void setUserTypeStr(String userTypeStr){
+		this.userType = UserType.getPartition(userTypeStr);
+	}
 	public Long getLiked() {
 		return liked;
 	}

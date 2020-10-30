@@ -3,7 +3,6 @@ $(".topmargin_personal_center").hover(function () {
     $(this).find("ul").stop().fadeToggle();
 });
 
-
 //———————————————————————————— 文本编辑问题 ——————————————————————————————————————
 //——————————————————— 测试键盘事件的keyCode码 —————————————————————
 function textareaEnter(textareaBox) {
@@ -199,10 +198,10 @@ $("#editTags").on({
         // {
 
         // }else 
-        if ($(this).html().length > 10) {
-            alert("长度超过了限制");
-            $(this).html("");   //超过长度后清空，重新输入
-        }
+        // if ($(this).html().length > 10) {
+        //     alert("长度超过了限制");
+        //     $(this).html("");   //超过长度后清空，重新输入
+        // }
     },
     keydown: function (event) {//按下Enter键盘后禁止换行
         if (event.keyCode == 13) {
@@ -216,13 +215,20 @@ $("#editTags").on({
 //可编辑的div获取内容要用html()，input获取内容要用val()
 $("#EA_addBtn").on({
     click: function () {
-        if ($("#editTags").html() == "" || $("#editTags").html() == undefined) {
+        //直接获取对象，写的时候会方便一些
+        var editTags = $("#editTags");
+        if (editTags.html() == "" || editTags.html() == undefined) {
             alert("请在输入框内输入内容");
+
+        } else if(!checkInput(8, editTags.html())){
+            alert("标签的输入不符合规范");
+            editTags.html("");   //清空，重新输入
+
         } else {
             var li = $("<li></li>");
-            li.html("<p id='label'>" + $("#editTags").html() + "</p> <a class='EA_delete'>×</a>");
+            li.html("<p id='label'>" + editTags.html() + "</p> <a class='EA_delete'>×</a>");
             $("#editArticle_tagsList").append(li); //将动态创建的<li>添加到<ul>里
-            $("#editTags").html(""); //点击添加后清空搜索框
+            editTags.html(""); //点击添加后清空搜索框
 
             // 点击删除
             $(".EA_delete").on({
@@ -254,7 +260,7 @@ $("#EA_addBtn").on({
 // ——————————————————————— AJAX相关Part ———————————————————————————————
 //获取label的值（给label后添加i下标）
 function getLabelNum() {
-    var label = new Array();
+    var label = [];
     for (var i = 0, j = 1; i < $("#editArticle_tagsList li").length; i++, j++) {
         $("#editArticle_tagsList li").eq(i).find("p").attr("id", "label" + j);
         label[j] = $("#label" + j).html();
@@ -311,6 +317,10 @@ function submitVal(partition, category, articleTitleVal, articleContentVal, labe
             label5: label[5]
         },
         dataType: 'json',
+        /**
+         * @param res
+         * @param res.writingId 发表后的文章id
+         */
         success: function (res) {//成功的回调函数
             if (res.writingId == undefined){
                 console.log(res);
@@ -332,10 +342,17 @@ function checkEmpty() {
     if ($("#articleTitleVal").val() == "" || $("#articleTitleVal").val() == undefined) {
         alert("请输入文章标题");
         return false;
-    } else if ($("#articleContentVal").html() == "" || $("#articleContentVal").html() == undefined) {
+    } else {
+        if (!checkInput(50, $("#articleTitleVal").val())){
+            alert("您输入的标题不符合规范！");
+            return false;
+        }
+    }
+    if ($("#articleContentVal").html() == "" || $("#articleContentVal").html() == undefined) {
         alert("请输入文章内容");
         return false;
-    } else if ($("#secondary").html() == "" || $("#secondary").html() == undefined) {
+    }
+    if ($("#secondary").html() == "" || $("#secondary").html() == undefined) {
         alert("请选择文章二级分区");
         return false;
     }

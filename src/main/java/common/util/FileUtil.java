@@ -22,6 +22,7 @@ public class FileUtil {
 		//字节缓冲流数组
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		try {
+			System.out.println(filePath);
 			inputStream = new FileInputStream(filePath);
 			byte[] b = new byte[1024];
 			int len = -1;

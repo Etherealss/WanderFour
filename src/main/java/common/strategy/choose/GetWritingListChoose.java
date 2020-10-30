@@ -31,7 +31,7 @@ public class GetWritingListChoose<T extends Writing> {
 	public List<T> getByLike(Connection conn, int partition) throws SQLException {
 
 		//按点赞数
-		List<T> writingByLike = strategy.getWritingList(conn, partition, DaoEnum.FIELD_ORDER_BY_TIME,
+		List<T> writingByLike = strategy.getWritingList(conn, partition, DaoEnum.FIELD_ORDER_BY_LIKE,
 				DaoEnum.START_FROM_ZERO, DaoEnum.ROWS_SIX);
 		return writingByLike;
 	}
@@ -60,7 +60,7 @@ public class GetWritingListChoose<T extends Writing> {
 	 */
 	public List<T> getSimpleByLike(Connection conn, int partition) throws SQLException {
 
-		List<T> writingByLike = strategy.getSimpleWritingList(conn, partition, DaoEnum.FIELD_ORDER_BY_TIME,
+		List<T> writingByLike = strategy.getSimpleWritingList(conn, partition, DaoEnum.FIELD_ORDER_BY_LIKE,
 				DaoEnum.START_FROM_ZERO, DaoEnum.ROWS_FIVE);
 		return writingByLike;
 	}

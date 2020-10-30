@@ -57,6 +57,8 @@ public class WritingBesideController extends BaseServlet{
 				List<Article> likeList = service.getSimpleWritingList(part, DaoEnum.ORDER_BY_LIKE);
 				resJson.put("new", timeList);
 				resJson.put("hot", likeList);
+				logger.trace("获取了侧栏文章");
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -68,6 +70,7 @@ public class WritingBesideController extends BaseServlet{
 				List<Posts> likeList = service.getSimpleWritingList(part, DaoEnum.ORDER_BY_LIKE);
 				resJson.put("new", timeList);
 				resJson.put("hot", likeList);
+				logger.trace("获取了侧栏问贴");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

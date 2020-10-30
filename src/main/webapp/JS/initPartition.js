@@ -52,7 +52,7 @@ function getWritingList(type, partition, order) {
             } else if(partition == 3){
                 //大学生活
             } else {
-                console.log("partition参数错误")
+                console.log("partition参数错误");
             }
         }
     })

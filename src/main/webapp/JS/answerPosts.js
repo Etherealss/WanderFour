@@ -5,6 +5,7 @@ $(".topmargin_personal_center").stop().hover(function () {
 
 $(function () {
     var params = getParams();
+    getBesideWritingList(1,"posts")
     getPosts(params.posts);
 })
 
@@ -24,46 +25,46 @@ function getPosts(postsId) {
                 var posts = res.writingBean.writing;
                 console.log(posts);
                 //显示修改粉色标签
-                if (posts.partition == 1) {
-                    $('.partitionsTag').html('学习天地');
-                } else if (posts.partition == 2) {
-                    $('.partitionsTag').html('专业介绍');
-                } else if (posts.partition == 3) {
-                    $('.partitionsTag').html('大学生活');
-                }
+                // if (posts.partition == 1) {
+                //     $('.partitionsTag').html('学习天地');
+                // } else if (posts.partition == 2) {
+                //     $('.partitionsTag').html('专业介绍');
+                // } else if (posts.partition == 3) {
+                //     $('.partitionsTag').html('大学生活');
+                // }
                 //显示昵称
-                $('#asUserId').html(res.article.userNickname);
+                $('#answerPostsAuthor').val(posts.userNickname);
                 //显示标题
-                $('#asmainTitle').html(posts.title);
-                //显示标签
-                if (posts.label1 != undefined) {
-                    $('#asmainTag1').html(posts.label1);
-                    $('#asmainTag1').show();
-                }
-                if (posts.label2 != undefined) {
-                    $('#asmainTag2').html(posts.label2);
-                    $('#asmainTag2').show();
-                }
-                if (posts.label3 != undefined) {
-                    $('#asmainTag3').html(posts.label3);
-                    $('#asmainTag3').show();
-                }
-                if (posts.label4 != undefined) {
-                    $('#asmainTag4').html(posts.label4);
-                    $('#asmainTag4').show();
-                }
-                if (posts.label5 != undefined) {
-                    $('#asmainTag5').html(posts.label5);
-                    $('#asmainTag5').show();
-                }
+                $('.postsTitle h3').text(posts.title);
                 //显示文章内容
-                $('#answerPosts_txt').html(posts.content);
+                $('.answerPosts_txt').text(posts.content);
+                //显示标签
+                // if (posts.label1 != undefined) {
+                //     $('#asmainTag1').html(posts.label1);
+                //     $('#asmainTag1').show();
+                // }
+                // if (posts.label2 != undefined) {
+                //     $('#asmainTag2').html(posts.label2);
+                //     $('#asmainTag2').show();
+                // }
+                // if (posts.label3 != undefined) {
+                //     $('#asmainTag3').html(posts.label3);
+                //     $('#asmainTag3').show();
+                // }
+                // if (posts.label4 != undefined) {
+                //     $('#asmainTag4').html(posts.label4);
+                //     $('#asmainTag4').show();
+                // }
+                // if (posts.label5 != undefined) {
+                //     $('#asmainTag5').html(posts.label5);
+                //     $('#asmainTag5').show();
+                // }
                 //显示时间 时间毫秒数转换为年月日格式
-                var date = dateFormat(posts.createTime);
-                $('#asCreatTime').html(date);
+                // var date = dateFormat(posts.createTime);
+                // $('#asCreatTime').html(date);
             } else {
                 //检验测试
-                console.log(fail);
+                console.log("fail");
             }
 
         }

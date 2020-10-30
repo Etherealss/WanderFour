@@ -29,7 +29,7 @@ public interface UserDao {
 	 * @return 存在返回true
 	 * @throws SQLException
 	 */
-	Long countUserBySign(Connection conn, String email, String password) throws SQLException;
+	User selectUserBySign(Connection conn, String email, String password) throws SQLException;
 
 	/**
 	 * 查询用户id是否存在
@@ -57,6 +57,15 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	User getUserByEmail(Connection conn, String email) throws SQLException;
+
+	/**
+	 * 查询用户，获取数据
+	 * @param conn
+	 * @param userid
+	 * @return
+	 * @throws SQLException
+	 */
+	User getUserById(Connection conn, Long userid) throws SQLException;
 
 	/**
 	 * 根据id获取评论用户的头像和昵称

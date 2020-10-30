@@ -2,7 +2,7 @@ var params;
 $(function () {
     params = getParams();
     //写死 从学习天地获取,1就代表学习天地
-    getWritingList("1", "article");
+    getBesideWritingList("1", "article");
 
     //顶部导航栏二级导航显示隐藏
     $("#asPersonalCenter").hover(function () {

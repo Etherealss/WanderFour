@@ -10,7 +10,7 @@
  * @param partition
  * @param type
  */
-function getWritingList(partition, type) {
+function getBesideWritingList(partition, type) {
     $.ajax({
         type: 'GET',
         url: '/WritingBesideServlet?type=' + type + '&partition=' + partition,
@@ -26,17 +26,37 @@ function getWritingList(partition, type) {
          */
         success: function (res) {
             console.log(res);
-            if (type == "article"){
+            if (type == "article") {
                 setArticleList(res);
+            } else {
+                setPostsList(res);
             }
         }
     })
 }
 
 function setArticleList(articles) {
-    console.log(articles.new[0].title);
-    for(var i=0; i<5; i++){
-        $("#showHotNav"+i+" span a").text(articles.new[i].title);
-        $("#showHotNav"+i+" span a").attr("href", "./articleShow.html?article=" + articles.new[i].id);
+    for (var i = 0; i < 5; i++) {
+        $("#showNewNav" + i + " a").text(articles.new[i].title);
+        $("#showNewNav" + i + " a").attr("href", "./articleShow.html?article=" + articles.new[i].id);
+        // $("#showNewNav" + i + " a").attr("title", articles.new[i].title);
+    }
+    for (var j = 0; j < 5; j++) {
+        $("#showHotNav" + j + " a").text(articles.hot[j].title);
+        $("#showHotNav" + j + " a").attr("href", "./articleShow.html?article=" + articles.hot[j].id);
+        // $("#showHotNav" + j + " a").attr("title", articles.hot[j].title);
+    }
+}
+
+function setPostsList(posts) {
+    for (var i = 0; i < 5; i++) {
+        $("#showNewNav" + i + " a").text(posts.new[i].title);
+        $("#showNewNav" + i + " a").attr("href", "./answerPosts.html?posts=" + posts.new[i].id);
+        // $("#showNewNav" + i + " a").attr("title", posts.new[i].title);
+    }
+    for (var j = 0; j < 5; j++) {
+        $("#showHotNav" + j + " a").text(posts.hot[j].title);
+        $("#showHotNav" + j + " a").attr("href", "./answerPosts.html?posts=" + posts.hot[j].id);
+        // $("#showHotNav" + j + " a").attr("title", posts.hot[j].title);
     }
 }

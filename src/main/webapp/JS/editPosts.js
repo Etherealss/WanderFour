@@ -104,10 +104,10 @@ $("#editTags").on({
         // {
 
         // }else 
-        if ($(this).html().length > 10) {
-            alert("长度超过了限制");
-            $(this).html("");   //超过长度后清空，重新输入
-        }
+        // if ($(this).html().length > 10) {
+        //     alert("长度超过了限制");
+        //     $(this).html("");   //超过长度后清空，重新输入
+        // }
 
     },
     keydown: function (event) {//按下Enter键盘后禁止换行
@@ -124,6 +124,11 @@ $("#EP_addBtn").on({
     click: function () {
         if ($("#editTags").html() == "" || $("#editTags").html() == undefined) {
             alert("请在输入框内输入内容");
+
+        } else if (!checkInput(8, $("#editTags").html())) {
+            alert("标签的输入不符合规范");
+            $("#editTags").html("");   //清空，重新输入
+
         } else {
             var li = $("<li></li>");
             li.html("<p id='label'>" + $("#editTags").html() + "</p> <a class='EA_delete'>×</a>");
@@ -218,11 +223,11 @@ function submitVal(partition, category, editPostsTitleVal, editPostsContentVal, 
         success: function (res) {//成功的回调函数
             console.log(res);
             var code = res.state.code;
-            if (code == "SUCCESS"){
-                if (res.writingId == undefined){
+            if (code == "SUCCESS") {
+                if (res.writingId == undefined) {
                     console.log(res);
                     alert("发表问贴出现异常，请重试！");
-                }else {
+                } else {
                     window.location.href = "answerPosts.html?posts=" + res.writingId;
                 }
             } else {

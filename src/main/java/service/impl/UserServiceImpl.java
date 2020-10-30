@@ -1,5 +1,6 @@
 package service.impl;
 
+import common.util.FileUtil;
 import pojo.po.User;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
@@ -32,11 +33,12 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public Long validateUserLogin(String email, String paasword) throws Exception {
+	public User validateUserLogin(String email, String paasword) throws Exception {
 		Connection conn;
 		conn = JdbcUtil.getConnection();
-		Long userid = dao.countUserBySign(conn, email, paasword);
-		return userid;
+		User user = dao.selectUserBySign(conn, email, paasword);
+		setUserAvatarStream(user);
+		return user;
 	}
 
 	@Override
@@ -45,5 +47,23 @@ public class UserServiceImpl implements UserService {
 		boolean b1 = dao.updateNewUser(conn, user);
 		Long lastInsertId = dao.getLastInsertId(conn).longValue();
 		return lastInsertId;
+	}
+
+	@Override
+	public User getLoggedUserInfo(Long userid) throws Exception {
+		Connection conn;
+		conn = JdbcUtil.getConnection();
+		User user = dao.getUserById(conn, userid);
+		setUserAvatarStream(user);
+		return user;
+	}
+
+	private void setUserAvatarStream(User user){
+		if (user != null) {
+			//图片数据转码
+			byte[] imgStream = FileUtil.getFileStream(user.getAvatarPath());
+			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+			user.setAvatarPath(imgByBase64);
+		}
 	}
 }

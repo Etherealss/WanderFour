@@ -19,6 +19,67 @@ public class SecurityUtil {
 	private static Logger logger = Logger.getLogger(SecurityUtil.class);
 
 	/**
+	 * html代码转义
+	 * @param source
+	 * @return
+	 */
+	public static String htmlEncode(String source) {
+		if (source == null) {
+			return "";
+		}
+		String html = "";
+		StringBuilder buffer = new StringBuilder();
+		for (int i = 0; i < source.length(); i++) {
+			char c = source.charAt(i);
+			switch (c) {
+				case '<':
+					buffer.append("&lt;");
+					break;
+				case '>':
+					buffer.append("&gt;");
+					break;
+				case '&':
+					buffer.append("&amp;");
+					break;
+				case '"':
+					buffer.append("&quot;");
+					break;
+				case 10:
+				case 13:
+					break;
+				default:
+					buffer.append(c);
+			}
+		}
+		html = buffer.toString();
+		return html;
+	}
+
+	public static void htmlEncode(Article a) {
+		a.setTitle(htmlEncode(a.getTitle()));
+		a.setLabel1(htmlEncode(a.getLabel1()));
+		a.setLabel2(htmlEncode(a.getLabel2()));
+		a.setLabel3(htmlEncode(a.getLabel3()));
+		a.setLabel4(htmlEncode(a.getLabel4()));
+		a.setLabel5(htmlEncode(a.getLabel5()));
+	}
+
+	public static void htmlEncode(Posts p) {
+		p.setTitle(htmlEncode(p.getTitle()));
+		p.setContent(htmlEncode(p.getContent()));
+		p.setLabel1(htmlEncode(p.getLabel1()));
+		p.setLabel2(htmlEncode(p.getLabel2()));
+		p.setLabel3(htmlEncode(p.getLabel3()));
+		p.setLabel4(htmlEncode(p.getLabel4()));
+		p.setLabel5(htmlEncode(p.getLabel5()));
+	}
+
+	public static void htmlEncode(Comment p) {
+		p.setContent(htmlEncode(p.getContent()));
+	}
+
+
+	/**
 	 * json防止HTML注入
 	 * @param json
 	 * @return
@@ -65,13 +126,13 @@ public class SecurityUtil {
 	 */
 	public static void ensureJsSafe(Article a) {
 		//TODO 优化
-		a.setContent(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getContent())));
-		a.setTitle(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getTitle())));
-		a.setLabel1(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getLabel1())));
-		a.setLabel2(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getLabel2())));
-		a.setLabel3(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getLabel3())));
-		a.setLabel4(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getLabel4())));
-		a.setLabel5(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getLabel5())));
+//		a.setContent(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getContent())));
+		a.setTitle(StringEscapeUtils.escapeJavaScript(a.getTitle()));
+		a.setLabel1(StringEscapeUtils.escapeJavaScript(a.getLabel1()));
+		a.setLabel2(StringEscapeUtils.escapeJavaScript(a.getLabel2()));
+		a.setLabel3(StringEscapeUtils.escapeJavaScript(a.getLabel3()));
+		a.setLabel4(StringEscapeUtils.escapeJavaScript(a.getLabel4()));
+		a.setLabel5(StringEscapeUtils.escapeJavaScript(a.getLabel5()));
 	}
 
 	/**
@@ -81,13 +142,13 @@ public class SecurityUtil {
 	 */
 	public static void ensureJsSafe(Posts p) {
 		//TODO Writing没有对于的setter和getter，没办法通过泛型封装 待优化
-		p.setContent(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getContent())));
-		p.setTitle(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getTitle())));
-		p.setLabel1(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getLabel1())));
-		p.setLabel2(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getLabel2())));
-		p.setLabel3(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getLabel3())));
-		p.setLabel4(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getLabel4())));
-		p.setLabel5(StringEscapeUtils.escapeJavaScript(String.valueOf(p.getLabel5())));
+		p.setContent(StringEscapeUtils.escapeJavaScript(p.getContent()));
+		p.setTitle(StringEscapeUtils.escapeJavaScript(p.getTitle()));
+		p.setLabel1(StringEscapeUtils.escapeJavaScript(p.getLabel1()));
+		p.setLabel2(StringEscapeUtils.escapeJavaScript(p.getLabel2()));
+		p.setLabel3(StringEscapeUtils.escapeJavaScript(p.getLabel3()));
+		p.setLabel4(StringEscapeUtils.escapeJavaScript(p.getLabel4()));
+		p.setLabel5(StringEscapeUtils.escapeJavaScript(p.getLabel5()));
 	}
 
 	/**
@@ -96,6 +157,6 @@ public class SecurityUtil {
 	 * @return
 	 */
 	public static void ensureJsSafe(Comment c) {
-		c.setContent(StringEscapeUtils.escapeJavaScript(String.valueOf(c.getContent())));
+		c.setContent(StringEscapeUtils.escapeJavaScript(c.getContent()));
 	}
 }

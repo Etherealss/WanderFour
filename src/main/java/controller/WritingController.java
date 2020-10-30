@@ -93,9 +93,9 @@ public class WritingController extends BaseServlet {
 
 		if (writing == null) {
 			// 查不到文章 跳转到404
-			state = new ResultState(ResultType.ERROR, "参数错误，查询不到作品");
+			state = new ResultState(ResultType.NO_RECORD, "参数错误，查询不到作品");
 			jsonObject.put("state", state);
-			throw new ServletException("参数错误，查询不到作品，跳转404");
+//			throw new ServletException("参数错误，查询不到作品，跳转404");
 		} else {
 			//查询到，传给前端
 			jsonObject.put("writingBean", writing);
@@ -143,8 +143,9 @@ public class WritingController extends BaseServlet {
 			Long articleId = null;
 			//过滤敏感词
 			SensitiveUtil.filterArticle(article);
-			//js防注入
+			//html防注入
 //			SecurityUtil.ensureJsSafe(article);
+			SecurityUtil.htmlEncode(article);
 			try {
 				articleId = service.publishNewWriting(article);
 			} catch (Exception e) {
@@ -171,8 +172,9 @@ public class WritingController extends BaseServlet {
 			Long postsId = null;
 			//过滤敏感词
 			SensitiveUtil.filterPosts(posts);
-			//js防注入
+			//html防注入
 //			SecurityUtil.ensureJsSafe(posts);
+			SecurityUtil.htmlEncode(posts);
 			try {
 				postsId = service.publishNewWriting(posts);
 			} catch (Exception e) {
@@ -246,8 +248,9 @@ public class WritingController extends BaseServlet {
 			ResultType resultType = null;
 			//过滤敏感词
 			SensitiveUtil.filterArticle(article);
-			//js防注入
+			//html防注入
 //			SecurityUtil.ensureJsSafe(article);
+			SecurityUtil.htmlEncode(article);
 			try {
 				resultType = service.updateWriting(article);
 			} catch (Exception e) {
@@ -273,8 +276,9 @@ public class WritingController extends BaseServlet {
 
 			//过滤敏感词
 			SensitiveUtil.filterPosts(posts);
-			//Js防注入
+			//html防注入
 //			SecurityUtil.ensureJsSafe(posts);
+			SecurityUtil.htmlEncode(posts);
 			try {
 				resultType = service.updateWriting(posts);
 			} catch (Exception e) {

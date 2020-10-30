@@ -23,10 +23,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Long countUserBySign(Connection conn, String email, String password) throws SQLException {
-		String sql = "SELECT `id` FROM `user` WHERE `email` = ? AND user_password = ?";
-		Long userid = qr.query(conn, sql, new ScalarHandler<Long>(), email, password);
-		return userid;
+	public User selectUserBySign(Connection conn, String email, String password) throws SQLException {
+		String sql = "SELECT `user`.id , `email`, `nickname`, `sex`, " +
+				" `birthday`, `type` `userTypeStr`, `avatar` `avatarPath`, `liked_count` `liked`, `collected_count` `collected`," +
+				" `register_date` `registerDate` FROM  `user`, `user_type` " +
+				"WHERE `user`.user_type = `user_type`.id AND `user`.email = ? AND `user_password`=?";
+		return qr.query(conn, sql, new BeanHandler<>(User.class), email, password);
 	}
 
 	@Override
@@ -55,6 +57,15 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				" `register_date` `registerDate` FROM  `user`, `user_type` " +
 				"WHERE `user`.user_type = `user_type`.id AND `user`.email = ? ";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), email);
+	}
+
+	@Override
+	public User getUserById(Connection conn, Long id) throws SQLException {
+		String sql = "SELECT `user`.id , `email`, `nickname`, `avatar` `avatarPath`," +
+				" `birthday`, `type` `userType`, `liked_count` `liked`, `collected_count` `collected`," +
+				" `register_date` `registerDate` FROM  `user`, `user_type` " +
+				"WHERE `user`.user_type = `user_type`.id AND `user`.id = ? ";
+		return qr.query(conn, sql, new BeanHandler<>(User.class), id);
 	}
 
 	@Override

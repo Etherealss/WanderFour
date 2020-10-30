@@ -57,8 +57,8 @@ public class UserEnterController extends BaseServlet {
 		String email = req.getParameter("email");
 		String password = req.getParameter("pw");
 		//密码再次加密
-		password = Md5Utils.md5Encode(email + password);
 		logger.debug(password);
+		password = Md5Utils.md5Encode(email + password);
 
 		ResultType state;
 		JSONObject jsonObject = new JSONObject();
@@ -73,14 +73,14 @@ public class UserEnterController extends BaseServlet {
 			//用户存在
 			if (state == ResultType.IS_REGISTED) {
 
-				Long userid = us.validateUserLogin(email, password);
-				if (userid != null) {
+				User user = us.validateUserLogin(email, password);
+				if (user != null) {
 					//密码正确，检查异地登录
 					logger.trace("密码正确，检查异地登录");
 					HttpSession session = req.getSession();
 					String sessionId = session.getId();
 
-					String useridStr = String.valueOf(userid);
+					String useridStr = String.valueOf(user.getId());
 					//通过ServletContext检查异地登录
 					ServletContext servletContext = session.getServletContext();
 					if (servletContext.getAttribute(useridStr) != null &&
@@ -94,6 +94,9 @@ public class UserEnterController extends BaseServlet {
 					} else {
 						//当前用户未登录
 						state = ResultType.SUCCESS;
+						//返回前端
+						jsonObject.put("user", user);
+
 						if (servletContext.getAttribute(useridStr) == null) {
 							//未登录，用email做标识，存入请求的sessionId
 							logger.trace("未登录，好了，现在登录了");
@@ -106,9 +109,9 @@ public class UserEnterController extends BaseServlet {
 						}
 						//用servletContext判断登录状态，用session储存用户的信息
 						servletContext.setAttribute(useridStr, sessionId);
-						session.setAttribute("userid", userid);
+						session.setAttribute("userid", user.getId());
 
-						logger.info("用户：" + userid + "登录");
+						logger.info("用户：" + user.getId() + "登录");
 					}
 				} else {
 					//密码错误
