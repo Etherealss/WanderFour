@@ -17,12 +17,12 @@ function getPosts(postsId) {
             console.log(res);
             if (res.state.code == "SUCCESS") {
                 //转码
-                unescape(res.article);
+                unescape(res.writingBean);
 
                 //检验测试
                 //获取res对象数据中的文章对象，方便调用
                 var posts = res.writingBean.writing;
-
+                console.log(posts);
                 //显示修改粉色标签
                 if (posts.partition == 1) {
                     $('.partitionsTag').html('学习天地');
@@ -57,7 +57,7 @@ function getPosts(postsId) {
                     $('#asmainTag5').show();
                 }
                 //显示文章内容
-                $('#asmainArtical').html(posts.content);
+                $('#answerPosts_txt').html(posts.content);
                 //显示时间 时间毫秒数转换为年月日格式
                 var date = dateFormat(posts.createTime);
                 $('#asCreatTime').html(date);
@@ -86,26 +86,26 @@ $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 scrollLimiteHeight($(".answerPosts_Content"), $(".answerPosts_sideColumn"));
 
 //页面滑动到一定位置时，显示问贴的问题
-var timer = null;
-$(window).scroll(function () {
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        if ($(window).scrollTop() > 400) {
-            $("#postsHidden").stop().fadeIn(100).show();
-            scrollLimiteHeight($(".answerPosts_Content"), $("#postsHidden"));
-        } else {
-            $("#postsHidden").stop().fadeOut(100).hide();
-        }
-    }, 10);
-});
+// var timer = null;
+// $(window).scroll(function () {
+//     clearTimeout(timer);
+//     timer = setTimeout(function () {
+//         if ($(window).scrollTop() > 400) {
+//             $("#postsHidden").stop().fadeIn(100).show();
+//             scrollLimiteHeight($(".answerPosts_Content"), $("#postsHidden"));
+//         } else {
+//             $("#postsHidden").stop().fadeOut(100).hide();
+//         }
+//     }, 10);
+// });
 
 //————————————————————————— 动态添加楼层 —————————————————————————————
 /**
- * @param {*用户名（昵称）} userId
- * @param {*发表时间} postTime
- * @param {*楼层数} floorNum
- * @param {*发表的评论内容} postsContent
- * @param {*点赞数} postsLikeNum
+ * @param {*} userId 用户名（昵称）
+ * @param {*} postTime 发表时间
+ * @param {*} floorNum 楼层数
+ * @param {*} postsContent 发表的评论内容
+ * @param {*} postsLikeNum 点赞数
  */
 
 var floorNum = 0;   //层楼数（全局变量）
@@ -117,7 +117,7 @@ function postsPublish(userId, postTime, postsContent, postsLikeNum) {
     //———————— 楼层发表样式 —————————
     var str = "<div class='APlist_message'>" +
         "<div class='APlist_headIcon'>" +
-        "<img src=<img style='background:#f0f'/>" +
+        "<img src='./img/homePage_universityStudent_head.png'/>" +
         "</div>" +
         "<a class='APlist_userName'>" + userId + "</a>" +
         "<span class='APlist_userIntro'>简介blabla</span>" +

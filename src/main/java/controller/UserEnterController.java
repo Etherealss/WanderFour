@@ -121,7 +121,7 @@ public class UserEnterController extends BaseServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info(info.toString());
+		logger.debug(info.toString());
 
 		jsonObject.put("state", info);
 		ResponseChoose.respToBrowser(resp, jsonObject);

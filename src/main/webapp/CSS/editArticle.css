@@ -33,26 +33,27 @@ body{
 
 /* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
-    width: 45px;
-    height: 45px;
+    width: 105px;
+    height: 55px;
     position: absolute;
-    top: 6px;
+    top: 2px;
     left: -3px;
-    border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
-    background-size: 45px;
-    /* border: 1px solid #a9a9a9; */
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
 }
 
 /* —————————— 跳转页面的导航Part ———————————— */
 .topmargin_target{
     position: absolute;
-    left: 98px;
-    top: 12px;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    /* border: 1px solid #f00; */
 }
 
 .topmargin_target > li a{
@@ -184,7 +185,7 @@ body{
     width: 1200px;
     min-height: 1200px;
     padding-bottom: 50px;
-    margin: 80px 0 241px;
+    margin: 80px 0 100px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 1px 1px 10px rgba(193, 193, 193,0.4);

@@ -78,7 +78,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	@Override
-	public List<WritingBean> getWritingList(int partition, String order) throws Exception {
+	public List<WritingBean<Posts>> getWritingList(int partition, String order) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		GetWritingListChoose<Posts> choose = new GetWritingListChoose<>(new GetPostsStrategyImpl());
 		//判断排序方式
@@ -93,10 +93,10 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		}
 
 		UserDao userDao = DaoFactory.getUserDAO();
-		List<WritingBean> beanList = new ArrayList<>();
+		List<WritingBean<Posts>> beanList = new ArrayList<>();
 		for (Posts posts : postsList) {
 			User reviewerInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
-			WritingBean wb = new WritingBean();
+			WritingBean<Posts> wb = new WritingBean<>();
 			//用户头像 使用base64转码
 			byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
 			String imgByBase64 = FileUtil.getImgByBase64(imgStream);

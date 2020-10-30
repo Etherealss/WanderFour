@@ -75,7 +75,7 @@ public class ArticleServiceImplTest {
 
 	@Test
 	public void testGetWritingByTime() throws Exception {
-		List<WritingBean> time = service.getWritingList(1, "time");
+		List<WritingBean<Article>> time = service.getWritingList(1, "time");
 		JSONObject json = new JSONObject();
 		json.put("articleList", time);
 		logger.debug(json);

@@ -5,29 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user</title>
-    <link rel="stylesheet" href="./CSS/user.css">
+    <link rel="stylesheet" href="./CSS/user.css"/>
+    <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
     <script src="./JS/jQuery.js"></script>
     <script src="./JS/user.js"></script>
 
 </head>
 
 <body>
-    <div class="user_top">
-        <div class="user_top_main">
-            <img src="./img/userLogo/userLogo.png" class="userSmallAvatar">
-            <div class="userTopNav">
-                <a href="./professionalIntroduction.html">学习天地</a>
-                <a href="./LearningWorld_HS.html">专业介绍</a>
-                <a href="./universityLife.html">大学生活</a>
-            </div>
-            <input type="text" name="" id="" placeholder="搜索" class="userSearch">
-            <div class="userPersonal">
-                <a href="./user.html" class="userPersonalCenter">个人中心</a>
-                <div class="userTopNavMore" id="userTopNavMore">
-                    <a href="./user.html" class="userTopNavMoreCurrent">toDoList</a>
-                    <a href="./user.html">收藏</a>
-                    <a href="./user.html">创作</a>
-                    <a href="./user.html">个人信息修改</a>
+    <!-- —————————————— 头部导航栏 ———————————————— -->
+    <div class="editArticle_Header">
+        <div class="topmargin_box">
+            <div class="topmargin">
+                <!-- 头像 -->
+                <div class="topmargin_head_portrait">
+                    <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
+                </div> 
+                <ul class="topmargin_target">
+                    <li>
+                        <a href="./LearningWorld_HS.html">学习天地</a>
+                    </li>
+                    <li>
+                        <a href="./professionalIntroduction.html">专业介绍</a>
+                    </li>
+                    <li>
+                        <a href="./universityLife.html">学校生活</a>
+                    </li>
+                </ul>
+                <div class="topmargin_searchBox">
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                    <button></button>
+                </div>
+                <div class="topmargin_personal_center">
+                    <a id="topmargin_PC" href="./user.html">个人中心</a>
+                    <img src="img/LearningWorld_arrow.png" alt=""/>    
+                    <ul>
+                        <li>
+                            <a href="#">toDoList</a>
+                        </li>
+                        <li>
+                            <a href="">收藏</a>
+                        </li>
+                        <li>
+                            <a href="">创作</a>
+                        </li>
+                        <li>
+                            <a href="">个人信息修改</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -238,7 +263,23 @@
             </div>
         </div>
     </div>
-
+    <!-- ——————————————————————— 页面底部 ————————————————————————— -->
+    <div class="bottomOfPage_Box">
+        <div class="bottomOfPage">
+            <div class="footIconBackground"></div>
+            <p>
+                让高中生提前了解专业，填报志愿时能有所选择。让大学生明确目标，迷茫不再，对自己有所规划。
+            </p>
+            <div class="bottomAbout_us">
+                <p>联系我们</p>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

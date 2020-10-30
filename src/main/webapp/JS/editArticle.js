@@ -203,7 +203,6 @@ $("#editTags").on({
             alert("长度超过了限制");
             $(this).html("");   //超过长度后清空，重新输入
         }
-
     },
     keydown: function (event) {//按下Enter键盘后禁止换行
         if (event.keyCode == 13) {

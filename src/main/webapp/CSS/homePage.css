@@ -3,7 +3,7 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+ 
 /* ————————————————————— 头部 ——————————————————————— */
 .homePage_Header{
     /* max-width: 1600px; */
@@ -37,22 +37,20 @@
 }
 
 .topmargin_head_portrait{
-    width: 45px;
-    height: 45px;
+    width: 105px;
+    height: 55px;
     position: absolute;
-    top: 6px;
+    top: 2px;
     left: -3px;
-    border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
-    background-size: 45px;
-    /* border: 1px solid #a9a9a9; */
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
 }
 
 .topmargin_target{
     position: absolute;
-    left: 98px;
-    top: 12px;
+    left: 120px;
+    top: 15px;
     display: flex;
     flex-direction: row;
     list-style-type: none;

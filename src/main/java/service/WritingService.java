@@ -35,7 +35,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	List<WritingBean> getWritingList(int partition, String order) throws Exception;
+	List<WritingBean<T>> getWritingList(int partition, String order) throws Exception;
 
 	/**
 	 * 获取简单的作品信息，仅包含作品id和标题

@@ -1,12 +1,12 @@
 *{
     padding: 0;
     margin: 0;
-}
+} 
 
 body{
     background-color: #f7f7f7;
 }
-
+ 
 .professionalIntroduction_Header{
     width: 100%;
     /* height: 500px; */
@@ -33,26 +33,27 @@ body{
 
 /* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
-    width: 45px;
-    height: 45px;
+    width: 105px;
+    height: 55px;
     position: absolute;
-    top: 6px;
+    top: 2px;
     left: -3px;
-    border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
-    background-size: 45px;
-    /* border: 1px solid #a9a9a9; */
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
 }
 
 /* —————————— 跳转页面的导航Part ———————————— */
 .topmargin_target{
     position: absolute;
-    left: 98px;
-    top: 12px;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    /* border: 1px solid #f00; */
 }
 
 .topmargin_target > li a{
@@ -177,7 +178,7 @@ body{
 /* —————————————————————————— 中间内容 ——————————————————————————————— */
 .professionalIntroduction_Content{
     width: 1200px;
-    height: 800px;
+    /* height: 800px; */
     margin: 30px auto;
     position: relative;
     /* border: 1px solid #0f0; */
@@ -593,7 +594,7 @@ body{
 /* —————————————————————————————————— 问贴Part ———————————————————————————————————————— */
 .PI_toAskBox{
     width: 1200px;
-    margin: 0 auto 200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -616,7 +617,7 @@ body{
     display: flex;
     position: relative;
     padding-bottom: 80px;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     border-bottom: 2px solid #E7E7E7;
     /* border: 1px solid #f00; */
 }
@@ -812,6 +813,7 @@ body{
     outline: none;
     border: none;
     background: none;
+    font-size: 16px;
     /* border-bottom: 1px solid #333333; */
     /* background: #fff; */
     /* border-radius: 4px; */
@@ -819,7 +821,7 @@ body{
 }
 
 .PI_TA_mainContent > button:hover{
-    color: #81cbbf;
+    color: #34b3a8;
     /* background: #fff; */
     /* box-shadow: 2px 2px 16px rgba(204, 204, 204,0.8); */
 }

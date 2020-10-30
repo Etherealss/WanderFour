@@ -35,7 +35,15 @@ public class ResultState {
 		this.msg = msg;
 	}
 
-//	public JSONObject getJson() {
+	@Override
+	public String toString() {
+		return "ResultState{" +
+				"code=" + code +
+				", msg='" + msg + '\'' +
+				'}';
+	}
+
+	//	public JSONObject getJson() {
 //		JSONObject json = new JSONObject();
 //		json.put("code", resultType);
 //		json.put("msg", msg);

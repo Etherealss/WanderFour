@@ -33,26 +33,27 @@ body{
 
 /* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
-    width: 45px;
-    height: 45px;
+    width: 105px;
+    height: 55px;
     position: absolute;
-    top: 6px;
+    top: 2px;
     left: -3px;
-    border-radius: 50%;
-    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
-    background-size: 45px;
-    /* border: 1px solid #a9a9a9; */
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
 }
 
 /* —————————— 跳转页面的导航Part ———————————— */
 .topmargin_target{
     position: absolute;
-    left: 98px;
-    top: 12px;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    /* border: 1px solid #f00; */
 }
 
 .topmargin_target > li a{
@@ -177,7 +178,7 @@ body{
 .answerPosts_Content{
     width: 1250px;
     /* height: 1000px; */
-    margin: 0 auto 50px;
+    margin: 0 auto 120px;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -189,6 +190,7 @@ body{
 .answerPosts_sideColumn{
     width: 280px;
     position: absolute;
+    z-index: 100;
     margin: 40px 28px 0 15px;
 }
 
@@ -407,10 +409,11 @@ body{
 
 /* ——————————————————————————— 回答和评论 ———————————————————————————————————— */
 .answerPosts_answerAndComment{
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     border-radius: 10px;
     background: #fff;
     box-shadow: 1px 1px 10px rgba(193, 193, 193,0.3);
+    /* border: 1px solid #f00; */
 }
 
 /* ————————————————— 输入回答 —————————————————————— */
@@ -619,6 +622,7 @@ body{
     box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
     cursor: pointer;
     transition-duration: 0.3s;
+    z-index: 100;
     /* border: 1px solid #f00; */
 }
 
