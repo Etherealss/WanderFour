@@ -22,7 +22,7 @@ public enum ResultType {
 	USER_UN_FOUND("USER_UN_FOUND"),
 	/** 账号已登录 */
 	LOGGED("LOGGED"),
-	/** 账号已登录 */
+	/** 账号未登录 */
 	NOT_LOGGED("LOGGED"),
 
 	IS_REGISTED("IS_REGISTED"),

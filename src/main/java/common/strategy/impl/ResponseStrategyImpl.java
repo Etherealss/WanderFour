@@ -7,6 +7,7 @@ import common.strategy.ResponseStrategy;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author 寒洲

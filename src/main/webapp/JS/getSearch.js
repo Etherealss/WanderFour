@@ -28,6 +28,7 @@ getParams = function () {
  * @returns {boolean} 是在规定长度内的中英文字符串且不为空返回true，否则为false
  */
 checkInput = function (maxLen, targetTxt) {
+    maxLen = maxLen*2;
     var targetLength = targetTxt.length;
     if (targetLength == 0){
         return false;
@@ -48,4 +49,24 @@ checkInput = function (maxLen, targetTxt) {
     }
     //不大于限制的最大长度，且不为空，返回true
     return txtLen <= maxLen;
+}
+/**
+ * 前往问贴
+ * @param id
+ */
+toPosts = function (id) {
+    window.location.href = "answerPosts.html?posts=" + id;
+}
+
+/**
+ * 前往文章
+ * @param id
+ */
+toArticle = function (id) {
+    window.location.href = "articleShow.html?article=" + id;
+}
+
+
+toIndex = function () {
+    window.location.href = "./index.html";
 }

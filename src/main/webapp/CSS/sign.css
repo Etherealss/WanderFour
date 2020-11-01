@@ -35,22 +35,36 @@ section{
 }
 
 /* 左右滑动的图片 */
-.sign_container .sign_user .sign_imgBox{
+.sign_container .sign_user .sign_imgBox {
     position: relative;
     width: 50%;
     height: 100%;
     background: #81CBBF;
     transition: all ease-in-out .8s;
     /* z-index: 10; */
+    background-image: url(../img/sign/sign.png);
+    background-repeat: no-repeat;
+    background-position: -62px -72px;
+}
+.sign_container .sign_user #sign_imgBox2 {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: #81CBBF;
+    transition: all ease-in-out .8s;
+    background-image: url(../img/sign/sign.png);
+    background-repeat: no-repeat;
+    background-position: -732px -72px;
 }
 
-.sign_container .sign_user .sign_imgBox img{
+/* .sign_container .sign_user .sign_imgBox img{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-}
+    width: 1000px;
+    height: 500px;
+
+} */
 
 /* 表单内部 */
 .sign_container .sign_user .sign_formBox{
@@ -94,7 +108,7 @@ section{
     background-color: #f5f5f5;
 }
 .sign_container .sign_user .sign_formBox form .inputBlur {
-    border-radius: 4px;
+    /* border-radius: 4px; */
     border: 1px solid #81CBBF;
 }
 

@@ -1,8 +1,11 @@
 var params;
 $(function () {
     params = getParams();
-    //写死 从学习天地获取,1就代表学习天地
+    //获取侧栏 从学习天地获取,1就代表学习天地
     getBesideWritingList("1", "article");
+
+    //调用获取文章相关内容ajax函数
+    showArticle(params.article);
 
     //顶部导航栏二级导航显示隐藏
     $("#asPersonalCenter").hover(function () {
@@ -26,21 +29,19 @@ $(function () {
     //点赞收藏
     function LikeAndCol(a, b) {
         a.click(function () {
-            a.hide();
-            b.show();
+            // a.hide();
+            // b.show();
         })
     }
 
-    LikeAndCol($('.asmainLike'), $('.asamainLikeOver'));
-    LikeAndCol($('.asamainLikeOver'), $('.asmainLike'));
-    LikeAndCol($('.asmainCol'), $('.asmainColOver'));
-    LikeAndCol($('.asmainColOver'), $('.asmainCol'));
+    // LikeAndCol($('.asmainLike'), $('.asamainLikeOver'));
+    // LikeAndCol($('.asamainLikeOver'), $('.asmainLike'));
+    // LikeAndCol($('.asmainCol'), $('.asmainColOver'));
+    // LikeAndCol($('.asmainColOver'), $('.asmainCol'));
 
     //调用获取url中参数函数 并传递给ajax对象中
     console.log(params.article);
 
-    //调用获取文章相关内容ajax函数
-    showArticle(params.article);
 
     //点击右下角小箭头返回顶部
     $('.articleShow_back').click(function () {
@@ -99,9 +100,8 @@ function showArticle(id) {
         success: function (res) {
             console.log(res);
             if (res.state.code == "SUCCESS") {
-
                 //转码
-                unescape(res.article);
+                // unescape(res.article);
 
                 //获取res对象数据中的文章对象，方便调用
                 var article = res.writingBean.writing;
@@ -116,31 +116,27 @@ function showArticle(id) {
                     $('.partitionsTag').html('大学生活');
                 }
                 //显示昵称
-                if (article.userNickname != undefined) {
-                    $('#asUserId').html(article.userNickname);
-                }
-                if (article.title != undefined) {
-                    //显示标题
-                    $('#asmainTitle').html(article.title);
-                }
+                $('#asUserId').html(article.userNickname);
+                //显示标题
+                $('#asmainTitle').html(article.title);
                 //显示标签
-                if (article.label1 != undefined) {
+                if (article.label1 != undefined && article.label1 != "") {
                     $('#asmainTag1').html(article.label1);
                     $('#asmainTag1').show();
                 }
-                if (article.label2 != undefined) {
+                if (article.label2 != undefined && article.label2 != "") {
                     $('#asmainTag2').html(article.label2);
                     $('#asmainTag2').show();
                 }
-                if (article.label3 != undefined) {
+                if (article.label3 != undefined && article.label3 != "") {
                     $('#asmainTag3').html(article.label3);
                     $('#asmainTag3').show();
                 }
-                if (article.label4 != undefined) {
+                if (article.label4 != undefined && article.label4 != "") {
                     $('#asmainTag4').html(article.label4);
                     $('#asmainTag4').show();
                 }
-                if (article.label5 != undefined) {
+                if (article.label5 != undefined && article.label5 != "") {
                     $('#asmainTag5').html(article.label5);
                     $('#asmainTag5').show();
                 }
@@ -149,6 +145,14 @@ function showArticle(id) {
                 //显示时间 时间毫秒数转换为年月日格式
                 var date = dateFormat(article.createTime);
                 $('#asCreatTime').html(date);
+                $('#articleLike').html(article.liked);
+                if (res.writingBean.liked){
+                    //已点赞
+                    doLikeChangeClassToLiked($('#articleLike'));
+                } else {
+                    //未点赞
+                    doLikeChangeClassToUnLiked($('#articleLike'));
+                }
             } else {
                 //检验测试
                 console.log(fail);
@@ -173,12 +177,13 @@ function editArticle(id) {
         success: function (res) {
             console.log(res);
             if (res.state.code == 'SUCCESS') {
-                //TODO 跳转到编辑文章页面
                 window.location.href = '/editArticle.html?article=' + id;
             } else if (res.state.code == 'NOT_AUTHOR') {
                 alert("只有作者本人才可以删除文章哦！");
             } else if (res.state.code == 'ERROR') {
                 alert("接口异常！没有获取到参数！");
+            } else {
+                alert("未知错误！请重试");
             }
         }
     })
@@ -204,27 +209,6 @@ function removeArticle(id) {
             } else if (res.state.code == 'ERROR') {
                 alert("接口异常！没有获取到参数！");
             }
-        }
-    })
-}
-
-/**
- * 点赞ajax对象
- * @param targetId
- * @param targetType
- */
-function sendLike(targetId, targetType) {
-    $.ajax({
-        type: 'POST ',
-        url: '/LikeServlet',
-        data: {
-            targetId: id,  //目标作品id
-            targetType: targetType,  //目标作品类型，文章点赞-article，帖子-posts，评论-comment
-            likeState: "1"   //点赞状态，1-点赞 0-未点赞/取消赞
-        },
-        dataType: 'json',
-        success: function (res) {
-            console.log(res);
         }
     })
 }

@@ -6,14 +6,15 @@
     <title>editPosts</title>
     <link rel="stylesheet" href="CSS/editPosts.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
+
 </head>
 <body>
 <!-- —————————————— 头部导航栏 ———————————————— -->
-<div class="editPosts_Header">
+<div class="editArticle_Header">
     <div class="topmargin_box">
         <div class="topmargin">
             <!-- 头像 -->
-            <div class="topmargin_head_portrait">
+            <div class="topmargin_head_portrait" onclick="toIndex()">
                 <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
             </div>
             <ul class="topmargin_target">
@@ -21,22 +22,34 @@
                     <a href="./LearningWorld_HS.html">学习天地</a>
                 </li>
                 <li>
-                    <a href="">专业介绍</a>
+                    <a href="./professionalIntroduction.html">专业介绍</a>
                 </li>
                 <li>
-                    <a href="">学校生活</a>
+                    <a href="./universityLife.html">大学生活</a>
                 </li>
             </ul>
             <div class="topmargin_searchBox">
-                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
                 <button></button>
             </div>
             <div class="topmargin_personal_center">
                 <a id="topmargin_PC" href="./user.html">个人中心</a>
-                <img src="img/LearningWorld_arrow.png" alt=""/>
+                <img src="img/LearningWorld_arrow.png" alt="" />
                 <ul>
+                    <li class="loginIdentity">
+                        <a>
+                            <div>
+                                <span>昵称：</span>
+                                <span>小华er</span>
+                            </div>
+                            <div>
+                                <span>身份：</span>
+                                <span>高中生</span>
+                            </div>
+                        </a>
+                    </li>
                     <li>
-                        <a href="#">toDoList</a>
+                        <a href="#">个人信息</a>
                     </li>
                     <li>
                         <a href="">收藏</a>
@@ -45,13 +58,25 @@
                         <a href="">创作</a>
                     </li>
                     <li>
-                        <a href="">个人信息修改</a>
+                        <a href="">收件箱</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="topmarginLogin">
+                <ul class="homePage_side">
+                    <li>
+                        <a href="./sign.html">登录</a>
+                    </li>
+                    <span>|</span>
+                    <li>
+                        <a href="./sign.html">注册</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
 <!-- ————————————————————— 中部文本编辑Part ——————————————————————————— -->
 <div class="editPosts_Content">
     <div class="editPosts_editBox">
@@ -97,24 +122,32 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="editPosts_secondaryPartition">专业介绍
+
+                    <div class="editPosts_secondaryPartition">
+                        <br>
+                        专业介绍
                         <ul>
                             <li>
-                                <p>高中</p>
+                                <br>
                                 <ol>
-                                    <span>主科</span>
-                                    <li>语文</li>
-                                    <li>数学</li>
-                                    <li>英语</li>
+                                    <span></span>
+                                    <li>哲学</li>
+                                    <li>经济学</li>
+                                    <li>法学</li>
+                                    <li>教育学</li>
                                 </ol>
                                 <ol>
-                                    <span>辅科</span>
-                                    <li>物理</li>
-                                    <li>化学</li>
-                                    <li>生物</li>
-                                    <li>历史</li>
-                                    <li>政治</li>
-                                    <li>地理</li>
+                                    <span></span>
+                                    <li>文学</li>
+                                    <li>历史学</li>
+                                    <li>理学</li>
+                                    <li>工学</li>
+                                </ol>
+                                <ol>
+                                    <span></span>
+                                    <li>农学</li>
+                                    <li>艺术学</li>
+                                    <li>其他</li>
                                 </ol>
                             </li>
                         </ul>
@@ -122,21 +155,28 @@
                     <div class="editPosts_secondaryPartition">学校生活
                         <ul>
                             <li>
-                                <p>高中</p>
+                                <p>学业</p>
                                 <ol>
-                                    <span>主科</span>
-                                    <li>语文</li>
-                                    <li>数学</li>
-                                    <li>英语</li>
+                                    <span></span>
+                                    <li>考试</li>
+                                    <li>课程</li>
+                                    <li>学习方法</li>
                                 </ol>
+                                <p>生活</p>
                                 <ol>
-                                    <span>辅科</span>
-                                    <li>物理</li>
-                                    <li>化学</li>
-                                    <li>生物</li>
-                                    <li>历史</li>
-                                    <li>政治</li>
-                                    <li>地理</li>
+                                    <span></span>
+                                    <li>部门</li>
+                                    <li>社团</li>
+                                    <li>兼职</li>
+                                    <li>实习</li>
+                                </ol>
+                                <p>其他</p>
+                                <ol>
+                                    <span></span>
+                                    <li>美食</li>
+                                    <li>趣闻</li>
+                                    <li>科普</li>
+                                    <li>其他</li>
                                 </ol>
                             </li>
                         </ul>
@@ -210,4 +250,5 @@
 <script src="JS/jQuery.js"></script>
 <script src="JS/editPosts.js"></script>
 <script src="JS/getSearch.js"></script>
+<script src="./JS/checkUserLogin.js"></script>
 </html>

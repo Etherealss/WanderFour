@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user</title>
-    <link rel="stylesheet" href="./CSS/user.css"/>
-    <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
+    <link rel="stylesheet" href="./CSS/user.css" />
+    <link rel="stylesheet" href="CSS/footPage.css" type="text/css" />
     <script src="./JS/jQuery.js"></script>
+    <script src="./JS/getSearch.js"></script>
     <script src="./JS/user.js"></script>
-
+    <script src="./JS/checkUserLogin.js"></script>
 </head>
 
 <body>
@@ -18,9 +19,9 @@
         <div class="topmargin_box">
             <div class="topmargin">
                 <!-- 头像 -->
-                <div class="topmargin_head_portrait">
+                <div class="topmargin_head_portrait"  onclick="toIndex()">
                     <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
-                </div> 
+                </div>
                 <ul class="topmargin_target">
                     <li>
                         <a href="./LearningWorld_HS.html">学习天地</a>
@@ -29,19 +30,31 @@
                         <a href="./professionalIntroduction.html">专业介绍</a>
                     </li>
                     <li>
-                        <a href="./universityLife.html">学校生活</a>
+                        <a href="./universityLife.html">大学生活</a>
                     </li>
                 </ul>
                 <div class="topmargin_searchBox">
-                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
                     <button></button>
                 </div>
                 <div class="topmargin_personal_center">
                     <a id="topmargin_PC" href="./user.html">个人中心</a>
-                    <img src="img/LearningWorld_arrow.png" alt=""/>    
+                    <img src="img/LearningWorld_arrow.png" alt="" />
                     <ul>
+                        <li class="loginIdentity">
+                            <a>
+                                <div>
+                                    <span>昵称：</span>
+                                    <span>小华er</span>
+                                </div>
+                                <div>
+                                    <span>身份：</span>
+                                    <span>高中生</span>
+                                </div>
+                            </a>
+                        </li>
                         <li>
-                            <a href="#">toDoList</a>
+                            <a href="#">个人信息</a>
                         </li>
                         <li>
                             <a href="">收藏</a>
@@ -50,7 +63,18 @@
                             <a href="">创作</a>
                         </li>
                         <li>
-                            <a href="">个人信息修改</a>
+                            <a href="">收件箱</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topmarginLogin">
+                    <ul class="homePage_side">
+                        <li>
+                            <a href="./sign.html">登录</a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="./sign.html">注册</a>
                         </li>
                     </ul>
                 </div>
@@ -109,7 +133,7 @@
                             <span>姓名</span> <input type="text" name="" id="" readonly="readonly" value="李华">
                         </div>
                         <div>
-                            <span>生日</span> <input type="text" name="" id="" readonly="readonly" value="">
+                            <span>生日</span> <input type="text" name="" id="" readonly="readonly" value="03-14">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>
@@ -121,7 +145,7 @@
                             <span>身份</span> <input type="text" name="" id="" readonly="readonly" value="高中生">
                         </div>
                         <div>
-                            <span>简介</span> <input type="text" name="" id="" readonly="readonly" value="...">
+                            <span>简介</span> <input type="text" name="" id="" readonly="readonly" value="无">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>

@@ -25,6 +25,9 @@ a {
     margin: 0 auto;
     background: #f7f7f7;
     /* border: 1px solid #f00; */
+    position: fixed;
+    z-index: 100;
+    top: 0;
 }
 
 /* ———————————————————— 页面顶栏 ———————————————————————— */
@@ -117,22 +120,23 @@ a {
 
 /* —————————— 个人中心 ———————————— */
 .topmargin_personal_center{
-    width: 150px;
+    width: 163px;
     height: 50px;
     position: absolute;
     left: 1050px;
     /* border: 1px solid #f00; */
+    display: none;
 }
 
 .topmargin_personal_center #topmargin_PC{
     width: 105px;
     height: 60px;
     line-height: 60px;
-    padding-left: 40px;
+    padding-left: 53px;
     display: inline-block;
     position: absolute;
-    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 20px;
-    background-size: 20px;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
     color: #333333;
     font-size: 18px;
     text-decoration: none;
@@ -142,20 +146,21 @@ a {
 .topmargin_personal_center > img{
     width: 14px;
     position: absolute;
-    top: 25px;
-    left: 120px;
+    top: 27px;
+    left: 134px;
     display: inline-block;
 }
 
 /* hover的内容 */
 .topmargin_personal_center > ul{
-    width: 150px;
-    height: 145px;
+    width: 200px;
+    height: 205px;
     margin-top: 45px;
-    padding: 18px 0 20px 0; 
+    padding: 10px 0 20px 0; 
     display: none;
     position: absolute;
     top: 15px;
+    left: -19px;
     list-style-type: none;
     background: #fff;
     border-radius: 15px;
@@ -169,7 +174,7 @@ a {
 }
 
 .topmargin_personal_center > ul li a{
-    width: 146px;
+    width: 185px;
     padding: 7.5px 0;
     margin-left: 2px;
     display: inline-block;
@@ -177,8 +182,30 @@ a {
     font-size: 17px;
     color: #414141;
     text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
 }
 
+.loginIdentity a div {
+    width: 100%;
+    height: 30px;
+}
+
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
 .topmargin_personal_center > ul li:hover{
     background: rgba(193, 193, 193,0.25);
     /* background: #f7f7f7; */
@@ -186,13 +213,48 @@ a {
     text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
 }
 
+
+.topmargin_personal_center > ul li:nth-child(1){
+    margin-top: -10px;
+}
+
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
+}
+
+/* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
+.homePage_side{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage_side > span{padding: 10px 5px;}
+
 /* --------------------------------------------------articleShow_body------------------------------ */
 .articleShow_body {
     width: 1210px;
-    min-height: 1250px;
-    margin: 0 auto;
+    min-height: 1145px;
+    margin: 50px auto;
     position: relative;
     /* border: 1px solid #f00; */
+    overflow: hidden;
 }
 
 /* -------------------------------------------articleShow_nav------------------------------------ */
@@ -206,16 +268,18 @@ a {
 .showHotNav {
     overflow: hidden;
     width: 303px;
-    height: 302px;
+    height: 315px;
     background-image: url(../img/articleShowBG/ASgreen.png);
+    background-repeat: no-repeat;
     background-position: 0 0;
-    background-size: 301px 315px;
+    background-size: 301px 312px;
 }
 .showHotNav {
     margin-top: 33px;
     background: url(../img/articleShowBG/ASyellow.png);
+    background-repeat: no-repeat;
     background-position: 0 0;
-    background-size: 301px 315px;
+    background-size: 301px 311px;
 }
 .articleShow_nav h1 {
     margin-top: 39px;
@@ -244,7 +308,7 @@ a {
 .articleShow_nav ul li {
     margin-left: 7px;
     overflow: hidden;
-    width: 265px;
+    width: 263px;
     height: 46px;
     cursor: pointer;
 }
@@ -260,7 +324,7 @@ a {
     height: 14px;
     font-size: 14px;
     font-weight: 400;
-    line-height: 15px;
+    line-height: 14px;
     margin-top: 15px;
     margin-left: 43px;
     overflow:hidden;
@@ -317,6 +381,12 @@ a {
     float: left;
     margin-left: 15px;
     margin-top: 24px;
+    font-weight: 700;
+}
+.asmainID #asCreatTime {
+    font-size: 12px;
+    color: #999999;
+    font-weight: normal;
 }
 .asmainID a {
     float: right;
@@ -324,7 +394,7 @@ a {
     height: 15px;
     font-size: 15px;
     color: #20AB9F;
-    margin: 25px 40px 0 0;
+    margin: 25px 0px 0 0;
     cursor: pointer;
 }
 .asmainID .asEdit {
@@ -336,22 +406,22 @@ a {
     margin-bottom: 25px; 
     color: #20AB9F;
     font-size: 15px;
-    /* line-height: 15px; */
 }
 .asmainTag span {
     float: left;
-    font-size: 13px;
+    font-size: 15px;
     color: #999999;
-    margin-top: 6px;
+    margin-top: 1px;
 }
 .asmainTag div {
     display: none;
     float: left;
-    height: 21px;
+    height: 11px;
     background: #AEE1D8;
     border-radius: 18px;    
     margin-left: 5px;
     padding: 7px 10px;
+    line-height: 11px;
 }
 .asmainTag .partitionsTag {
     display: block;
@@ -366,8 +436,8 @@ a {
 .asmainComment span {
     float: left;
     height: 13px;
-    margin-top: 24px;
-    margin-left: 29px;
+    margin-top: 20px;
+    /* margin-left: 29px; */
 }
 .asmainComment input {
     outline: none;
@@ -381,13 +451,28 @@ a {
     margin-top: 15px;
     margin-left: 9px;
 }
+.asmainComment button {
+    /*margin-left: 20px;*/
+    float: left;
+    width: 75px;
+    height: 30px;
+    background: #81CBBF;
+    border-radius: 15px;
+    border: 0;
+    font-size: 12px;
+    color: #333;
+    margin-left: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    outline: none;
+}
 .asmainLike,
 .asmainCol,
 .asamainLikeOver,
 .asmainColOver {
     float: right;
     margin-left: 20px;
-    color: #81CBBF;
+    color: rgb(32, 171, 159);
     margin-top: 14px;
     font-size: 14px;
     font-family: Microsoft YaHei UI;
@@ -396,45 +481,49 @@ a {
 }
 .asmainLike {
     display: block;
-    padding-left: 22px;
+    padding-left: 26px;
     padding-top: 4px;
-    margin-right: 33px;
-    background: url(../img/articleShowIcon/asUnLike.png) no-repeat left bottom / 19px 19px;
+    /* margin-right: 33px; */
+    background: url(../img/articleShowIcon/asUnLike.png) no-repeat left bottom / 22px 22px;
 }
 .asmainLike:hover {
-    background: url(../img/articleShowIcon/asLike.png) no-repeat left bottom / 19px 19px;
+    background: url(../img/articleShowIcon/asLike.jpg) no-repeat left bottom / 22px 22px;
 }
 .asamainLikeOver {
-    display: none;
-    padding-left: 22px;
+    /* display: none; */
+    padding-left: 29px;
     padding-top: 4px;
-    margin-right: 33px;
-    background: url(../img/articleShowIcon/asLike.png) no-repeat left bottom / 19px 19px;
+    /* margin-right: 33px; */
+    background: url(../img/articleShowIcon/asLikeDeep.png) no-repeat left bottom / 24px 22px;
 }
 .asmainCol {
     display: block;
     padding-left: 29px;
     padding-top: 5px;
     background: url(../img/articleShowIcon/asUnCollection.png) no-repeat left / 25px 24px;
+    /* background-image: url(../img/articleShowIcon/asUnCollection.png);
+    background-repeat: no-repeat;
+    background-size: 25px 24px;
+    background-position: 0 0; */
 }
 .asmainCol:hover {
     background: url(../img/articleShowIcon/asCollection.png) no-repeat left / 25px 24px;
 }
 .asmainColOver {
-    display: none;
+    /* display: none; */
     padding-left: 29px;
     padding-top: 5px;
     background: url(../img/articleShowIcon/asCollection.png) no-repeat left / 25px 24px;
 }
 .asCommentsContent {
-    min-height: 50px;
+    min-height: 73px;
     border-bottom: 1px solid #E7E7E7;
     margin-top: 3px;
     font-size: 14px;
 }
 .asCommentsContentOri {
     width: 842px;
-    height: 51px;
+    height: 73px;
 }
 .asLikeComment {
     float: left;
@@ -475,9 +564,10 @@ a {
 .asCommentsContentID:hover {
     color: #81CBBF;
 }
-.asCommentConmain {
-    margin-left: 10px;
+.asCommentsContentOri .asCommentConmain {
+    margin-left: -42px;
     color: #333333;
+    margin-top: 42px;
 }
 .asCommentsContent .asCommmentTime {
     width: 55px;
@@ -522,7 +612,7 @@ a {
     width: 697px;
     height: 30px;
     margin-bottom: 16px;
-    margin-left: 30px;
+    margin-left: 46px;
 }
 .clickComment input {
     width: 580px;
@@ -541,7 +631,7 @@ a {
     border-radius: 15px;
     border: 0;
     font-size: 12px;
-    color: #FFFFFF;
+    color: #333;
     margin-left: 11px;
     cursor: pointer;
     outline: none;

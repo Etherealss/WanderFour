@@ -45,6 +45,7 @@ public class WritingController extends BaseServlet {
 			return;
 		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
+			return;
 		}
 		logger.trace("获取作品 params = " + params);
 
@@ -55,7 +56,8 @@ public class WritingController extends BaseServlet {
 			WritingService<Article> artivleService = ServiceFactory.getArticleService();
 			WritingBean<Article> article = null;
 			try {
-				article = artivleService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))));
+				article = artivleService.getWriting(
+						Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -68,7 +70,8 @@ public class WritingController extends BaseServlet {
 			WritingService<Posts> postsService = ServiceFactory.getPostsService();
 			WritingBean<Posts> posts = null;
 			try {
-				posts = postsService.getWriting(Long.valueOf(String.valueOf(params.get(TYPE_POSTS))));
+				posts = postsService.getWriting(
+						Long.valueOf(String.valueOf(params.get(TYPE_POSTS))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -95,15 +98,14 @@ public class WritingController extends BaseServlet {
 			// 查不到文章 跳转到404
 			state = new ResultState(ResultType.NO_RECORD, "参数错误，查询不到作品");
 			jsonObject.put("state", state);
-//			throw new ServletException("参数错误，查询不到作品，跳转404");
+			ResponseChoose.respUnFoundError(resp, "查询不到作品");
 		} else {
 			//查询到，传给前端
 			jsonObject.put("writingBean", writing);
 			state = new ResultState(ResultType.SUCCESS, "查询结果");
+			jsonObject.put("state", state);
+			ResponseChoose.respToBrowser(resp, jsonObject);
 		}
-
-		jsonObject.put("state", state);
-		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
 	@Override
@@ -199,12 +201,12 @@ public class WritingController extends BaseServlet {
 		JSONObject json = new JSONObject();
 		if (writingId != null) {
 			json.put("writingId", writingId);
-			json.put("state", new ResultState(ResultType.SUCCESS, "发表结果"));
+			json.put("state", new ResultState(ResultType.SUCCESS, "发表成功"));
+			ResponseChoose.respToBrowser(resp, json);
 		} else {
-			json.put("state", new ResultState(ResultType.EXCEPTION, "发表失败"));
+			ResponseChoose.respException(resp, "出现异常，发表失败");
 		}
 
-		ResponseChoose.respToBrowser(resp, json);
 	}
 
 	@Override
@@ -239,7 +241,7 @@ public class WritingController extends BaseServlet {
 
 			//空参检查
 			if (article == null) {
-				ResponseChoose.respNoParameterError(resp, "修改文章（文章信息）");
+				ResponseChoose.respNoParameterError(resp, "修改文章（获取文章信息）");
 				return;
 			}
 
@@ -253,12 +255,12 @@ public class WritingController extends BaseServlet {
 			SecurityUtil.htmlEncode(article);
 			try {
 				resultType = service.updateWriting(article);
+				ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章修改结果");
 			} catch (Exception e) {
 				e.printStackTrace();
-				resultType = ResultType.EXCEPTION;
+				ResponseChoose.respException(resp, "修改文章");
 			}
 
-			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章修改结果");
 		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("Posts put:" + type);
 

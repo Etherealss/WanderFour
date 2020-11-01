@@ -3,7 +3,7 @@
     margin: 0;
     box-sizing: border-box;
 }
- 
+
 /* ————————————————————— 头部 ——————————————————————— */
 .homePage_Header{
     /* max-width: 1600px; */
@@ -17,25 +17,27 @@
 
 /* ———————————————————— 页面顶栏 ———————————————————————— */
 .topmargin_box{
-    width: 100%;
-    /* width: 1500px; */
-    height: 60px;
-    margin: -50px auto 0;
+    /*TODO 淑仪修改了这一部分代码 加了三行代码*/
     position: fixed;
-    z-index: 150;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 1px 1px 10px rgba(0,0,0,.15);
-    /* border: 1px solid #0f0; */
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+    min-width: 1200px;
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    /*border: 1px solid #f00;*/
 }
 
-.HP_topmargin{
+.topmargin{
     width: 1200px;
     height: 60px;
     margin: 0 auto;
     position: relative;
-    /* border: 1px solid #00f; */
+    /* border: 1px solid #0f0; */
 }
 
+/* ———————————— 头像 —————————————— */
 .topmargin_head_portrait{
     width: 105px;
     height: 55px;
@@ -45,35 +47,36 @@
     background: url(../img/navigationLogo.png) no-repeat;
     background-size: auto 55px;
     cursor: pointer;
+    /* border: 1px solid #f00; */
 }
 
+/* —————————— 跳转页面的导航Part ———————————— */
 .topmargin_target{
     position: absolute;
+    /* left: 98px; */
     left: 120px;
     top: 15px;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    /* border: 1px solid #f00; */
 }
 
-.topmargin_target > li{
-    /* margin: 0 10px; */
+.topmargin_target > li a{
     padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
     font-size: 18px;
-    cursor: pointer;
-    /* border: 1px solid #0f0; */
 }
 
-.topmargin_target > li:hover{color: #72c3b6;}
+.topmargin_target > li a:hover{color: #81cbbf;}
 
-/* —————————————— 搜索框 ———————————————— */
+/* —————————— 搜索Part ———————————— */
 .topmargin_searchBox{
-    width: 350px;
-    height: 45px;
     position: absolute;
     left: 470px;
     top: 12px;
-    /* border: 1px solid #f00; */
 }
 
 .topmargin_searchBox input{
@@ -98,15 +101,114 @@
     height: 28px;
     position: absolute;
     top: 8px;
-    right: 40px;
+    right: 10px;
     border: none;
     outline: none;
     background: url(../img/topmargin_search.png) -1px -2px;
     background-size: 28px;
-    cursor: pointer; 
+    cursor: pointer;
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 163px;
+    height: 50px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+    display: none;
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 126px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 53px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 134px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 200px;
+    height: 205px;
+    margin-top: 45px;
+    padding: 10px 0 20px 0;
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: -19px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 100;
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 185px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+}
+.loginIdentity a div {
+    width: 100%;
+    height: 30px;
+}
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
 }
 
 /* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
 .homePage_side{
     position: absolute;
     top: 7px;
@@ -180,7 +282,8 @@
 
 .HP_item:nth-child(3){
     left: 700;
-    background: #ffd995;
+    background: url(../img/homePage_carousel3.jpg);
+    background-size: 100%;
 }
 
 .HP_item:nth-child(4){background: #f00;}
@@ -204,7 +307,7 @@
     height: 80px;
     display: none;
     position: absolute;
-    top: 320px;
+    top: 257px;
     z-index: 100;
     color: #72c3b6;
     font-size: 50px;
@@ -403,8 +506,8 @@
     font-weight: normal;
     text-align: center;
     letter-spacing: 6px;
-    color: #fff;   
-    z-index: 5; 
+    color: #fff;
+    z-index: 5;
     text-shadow: .1px .1px .1px rgba(0,0,0,.8);
     transition: all ease-in-out .5s;
 }
@@ -752,6 +855,12 @@
 .homePage_returnTopBox ul li:nth-child(4){top: 105px;}
 
 
-
+.addCla {
+    margin-top: 100px;
+    font-size: 45px;
+    font-weight: 500;
+    color: #333;
+    margin-left: -100px;
+}
 
 

@@ -7,68 +7,95 @@
     <link rel="stylesheet" href="CSS/LearningWorld_UM.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/todolist_MR.css"/>
+
 </head>
 <body>
-<div class="backgroundBox"></div>
-<div class="LearningWorld_Header">
-    <div class="topmargin_box">
-        <div class="topmargin">
-            <!-- 头像 -->
-            <div class="topmargin_head_portrait">
-                <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
+    <div class="backgroundBox"></div>
+    <div class="LearningWorld_Header">
+       <!-- —————————————— 头部导航栏 ———————————————— -->
+    <div class="editArticle_Header">
+        <div class="topmargin_box">
+            <div class="topmargin">
+                <!-- 头像 -->
+                <div class="topmargin_head_portrait" onclick="toIndex()">
+                    <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
+                </div>
+                <ul class="topmargin_target">
+                    <li>
+                        <a href="./LearningWorld_HS.html">学习天地</a>
+                    </li>
+                    <li>
+                        <a href="./professionalIntroduction.html">专业介绍</a>
+                    </li>
+                    <li>
+                        <a href="./universityLife.html">大学生活</a>
+                    </li>
+                </ul>
+                <div class="topmargin_searchBox">
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
+                    <button></button>
+                </div>
+                <div class="topmargin_personal_center">
+                    <a id="topmargin_PC" href="./user.html">个人中心</a>
+                    <img src="img/LearningWorld_arrow.png" alt="" />
+                    <ul>
+                        <li class="loginIdentity">
+                            <a>
+                                <div>
+                                    <span>昵称：</span>
+                                    <span>小华er</span>
+                                </div>
+                                <div>
+                                    <span>身份：</span>
+                                    <span>高中生</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">个人信息</a>
+                        </li>
+                        <li>
+                            <a href="">收藏</a>
+                        </li>
+                        <li>
+                            <a href="">创作</a>
+                        </li>
+                        <li>
+                            <a href="">收件箱</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topmarginLogin">
+                    <ul class="homePage_side">
+                        <li>
+                            <a href="./sign.html">登录</a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="./sign.html">注册</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul class="topmargin_target">
-                <li>
-                    <a href="./LearningWorld_HS.html">学习天地</a>
-                </li>
-                <li>
-                    <a href="./professionalIntroduction.html">专业介绍</a>
-                </li>
-                <li>
-                    <a href="./universityLife.html">学校生活</a>
-                </li>
-            </ul>
-            <div class="topmargin_searchBox">
-                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
-                <button></button>
-            </div>
-            <div class="topmargin_personal_center">
-                <a id="topmargin_PC" href="./user.html">个人中心</a>
-                <img src="img/LearningWorld_arrow.png" alt=""/>
+        </div>
+    </div>
+        <div class="LearningWorld_nav">
+            <div class="LearningWorld_navPlate">
                 <ul>
-                    <li>
-                        <a href="#">toDoList</a>
-                    </li>
-                    <li>
-                        <a href="">收藏</a>
-                    </li>
-                    <li>
-                        <a href="">创作</a>
-                    </li>
-                    <li>
-                        <a href="">个人信息修改</a>
-                    </li>
+                    <li>学习攻略</li>
+                </ul>
+                <ul>
+                    <li>学习分享</li>
+                </ul>
+                <ul>
+                    <li>专业学习</li>
+                </ul>
+                <ul>
+                    <li>了解更多</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="LearningWorld_nav">
-        <div class="LearningWorld_navPlate">
-            <ul>
-                <li>学习攻略</li>
-            </ul>
-            <ul>
-                <li>学习分享</li>
-            </ul>
-            <ul>
-                <li>专业学习</li>
-            </ul>
-            <ul>
-                <li>了解更多</li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div class="LearningWorld_Content">
     <!-- —————————————————— 问贴Part ———————————————————— -->
     <div class="LearningWorld_toAskBox">
@@ -110,14 +137,18 @@
             <div class="LearningWorld_TA_mainContentBox">
                 <div id="LearningWorld_toAsk" class="LearningWorld_TA_mainContent">
                     <div class="LearningWorld_TA_askPost">
-                        <h3>新高考如何选科？0</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
-                            molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
-                            temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
+                        <h3>新高考。应该怎样选科，怎样选课又是最合理的？</h3>
+                        <p>
+                            2020北京第一届新高考小白鼠。目前6选3科目基本确定历史和地理。只在化学与政治间纠结了。
+                            原因：1.新高考赋分制，避强趋弱，我化学高一没好好学，现在追悔莫及，不知以后是否能赶上比我聪明还比我努力的人。
+                            2.我政治虽然比化学成绩好，但优势也不是很明显，现在我越来越觉得政治难，不适合我，
+                            且新高考选传统的文科除了选择面窄我不知道是否还有别的劣势。
+                            3.大学招生科目限制，选理化生科目选择面更广，我又没有明确的目标专业和大学。
+                        </p>
                         <ul class="LearningWorld_TA_comment">评论
-                            <li>第一楼：Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li>第二楼：Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li>第三楼：Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                            <li>第一楼：选一科自己喜欢的、学得下的</li>
+                            <li>第二楼：我觉得化学太恐怖了，就没及格过。</li>
+                            <li>第三楼：可以先去了解一下专业，再做出决定喔！</li>
                         </ul>
                     </div>
                     <div class="LearningWorld_TA_askPost">
@@ -165,8 +196,8 @@
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
                     </div>
-                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore0">查看更多</button>
-                    <button class="LearningWorld_packUp" id="LearningWorld_packUp0">收起</button>
+                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore0" style=" padding-right: 14px; background: url(./img/LearningWorld_arrow.png) no-repeat right / 14px;">查看更多</button>
+                    <button class="LearningWorld_packUp" id="LearningWorld_packUp0" style=" padding-right: 14px; background: url(./img/LearningWorld_arrowUp.png) no-repeat right / 14px;">收起</button>
                 </div>
             </div>
         </div>
@@ -187,62 +218,73 @@
                 <!-- 第一个选项：HOT -->
                 <div id="LearningWorld_HOT" class="LearningWorld_LE_mainContent">
                     <div class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得1</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
-                            molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
-                            temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                        <h3 onclick="toArticle(1)">怎么高效学好数学？</h3>
+                        <p>
+                            一、我的数学学习历程及遇到的困难
+                            1、我的数学学习历程
+                            我个人的数学学习历程比较曲折，在大一的时候挂过数学分析。我本人是学力学的，所以我们大一的数学课跟数学系的课程几乎是一致的。
+                            大二的时候还挂过高等代数。
+                            两次考研，第一次考研没考上，第二次考研成功了，我考上了理想的学校，理想的专业，选择了理想的导师，
+                            以专业第一名的成绩录取，包括...
+                        </p>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得2</h3>
+                        <h3>我的一些英语学习心得2</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得3</h3>
+                        <h3>我的一些英语学习心得3</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得3</h3>
+                        <h3>我的一些英语学习心得3</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <!--  -->
                     <div id="Chinese3" class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得4</h3>
+                        <h3>我的一些英语学习心得4</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div id="Chinese4" class="LearningWorld_LE_article">
-                        <h3>我的一些语文学习心得5</h3>
+                        <h3>我的一些英语学习心得5</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
-                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore1">查看更多</button>
-                    <button class="LearningWorld_packUp" id="LearningWorld_packUp1">收起</button>
+                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore1" style=" padding-right: 14px; background: url(./img/LearningWorld_arrow.png) no-repeat right / 14px;">查看更多</button>
+                    <button class="LearningWorld_packUp" id="LearningWorld_packUp1" style=" padding-right: 14px; background: url(./img/LearningWorld_arrowUp.png) no-repeat right / 14px;">收起</button>
                 </div>
                 <!-- 另一个选项：适合你的 -->
                 <div id="LearningWorld_suit" class="LearningWorld_LE_mainContent">
@@ -251,36 +293,40 @@
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>英语</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
                         <h3>英语作文</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>英语</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
                         <h3>英语作文</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>英语</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div class="LearningWorld_LE_article">
                         <h3>英语作文</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>英语</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <!--  -->
                     <div id="English3" class="LearningWorld_LE_article">
@@ -288,21 +334,23 @@
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
                     <div id="English4" class="LearningWorld_LE_article">
                         <h3>英语5</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto exercitationem ducimus,
                             molestias incidunt quasi deserunt iure voluptatem itaque eveniet excepturi corporis, qui
                             temporibus est eaque tenetur. Illo consequuntur aliquam deserunt!</p>
-                        <ul>
-                            <li>语文</li>
-                        </ul>
+                            <ul>
+                                <li>学习经验</li>
+                                <li class="lwTag2">英语</li>
+                            </ul>
                     </div>
-                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore2">查看更多</button>
-                    <button class="LearningWorld_packUp" id="LearningWorld_packUp2">收起</button>
+                    <button class="LearningWorld_seeMore" id="LearningWorld_seeMore2" style=" padding-right: 14px; background: url(./img/LearningWorld_arrow.png) no-repeat right / 14px;">查看更多</button>
+                    <button class="LearningWorld_packUp" id="LearningWorld_packUp2" style=" padding-right: 14px; background: url(./img/LearningWorld_arrowUp.png) no-repeat right / 14px;">收起</button>
                 </div>
             </div>
             <!-- 右边上下滑动Part -->
@@ -366,7 +414,7 @@
 </div>
 
 <div class="sidebar_MR">
-    <button id="todolist_hidden_MR">—</button>
+    <button id="todolist_hidden_MR"></button>
     <button id="todolist_show_MR">
         ToDoList
         <span>+</span>
@@ -390,7 +438,9 @@
 </body>
 <script src="JS/jQuery.js" type="text/javascript"></script>
 <script src="JS/models.js" type="text/javascript"></script>
+<script src="./JS/getSearch.js"></script>
 <script src="JS/LearningWorld_HS.js" type="text/javascript"></script>
 <script src="JS/initPartition.js" type="text/javascript"></script>
 <script src="JS/todolist_MR.js"></script>
+<script src="./JS/checkUserLogin.js"></script>
 </html>

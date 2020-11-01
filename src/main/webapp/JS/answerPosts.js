@@ -9,6 +9,7 @@ $(function () {
     getPosts(params.posts);
 })
 
+//问贴渲染的ajax函数
 function getPosts(postsId) {
     $.ajax({
         type: 'GET',
@@ -17,6 +18,7 @@ function getPosts(postsId) {
         success: function (res) {
             console.log(res);
             if (res.state.code == "SUCCESS") {
+                
                 //转码
                 unescape(res.writingBean);
 
@@ -37,7 +39,7 @@ function getPosts(postsId) {
                 //显示标题
                 $('.postsTitle h3').text(posts.title);
                 //显示文章内容
-                $('.answerPosts_txt').text(posts.content);
+                $('.answerPosts_txt').html(posts.content);
                 //显示标签
                 // if (posts.label1 != undefined) {
                 //     $('#asmainTag1').html(posts.label1);

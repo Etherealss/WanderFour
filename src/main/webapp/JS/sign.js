@@ -37,7 +37,7 @@ $(function () {
             }
             //检验邮箱是否已被注册 (在邮箱格式正确后再发送给后端检查)
             if ($("#registerEmailSuccess").css('display') == 'block') {
-                clearStyle($("#registerEmailSuccess"),$("#registerEmailSuccess"),$("#check2"),$("#check2"),$('#registerEmail'));
+                // clearStyle($("#registerEmailSuccess"),$("#registerEmailSuccess"),$("#check2"),$("#check2"),$('#registerEmail'));
                 checkEmailRepeat();
             }
         })
@@ -128,7 +128,6 @@ $(function () {
             //获取登录表单的值
             var loginEmailVal = $('#sign_login_email').val();
             var loginPwVal = md5($('#sign_login_password').val());  //密码加密后才传给后端
-            console.log(loginPwVal);
             //调用函数发送数据
             loginSumbit(loginEmailVal, loginPwVal);
         } else {
@@ -204,9 +203,9 @@ function checkEmailRepeat() {
                     $("#registerEmail").addClass('errorRed');
                 } else if (data.state.code == "USER_UN_FOUND") {
                     clearStyle($("#registerEmailSuccess"), $("#registerEmailError"), $("#check2"), $("#bug2"), $("#registerEmail"));
-                    $("#registerEmailErrorRepeat").css("display", "block");
-                    $("#bug2").css("display", "block");
-                    $("#registerEmail").addClass('errorRed');
+                    $("#registerEmailSuccess").css("display", "block");
+                    $("#check2").css("display", "block");
+                    $("#registerEmail").addClass('successGreen');
                 }
             },
             error: function () {

@@ -28,7 +28,7 @@ public class ResponseChoose {
 	 * @param resp
 	 * @param state
 	 */
-	public static void respToBrowser(HttpServletResponse resp, ResultState state){
+	public static void respToBrowser(HttpServletResponse resp, ResultState state) {
 		strategy.respToBrowser(resp, state);
 	}
 
@@ -37,7 +37,7 @@ public class ResponseChoose {
 	 * @param resp
 	 * @param json
 	 */
-	public static void respToBrowser(HttpServletResponse resp, JSONObject json){
+	public static void respToBrowser(HttpServletResponse resp, JSONObject json) {
 		strategy.respToBrowser(resp, json);
 	}
 
@@ -47,22 +47,52 @@ public class ResponseChoose {
 	 * @param resultType
 	 * @param msg
 	 */
-	public static void respOnlyStateToBrowser(HttpServletResponse resp, ResultType resultType, String msg){
+	public static void respOnlyStateToBrowser(HttpServletResponse resp, ResultType resultType, String msg) {
+		if (resultType == ResultType.EXCEPTION) {
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 		strategy.respOnlyStateToBrowser(resp, resultType, msg);
 	}
 
 	/**
 	 * 遇到空参错误，返回错误状态给浏览器
 	 * @param resp
-	 * @param msg 附加信息
+	 * @param msg  附加信息
 	 * @throws ServletException
 	 */
-	public static void respNoParameterError(HttpServletResponse resp, String msg) throws ServletException{
-		// 拼接字符串结果举例： 注册 异常！没有获取到参数
-		resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	public static void respNoParameterError(HttpServletResponse resp, String msg) throws ServletException {
+		//状态码 402
+		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
-					ResultMsg.NO_PARAMETER + msg);
+				ResultMsg.NO_PARAMETER + msg);
 		throw new ServletException(ResultMsg.NO_PARAMETER + msg);
+	}
+
+
+	/**
+	 * 获取不到对象，返回404状态给浏览器
+	 * @param resp
+	 * @param msg  附加信息
+	 * @throws ServletException
+	 */
+	public static void respUnFoundError(HttpServletResponse resp, String msg) throws ServletException {
+		//状态码 404
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		strategy.respOnlyStateToBrowser(resp, ResultType.NO_RECORD,
+				ResultMsg.UN_FOUND + msg);
+		throw new ServletException(ResultMsg.UN_FOUND + msg);
+	}
+
+	/**
+	 * 后端异常，返回500状态给浏览器
+	 * @param resp
+	 * @param msg  附加信息
+	 * @throws ServletException
+	 */
+	public static void respException(HttpServletResponse resp, String msg) {
+		//状态码 500
+		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		strategy.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, msg);
 	}
 
 	/**
@@ -70,7 +100,9 @@ public class ResponseChoose {
 	 * @param resp
 	 * @throws ServletException
 	 */
-	public static void respWrongParameterError(HttpServletResponse resp, String msg) throws ServletException{
+	public static void respWrongParameterError(HttpServletResponse resp, String msg) throws ServletException {
+		// 状态码 400
+		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
 				ResultMsg.WRONG_PARAMETER + msg);
 		throw new ServletException(ResultMsg.WRONG_PARAMETER + msg);
@@ -81,7 +113,10 @@ public class ResponseChoose {
 	 * @param resp
 	 * @throws ServletException
 	 */
-	public static void respUserUnloggedError(HttpServletResponse resp) throws ServletException{
+	public static void respUserUnloggedError(HttpServletResponse resp) throws ServletException {
+		//状态码 未授权 401
+		resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		strategy.respOnlyStateToBrowser(resp, ResultType.NOT_LOGGED, "用户未登录");
 	}
+
 }

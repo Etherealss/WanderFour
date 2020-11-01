@@ -11,7 +11,6 @@ import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
 import pojo.dto.WritingBean;
-import pojo.po.Article;
 import pojo.po.Posts;
 import pojo.po.User;
 import service.WritingService;
@@ -56,7 +55,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	@Override
-	public WritingBean<Posts> getWriting(Long id) {
+	public WritingBean<Posts> getWriting(Long id, Long userid) {
 		logger.trace("获取问贴");
 		Connection conn;
 		try {
@@ -70,6 +69,11 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			bean.setUserImg(imgByBase64);
 			bean.setWriting(posts);
 			bean.setUserNickname(userInfo.getNickname());
+
+			if (userid != null){
+
+			}
+
 			return bean;
 		} catch (Exception e) {
 			e.printStackTrace();

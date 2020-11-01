@@ -39,7 +39,7 @@ public class LikeServiceImpl implements LikeService {
 		Connection conn = JdbcUtil.getConnection();
 		//检查
 		if (likeRecord.getTargetType() == null) {
-			logger.debug("点赞类型为null 异常！");
+			logger.error("点赞类型为null 异常！");
 			throw new Exception("点赞类型为null");
 		}
 		//获取属性
@@ -50,10 +50,16 @@ public class LikeServiceImpl implements LikeService {
 
 		if (likeState == 1) {
 			//想要点赞
+			logger.info("用户" + likeRecord.getUserid() + "对" +
+					likeRecord.getTargetType() + "点赞，id为："
+					+ likeRecord.getTargetId());
 			LikeStategyChoose stategyChoose = new LikeStategyChoose(new LikeStrategyImpl());
 			stategyChoose.likeOperator(userid, targetId, likeType);
 		} else if (likeState == 0) {
 			//想要取消点赞
+			logger.info("用户" + likeRecord.getUserid() + "取消了对" +
+					likeRecord.getTargetType() + "的点赞，id为："
+					+ likeRecord.getTargetId());
 			LikeStategyChoose stategyChoose = new LikeStategyChoose(new CancelLikeStrategyImpl());
 			stategyChoose.likeOperator(userid, targetId, likeType);
 		}
@@ -63,7 +69,7 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public void persistLikeRecord() throws Exception {
 		//储存用户点赞关系
-
+		logger.info("储存用户点赞关系");
 		Connection conn = JdbcUtil.getConnection();
 		Jedis jedis = JedisUtil.getJedis();
 		Map<String, String> redisLikeData = jedis.hgetAll(LikeEnum.KEY_LIKE_RECORD);

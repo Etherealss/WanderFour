@@ -77,8 +77,6 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 				String parameter = req.getParameter(key);
 				json.put(key, parameter);
 			}
-			//TODO 防止了js注入
-//			json = SecurityUtil.ensureJsSafe(json);
 			logger.trace(json);
 			return json.toJavaObject(clazz);
 		} catch (Exception ex) {

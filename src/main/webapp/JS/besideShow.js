@@ -36,27 +36,27 @@ function getBesideWritingList(partition, type) {
 }
 
 function setArticleList(articles) {
-    for (var i = 0; i < 5; i++) {
-        $("#showNewNav" + i + " a").text(articles.new[i].title);
-        $("#showNewNav" + i + " a").attr("href", "./articleShow.html?article=" + articles.new[i].id);
+    for (var i = 1; i <= 5; i++) {
+        $("#showNewNav" + i + " a").text(articles.new[i-1].title);
+        $("#showNewNav" + i + " a").attr("href", "./articleShow.html?article=" + articles.new[i-1].id);
         // $("#showNewNav" + i + " a").attr("title", articles.new[i].title);
     }
-    for (var j = 0; j < 5; j++) {
-        $("#showHotNav" + j + " a").text(articles.hot[j].title);
-        $("#showHotNav" + j + " a").attr("href", "./articleShow.html?article=" + articles.hot[j].id);
+    for (var j = 1; j <= 5; j++) {
+        $("#showHotNav" + j + " a").text(articles.hot[j-1].title);
+        $("#showHotNav" + j + " a").attr("href", "./articleShow.html?article=" + articles.hot[j-1].id);
         // $("#showHotNav" + j + " a").attr("title", articles.hot[j].title);
     }
 }
 
 function setPostsList(posts) {
-    for (var i = 0; i < 5; i++) {
-        $("#showNewNav" + i + " a").text(posts.new[i].title);
-        $("#showNewNav" + i + " a").attr("href", "./answerPosts.html?posts=" + posts.new[i].id);
+    for (var i = 1; i <= 5; i++) {
+        $("#showNewNav" + i + " a").text(posts.new[i-1].title);
+        $("#showNewNav" + i + " a").attr("href", "./answerPosts.html?posts=" + posts.new[i-1].id);
         // $("#showNewNav" + i + " a").attr("title", posts.new[i].title);
     }
-    for (var j = 0; j < 5; j++) {
-        $("#showHotNav" + j + " a").text(posts.hot[j].title);
-        $("#showHotNav" + j + " a").attr("href", "./answerPosts.html?posts=" + posts.hot[j].id);
+    for (var j = 1; j <= 5; j++) {
+        $("#showHotNav" + j + " a").text(posts.hot[j-1].title);
+        $("#showHotNav" + j + " a").attr("href", "./answerPosts.html?posts=" + posts.hot[j-1].id);
         // $("#showHotNav" + j + " a").attr("title", posts.hot[j].title);
     }
 }

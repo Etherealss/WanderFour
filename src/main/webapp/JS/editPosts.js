@@ -204,6 +204,7 @@ function txtLineBreak(editPostsContent) {
 // ————————————————————————————————————————————————————————————————————————————————————————
 //Ajax传递参数
 function submitVal(partition, category, editPostsTitleVal, editPostsContentVal, label) {
+    console.log(editPostsContentVal);
     $.ajax({
         type: 'POST',
         url: '/WritingServlet',

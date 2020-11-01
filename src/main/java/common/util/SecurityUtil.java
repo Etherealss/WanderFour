@@ -66,7 +66,7 @@ public class SecurityUtil {
 
 	public static void htmlEncode(Posts p) {
 		p.setTitle(htmlEncode(p.getTitle()));
-		p.setContent(htmlEncode(p.getContent()));
+//		p.setContent(htmlEncode(p.getContent()));
 		p.setLabel1(htmlEncode(p.getLabel1()));
 		p.setLabel2(htmlEncode(p.getLabel2()));
 		p.setLabel3(htmlEncode(p.getLabel3()));

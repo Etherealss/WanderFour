@@ -6,6 +6,8 @@
     <title>writingArticle</title>
     <link rel="stylesheet" href="CSS/editArticle.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
+
+
 </head>
 <body>
     <!-- —————————————— 头部导航栏 ———————————————— -->
@@ -13,7 +15,7 @@
         <div class="topmargin_box">
             <div class="topmargin">
                 <!-- 头像 -->
-                <div class="topmargin_head_portrait">
+                <div class="topmargin_head_portrait" onclick="toIndex()">
                     <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
                 </div>
                 <ul class="topmargin_target">
@@ -24,19 +26,31 @@
                         <a href="./professionalIntroduction.html">专业介绍</a>
                     </li>
                     <li>
-                        <a href="./universityLife.html">学校生活</a>
+                        <a href="./universityLife.html">大学生活</a>
                     </li>
                 </ul>
                 <div class="topmargin_searchBox">
-                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
                     <button></button>
                 </div>
                 <div class="topmargin_personal_center">
                     <a id="topmargin_PC" href="./user.html">个人中心</a>
-                    <img src="img/LearningWorld_arrow.png" alt=""/>
+                    <img src="img/LearningWorld_arrow.png" alt="" />
                     <ul>
+                        <li class="loginIdentity">
+                            <a>
+                                <div>
+                                    <span>昵称：</span>
+                                    <span>小华er</span>
+                                </div>
+                                <div>
+                                    <span>身份：</span>
+                                    <span>高中生</span>
+                                </div>
+                            </a>
+                        </li>
                         <li>
-                            <a href="#">toDoList</a>
+                            <a href="#">个人信息</a>
                         </li>
                         <li>
                             <a href="">收藏</a>
@@ -45,13 +59,25 @@
                             <a href="">创作</a>
                         </li>
                         <li>
-                            <a href="">个人信息修改</a>
+                            <a href="">收件箱</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topmarginLogin">
+                    <ul class="homePage_side">
+                        <li>
+                            <a href="./sign.html">登录</a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="./sign.html">注册</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- ————————————————— 文章编辑Part ——————————————————— -->
     <div class="editArticle_Content">
         <div class="editArticle_editBox">
@@ -70,7 +96,7 @@
                     已书写<span id="EA_textNum">0</span>字
                 </span>
                 <!-- 点击上传图片的按钮 -->
-                <button id="imgUpShowBtn">+</button>
+                <div id="imgUpShowBtn"></div>
                 <input type="file" name="" title="" id="imgFileBtn" accept="image/*" capture="camera"/>
             </div>
             <!-- ———————————— 标签Part ———————————— -->
@@ -235,7 +261,8 @@
     </div>
     <script src="JS/jQuery.js"></script>
     <script src="JS/safe.js"></script>
-    <script src="JS/editArticle.js"></script>
     <script src="JS/getSearch.js"></script>
+    <script src="JS/editArticle.js"></script>
+    <script src="./JS/checkUserLogin.js"></script>
 </body>
 </html>

@@ -6,14 +6,16 @@
     <title>answerPosts</title>
     <link rel="stylesheet" href="CSS/answerPosts.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
+    <link rel="stylesheet" href="CSS/todolist_MR.css"/>
+
 </head>
 <body>
-<!-- —————————————— 头部导航栏 ———————————————— -->
-<div class="answerPosts_Header">
+   <!-- —————————————— 头部导航栏 ———————————————— -->
+   <div class="editArticle_Header">
     <div class="topmargin_box">
         <div class="topmargin">
             <!-- 头像 -->
-            <div class="topmargin_head_portrait">
+            <div class="topmargin_head_portrait" onclick="toIndex()">
                 <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
             </div>
             <ul class="topmargin_target">
@@ -24,19 +26,31 @@
                     <a href="./professionalIntroduction.html">专业介绍</a>
                 </li>
                 <li>
-                    <a href="./universityLife.html">学校生活</a>
+                    <a href="./universityLife.html">大学生活</a>
                 </li>
             </ul>
             <div class="topmargin_searchBox">
-                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享"/>
+                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
                 <button></button>
             </div>
             <div class="topmargin_personal_center">
                 <a id="topmargin_PC" href="./user.html">个人中心</a>
-                <img src="img/LearningWorld_arrow.png" alt=""/>
+                <img src="img/LearningWorld_arrow.png" alt="" />
                 <ul>
+                    <li class="loginIdentity">
+                        <a>
+                            <div>
+                                <span>昵称：</span>
+                                <span>小华er</span>
+                            </div>
+                            <div>
+                                <span>身份：</span>
+                                <span>高中生</span>
+                            </div>
+                        </a>
+                    </li>
                     <li>
-                        <a href="#">toDoList</a>
+                        <a href="#">个人信息</a>
                     </li>
                     <li>
                         <a href="">收藏</a>
@@ -45,7 +59,18 @@
                         <a href="">创作</a>
                     </li>
                     <li>
-                        <a href="">个人信息修改</a>
+                        <a href="">收件箱</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="topmarginLogin">
+                <ul class="homePage_side">
+                    <li>
+                        <a href="./sign.html">登录</a>
+                    </li>
+                    <span>|</span>
+                    <li>
+                        <a href="./sign.html">注册</a>
                     </li>
                 </ul>
             </div>
@@ -63,19 +88,19 @@
                     <img class="answerPosts_leaf" src="./img/answerPosts_leafg.png"/>
                 </div>
                 <li id="showNewNav1">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showNewNav2">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showNewNav3">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showNewNav4">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showNewNav5">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
             </ul>
         </div>
@@ -87,19 +112,19 @@
                     <img class="answerPosts_leaf" src="./img/answerPosts_leafy.png"/>
                 </div>
                 <li id="showHotNav1">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showHotNav2">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showHotNav3">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showHotNav4">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
                 <li id="showHotNav5">
-                    <a href="">新高考如何选科？</a>
+                    <a href=""></a>
                 </li>
             </ul>
         </div>
@@ -110,24 +135,24 @@
         <div class="answerPostsPart">
             <div class="postOutsideBox">
                 <div class="postsTitle">
-                    <h3>问贴：新高考如何选科？</h3>
+                    <h3></h3>
                     <img src="./img/answerPosts_tapes.png" alt=""/>
                 </div>
                 <div class="postsTitle" id="postsHidden">
-                    <h3>问贴：新高考如何选科？</h3>
+                    <h3></h3>
                     <img src="./img/answerPosts_tapes.png" alt=""/>
                 </div>
                 <div class="answerPosts_user">
                     <div class="answerPostHead"></div>
                     <p id="answerPostsAuthor">小华er</p>
-                    <span>简介blabla</span>
+                    <!-- <span>简介blabla</span> -->
                 </div>
-                <text class="answerPosts_txt" id="answerPosts_txt">
-                    2020北京第一届新高考小白鼠。目前6选3科目基本确定历史和地理。只在化学与政治间纠结了。
-                    原因：1.新高考赋分制，避强趋弱，我化学高一没好好学，现在追悔莫及，不知以后是否能赶上比我聪明还比我努力的人。
-                    2.我政治虽然比化学成绩好，但优势也不是很明显，现在我越来越觉得政治难，不适合我，且新高考选传统的文科除了选择面窄我不知道是否还有别的劣势。
-                    3.大学招生科目限制，选理化生科目选择面更广，我又没有明确的目标专业和大学。
-                </text>
+                <div class="answerPosts_txt" id="answerPosts_txt">
+<!--                    2020北京第一届新高考小白鼠。目前6选3科目基本确定历史和地理。只在化学与政治间纠结了。-->
+<!--                    原因：1.新高考赋分制，避强趋弱，我化学高一没好好学，现在追悔莫及，不知以后是否能赶上比我聪明还比我努力的人。-->
+<!--                    2.我政治虽然比化学成绩好，但优势也不是很明显，现在我越来越觉得政治难，不适合我，且新高考选传统的文科除了选择面窄我不知道是否还有别的劣势。-->
+<!--                    3.大学招生科目限制，选理化生科目选择面更广，我又没有明确的目标专业和大学。-->
+                </div>
                 <img src="./img/answerPosts_tapes.png" alt=""/>
             </div>
         </div>
@@ -159,7 +184,6 @@
                         综上可以看出，针对大多数学生，选科组合首先要尽可能大的覆盖到与自己成绩大体匹配的大学和专业范....
                         有优势的学科，适当调整。举一个例子，小明确定了选择物理、生物、政治能覆盖最多自己感兴趣的专业（他成绩未来可能上的大学范围类，同时又在小明所在省份招生的专业），但是他历史成绩很好，如果他将历史去替换政治，上述可选择的专业范围势必会缩小，
                         但是缩小的幅度不大（比如从40个缩小到了35个），并不会给未来选择大学和专业产生困扰，则可以考虑把政治拿掉，而将历史加入选考组合。以此类推，在各种情况下，都首先去找寻覆盖面最广的选科组合，再兼顾优势学习科目，达到一定的最优解。
-
                     </p>
                     <div class="APlist_likeAndReply">
                         <div class="APlist_like">点赞</div>
@@ -175,7 +199,7 @@
                         <a class="APlist_userName">用户1</a>
                         <span class="APlist_userIntro">简介blabla</span>
                         <p class="APlist_postTime">2020.10.03</p>
-                        <span class="APlist_position">1楼</span>
+                        <span class="APlist_position">2楼</span>
                     </div>
                     <p class="APlist_content">
                         新考高已经在浙江、上海、山东、天津、海南、广东六个省市铺开，很多人讲新高考选科的方法，都只是从选科组合未来能报专业（潜在）多少这一个点出发，这不是很严谨缜密。选择科目组合时要兼顾学习优势和未来可报考的学校专业，这也是选科组合好坏的评价标准。<br/>
@@ -210,10 +234,35 @@
     </div>
 </div>
 
+   <div class="sidebar_MR">
+       <button id="todolist_hidden_MR"></button>
+       <button id="todolist_show_MR">
+           ToDoList
+           <span>+</span>
+       </button>
+       <div class="todolist_OutsideBox_MR">
+           <label id="todoTitle_MR" for="todoTitle_MR">ToDoList</label><br/>
+           <input type="text" id="todolistInput_MR" name="title" placeholder="添加ToDo..." required="required"
+                  autocomplete="off"/>
+           <section>
+               <!-- ———————————— 待办事项<ol> —————————————— -->
+               <h3>正在进行<span id="todocount_MR">0</span></h3>
+               <ol id="todolist_MR" class="demoBox_MR">
+               </ol>
+               <!-- ———————————— 已经完成<ul> —————————————— -->
+               <h3>已经完成 <span id="donecount_MR">0</span></h3>
+               <ul id="donelist_MR" class="demoBox_MR">
+               </ul>
+           </section>
+       </div>
+   </div>
+
 </body>
 <script src="JS/jQuery.js"></script>
 <script src="./JS/getSearch.js"></script>
 <script src="JS/models.js"></script>
 <script src="JS/answerPosts.js"></script>
 <script src="./JS/besideShow.js"></script>
+<script src="./JS/checkUserLogin.js"></script>
+<script src="JS/todolist_MR.js"></script>
 </html>

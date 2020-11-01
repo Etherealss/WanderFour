@@ -1,8 +1,8 @@
 $(function () {
 
-    //顶部导航栏二级导航显示隐藏
-    $(".userPersonalCenter").hover(function () {
-        $('#userTopNavMore').stop().fadeToggle();
+    //个人中心悬浮
+    $(".topmargin_personal_center").hover(function () {
+        $(this).find("ul").stop().fadeToggle();
     });
 
     //封装点击切换板块函数

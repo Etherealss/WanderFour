@@ -2,16 +2,19 @@ package service.impl;
 
 import common.enums.DaoEnum;
 import common.enums.ResultType;
+import common.enums.TargetType;
 import common.factory.DaoFactory;
 import common.strategy.choose.GetWritingListChoose;
 import common.strategy.impl.GetArticleStrategyImpl;
 import common.util.FileUtil;
 import common.util.JdbcUtil;
+import dao.LikeDao;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
 import pojo.dto.WritingBean;
 import pojo.po.Article;
+import pojo.po.LikeRecord;
 import pojo.po.User;
 import service.WritingService;
 
@@ -53,10 +56,13 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	}
 
 	@Override
-	public WritingBean<Article> getWriting(Long id) throws Exception {
+	public WritingBean<Article> getWriting(Long id, Long userid) throws Exception {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
 		Article article = writingDao.getWritingById(conn, id);
+		if (article == null) {
+			return null;
+		}
 		article.setContent(writingDao.getWritingContent(conn, id));
 		WritingBean<Article> bean = new WritingBean<>();
 		UserDao userDao = DaoFactory.getUserDAO();
@@ -67,6 +73,25 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 		bean.setUserImg(imgByBase64);
 		bean.setUserNickname(userInfo.getNickname());
+
+		//userid可能为null
+		if (userid != null){
+			//判断是否为作者
+			bean.setAuthor(article.getAuthorId().equals(userid));
+			LikeDao likeDao = DaoFactory.getLikeDao(TargetType.ARTICLE);
+			//判断是否已点赞
+			LikeRecord likeRecord = new LikeRecord();
+			likeRecord.setUserid(userid);
+			likeRecord.setTargetType(TargetType.ARTICLE);
+			likeRecord.setTargetId(id);
+			boolean isLiked = likeDao.countUserLikeRecord(conn, likeRecord);
+
+			//注意取反
+			bean.setLiked(isLiked);
+
+			//TODO 判断是否已收藏
+		}
+
 		return bean;
 	}
 
@@ -113,9 +138,9 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		GetWritingListChoose<Article> choose = new GetWritingListChoose<>(new GetArticleStrategyImpl());
 
 		List<Article> resList = null;
-		if (DaoEnum.ORDER_BY_LIKE.equals(order)){
+		if (DaoEnum.ORDER_BY_LIKE.equals(order)) {
 			resList = choose.getSimpleByLike(conn, partition);
-		} else if (DaoEnum.ORDER_BY_TIME.equals(order)){
+		} else if (DaoEnum.ORDER_BY_TIME.equals(order)) {
 			resList = choose.getSimpleByTime(conn, partition);
 		}
 		return resList;

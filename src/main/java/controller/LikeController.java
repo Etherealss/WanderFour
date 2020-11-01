@@ -24,6 +24,7 @@ public class LikeController extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.trace("点赞");
 		LikeRecord record = GetParamChoose.getObjByForm(req, LikeRecord.class);
 		//空参检查
 		if (record == null) {

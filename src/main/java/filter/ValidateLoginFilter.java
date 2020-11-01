@@ -1,5 +1,6 @@
 package filter;
 
+import common.util.ControllerUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -25,10 +26,9 @@ public class ValidateLoginFilter implements Filter {
 	 * 需要拦截并判断登录状态的路径
 	 */
 	private static final Set<String> CHECK_PATHS = Collections.unmodifiableSet(
-			new HashSet<>(Arrays.asList("/manage.html", "/write.html",
-					"/UserSettingServlet")));
+			new HashSet<>(Arrays.asList("/editArticle.html", "/editPosts.html", "/user.html")));
 
-
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
@@ -36,23 +36,29 @@ public class ValidateLoginFilter implements Filter {
 		String uri = req.getRequestURI();
 		//判断是否是登录相关的资源
 		if (CHECK_PATHS.contains(uri)) {
-			Object email = req.getServletContext().getAttribute("email");
-			if (email == null) {
+			Long userId = ControllerUtil.getUserId(req);
+			if (userId == null) {
 				//未登录，跳转到登录页面
 				logger.trace("检查用户的登录状态 未登录，拦截");
-//				resp.sendRedirect("login.html");
-			}else{
+				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				resp.sendRedirect("401.html");
+			} else {
 				//已登录，放行
 				chain.doFilter(req, resp);
-				logger.trace("检查用户的登录状态 已登录，放行：" + email);
+				logger.trace("检查用户的登录状态 已登录，放行：userId = " + userId);
 			}
-		}else{
+		} else {
 			//不是需要登录后才能才看的页面，直接放行
 			chain.doFilter(req, resp);
 		}
 	}
 
-	public void init(FilterConfig config) throws ServletException {}
-	public void destroy() {}
+	@Override
+	public void init(FilterConfig config) throws ServletException {
+	}
+
+	@Override
+	public void destroy() {
+	}
 
 }

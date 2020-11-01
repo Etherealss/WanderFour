@@ -16,4 +16,9 @@ public class ResultMsg {
 	 * 错误的参数
 	 */
 	public static final String WRONG_PARAMETER = "[错误的参数异常]";
+
+	/**
+	 * 无参数
+	 */
+	public static final String UN_FOUND = "[无记录]";
 }

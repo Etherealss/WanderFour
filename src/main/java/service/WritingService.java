@@ -23,10 +23,11 @@ public interface WritingService<T extends Writing> {
 	/**
 	 * 获取作品
 	 * @param id
+	 * @param userid
 	 * @return
 	 * @throws Exception
 	 */
-	WritingBean<T> getWriting(Long id) throws Exception;
+	WritingBean<T> getWriting(Long id, Long userid) throws Exception;
 
 	/**
 	 * 获取作品列表

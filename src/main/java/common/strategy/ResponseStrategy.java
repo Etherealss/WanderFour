@@ -34,4 +34,5 @@ public interface ResponseStrategy {
 	 * @param msg
 	 */
 	void respOnlyStateToBrowser(HttpServletResponse response, ResultType resultType, String msg);
+
 }

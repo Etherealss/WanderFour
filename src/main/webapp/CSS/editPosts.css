@@ -104,22 +104,23 @@ body{
 
 /* —————————— 个人中心 ———————————— */
 .topmargin_personal_center{
-    width: 150px;
+    width: 163px;
     height: 50px;
     position: absolute;
     left: 1050px;
     /* border: 1px solid #f00; */
+    display: none;
 }
 
 .topmargin_personal_center #topmargin_PC{
     width: 105px;
     height: 60px;
     line-height: 60px;
-    padding-left: 40px;
+    padding-left: 53px;
     display: inline-block;
     position: absolute;
-    background: url(../img/LearningWorld_topmargin_PC.png) no-repeat 16px 20px;
-    background-size: 20px;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
     color: #333333;
     font-size: 18px;
     text-decoration: none;
@@ -129,20 +130,21 @@ body{
 .topmargin_personal_center > img{
     width: 14px;
     position: absolute;
-    top: 25px;
-    left: 120px;
+    top: 27px;
+    left: 134px;
     display: inline-block;
 }
 
 /* hover的内容 */
 .topmargin_personal_center > ul{
-    width: 150px;
-    height: 145px;
+    width: 200px;
+    height: 205px;
     margin-top: 45px;
-    padding: 18px 0 20px 0; 
+    padding: 10px 0 20px 0; 
     display: none;
     position: absolute;
     top: 15px;
+    left: -19px;
     list-style-type: none;
     background: #fff;
     border-radius: 15px;
@@ -156,7 +158,7 @@ body{
 }
 
 .topmargin_personal_center > ul li a{
-    width: 146px;
+    width: 185px;
     padding: 7.5px 0;
     margin-left: 2px;
     display: inline-block;
@@ -164,8 +166,30 @@ body{
     font-size: 17px;
     color: #414141;
     text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
 }
 
+.loginIdentity a div {
+    width: 100%;
+    height: 30px;
+}
+
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
 .topmargin_personal_center > ul li:hover{
     background: rgba(193, 193, 193,0.25);
     /* background: #f7f7f7; */
@@ -173,6 +197,38 @@ body{
     text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
 }
 
+.topmargin_personal_center > ul li:nth-child(1){
+    margin-top: -10px;
+}
+
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
+}
+
+/* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
+.homePage_side{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage_side > span{padding: 10px 5px;}
 
 /* ————————————————————————— 文本内容Part ———————————————————————————————————————— */
 .editPosts_Content{
@@ -228,6 +284,7 @@ body{
     font-size: 18px;
     color: #333333;
     letter-spacing: 2px;
+    font-weight: 700;
     /* border: 1px solid #f00; */
 }
 
@@ -260,7 +317,7 @@ body{
 
 #editPosts_label{
     width: 120px;
-    padding: 20px 0 20px 25px;
+    padding: 20px 0 20px 33px;
     position: absolute;
     top: -60px;
     left: -10px;
@@ -359,9 +416,9 @@ body{
 
 /* —————————————————— 分区 —————————————————————— */
 .editPosts_secondaryPartition{
-    width: 350px;
+    width: 300px;
     /* height: 325px; */
-    margin: 15px 0;
+    margin: 15px 32px 0;
     padding: 0 10px 10px;
     /* background: #f7f7f7; */
     border-radius: 5px;
@@ -394,10 +451,11 @@ body{
     line-height: 40px;
     margin-right: 10px;
     display: inline-block;
+    font-size: 14px;
 }
 
 .editPosts_secondaryPartition ol > li{
-    margin: 5px 7px;
+    margin: 5px 4px;
     padding: 6px 9px;
     color: #666666;
     font-size: 14px;
@@ -406,6 +464,9 @@ body{
     box-shadow: 1px 1px 5px rgba(193, 193, 193,0.6);
     cursor: pointer;
 }
+/* .editPosts_secondaryPartition ol > li:nth-child(5) {
+    margin-left: 50px;
+} */
 
 .editPosts_secondaryPartition ol > li:hover{
     box-shadow: 1px 1px 8px rgba(0,0,0,0.25);
@@ -471,7 +532,7 @@ body{
 .editPosts_addCustomTags{
     width: 350px;
     position: absolute;
-    top: 2px;
+    top: -18px;
     left: 55px;
     /* border: 1px solid #f00; */
 }

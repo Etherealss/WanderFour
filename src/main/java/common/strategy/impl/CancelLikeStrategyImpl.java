@@ -32,11 +32,9 @@ public class CancelLikeStrategyImpl extends LikeStrategy {
 		// 获取用户点赞的数据，以userid和targetId为key，表为id
 		String likeRecordState = jedis.hget(LikeEnum.KEY_LIKE_RECORD, likeRecordFieldKey);
 
-		logger.debug(likeRecordState);
-
 		if (LikeEnum.HAVE_LIKED.equals(likeRecordState)) {
 			//已点赞，取消点赞
-			logger.debug("已点赞，取消点赞");
+			logger.info("已点赞，取消点赞");
 			//将value设为0，这样子就记录了取消点赞的状态，可以持久化到数据库
 			jedis.hset(LikeEnum.KEY_LIKE_RECORD, likeRecordFieldKey, UNLIKE_STATE);
 

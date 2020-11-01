@@ -53,7 +53,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	@Override
 	public User getUserByEmail(Connection conn, String email) throws SQLException {
 		String sql = "SELECT `user`.id , `email`, `user_password` `password`, `nickname`," +
-				" `birthday`, `type` `userType`, `liked_count` `liked`, `collected_count` `collected`," +
+				" `birthday`, `type` `userTypeStr`, `liked_count` `liked`, `collected_count` `collected`," +
 				" `register_date` `registerDate` FROM  `user`, `user_type` " +
 				"WHERE `user`.user_type = `user_type`.id AND `user`.email = ? ";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), email);
@@ -61,8 +61,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 	@Override
 	public User getUserById(Connection conn, Long id) throws SQLException {
-		String sql = "SELECT `user`.id , `email`, `nickname`, `avatar` `avatarPath`," +
-				" `birthday`, `type` `userType`, `liked_count` `liked`, `collected_count` `collected`," +
+		String sql = "SELECT `user`.id , `email`, `nickname`, `avatar` `avatarPath`, `sex`, " +
+				" `birthday`, `type` `userTypeStr`, `liked_count` `liked`, `collected_count` `collected`," +
 				" `register_date` `registerDate` FROM  `user`, `user_type` " +
 				"WHERE `user`.user_type = `user_type`.id AND `user`.id = ? ";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), id);
