@@ -1,6 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.strategy.choose.GetParamChoose;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -24,7 +25,8 @@ public class CategoryController extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("分类Get");
-		String partition = req.getParameter("partition");
+		JSONObject params = GetParamChoose.getJsonByJson(req);
+		Integer partition = params.getInteger("partition");
 
 		//空参判断
 		if (partition == null){
@@ -39,7 +41,7 @@ public class CategoryController extends BaseServlet {
 		//传给浏览器的信息包
 		JSONObject result = new JSONObject();
 		try {
-			categoryJson = service.getAllCategoryByPart(Integer.parseInt(partition));
+			categoryJson = service.getAllCategoryByPart(partition);
 			//获取成功
 			ResultState state = new ResultState(ResultType.SUCCESS, "获取分类结果");
 			result.put("state", state);

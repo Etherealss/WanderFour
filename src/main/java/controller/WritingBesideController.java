@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.DaoEnum;
 import common.enums.TargetType;
 import common.factory.ServiceFactory;
+import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import pojo.po.Article;
 import pojo.po.Posts;
@@ -30,8 +31,9 @@ public class WritingBesideController extends BaseServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("在显示文章/问贴时，获取侧边的推荐作品");
-		String type = req.getParameter("type");
-		String partition = req.getParameter("partition");
+		JSONObject params = GetParamChoose.getJsonByUrl(req);
+		String type = params.getString("type");
+		String partition = params.getString("partition");
 
 		//TODO 工具类实现判空
 		if ("".equals(type) || type == null){

@@ -33,12 +33,12 @@ public class UserEnterController extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		String action = req.getParameter("action");
+		JSONObject params = GetParamChoose.getJsonByJson(req);
+		String action = params.getString("action");
 		if (ACTION_LOGIN.equals(action)) {
-			login(req, resp);
+			login(req, resp, params);
 		} else if (ACTION_REGISTER.equals(action)) {
-			register(req, resp);
+			register(resp, params);
 		} else {
 			logger.error("错误的方法: action = " + action);
 			ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查method参数：method=login(/register)");
@@ -51,11 +51,11 @@ public class UserEnterController extends BaseServlet {
 		logger.trace("DoGet!");
 	}
 
-	public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void login(HttpServletRequest req, HttpServletResponse resp, JSONObject params) throws ServletException, IOException {
 		logger.trace("用户登录...");
 
-		String email = req.getParameter("email");
-		String password = req.getParameter("pw");
+		String email = params.getString("email");
+		String password = params.getString("pw");
 		//密码再次加密
 		logger.debug(password);
 		password = Md5Utils.md5Encode(email + password);
@@ -130,12 +130,12 @@ public class UserEnterController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
-	public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void register(HttpServletResponse resp, JSONObject params) throws ServletException, IOException {
 		logger.trace("用户注册...");
 		//获取请求参数，封装到实体中
-		User user = GetParamChoose.getObjByForm(req, User.class);
+		User user = GetParamChoose.getObjByParam(params, User.class);
 		if (user == null) {
-			ResponseChoose.respNoParameterError(resp, "注册");
+			ResponseChoose.respNoParameterError(resp, "注册时获取不到user对象");
 			return;
 		}
 		//密码再次加密

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.Partition;
 import common.enums.TargetType;
 import common.factory.ServiceFactory;
+import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
 import pojo.dto.WritingBean;
@@ -29,9 +30,10 @@ public class InitWritingController extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String partStr = req.getParameter("partition");
-		String order = req.getParameter("order");
-		String type = req.getParameter("type");
+		JSONObject params = GetParamChoose.getJsonByJson(req);
+		String partStr = params.getString("partition");
+		String order = params.getString("order");
+		String type = params.getString("type");
 
 		ControllerUtil.checkParamExist(resp, "初始化分区页面", partStr, order, type);
 

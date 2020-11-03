@@ -7,6 +7,7 @@ import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
+import pojo.bean.PageBean;
 import pojo.dto.ResultState;
 import pojo.po.User;
 import service.UserService;
@@ -22,7 +23,7 @@ import java.io.IOException;
  * @description 用户信息相关
  * @date 2020/10/30
  */
-@WebServlet("/UserLoginServlet")
+@WebServlet("/UserInfoServlet")
 public class UserInfoController extends BaseServlet {
 
 	@Override
@@ -60,6 +61,15 @@ public class UserInfoController extends BaseServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("修改用户信息");
 		User user = GetParamChoose.getObjByJson(req, User.class);
+		Long userId = ControllerUtil.getUserId(req);
+		if (user == null) {
+			ResponseChoose.respNoParameterError(resp, "获取不到User对象");
+			return;
+		}else if(userId == null){
+			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		}
+
 		UserService userService = ServiceFactory.getUserService();
 		try {
 			boolean b = userService.updateUserInfo(user);

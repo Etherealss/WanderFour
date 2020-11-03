@@ -1,5 +1,6 @@
 package controller;
 
+import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
@@ -25,7 +26,7 @@ public class LikeController extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("点赞");
-		LikeRecord record = GetParamChoose.getObjByForm(req, LikeRecord.class);
+		LikeRecord record = GetParamChoose.getObjByJson(req, LikeRecord.class);
 		//空参检查
 		if (record == null) {
 			ResponseChoose.respNoParameterError(resp, "点赞");

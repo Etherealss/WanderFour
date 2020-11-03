@@ -96,22 +96,6 @@ public class User {
 		return userType;
 	}
 
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
-	}
-
-	public int getMajor() {
-		return major;
-	}
-
-	public void setMajor(int major) {
-		this.major = major;
-	}
-
 	/**
 	 * 获取前端的参数时会使用
 	 * @param userType
@@ -127,6 +111,7 @@ public class User {
 	public void setUserTypeStr(String userTypeStr){
 		this.userType = UserType.getPartition(userTypeStr);
 	}
+
 	public Long getLiked() {
 		return liked;
 	}
@@ -149,6 +134,22 @@ public class User {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public int getMajor() {
+		return major;
+	}
+
+	public void setMajor(int major) {
+		this.major = major;
 	}
 
 	public User() {}

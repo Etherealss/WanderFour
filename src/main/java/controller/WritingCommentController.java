@@ -125,7 +125,7 @@ public class WritingCommentController extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Comment comment = GetParamChoose.getObjByForm(req, Comment.class);
+		Comment comment = GetParamChoose.getObjByJson(req, Comment.class);
 		logger.trace("发表评论 comment=" + comment);
 		String type = req.getParameter("type");
 
@@ -133,6 +133,10 @@ public class WritingCommentController extends BaseServlet {
 		if (userId == null) {
 			logger.error("评论时用户未登录");
 			ResponseChoose.respUserUnloggedError(resp);
+			return;
+		} else if (comment == null){
+			logger.error("获取不到评论数据");
+			ResponseChoose.respNoParameterError(resp, "获取不到评论数据");
 			return;
 		}
 		comment.setUserid(userId);

@@ -58,7 +58,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				" WHERE id=?;";
 		Object[] params = {
 				user.getEmail(), user.getNickname(), user.getBirthday(),
-				user.getSex(), user.getUserType(), user.getSchool(), user.getMajor(),
+				user.getSex(), user.getUserType().code(), user.getSchool(), user.getMajor(),
 				user.getId()
 		};
 		int res = qr.update(conn, sql, params);

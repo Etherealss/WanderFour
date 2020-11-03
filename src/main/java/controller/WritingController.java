@@ -111,7 +111,8 @@ public class WritingController extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("发布作品");
-		String type = req.getParameter("type");
+		JSONObject params = GetParamChoose.getJsonByJson(req);
+		String type = params.getString("type");
 
 		// 空参检查
 		if ("".equals(type) || type == null) {
@@ -119,7 +120,7 @@ public class WritingController extends BaseServlet {
 			ResponseChoose.respNoParameterError(resp, "发表作品");
 			return;
 		}
-
+//		Long userId = 4L;
 		Long userId = ControllerUtil.getUserId(req);
 		if (userId == null) {
 			logger.error("发表作品时用户未登录");
@@ -130,7 +131,7 @@ public class WritingController extends BaseServlet {
 		//确定类型
 		//根据类型获取实体和Service
 		if (TYPE_ARTICLE.equals(type)) {
-			Article article = GetParamChoose.getObjByForm(req, Article.class);
+			Article article = GetParamChoose.getObjByParam(params, Article.class);
 			logger.debug(article);
 
 			if (article == null) {
@@ -159,7 +160,7 @@ public class WritingController extends BaseServlet {
 
 		} else if (TYPE_POSTS.equals(type)) {
 			//获取参数
-			Posts posts = GetParamChoose.getObjByForm(req, Posts.class);
+			Posts posts = GetParamChoose.getObjByParam(params, Posts.class);
 			logger.debug(posts);
 
 			if (posts == null) {
