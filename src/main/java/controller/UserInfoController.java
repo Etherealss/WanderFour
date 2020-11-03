@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.enums.TargetType;
 import common.factory.ServiceFactory;
+import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
 import pojo.dto.ResultState;
@@ -18,11 +19,11 @@ import java.io.IOException;
 
 /**
  * @author 寒洲
- * @description 获取已登录的用户的信息
+ * @description 用户信息相关
  * @date 2020/10/30
  */
 @WebServlet("/UserLoginServlet")
-public class UserController extends BaseServlet {
+public class UserInfoController extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,5 +54,24 @@ public class UserController extends BaseServlet {
 		}
 		resJson.put("state", state);
 		ResponseChoose.respToBrowser(resp, resJson);
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.trace("修改用户信息");
+		User user = GetParamChoose.getObjByJson(req, User.class);
+		UserService userService = ServiceFactory.getUserService();
+		try {
+			boolean b = userService.updateUserInfo(user);
+			if (!b){
+				ResponseChoose.respToBrowser(resp, new ResultState(ResultType.EXCEPTION, "修改用户异常"));
+				return;
+			}
+			ResponseChoose.respToBrowser(resp, new ResultState(ResultType.SUCCESS, "修改用户信息成功"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			ResponseChoose.respToBrowser(resp, new ResultState(ResultType.EXCEPTION, "修改用户异常"));
+		}
 	}
 }

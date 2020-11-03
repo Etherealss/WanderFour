@@ -29,14 +29,12 @@ public class User {
 	private UserType userType;
 	private String userTypeStr;
 	private Long liked;
-	/**
-	 * 被收藏数
-	 */
+	/** 被收藏数 */
 	private Long collected;
-	/**
-	 * 注册时间
-	 */
+	/** 注册时间 */
 	private Date registerDate;
+	private String school;
+	private int major;
 
 	public Long getId() {
 		return id;
@@ -96,6 +94,22 @@ public class User {
 
 	public UserType getUserType() {
 		return userType;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public int getMajor() {
+		return major;
+	}
+
+	public void setMajor(int major) {
+		this.major = major;
 	}
 
 	/**
@@ -214,15 +228,18 @@ public class User {
 		return "User{" +
 				"id=" + id +
 				", email='" + email + '\'' +
-				", password='" + password + '\'' +
 				", nickname='" + nickname + '\'' +
-				", birthday=" + birthday +
 				", sex=" + sex +
-				", avatarPath='" + avatarPath + '\'' +
-				", userType=" + userType +
+				", school='" + school + '\'' +
 				", liked=" + liked +
+				", major=" + major +
+				", userType=" + userType +
+				", userTypeStr='" + userTypeStr + '\'' +
 				", collected=" + collected +
+				", birthday=" + birthday +
+				", password='" + password + '\'' +
 				", registerDate=" + registerDate +
+				", avatarPath='" + avatarPath + '\'' +
 				'}';
 	}
 }

@@ -47,8 +47,26 @@ public interface UserDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean updateNewUser(Connection conn, User user) throws SQLException;
+	boolean registerNewUser(Connection conn, User user) throws SQLException;
 
+	/**
+	 * 修改用户信息
+	 * @param conn
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean updateUserInfo(Connection conn, User user) throws SQLException;
+
+	/**
+	 * 修改用户密码
+	 * @param conn
+	 * @param userid
+	 * @param pw
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean updateUserPw(Connection conn, Long userid, String pw) throws SQLException;
 	/**
 	 * 查询用户，获取数据
 	 * @param conn
@@ -66,6 +84,15 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	User getUserById(Connection conn, Long userid) throws SQLException;
+
+	/**
+	 * 获取用户邮箱
+	 * @param conn
+	 * @param userid
+	 * @return
+	 * @throws SQLException
+	 */
+	User getUserEmailAndPwById(Connection conn, Long userid) throws SQLException;
 
 	/**
 	 * 根据id获取评论用户的头像和昵称

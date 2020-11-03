@@ -46,7 +46,7 @@ public class UserDaoImplTest {
 	@Test
 	public void testUpdateNewUser() throws SQLException {
 		User user = new User("12333L", "1233", "李四", true, "null", "教师", new Date());
-		dao.updateNewUser(conn, user);
+		dao.registerNewUser(conn, user);
 	}
 
 	@Test

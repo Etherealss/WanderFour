@@ -1,6 +1,7 @@
 package service.impl;
 
 import common.util.FileUtil;
+import common.util.Md5Utils;
 import pojo.po.User;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
@@ -31,6 +32,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public User getUserEmailAndPw(Long id) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		return dao.getUserEmailAndPwById(conn, id);
+	}
+
 
 	@Override
 	public User validateUserLogin(String email, String paasword) throws Exception {
@@ -44,10 +51,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Long registerNewUser(User user) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
-		boolean b1 = dao.updateNewUser(conn, user);
+		boolean b1 = dao.registerNewUser(conn, user);
 		Long lastInsertId = dao.getLastInsertId(conn).longValue();
 		return lastInsertId;
 	}
+
+	@Override
+	public boolean updateUserInfo(User user) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		boolean b = dao.updateUserInfo(conn, user);
+		return b;
+	}
+
 
 	@Override
 	public User getLoggedUserInfo(Long userid) throws Exception {
@@ -56,6 +71,27 @@ public class UserServiceImpl implements UserService {
 		User user = dao.getUserById(conn, userid);
 		setUserAvatarStream(user);
 		return user;
+	}
+
+	@Override
+	public ResultType updateUserPw(Long userid, String orginal, String newPw)  throws Exception{
+		Connection conn = JdbcUtil.getConnection();
+		User user = dao.getUserEmailAndPwById(conn, userid);
+		//Md5加密
+		orginal = Md5Utils.md5Encode(user.getEmail() + orginal);
+		if (orginal.equals(user.getPassword())){
+			//密码相同，可以修改
+			boolean b = dao.updateUserPw(conn, userid, newPw);
+			if (b){
+				return ResultType.SUCCESS;
+			} else {
+				//修改失败
+				return ResultType.EXCEPTION;
+			}
+		} else {
+			//原密码错误
+			return ResultType.PW_ERROR;
+		}
 	}
 
 	private void setUserAvatarStream(User user){

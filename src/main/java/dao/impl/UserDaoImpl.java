@@ -40,7 +40,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean updateNewUser(Connection conn, User u) throws SQLException {
+	public boolean registerNewUser(Connection conn, User u) throws SQLException {
 		String sql = "insert into `user` (email, user_password, nickname, sex, avatar," +
 				"register_date, user_type)values(?,?,?,?, ?,?,?)";
 		//userType传int
@@ -48,6 +48,27 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				u.getAvatarPath(), new Date(), u.getUserType().code()};
 		int res = qr.update(conn, sql, params);
 		return res == 1;
+	}
+
+	@Override
+	public boolean updateUserInfo(Connection conn, User user) throws SQLException {
+		String sql = "UPDATE `user` " +
+				" SET `email`=?, `nickname`=?, `birthday`=?, " +
+				" `sex`=?, `user_type`=? , `school`=?, `major`=? " +
+				" WHERE id=?;";
+		Object[] params = {
+				user.getEmail(), user.getNickname(), user.getBirthday(),
+				user.getSex(), user.getUserType(), user.getSchool(), user.getMajor(),
+				user.getId()
+		};
+		int res = qr.update(conn, sql, params);
+		return res == 1;
+	}
+
+	@Override
+	public boolean updateUserPw(Connection conn, Long userid, String pw) throws SQLException {
+		String sql = "UPDATE `user` SET `user_password` = ? WHERE `id` = ?;";
+		return qr.update(conn, sql, pw, userid) == 1;
 	}
 
 	@Override
@@ -59,6 +80,8 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		return qr.query(conn, sql, new BeanHandler<>(User.class), email);
 	}
 
+
+
 	@Override
 	public User getUserById(Connection conn, Long id) throws SQLException {
 		String sql = "SELECT `user`.id , `email`, `nickname`, `avatar` `avatarPath`, `sex`, " +
@@ -66,6 +89,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				" `register_date` `registerDate` FROM  `user`, `user_type` " +
 				"WHERE `user`.user_type = `user_type`.id AND `user`.id = ? ";
 		return qr.query(conn, sql, new BeanHandler<>(User.class), id);
+	}
+
+	@Override
+	public User getUserEmailAndPwById(Connection conn, Long userid) throws SQLException {
+		String sql = "SELECT `email`, `user_password` `password` FROM `user` WHERE `id` = ?;";
+		return qr.query(conn, sql, new BeanHandler<>(User.class), userid);
 	}
 
 	@Override
