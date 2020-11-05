@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     background: #F7F7F7;
     font-size: 16px;
@@ -24,7 +25,9 @@ a {
 .articleShow_body {
     width: 1210px;
     min-height: 1145px;
-    margin: 5px auto 50px;
+    margin: 5px auto 0;
+    display: flex;
+    flex-direction: row;
     position: relative;
     /* border: 1px solid #f00; */
     overflow: hidden;
@@ -32,10 +35,13 @@ a {
 
 /* -------------------------------------------articleShow_nav------------------------------------ */
 .articleShow_nav {
-    float: left;
+    /* float: left; */
     width: 303px;
     height: 637px;
     margin-top: 16px;
+    padding-bottom: 50px;
+    position: absolute;
+    z-index: 100;
 }
 .showNewNav,
 .showHotNav {
@@ -46,9 +52,10 @@ a {
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: 301px 312px;
+    /* border: 1px solid #f00; */
 }
 .showHotNav {
-    margin-top: 33px;
+    margin-top: 5px;
     background: url(../img/articleShowBG/ASyellow.png);
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -60,7 +67,7 @@ a {
     width: 64px;
     height: 17px;
     font-size: 16px;
-    font-family: Microsoft YaHei UI;
+    font-family: "Microsoft YaHei UI";
     font-weight: bold;
     color: #333333;
     line-height: 22px;
@@ -108,15 +115,18 @@ a {
 
 /* ----------------------------------articleShow_main----------------------- */
 .articleShow_main {
-    float: left;
+    /* float: left; */
     width: 900px;
     min-height: 1100px;
+    position: absolute;
+    right: 0;
     /* height: 1100px; */
     background: #FFFFFF;
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.08);
     border-radius: 10px;   
     margin-left: 7px; 
     margin-top: 38px;
+    /* border: 1px solid #0f0; */
 }
 .asmainTitle {
     overflow: hidden;

@@ -1,3 +1,17 @@
+$(function(){
+    //—————————————————————— 侧栏动画效果 ——————————————————————————
+    scrollLimiteHeight($(".articleShow_body"),$(".articleShow_nav"));
+    $(window).on({
+        scroll: function(){
+            var scrollHeight = $(".articleShow_body").offset().top+$(".articleShow_body").height()-$(".articleShow_nav").height();
+            if($(window).scrollTop() > scrollHeight)
+            {
+                $(".articleShow_nav").css({top: $(".articleShow_body").height()-$(".articleShow_nav").height()-15});
+            }
+        }
+    });
+});
+
 var params;
 $(function () {
     params = getParams();
