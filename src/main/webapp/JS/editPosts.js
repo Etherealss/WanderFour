@@ -221,6 +221,7 @@ function submitVal(partition, category, editPostsTitleVal, editPostsContentVal, 
             label5: label[5]
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {//成功的回调函数
             console.log(res);
             var code = res.state.code;
@@ -285,6 +286,7 @@ function getBackstageData(partitionNumber) {
         url: '/CategoryServlet?partition=' + partitionNumber,
         data: {},
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             // var res = JSON.parse(res); //把传递数据的JSON格式转换为对象存储来用
             console.log(res);

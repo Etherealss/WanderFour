@@ -15,6 +15,7 @@ function getPosts(postsId) {
         type: 'GET',
         url: '/WritingServlet?posts=' + postsId,
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             console.log(res);
             if (res.state.code == "SUCCESS") {

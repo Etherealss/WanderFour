@@ -43,6 +43,7 @@ $(function () {
             type: 'GET',
             url: '/InitWritingController?partition=' + partition + '&order=' + order,
             dataType: 'json',
+            contentType: "application/json",
             success: function (res) {
                 console.log(res);
                 //显示修改粉色标签

@@ -15,6 +15,7 @@ function getBesideWritingList(partition, type) {
         type: 'GET',
         url: '/WritingBesideServlet?type=' + type + '&partition=' + partition,
         dataType: 'json',
+        contentType: "application/json",
         /**
          * @param res 文章/问贴
          * @param res.new 最新文章/问贴

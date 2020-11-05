@@ -79,6 +79,7 @@ function sendLike(targetId, targetType, doLike) {
             likeState: state
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             console.log(res);
         }

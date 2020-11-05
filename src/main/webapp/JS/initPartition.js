@@ -17,6 +17,7 @@ function getWritingList(type, partition, order) {
         type: 'GET',
         url: '/InitWritingController?type=' + type + '&partition=' + partition + '&order=' + order,
         dataType: 'json',
+        contentType: "application/json",
         /**
          * @param {Object} res 数据包
          * @param {Array} res.writings 文章/问贴 列表

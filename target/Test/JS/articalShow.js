@@ -97,6 +97,7 @@ function showArticle(id) {
         type: 'GET',
         url: '/WritingServlet?article=' + id,
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             console.log(res);
             if (res.state.code == "SUCCESS") {
@@ -199,6 +200,7 @@ function removeArticle(id) {
             article: id,
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             console.log(res);
             if (res.state.code == 'SUCCESS') {

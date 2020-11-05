@@ -317,6 +317,7 @@ function submitVal(partition, category, articleTitleVal, articleContentVal, labe
             label5: label[5]
         },
         dataType: 'json',
+        contentType: "application/json",
         /**
          * @param res
          * @param res.writingId 发表后的文章id
@@ -397,6 +398,7 @@ function getBackstageData(partitionNumber) {
         url: '/CategoryServlet?partition=' + partitionNumber,
         data: {},
         dataType: 'json',
+        contentType: "application/json",
         success: function (res) {
             // var res = JSON.parse(res); //把传递数据的JSON格式转换为对象存储来用
             console.log(res);

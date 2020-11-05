@@ -15,6 +15,7 @@ function requestCheckUserLogin() {
         type: "GET",
         url: "/UserLoginServlet",
         dataType: "json",
+        contentType: "application/json",
         /**
          * @param {Object}result
          * @param {Object}result.state              接口状态

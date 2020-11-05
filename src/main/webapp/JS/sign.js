@@ -152,6 +152,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
             pw: loginPwVal,
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (data) {
             //TODO 成功：跳转至首页
             //异常情况
@@ -194,6 +195,7 @@ function checkEmailRepeat() {
                 email: $('#registerEmail').val(),
             },
             dataType: 'json',
+            contentType: "application/json",
             success: function (data) {
                 console.log(data);
                 if (data.state.code == "IS_REGISTED") {
@@ -235,6 +237,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, sign
             sex: signSex,
         },
         dataType: 'json',
+        contentType: "application/json",
         success: function (data) {
             if (data.state.code == "SUCCESS") {
                 window.location.href = "/sign.html";
