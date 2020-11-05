@@ -1,0 +1,15 @@
+EnumTest.class
+dao\LikeDaoImplTest.class
+MethodInvokeTest.class
+JedisTest.class
+dao\ArticleDaoImplTest.class
+util\TestUtil.class
+common\ServiceFactoryTest.class
+service\ArticleServiceImplTest.class
+JdbcUtilTest.class
+Log4jTest.class
+PathTest.class
+dao\UserDaoImplTest.class
+GetPartitionTest.class
+RegTest.class
+JsonTest.class

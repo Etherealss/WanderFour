@@ -1,0 +1,590 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #f7f7f7;
+}
+ 
+.editPosts_Header{
+    width: 100%;
+    /* height: 500px; */
+    margin: 0 auto;
+    background: #f7f7f7;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    min-width: 1200px; 
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmargin{
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 105px;
+    height: 55px;
+    position: absolute;
+    top: 2px;
+    left: -3px;
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_target > li a{
+    padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 12px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 163px;
+    height: 50px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+    display: none;
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 105px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 53px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 134px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 200px;
+    height: 205px;
+    margin-top: 45px;
+    padding: 10px 0 20px 0; 
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: -19px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 100;
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 185px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+}
+
+.loginIdentity a div {
+    width: 100%;
+    height: 30px;
+}
+
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+
+.topmargin_personal_center > ul li:nth-child(1){
+    margin-top: -10px;
+}
+
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
+}
+
+/* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
+.homePage_side{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage_side > span{padding: 10px 5px;}
+
+/* ————————————————————————— 文本内容Part ———————————————————————————————————————— */
+.editPosts_Content{
+    width: 1200px;
+    /* height: 500px; */
+    margin: 0 auto;
+    /* border: 1px solid #f00; */
+}
+
+.editPosts_editBox{
+    width: 1200px;
+    /* height: 600px; */
+    margin: 100px auto;
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px rgba(193, 193, 193,0.4);
+}
+
+/* —————————————————————————— 左边用户信息和添加标签Part —————————————————————————————— */
+.editPosts_leftUserBox{
+    width: 400px;
+    height: 660px;
+    margin: 10px;
+    border-right: 1.5px solid #e7e7e7;
+    /* border: 1px solid #00f; */
+}
+
+.editPosts_userMessage{
+    width: 400px;
+    height: 75px;
+    position: relative;
+}
+
+.editPosts_headIcon{
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    top: -55px;
+    left: 28px;
+    border-radius: 50%;
+    background: url(../img/LearningWorld_highSchoolStudent_head.png) no-repeat;
+    background-size: 100%;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    /* border: 1px solid #333; */
+}
+
+.editPosts_userMessage > p{
+    position: absolute;
+    top: 20px;
+    left: 184px;
+    font-size: 18px;
+    color: #333333;
+    letter-spacing: 2px;
+    font-weight: 700;
+    /* border: 1px solid #f00; */
+}
+
+/* —————————————————————————— 右边编辑文本及提交Part —————————————————————————————— */
+.editPosts_rightTxtBox{
+    width: 800px;
+    height: 600px;
+    /* border: 1px solid #f00; */
+}
+
+/* ——————————— 标题Part ————————————— */
+.editPosts_titleBox{
+    margin-top: 20px;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+.editPosts_titleBox > input{
+    width: 660px;
+    height: 37px;
+    margin: 24px 33px 0 27px;
+    padding: 5px 15px;
+    font-size: 20px;
+    color: #666;
+    border: none;
+    outline: none;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+#editPosts_label{
+    width: 120px;
+    padding: 20px 0 20px 33px;
+    position: absolute;
+    top: -60px;
+    left: -10px;
+    color: #333444;
+    font-size: 18px;
+    font-weight: bold;
+    background: url(../img/answerPosts_tapesSP.png) no-repeat;
+    /* border: 1px solid #f00; */
+}
+
+/* ——————————— 文章编辑内容 ————————————— */
+.editPosts_editContent{
+    margin: 5px 0 0 28px;
+    position: relative;
+}
+
+.editPosts_editContent #editPostsContentVal{
+    width: 650px;
+    min-height: 420px;
+    line-height: 25px;
+    padding: 10px 20px 40px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    resize:none;    /*右下角禁止拉伸*/
+    /* background: #f7f7f7; */
+    border-bottom: 1px solid #e7e7e7;
+    /* border: 1px solid #f00; */
+}
+
+.editPosts_editContent #editPostsContentVal:focus{background: #f7f7f7;}
+
+/* ———————————————————————— 已书写字数 ———————————————————————— */
+.editPosts_editContent > span{
+    position: absolute;
+    bottom: 15px;
+    right: 68px;
+    letter-spacing: 1px;
+}
+
+#EA_textNum{
+    padding: 0 2px;
+    color: #81cbbf;
+    font-weight: bold;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0,0,0,0.25);
+}
+
+/* ———————————————— 按钮 ——————————————————— */
+.editPosts_btn{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid #f00; */
+}
+
+.editPosts_btn button{
+    width: 100px;
+    height: 30px;
+    margin-right: 30px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 8px rgba(193, 193, 193,0.25);
+}
+
+#editPosts_save{
+    background: #bababa;
+}
+
+#editPosts_publish{
+    background: #81cbbf;
+}
+
+.editPosts_btn button:hover{
+    color: #fff;
+    /* border: 1px solid #fff; */
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+}
+
+/* ——————————————————————————— 标签 ——————————————————————————————— */
+.editPosts_mainTagsBox{
+    width: 380px;
+    height: 355px;
+    margin-top: 40px;
+    padding: 10px 0 0 10px;
+    /* border: 1px solid #f00; */
+}
+
+.editPosts_mainTagsBox > input[type="radio"]{
+    margin: 18px 5px 8px 30px;
+}
+
+/* —————————————————— 分区 —————————————————————— */
+.editPosts_secondaryPartition{
+    width: 300px;
+    /* height: 325px; */
+    margin: 15px 32px 0;
+    padding: 0 10px 10px;
+    /* background: #f7f7f7; */
+    border-radius: 5px;
+    border: 1px solid #e7e7e7; /*#ccc*/
+}
+
+.editPosts_secondaryPartition > ul{
+    list-style-type: none;
+}
+
+/* ————— 大标题 —————— */
+.editPosts_secondaryPartition > ul > li p{
+    height: 26px;
+    line-height: 30px;
+    margin: 10px 0 0 5px;
+    /* border: 1px solid #f00; */
+}
+/* —————————— 二级标签 ————————————— */
+.editPosts_secondaryPartition ol{
+    margin-left: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+/* 小标题 */
+.editPosts_secondaryPartition ol > span{
+    height: 40px;
+    line-height: 40px;
+    margin-right: 10px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.editPosts_secondaryPartition ol > li{
+    margin: 5px 4px;
+    padding: 6px 9px;
+    color: #666666;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 1px 1px 5px rgba(193, 193, 193,0.6);
+    cursor: pointer;
+}
+/* .editPosts_secondaryPartition ol > li:nth-child(5) {
+    margin-left: 50px;
+} */
+
+.editPosts_secondaryPartition ol > li:hover{
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.25);
+}
+
+/* ————————— toggle点击后没有了 ————————————— */
+.EA_secondaryPartition_toggle{
+    color: #fff;
+    background: #AEE1D8;
+}
+
+
+/* —————————————————————— 自定义标签 ————————————————————————— */
+.editPosts_customTagsBox{
+    height: 150px;
+    padding-left: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: 1px solid #f00; */
+}
+
+.editPosts_customTagsBox span{
+    position: absolute;
+    top: 10px;
+}
+/* ——— 标签列表（限制五个） ——— */
+#editPosts_tagsList{
+    /* height: 120px; */
+    display: inline-block;
+    list-style-type: none;
+    /* border: 1px solid #00f; */
+}
+
+#editPosts_tagsList li{
+    margin: 0 12px 12px 0;
+    padding: 8px 15px 8px 8px;
+    position: relative;
+    float: left;
+    border-radius: 5px;
+    background: #f7f7f7;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+    /* border: 1px solid #0f0; */
+}
+
+.EA_delete{
+    width: 14px;
+    height: 14px;
+    line-height: 15px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 13px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+}
+
+/* —————————————————————— input添加框 ————————————————————————— */
+.editPosts_addCustomTags{
+    width: 350px;
+    position: absolute;
+    top: -18px;
+    left: 55px;
+    /* border: 1px solid #f00; */
+}
+
+#EP_addTagsBox{
+    width: 36px;
+    /* min-width: 165px; */
+    height: 36px;
+    margin: 0 10px 0 0;
+    display: block;
+    border-radius: 20px;
+    background: #addfd6;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    /* border: 1px solid #0f0; */
+}
+
+#EP_addTagsBox > button{
+    width: 36px;
+    height: 36px;
+    line-height: 32px;
+    border-radius: 50%;
+    font-size: 25px;
+    color: #625f60;
+    background: #addfd6;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    /* border: 1px solid #f00; */
+}
+
+/* #EA_addBtn{
+    background: #625f60;
+} */
+
+#EP_displayBtn{
+    position: absolute;
+    /* background: #fff; */
+    /* z-index: -1; */
+}
+
+/* ————————— 自定义标签输入Part ———————————— */
+#editTags{
+    min-width: 90px;
+    height: 24px;
+    line-height: 24px;
+    padding: 2px 5px;
+    margin: -32px 20px 0 45px;
+    font-size: 16px;
+    /* outline-color: #81cbbf; */
+    outline: none;
+    background: #fff;
+    /* border: 1px solid #f00; */
+}

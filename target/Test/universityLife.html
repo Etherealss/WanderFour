@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>universityLife</title>
+    <link rel="stylesheet" href="CSS/universityLife.css" type="text/css"/>
+    <link rel="stylesheet" href="CSS/footPage.css" type="text/css"/>
+    <link rel="stylesheet" href="CSS/todolist_MR.css"/>
+
+</head>
+<body>
+<!-- —————————————— 头部导航栏 ———————————————— -->
+<div class="universityLife_Header">
+    <!-- —————————————— 头部导航栏 ———————————————— -->
+    <div class="editArticle_Header">
+        <div class="topmargin_box">
+            <div class="topmargin">
+                <!-- 头像 -->
+                <div class="topmargin_head_portrait" onclick="toIndex();">
+                    <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
+                </div>
+                <ul class="topmargin_target">
+                    <li>
+                        <a href="./LearningWorld_HS.html">学习天地</a>
+                    </li>
+                    <li>
+                        <a href="./professionalIntroduction.html">专业介绍</a>
+                    </li>
+                    <li>
+                        <a href="./universityLife.html">大学生活</a>
+                    </li>
+                </ul>
+                <div class="topmargin_searchBox">
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
+                    <button></button>
+                </div>
+                <div class="topmargin_personal_center">
+                    <a id="topmargin_PC" href="./user.html">个人中心</a>
+                    <img src="img/LearningWorld_arrow.png" alt="" />
+                    <ul>
+                        <li class="loginIdentity">
+                            <a>
+                                <div>
+                                    <span>昵称：</span>
+                                    <span>小华er</span>
+                                </div>
+                                <div>
+                                    <span>身份：</span>
+                                    <span>高中生</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">个人信息</a>
+                        </li>
+                        <li>
+                            <a href="">收藏</a>
+                        </li>
+                        <li>
+                            <a href="">创作</a>
+                        </li>
+                        <li>
+                            <a href="">收件箱</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topmarginLogin">
+                    <ul class="homePage_side">
+                        <li>
+                            <a href="./sign.html">登录</a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="./sign.html">注册</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ——————————— 头部轮播图 ————————————— -->
+    <div class="universityLife_carouselOutsideBox">
+        <div class="HP_carouselBox">
+            <div class="HP_carousel">
+                <ul class="HP_list">
+                    <li class="HP_item"></li>
+                    <li class="HP_item active"></li>
+                    <li class="HP_item"></li>
+                    <!-- <li class="HP_item"></li> -->
+                </ul>
+                <!-- <ul class="HP_pointList">
+                    <li class="HP_point" number="0"></li>
+                    <li class="HP_point active" number="1"></li>
+                    <li class="HP_point" number="2"></li>
+                    <li class="HP_point" number="3"></li>
+                </ul> -->
+                <button class="HP_carouselBtn" id="HP_Pre">&lt;</button>
+                <button class="HP_carouselBtn" id="HP_Next">&gt;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="universityLife_Content">
+    <!-- ———————————— 大学须知 ———————————— -->
+    <div class="universityGuidelines_outsideBox">
+        <h2>大学须知</h2>
+        <div class="UGlBox">
+            <ul>
+                <li class="universityGuidelines">
+                    <h3>什么是必修课和选修课 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            必修课是教育部按普通高中课程方案所规定开设的所有普通高中学生必须修习的课程。
+                        </p>
+                        <p>
+                            选修课是由教育部开发的某些学习领域的选修模块，以及学校根据自身特色和学生需求开设、供学生选读的课程。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是绩点制 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            有些国家从分数/等级制走向学分制时，为了更具体地比较学生之间学习质量的差异，
+                            体现学分的评价功能，通常将原始的分数或等级转换成绩点或积点来统计。
+                        </p>
+                        <p>目前国内大学常见的有4.0制与5.0制。</p>
+
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是奖学金 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            奖学金每学年评选一次，大致可分为校内奖学金与国家奖学金，都需要学生主动去申请。
+                            校内奖学金大致可分为以学生的综测及绩点为划分的优秀学生奖学金，以及针对家庭经济困难学生，评选标准相对降低的奖学金。
+                        </p>
+                        <p>
+                            国家奖学金同样有分为对德智体美劳方面足够优秀的学生的国家奖学金，
+                            以及对于家庭经济困难学生的国家助学金、国家励志奖学金。
+                        </p>
+                        <p>
+                            但需要注意的是，获得国家奖学金的家庭贫困学生可以同时申请国家助学金，但不能同时获得国家励志奖学金。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是处分 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            对于《学生违纪处分条例》，不同学校在划分上略有出入，部分学校在处分有分为院级及校级，但大致都可分为以下五种。
+                            学生违法校规校纪，根据情节轻重、认错态度、悔改表现等，给予下列处分：
+                            （一）警告<br>
+                            （二）严重警告<br>
+                            （三）记过<br>
+                            （四）留校查看<br>
+                            （五）开除学籍<br>
+                            学生一旦受到处分，无论是对于奖学金的申请，还是学生档案，都会有相应的影响及记录。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3> 什么是挂科 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            挂科就是不通过或不及格的代名词。具体而言，是指某人的某一科目或多门科目因各种原因考试不及格而未能达到要求的标准，需要重考或重修的意思。
+                            挂科对于学生的影响：<br>
+                            （1）影响各类奖学金的申请；<br>
+                            （2）相应课程的学分不能得到(毕业证、学位证就看大四的时候是否修满规定的学分)；<br>
+                            （3）挂科较多者,会得到相应的学籍警示(类似警告处分)；<br>
+                            （4）未改正者,会给相应处分或取消拿学位证的资格。又因挂科会在学生档案里有所记录，更危害着以后毕业是否能找到好工作。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是学分 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，
+                            每门课程及实践环节的具体学分数以专业教学计划的规定为准。
+                            部分学校也有按学分收费的制度。
+                            通过学分可以评判学生在大学期间的学习知识的广度，学生获得的学分越多，
+                            说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。
+                            只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。
+                            学分制是一种更加灵活的弹性学制，为学生在校期间创造了更多的灵活性，
+                            包括在一段时间内申请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，
+                            每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>学分能反映学习质量吗 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            获得学分的总量与结构达到毕业要求，是学生获得毕业证书的主要依据。
+                        </p>
+                        <p>
+                            因此，实行学分制的主要目的是提供灵活的课程管理方案，而不是评价学生之间的学习质量。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是学分制 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            学分制(Credit Unit System)是一种以学分为计算学生学习量的单位，
+                            并以修满规定的下限学分为学生获得毕业资格的基本条件的课程管理制度。
+                        </p>
+                        <p>
+                            它以量化的分值方式，通过学分来记录学生在相应的课程领域的成长经历，以及所达到的发展程度。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是学年学分制 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            学年制是学年学时制的简称，即学生必须读满规定的学年，修满各学年规定的科目和时数，
+                            且能考试合格达到既定标准，才可以毕业获颁证书的一种制度。
+                        </p>
+                        <p>
+                            我国普通高中实施的就是学年制。相对学分制，学年学时制是一种刚性课程管理制度。
+                        </p>
+                    </div>
+                </li>
+                <li class="universityGuidelines">
+                    <h3>什么是综测分 &nbsp;？</h3>
+                    <div class="UG_line"></div>
+                    <div class="UG_content">
+                        <p>
+                            大学综测作为高校对大学生的客观评价的重要方式，有利于促进高校的素质教育发展，
+                            有利于提高大学生综合素质，有利于改进和加强大学生思想政治工作，这也就在一定程度上告诉我们的大学生，
+                            上了大学，学业依然重要，但不是全部，更不提倡一昧死读书。
+                        </p>
+                        <p>
+                            大学综合素质测评成绩的计算方法一般为德、智、体合计一百分其所占的百分比分别为30%、60%、10%。
+                            但是不同院校可能有所不同。
+                        </p>
+                        <p>
+                            各院校会在每学期末或者新学期开始时进行综合素质测评工作，
+                            在校期间各学期的综合素质测评成绩之和为学生在校期间综合测评总分，专
+                            科学生第四学期不进行综合素质测评，只记录各科学业成绩，各班在实习前按综合测评总分排定名次。
+                        </p>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- ———————————————————————————————————————————————— 问贴 ———————————————————————————————————————————————— -->
+    <div class="universityLife_postsOutsideBox">
+        <h2>问贴</h2>
+        <div class="ULPostsOther">
+            <a href="javascript:;" target="_blank">下一批</a>
+        </div>
+        <div class="ULPostsBox">
+            <ul class="ULPostsList1">
+                <li class="ULPosts" onclick="toPosts(13);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学生活到底是什么样子的？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            经常听老师们说，“高中你们多辛苦，大学就有多幸福”。但是也听一些段子说，“大学就像月亮，远远看着很美好，离近一看，全都是坑！”
+                            真实的大学生活到底是什么样子的呢？早上真的只有两节课吗？平时会有很多社团活动吗？有没有月考期中考呢？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(14);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>综测分很难拿吗？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            听说大学里有很多活动会加综测分，比如参加征文比赛，或者参加校运会。但是我这个人没什么特长或爱好，
+                            不知道能不能去参加那些比赛...听说要拿到名次才能加分呢。
+                            我高中就学习成绩还不错，拿了几次奖学金，但是大学好像更看重综测分，这个综测分到底难不难拿呀？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(15);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学到底要不要加入学生会？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            我是一名高三毕业生，即将步入大学，因为选了自己喜欢的专业，
+                            想要在大学里好好学习，但是在纠结到底要不要加学生会，
+                            想着进入学生会会拓展人际关系，但是又害怕太忙没时间学习，
+                            我有同学都是参加学生会但是退了，说没用还忙。
+                            所以各位学长学姐各位经验人士帮忙回答一下，参加学生会到底有用吗？对学习有用吗？我还想考研，谢谢啦
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(17);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学考试成绩重要吗？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            宿舍里的同学都说要好好学习，可是又没啥决心要好好学，还是天天看电视剧，看完了还要感叹成绩不好怎么办。
+                            但是其实我的成绩最差，因为我根本就不想学只要过了就行，每次她们感叹的时候我就觉得特别烦，
+                            要学就好好学，还看毛线电视剧。
+                            而且她们对我的观念也很鄙视，她们觉得我一天到晚出去和各种人玩太不像个良家妇女了，
+                            可是我出去根本就没有那种想法，我就是想和人家交流交流，连谈恋爱的想法都没有。
+                            所以我就是想问，大学里成绩到底代表什么？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+            </ul>
+            <ul class="ULPostsList2" onclick="toPosts(18);">
+                <li class="ULPosts">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>要不要进学生会？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            我高中没有加过学生会，但是对学生会还是挺向往的，而且听说大学的学生会挺有存在的，也会负责很多学校的事物。
+                            但是也听说了很多不好的消息，比如官僚主义啊什么的。很多人就来劝我说别去加学生会了，我自己也挺犹豫的。
+                            师兄师姐们觉得要不要进学生会呢？你们学校的学生会是什么样子的嘞？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(19);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学里想要脱单到底难不难？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            母胎单身19年雄性生命体一枚，已经不想再做被动吃狗粮的单身狗了啊啊啊
+                            我长得还是可以的啊，就是不擅长跟女生以异性身份交往，还有点宅。。师兄师姐们！大学里脱单难不难呀？我不想再单身四年！！
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(20);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学到底累不累？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            以前总是听老师家长说，等过了高考你就轻松了，等上了大学你就自由了。
+                            但是最近在知乎上看到说大学轻松是个坑，整天起得比鸡早睡得比狗晚，忙东忙西跑来跑去的。
+                            有没有过来人分享一下大学生活啊？大学是更轻松还是更累呢？又是什么地方让你觉得很累的呢？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+                <li class="ULPosts" onclick="toPosts(21);">
+                    <div class="ULPosts_tapes"></div>
+                    <h3>大学里用什么学习方法才能成为学霸？</h3>
+                    <div class="ULPosts_contentBox">
+                        <p>
+                            大学里很多课程老师都是照本宣科，教科书上的知识似乎也很枯燥而且价值不高，
+                            看了书也很快就把什么定义定律忘了，笔记抄得跟老师的ppt差不多，
+                            那么要怎么学习才高效并有高分呢？
+                        </p>
+                        <span class="OmitEffect"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- ———————————— 文章 ———————————— -->
+    <div class="universityLife_articleOutsideBox">
+        <h2>文章</h2>
+        <div class="UL_writingArticles">
+            <a href="./editArticle.html" target="_blank">写文章</a>
+        </div>
+        <div class="UL_someArticlesBox">
+            <ul>
+                <li class="UL_articleBox">
+                    <h3>关于学分</h3>
+                    <div class="UL_articleContent">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，每门课程及实践环节的具体学分数以专业教学计划的规定为准。部分学校也有按学分收费的制度。通过学分可以评判学生在大学期间的学习知识的广度，学生获得的学分越多，说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。学分制是一种更加灵活的弹性学制......
+                            <br/>请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+                <li class="UL_articleBox">
+                    <h3>关于学分</h3>
+                    <div class="UL_articleContent">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，每门课程及实践环节的具体学分数以专业教学计划的规定为准。部分学校也有按学分收费的制度。通过学分可以评判学生在大学期间的学习知识的广度，
+                            学生获得的学分越多，说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。学分制是一种更加灵活的弹性学制......
+                            <br/>请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+                <li class="UL_articleBox">
+                    <h3>关于学分</h3>
+                    <div class="UL_articleContent">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，每门课程及实践环节的具体学分数以专业教学计划的规定为准。部分学校也有按学分收费的制度。通过学分可以评判学生在大学期间的学习知识的广度，
+                            学生获得的学分越多，说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。学分制是一种更加灵活的弹性学制......
+                            <br/>请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+                <li class="UL_articleBox">
+                    <h3>关于学分</h3>
+                    <div class="UL_articleContent">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，每门课程及实践环节的具体学分数以专业教学计划的规定为准。部分学校也有按学分收费的制度。通过学分可以评判学生在大学期间的学习知识的广度，
+                            学生获得的学分越多，说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。学分制是一种更加灵活的弹性学制......
+                            <br/>请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+                <li class="UL_articleBox">
+                    <h3>关于学分</h3>
+                    <div class="UL_articleContent">
+                        <p>
+                            是用于计算学生学习量的一种计量单位，按学期计算，每门课程及实践环节的具体学分数以专业教学计划的规定为准。部分学校也有按学分收费的制度。通过学分可以评判学生在大学期间的学习知识的广度，
+                            学生获得的学分越多，说明学生学到的东西也就越多。在某些大学中，学分也变成了评价学生优秀程度的一个重要标准。
+                        </p>
+                        <p>
+                            【大学里每一门课程都有一定的学分。只有通过这门课的考试，才能获得相应的学分。只有学分积累到专业要求后才能毕业。如果提前修完所要求课程与学分，还可以提前毕业。学分制是一种更加灵活的弹性学制......
+                            <br/>请休学、创业，鼓励学有余力的同学提前毕业以及辅修、攻读其他专业和学位。
+                            部分大学要求学生在校期间必须修满专业教学计划规定的必修课和选修课最低要求学分数，每学期必须如此，如果达不到，会得到成绩警告。】
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ——————————————————————— 页面底部 ————————————————————————— -->
+<div class="bottomOfPage_Box">
+    <div class="bottomOfPage">
+        <div class="footIconBackground"></div>
+        <p>
+            让高中生提前了解专业，填报志愿时能有所选择。让大学生明确目标，迷茫不再，对自己有所规划。
+        </p>
+        <div class="bottomAbout_us">
+            <p>联系我们</p>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="sidebar_MR">
+    <button id="todolist_hidden_MR">—</button>
+    <button id="todolist_show_MR">
+        ToDoList
+        <span>+</span>
+    </button>
+    <div class="todolist_OutsideBox_MR">
+        <label id="todoTitle_MR" for="todoTitle_MR">ToDoList</label><br/>
+        <input type="text" id="todolistInput_MR" name="title" placeholder="添加ToDo..." required="required"
+               autocomplete="off"/>
+        <section>
+            <!-- ———————————— 待办事项<ol> —————————————— -->
+            <h3>正在进行<span id="todocount_MR">0</span></h3>
+            <ol id="todolist_MR" class="demoBox_MR">
+            </ol>
+            <!-- ———————————— 已经完成<ul> —————————————— -->
+            <h3>已经完成 <span id="donecount_MR">0</span></h3>
+            <ul id="donelist_MR" class="demoBox_MR">
+            </ul>
+        </section>
+    </div>
+</div>
+</body>
+<script src="JS/jQuery.js"></script>
+<script src="./JS/getSearch.js"></script>
+<script src="JS/universityLife.js"></script>
+<script src="JS/todolist_MR.js"></script>
+<script src="./JS/checkUserLogin.js"></script>
+</html>

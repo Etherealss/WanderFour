@@ -1,0 +1,866 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* ————————————————————— 头部 ——————————————————————— */
+.homePage_Header{
+    /* max-width: 1600px; */
+    width: 100%;
+    height: 1000px;
+    /* height: 848px; */
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    /*TODO 淑仪修改了这一部分代码 加了三行代码*/
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+    min-width: 1200px;
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    /*border: 1px solid #f00;*/
+}
+
+.topmargin{
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 105px;
+    height: 55px;
+    position: absolute;
+    top: 2px;
+    left: -3px;
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_target > li a{
+    padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 12px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer;
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 163px;
+    height: 50px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+    display: none;
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 126px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 53px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 134px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 200px;
+    height: 205px;
+    margin-top: 45px;
+    padding: 10px 0 20px 0;
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: -19px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 100;
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 185px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+}
+.loginIdentity a div {
+    width: 100%;
+    height: 30px;
+}
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
+}
+
+/* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
+.homePage_side{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage_side > span{padding: 10px 5px;}
+
+/* —————————————————————— 轮播图 —————————————————————————————————— */
+.HP_carouselBox{
+    width: 1400px;
+    height: 550px;
+    margin: 50px auto 50px;
+    /* border: 1px solid #f00; */
+}
+
+.HP_carousel{
+    width: 1400px;
+    height: 550px;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #fff;
+}
+
+.HP_carousel .HP_list{
+    width: 1400px;
+    height: 320px;
+    margin-top: 120px;
+    list-style-type: none;
+    /* border-bottom: 3px solid #f7f7f7; */
+}
+
+.HP_item{
+    width: 700px;
+    height: 350px;
+    position: absolute;
+    font-size: 40px;
+    opacity: 0.5;
+    border-radius: 4px;
+    box-shadow: 1px 1px 16px rgba(0, 0, 0,0.1);
+    /* border: 1px solid #00f; */
+}
+
+.HP_item:nth-child(1){
+    left: 0;
+    background: url(../img/homePage_carousel2.png);
+    background-size: 100%;
+}
+
+.HP_item:nth-child(2){
+    left: 350;
+    /* background-color: rgba(178, 227, 218,0.8); */
+    background-color: #fff;
+    background-image: url(../img/homePage_banner.png);
+    background-size: 100% 350px;
+    background-repeat: no-repeat;
+}
+
+.HP_item:nth-child(3){
+    left: 700;
+    background: url(../img/homePage_carousel3.jpg);
+    background-size: 100%;
+}
+
+.HP_item:nth-child(4){background: #f00;}
+
+/* 轮播主图里的文本 */
+.HP_item:nth-child(2) > span{
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    border: 1px solid #f00;
+}
+
+.HP_item:nth-child(2) > p{
+    font-size: 16px;
+    line-height: 50px;
+}
+
+/* ———————————— 按钮Part —————————————— */
+.HP_carouselBtn{
+    width: 80px;
+    height: 80px;
+    display: none;
+    position: absolute;
+    top: 257px;
+    z-index: 100;
+    color: #72c3b6;
+    font-size: 50px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.HP_carouselBtn:hover{
+    background: rgba(0, 0, 0,0.1);
+}
+
+#HP_Pre{
+    left: 20px;
+}
+
+#HP_Next{
+    right: 20px;
+}
+
+.HP_item.active{
+    transform: scaleX(1.25) scaleY(1.15);
+    margin-top: -25px;
+    z-index: 10;
+    opacity: 1;
+    box-shadow: 1px 1px 16px rgba(0, 0, 0,0.2);
+}
+
+/* ———————————— 小圆点悬浮切换 —————————————— */
+.HP_pointList{
+    position: absolute;
+    left: calc(50% - 80px);
+    bottom: 40px;
+    display: flex;
+    list-style-type: none;
+}
+
+.HP_pointList > .HP_point{
+    width: 30px;
+    height: 5px;
+    margin-right: 20px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+    cursor: pointer;
+}
+
+.HP_point.active{
+    background: #72c3b6;
+    /* background: rgba(0,0,0,.4); */
+}
+
+/* ———————————————————————————— 中部 —————————————————————————————— */
+.homePage_Content{
+    max-width: 1600px;
+    min-width: 1200px;
+    width: 100%;
+    /* width: 1200px; */
+    margin: 0 auto;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_Content h1 a{
+    display: inline-block;
+    padding-top: 28px;
+}
+
+/* —————————————————————— 首页文本区域 —————————————————————————— */
+.HP_textPart{
+    width: 1200px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+.HP_textPart > p{
+    line-height: 50px;
+    position: absolute;
+    left: 0;
+    top: 35px;
+    letter-spacing: 4px;
+    font-size: 21px;
+    /* color: #666; */
+    color: #333;
+}
+
+.HP_textPart > .HP_titleImage{
+    position: absolute;
+    right: 0;
+}
+
+/* ————————————————————— 学习天地 ————————————————————————— */
+.homePage_LearningWorld{
+    max-width: 1600px;
+    min-width: 1200px;
+    width: 100%;
+    /* width: 1200px; */
+    /* height: 500px; */
+    position: relative;
+}
+
+.homePage_LW_titleBox{
+    /* width: 100%; */
+    width: 1200px;
+    height: 420px;
+    margin: 0 auto;
+    /* 820px 40px */
+    background: url(../img/homePage_LearningWorld_Communication.png) no-repeat 550px 40px;
+    background-size: 516.9px 365.6px;
+    border: 1px solid #fff;
+}
+
+.homePage_LW_titleBox h1{
+    position: absolute;
+    top: 28px;
+    /* left: 60px; */
+    color: #333;
+    font-weight: normal;
+    font-size: 48px;
+    letter-spacing: 4px;
+}
+
+.homePage_LW_titleBox p{
+    position: absolute;
+    top: 124px;
+    /* left: 60px; */
+    color: #333;
+    line-height: 30px;
+    font-size: 18px;
+    letter-spacing: 5px;
+}
+
+/* ——————————— 身份该有的功能 ————————————————— */
+.homePage_LW_identity{
+    max-width: 1600px;
+    /* max-width: 1260px; */
+    width: 100%;
+    height: 420px;
+    position: relative;
+    background: url(../img/homePage_LearningWorld_headLamp.png) no-repeat 55px 0;
+    background-size: 100%;
+}
+
+.homePage_LWid_box{
+    /* width: 720px; */
+    /* height: 250px; */
+    width: 57%;
+    height: 70%;
+    position: absolute;
+    top: 42px;
+    right: 46px;
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_LWid_box > div{
+    /* height: 232px; */
+    width: 30%;
+    max-width: 218px;
+    height: 93%;
+    position: relative;
+    margin-left: 38px;
+    border-radius: 4px;
+    background-color: #95c9ae;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+}
+
+.homePage_LWid_box > div .homePage_LWid_boxImg{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    position: absolute;
+    left: calc(50% - 50px);
+    display: block;
+    z-index: 5;
+    border: 5px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+}
+
+/* 头像的扩散动画效果 */
+.homePage_LWid_box > div:hover .homePage_LWid_boxImg{
+    transition: all ease-in-out .8s;
+}
+
+.homePage_LWid_box > div h3{
+    padding: 15px;
+    position: absolute;
+    top: 110px;
+    left: calc(50% - 58px);
+    font-size: 24px;
+    font-weight: normal;
+    text-align: center;
+    letter-spacing: 6px;
+    color: #fff;
+    z-index: 5;
+    text-shadow: .1px .1px .1px rgba(0,0,0,.8);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div:nth-child(3) h3{left: calc(50% - 45px);}
+
+/* 点击后才出现的部分 */
+.homePage_LWid_box > div ul{
+    margin-top: 400px;
+    margin: 400px 0 25px 50px;
+    line-height: 25px;
+    font-size: 14px;
+    list-style-type: disc;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div ul li{
+    letter-spacing: 2px;
+    font-size: 12.5px;
+}
+
+/* 点击进入的按钮 */
+.homePage_LWid_box > div button{
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: -50px;
+    left: 55px;
+    font-size: 12px;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.1);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div button > a{
+    padding: 5px 30px;
+    display: inline-block;
+    text-decoration: none;
+    color: #95c9ae;
+    font-weight: bold;
+}
+
+/* "+" 和 "-" */
+.homePage_LWid_box > div a.homePage_expend{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 50%;
+    bottom: 30px;
+    transform: translateX(50%);
+    display: block;
+    border-radius: 50%;
+    background: #fff;
+    line-height: 40px;
+    text-align: center;
+    transition: all ease-in-out .5s;
+    cursor: pointer;
+}
+
+.homePage_LWid_box > div a.homePage_expend .homePage_plus{
+    width: 40px;
+    display: inline-block;
+    opacity: 1;
+    color: #787878;
+    font-size: 24px;
+}
+
+.homePage_LWid_box > div a.homePage_expend .homePage_minus{
+    opacity: 0;
+    color: #95c9ae;
+    font-size: 24px;
+}
+
+/* —————————————— 有特殊属性 homePage_selected —————————————— */
+.homePage_LWid_box > div.homePage_selected h3{
+    width: 70%;
+    top: 28px;
+    left: 12%;
+    z-index: 15;
+    border-bottom: 1px solid rgba(255,255,255,0.8);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected ul{
+    opacity: 1;
+    margin-top: 82px;
+}
+
+.homePage_LWid_box > div.homePage_selected button{
+    bottom: 20px;
+    transition: all ease-in-out .5s;
+}
+
+/* 装加减号的盒子 */
+.homePage_LWid_box > div.homePage_selected a.homePage_expend{
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    right: -20px;
+    bottom: -15px;
+    display: block;
+    background: #fff;
+    transform: rotate(-45deg);
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend span{
+    position: absolute;
+    top: -5px;
+    left: 40px;
+    display: block;
+    transform: rotate(45deg);
+    font-size: 24px;
+    transition: all ease-in-out .5s;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend .homePage_minus{
+    opacity: 1;
+}
+
+.homePage_LWid_box > div.homePage_selected a.homePage_expend .homePage_plus{
+    opacity: 0;
+}
+
+.homePage_LWid_box > div.homePage_selected .homePage_LWid_boxImg{
+    position: absolute;
+    top: -20px;
+    left: -5px;
+    transform: scale(1.5);
+    opacity: 0.5;
+    transition: all ease-in-out 1s;
+}
+
+.homePage_LWid_box > div.homePage_selected:hover .homePage_LWid_boxImg{
+    animation: none;
+}
+
+/* ————————————————————— 专业介绍 ————————————————————————— */
+.homePage_Professional_Introduction{
+    /* max-width: 1600px; */
+    /* max-width: 1260px; */
+    /* width: 100%; */
+    width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    display: flex;
+    /* border: 1px solid #0ff; */
+}
+
+.homePage_PI_subjectBg{
+    width: 520px;
+    height: 600px;
+    margin: 130px 0 0 0;
+    background: url(../img/homePage_Professional_Introduction_subjects.png) no-repeat;
+    background-size: 100%;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_PI_title{
+    width: calc(100% - 520px);
+    position: relative;
+    background: url(../img/homePage_Professional_Introduction_people.png) no-repeat 400px 360px;
+    background-size: 57px 246px;
+    /* border: 1px solid #0f0; */
+}
+
+.homePage_PI_title h1{
+    position: absolute;
+    top: 28px;
+    right: 0;
+    color: #333;
+    font-size: 48px;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+
+.homePage_PI_title p{
+    position: absolute;
+    top: 124px;
+    right: -10px;
+    line-height: 30px;
+    color: #333;
+    font-size: 18px;
+    letter-spacing: 4px;
+}
+
+.homePage_PI_title button{
+    position: absolute;
+    top: 225px;
+    /* right: 140px; */
+    right: 0;
+    background-color: #72c3b6;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.homePage_PI_title button > a{
+    display: inline-block;
+    padding: 10px 27px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.homePage_PI_title button:hover{box-shadow: 1px 1px 10px rgba(0,0,0,0.3);}
+
+/* ————————————————————— 大学生活 ————————————————————————— */
+.homePage_University_Life{
+    max-width: 1600px;
+    /* max-width: 1260px; */
+    width: 100%;
+    /* height: 800px; */
+    position: relative;
+    /* border: 1px solid #ff0; */
+}
+
+.HUL_txtBox{
+    width: 1200px;
+    height: 400px;
+    margin: 0 auto;
+    /* border: 1px solid #0f0; */
+}
+
+.homePage_University_Life h1{
+    margin-top: 28px;
+    color: #333;
+    font-size: 48px;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+
+.homePage_University_Life p{
+    margin-top: 32px;
+    line-height: 30px;
+    font-size: 18px;
+    letter-spacing: 4px;
+}
+
+.homePage_University_Life button{
+    margin-top: 40px;
+    background-color: #72c3b6;
+    border: none;
+    outline: none;
+    z-index: 10;
+    border-radius: 2px;
+    text-shadow: .1px .1px .1px rgba(0,0,0,1);
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.homePage_University_Life button > a{
+    display: inline-block;
+    padding: 10px 27px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.homePage_University_Life button:hover{box-shadow: 1px 1px 10px rgba(0,0,0,0.3);}
+
+.homePage_University_Life img{
+    width: 100%;
+    position: absolute;
+    top: 78px;
+}
+
+/* ———————————————————————— 返回顶部 ——————————————————————————— */
+.homePage_returnTopBox{
+    position: fixed;
+    /* right: 0; */
+    right: -70px;
+    bottom: 50px;
+    width: 80px;
+    height: 145px;
+    padding: 5px 0;
+    border-radius: 4px 0 0 4px;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,.25);
+    transition: all ease-in-out .5s;
+}
+
+/* 侧边栏隐藏出现 */
+.homePage_appear{right: 0;}
+.homePage_hide{right: -100px;}
+
+.homePage_returnTopBox ul{
+    position: relative;
+    list-style-type: none;
+    background: #fff;
+}
+
+.homePage_returnTopBox ul button{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 62px;
+    left: -10px;
+    transform: rotate(45deg);
+    background: #fff;
+    /* background: rgba(85, 146, 146, 0.8); */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: -2px 2px 10px rgba(0,0,0,.15);
+    display: none;
+}
+
+.homePage_returnTopBox ul span{
+    width: 25px;
+    height: 52px;
+    position: absolute;
+    top: 48px;
+    background: #fff;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_returnTopBox ul li{
+    position: absolute;
+    left: 5px;
+    height: 27px;
+    margin: 8px 4px;
+    text-align: center;
+    z-index: 100;
+    font-size: 15px;
+    color: #333;
+    letter-spacing: 1px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.homePage_returnTopBox ul li:hover{color: #72c3b6;}
+
+.homePage_returnTopBox ul li:nth-child(1){top: 0;}
+.homePage_returnTopBox ul li:nth-child(2){top: 35px;}
+.homePage_returnTopBox ul li:nth-child(3){top: 70px;}
+.homePage_returnTopBox ul li:nth-child(4){top: 105px;}
+
+
+.addCla {
+    margin-top: 100px;
+    font-size: 45px;
+    font-weight: 500;
+    color: #333;
+    margin-left: -100px;
+}
+
+

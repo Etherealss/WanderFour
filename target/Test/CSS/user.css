@@ -1,0 +1,593 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #F7F7F7;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: 400;
+    color: #666666;
+    line-height: 22px;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+/* ---------------------------------------------user_top------------------------------ */
+.editArticle_Header{
+    width: 100%;
+    /* height: 500px; */
+    margin: 0 auto;
+    background: #f7f7f7;
+    /* border: 1px solid #f00; */
+}
+
+/* ———————————————————— 页面顶栏 ———————————————————————— */
+.topmargin_box{
+    width: 100%;
+    min-width: 1200px; 
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmargin{
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 头像 —————————————— */
+.topmargin_head_portrait{
+    width: 105px;
+    height: 55px;
+    position: absolute;
+    top: 2px;
+    left: -3px;
+    background: url(../img/navigationLogo.png) no-repeat;
+    background-size: auto 55px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+/* —————————— 跳转页面的导航Part ———————————— */
+.topmargin_target{
+    position: absolute;
+    /* left: 98px; */
+    left: 120px;
+    top: 15px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_target > li a{
+    padding: 5px 11px;
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+}
+
+.topmargin_target > li a:hover{color: #81cbbf;}
+
+/* —————————— 搜索Part ———————————— */
+.topmargin_searchBox{
+    position: absolute;
+    left: 470px;
+    top: 12px;
+}
+
+.topmargin_searchBox input{
+    width: 320px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    border: 2px solid #e0e0e0;
+    background: #f7f7f7;
+    font-size: 15px;
+}
+
+.topmargin_searchBox input::placeholder{
+    color: #c0c0c0;
+    font-size: 15px;
+}
+
+.topmargin_searchBox button{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: none;
+    outline: none;
+    background: url(../img/topmargin_search.png) -1px -2px;
+    background-size: 28px;
+    cursor: pointer; 
+}
+
+/* —————————— 个人中心 ———————————— */
+.topmargin_personal_center{
+    width: 163px;
+    height: 50px;
+    position: absolute;
+    left: 1050px;
+    /* border: 1px solid #f00; */
+    display: none;
+}
+
+.topmargin_personal_center #topmargin_PC{
+    width: 105px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 53px;
+    display: inline-block;
+    position: absolute;
+    background: url(../img/homePage_highSchoolStudent_head.png) no-repeat left;
+    background-size: 39px;
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.topmargin_personal_center > img{
+    width: 14px;
+    position: absolute;
+    top: 27px;
+    left: 134px;
+    display: inline-block;
+}
+
+/* hover的内容 */
+.topmargin_personal_center > ul{
+    width: 200px;
+    height: 205px;
+    margin-top: 45px;
+    padding: 10px 0 20px 0; 
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: -19px;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px rgba(204, 204, 204,0.6);
+    z-index: 100;
+    /* border: 1px solid #0f0; */
+}
+
+.topmargin_personal_center > ul li{
+    margin: 0 1.5px;
+}
+
+.topmargin_personal_center > ul li a{
+    width: 185px;
+    padding: 7.5px 0;
+    margin-left: 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 17px;
+    color: #414141;
+    text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+.loginIdentity {
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+}
+.loginIdentity span:nth-child(1),
+.loginIdentity span:nth-child(3) {
+    float: left;
+    margin-left: 21px;
+}
+.loginIdentity span:nth-child(2),
+.loginIdentity span:nth-child(4) {
+    float: left;
+    font-size: 15px;
+    color: #20AB9F;
+}
+.topmargin_personal_center > ul li:hover{
+    background: rgba(193, 193, 193,0.25);
+    /* background: #f7f7f7; */
+    border-radius: 2px;
+    text-shadow: .1px .1px .2px rgba(0,0,0,0.25);
+}
+.topmargin_personal_center > ul li:nth-child(1):hover {
+    background: #fff;
+}
+
+/* ———————————— 登录注册 ———————————————— */
+.topmarginLogin {
+    display: block;
+}
+.homePage_side{
+    position: absolute;
+    top: 7px;
+    right: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.homePage_side > li{
+    padding: 10px;
+}
+
+.homePage_side > li a{
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homePage_side > span{padding: 10px 5px;}
+
+
+/* --------------------------------------------------user_header-------------------------------------------- */
+.user_header {
+    /* width: 100%; */
+    width: 1520px;
+    /* min-width: 1520px; */
+    margin: 0 auto;
+    height: 258px;
+    background: url(../img/userBg/userBg.png) no-repeat left / 1520px 258px;
+}
+.userAvatar {
+    float: left;
+    width: 161px;
+    height: 161px;
+    border-radius: 50%;
+    background-color: rgb(174, 225, 216);
+    margin: 114px 0 1px 197px;
+}
+.userAvatar img {
+    float: left;
+    width: 145px;
+    height: 145px;
+    margin: 8px;
+}
+.user_header span {
+    float: left;
+    width: 74px;
+    height: 21px;
+    font-size: 22px;
+    font-family: "Microsoft YaHei UI";
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 22px;
+    margin: 168px 0 69px 25px;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 1);
+    font-weight: 800;
+}
+.userToDoList {
+    float: left;
+    width: 300px;
+    height: 133px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 14px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    margin: 77px 0 42px 580px;
+    background: url(../img/userClickAdd/userClickAdd.png) no-repeat left/ 20px 18.6px,
+}
+.user_header .userToDoList span {
+    float: left;
+    width: 125px;
+    height: 28px;
+    font-size: 36px;
+    font-family: Impact;
+    font-weight: 400;
+    color: #333333;
+    line-height: 22px;
+    margin: 26px 0 0 87px;
+}
+.userClickAdd {
+    float: left;
+    width: 50px;
+    height: 50px;
+    background: url(../img/userClickAdd/userClickAdd.png) no-repeat left/ 50px;
+    margin: 15px 0 10px 123px;
+}
+
+/* ----------------------------------------------------user_body--------------------------------------- */
+.user_body {
+    width: 100%;
+    /* height: 1620px; */
+    margin-top: 28px;
+}
+
+/* ---------------------------------------user_nav------------------------------- */
+.user_body_main {
+    width: 1200px;
+    min-height: 1000px;
+    margin: 0 auto;
+    /* border: 1px solid #f00; */
+}
+
+/* -------------------------------user_nav------------------------- */
+.user_nav {
+    float: left;
+    width: 240px;
+    height: 215px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px 1px rgba(102, 102, 102, 0.08);
+}
+.user_nav ul {
+    margin-top: 28px;
+}
+.user_nav ul li {
+    width: 240px;
+    height: 40px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.user_nav ul li span {
+    float: left;
+    width: 64px;
+    height: 25px;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: 400;
+    color: #343434;
+    line-height: 22px;
+    margin-left: 65px;
+    margin-top: 12px;
+    padding-left: 32px;
+    background: url(../img/userIcon/userInformation.png) no-repeat;
+    background-position: 0 0px;
+    background-size: 20px 19px;
+}
+ #userNavLi2 span {
+    background: url(../img/userIcon/userMyCollection.png) no-repeat;
+    background-position: 0 0px;
+    background-size: 20px 19px;
+}
+#userNavLi3 span {
+    background: url(../img/userIcon/userCreate.png) no-repeat;
+    background-position: 0 0px;
+    background-size: 20px 19px;
+}
+#userNavLi4 span {
+    background: url(../img/userIcon/userInboxes.png) no-repeat;
+    background-position: 0 1px;
+    background-size: 20px 18px;
+}
+.userNavCurrent {
+    background: linear-gradient(to right, #81cbbf 4%, #f7f7f7 4%);
+}
+
+/* -------------------------------user_details------------------------- */
+.user_details {
+    float: left;
+    width: 927px;
+    height: 900px;
+    background: #FFFFFF;
+    margin-left: 33px;
+    box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 0.08);
+}
+.differentDetails {
+    display: none;
+}
+.differentDetails input {
+    float: left;
+    outline: none;
+    border: none;
+    margin-left: 18px;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: 400;
+    color: #666666;
+    line-height: 22px;
+}
+.differentDetails .hopHr {
+    height: 46px;
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+}
+.hopHr h2 {
+    float: left;
+    width: 64px;
+    height: 16px;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: bold;
+    color: #333333;
+    line-height: 22px;
+    margin: 30px 0 0 45px;
+}
+.hopHr hr {
+    float: left;
+    width: 720px;
+    height: 1px;
+    color: #E7E7E7;
+    margin-top: 39px;
+    margin-left: 30px;
+}
+.detailCurrent {
+    display: block;
+}
+.detailsContent span,
+.detailsContent div {
+    height: 14px;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: 400;
+    color: #666666;
+    line-height: 22px;
+    margin-top: 31px;
+    margin-left: 73px;
+}
+.detailsContent span {
+    float: left;
+    margin: 0;
+}
+.detailsContent div {
+    position: relative;
+}
+.detailsContent .userFillIn {
+    position: absolute;
+    top: 2px;
+    left: 107px;
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-left: 0;
+    margin-top: 0;
+}
+.userFillIn img {
+    width: 15px;
+    height: 15px;
+}
+.accountInformation {
+    height: 406px;
+    width: 100%;
+}
+.userQualification {
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------userMyCollection--------------- */
+.userMyCollection h1,
+.userCreate h1 {
+    /* width: 40px; */
+    height: 20px;
+    font-size: 20px;
+    font-family: Microsoft YaHei UI;
+    font-weight: bold;
+    color: #343434;
+    line-height: 22px;
+    margin: 30px 0 0 30px;
+}
+.userColBox,
+.userCreateBox {
+    margin-left: 30px;
+    margin-top: 24px;
+    width: 805px;
+    height: 32px;
+    border-bottom: 1px solid #E7E7E7;;
+}
+.userColBox ul li,
+.userCreateBox ul li {
+    float: left;
+    height: 29px;
+    margin-right: 30px;
+    cursor: pointer;
+}
+.userColBoxCurrent {
+    border-bottom: 4px solid #81CBBF;
+}
+.userColBoxContent {
+    display: none;
+    margin-top: 15px;
+    font-size: 12px;
+    font-family: Microsoft YaHei UI;
+    font-weight: 300;
+    color: #666666;
+    line-height: 14px;
+}
+.userColBoxContentCurrent {
+    display: block;
+}
+.userColBoxContentMain {
+    width: 800px;
+    height: 70px;
+    border: 1px solid #E7E7E7;
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    margin-left: 36px;
+    margin-top: 6px;
+}
+.userColBoxContentMain h1 {
+    width: 48px;
+    height: 17px;
+    font-size: 16px;
+    font-family: Microsoft YaHei UI;
+    font-weight: bold;
+    color: #333333;
+    line-height: 22px;
+    margin: 14px 0 0 23px;
+}
+.userColBoxContentMain div {
+    float: left;
+    margin-top: 16px;
+    margin-left: 23px;
+}
+.userColBoxContentMain div span {
+    background: #F5F2F0;
+    border-radius: 11px;
+    margin-right: 7px;
+    padding: 4px 10px;
+}
+.userColBoxContentMain .userCollectionStar {
+    float: right;
+    width: 25px;
+    height: 25px;
+    margin-right: 36px;
+    margin-top: -8px;
+    cursor: pointer;
+    background: url(../img/userIcon/userCollection.png) no-repeat right/25px;
+}
+.userColBoxContentMain .userCollectionStar:hover {
+    background: url(../img/userIcon/userUnCollection.png) no-repeat right/25px;
+}
+
+/* --------------------------userCreate--------------------- */
+.userCreateBoxContentMain {
+    width: 782px;
+    height: 141px;
+    margin-left: 48px;
+    margin-top: 0;
+    border-bottom: 1px solid #E7E7E7;
+}
+.userCreateBoxContentMain h1 {
+    height: 19px;
+    font-size: 19px;
+    color: #333333;
+    line-height: 16px;
+    margin: 18px 0 0 0;
+}
+.userCreateBox a {
+    float: right;
+    /* width: 56px; */
+    height: 14px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #20AB9F;
+    line-height: 22px;
+}
+.userCreateBoxContentMain p {
+    display: block;
+    width: 782px;
+    height: 61px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+    margin: 19px 0 0 1px;
+}
+.userCreateBoxContentMain div span {
+    /* width: 60px; */
+    height: 25px;
+    font-size: 15px;
+    color: #666666;
+    line-height: 15px;
+    padding: 5px 10px;
+    background: #FEE8EA;
+    border-radius: 13px;
+}
+.userCreateBoxContentMain div span:nth-child(2) {
+    background: #E4F4F1;
+}
+
+/* --------------------------userInboxes--------------------- */

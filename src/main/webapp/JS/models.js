@@ -39,8 +39,8 @@ function scrollLimiteHeight(outsideBox,insideBox)
             insideBox.css({top: distance});
         }
         else{   //scrollLen > outsideBox.offset().top+outsideBox.height()-insideBox.height()
-            // insideBox.css({top: outsideBox.height()-insideBox.height()+45});  
-            insideBox.css({bottom: 0});
+            insideBox.css({top: outsideBox.height()-insideBox.height()+20});  
+            // insideBox.css({bottom: 0});
         }   
     });
 }

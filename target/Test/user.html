@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+    <link rel="stylesheet" href="./CSS/user.css" />
+    <link rel="stylesheet" href="CSS/footPage.css" type="text/css" />
+    <script src="./JS/jQuery.js"></script>
+    <script src="./JS/getSearch.js"></script>
+    <script src="./JS/user.js"></script>
+    <script src="./JS/checkUserLogin.js"></script>
+</head>
+
+<body>
+    <!-- —————————————— 头部导航栏 ———————————————— -->
+    <div class="editArticle_Header">
+        <div class="topmargin_box">
+            <div class="topmargin">
+                <!-- 头像 -->
+                <div class="topmargin_head_portrait"  onclick="toIndex()">
+                    <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
+                </div>
+                <ul class="topmargin_target">
+                    <li>
+                        <a href="./LearningWorld_HS.html">学习天地</a>
+                    </li>
+                    <li>
+                        <a href="./professionalIntroduction.html">专业介绍</a>
+                    </li>
+                    <li>
+                        <a href="./universityLife.html">大学生活</a>
+                    </li>
+                </ul>
+                <div class="topmargin_searchBox">
+                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
+                    <button></button>
+                </div>
+                <div class="topmargin_personal_center">
+                    <a id="topmargin_PC" href="./user.html">个人中心</a>
+                    <img src="img/LearningWorld_arrow.png" alt="" />
+                    <ul>
+                        <li class="loginIdentity">
+                            <a>
+                                <div>
+                                    <span>昵称：</span>
+                                    <span>小华er</span>
+                                </div>
+                                <div>
+                                    <span>身份：</span>
+                                    <span>高中生</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">个人信息</a>
+                        </li>
+                        <li>
+                            <a href="">收藏</a>
+                        </li>
+                        <li>
+                            <a href="">创作</a>
+                        </li>
+                        <li>
+                            <a href="">收件箱</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topmarginLogin">
+                    <ul class="homePage_side">
+                        <li>
+                            <a href="./sign.html">登录</a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="./sign.html">注册</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="user_header">
+        <div class="userAvatar">
+            <img src="./img/userAvatar/userAvatar.png" alt="">
+        </div>
+        <span>小华er</span>
+        <div class="userToDoList">
+            <span>ToDoList</span>
+            <div class="userClickAdd">
+                <!-- <img src="./img/userClickAdd/userClickAdd.png" alt=""> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="user_body">
+        <div class="user_body_main">
+            <div class="user_nav">
+                <ul>
+                    <li class="userNavCurrent" id="userNavLi1">
+                        <span>用户信息</span>
+                    </li>
+                    <li id="userNavLi2">
+                        <span>我的收藏</span>
+                    </li>
+                    <li id="userNavLi3">
+                        <span>我的创作</span>
+                    </li>
+                    <li id="userNavLi4">
+                        <span>收件箱</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="user_details">
+                <div class="differentDetails detailCurrent userInformation" id="differentDetails1">
+                    <div class="accountInformation detailsContent">
+                        <div class="hopHr">
+                            <h2>账号信息</h2>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>账号</span> <input type="text" name="" id="" readonly="readonly" value="123456789">
+                        </div>
+                        <div>
+                            <span>昵称</span> <input type="text" name="" id="" readonly="readonly" value="小华er">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <span>姓名</span> <input type="text" name="" id="" readonly="readonly" value="李华">
+                        </div>
+                        <div>
+                            <span>生日</span> <input type="text" name="" id="" readonly="readonly" value="03-14">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                        <div>
+                            <span>性别</span> <input type="text" name="" id="" readonly="readonly" value="男">
+                        </div>
+                        <div>
+                            <span>身份</span> <input type="text" name="" id="" readonly="readonly" value="高中生">
+                        </div>
+                        <div>
+                            <span>简介</span> <input type="text" name="" id="" readonly="readonly" value="无">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="userQualification detailsContent">
+                        <div class="hopHr">
+                            <h2>学历信息</h2>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>在读学校</span> <input type="text" name="" id="" readonly="readonly" value="广州一中">
+                        </div>
+                        <div>
+                            <span>入学年份</span> <input type="text" name="" id="" readonly="readonly" value="2019年">
+                        </div>
+                        <div>
+                            <span>选科</span> <input type="text" name="" id="" readonly="readonly" value="">
+                            <div class="userFillIn">
+                                <img src="./img/userIcon/useFillIn.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="differentDetails userMyCollection" id="differentDetails2">
+                    <h1>语文</h1>
+                    <div class="userColBox">
+                        <ul>
+                            <li class="userColBoxCurrent" id="userColBox1">文章</li>
+                            <li id="userColBox2">问贴</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="userColBoxContent userColBoxContentCurrent" id="userMyCollection1">
+                            <div class="userColBoxContentMain">
+                                <h1>文章一</h1>
+                                <div>
+                                    <span>古诗</span>
+                                    <span>古诗鉴赏</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章二</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章三</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章四</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                            <div class="userColBoxContentMain">
+                                <h1>文章五</h1>
+                                <div>
+                                    <span>文言文</span>
+                                    <span>文言文翻译</span>
+                                </div>
+                                <div class="userCollectionStar"></div>
+                            </div>
+                        </div>
+                        <div class="userColBoxContent" id="userMyCollection2">
+                            待开发！
+                        </div>
+                    </div>
+
+                </div>
+                <div class="differentDetails userCreate" id="differentDetails3">
+                    <h1>我的创作</h1>
+                    <div class="userCreateBox">
+                        <ul>
+                            <li class="userColBoxCurrent" id="userCreateBox1">我的文章</li>
+                            <li id="userCreateBox2">问贴</li>
+                        </ul>
+                        <a href="#">管理文章</a>
+                    </div>
+                    <div>
+                        <div class="userCreateBoxContent userCreatBoxContentCurrent" id="userCreate1">
+                            <div class="userCreateBoxContentMain">
+                                <h1>我的一些语文学习的一些心得</h1>
+                                <p>
+                                    在中国文化概论的扉页上面记录着我的学习的笔记。这大概是十几年以前的笔记了。记得当时我还在参加南师大的汉语
+                                    言文学本科的自学考试。仔细读一读，觉得很有意思，于是摘录下来。
+                                    心得一，重得，重已学之文...
+                                </p>
+                                <div>
+                                    <span>学习经验</span>
+                                    <span>语文</span>
+                                </div>
+                            </div>
+                            <div class="userCreateBoxContentMain">
+                                <h1>我的一些语文学习的一些心得</h1>
+                                <p>
+                                    在中国文化概论的扉页上面记录着我的学习的笔记。这大概是十几年以前的笔记了。记得当时我还在参加南师大的汉语
+                                    言文学本科的自学考试。仔细读一读，觉得很有意思，于是摘录下来。
+                                    心得一，重得，重已学之文...
+                                </p>
+                                <div>
+                                    <span>学习经验</span>
+                                    <span>语文</span>
+                                </div>
+                            </div>
+                            <div class="userCreateBoxContentMain">
+                                <h1>我的一些语文学习的一些心得</h1>
+                                <p>
+                                    在中国文化概论的扉页上面记录着我的学习的笔记。这大概是十几年以前的笔记了。记得当时我还在参加南师大的汉语
+                                    言文学本科的自学考试。仔细读一读，觉得很有意思，于是摘录下来。
+                                    心得一，重得，重已学之文...
+                                </p>
+                                <div>
+                                    <span>学习经验</span>
+                                    <span>语文</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="userColBoxContent" id="userCreate2">
+                            待开发！
+                        </div>
+                    </div>
+                </div>
+
+                <div class="differentDetails userInboxes" id="differentDetails4">
+                    收件箱开发中
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ——————————————————————— 页面底部 ————————————————————————— -->
+    <div class="bottomOfPage_Box">
+        <div class="bottomOfPage">
+            <div class="footIconBackground"></div>
+            <p>
+                让高中生提前了解专业，填报志愿时能有所选择。让大学生明确目标，迷茫不再，对自己有所规划。
+            </p>
+            <div class="bottomAbout_us">
+                <p>联系我们</p>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

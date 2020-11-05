@@ -88,19 +88,21 @@ $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 //旁边的“最新问贴”和“等你回答”部分（当滑动条滑动，被顶部顶住效果）
 scrollLimiteHeight($(".answerPosts_Content"), $(".answerPosts_sideColumn"));
 
-//页面滑动到一定位置时，显示问贴的问题
-// var timer = null;
-// $(window).scroll(function () {
-//     clearTimeout(timer);
-//     timer = setTimeout(function () {
-//         if ($(window).scrollTop() > 400) {
-//             $("#postsHidden").stop().fadeIn(100).show();
-//             scrollLimiteHeight($(".answerPosts_Content"), $("#postsHidden"));
-//         } else {
-//             $("#postsHidden").stop().fadeOut(100).hide();
-//         }
-//     }, 10);
-// });
+//页面滑动到一定位置时，显示固定到顶部的问贴问题
+$(window).scroll(function()
+{
+    if($(window).scrollTop() > $(".answerPostsPart").height()+80)
+    {
+        $("#postsHidden").css({
+            display: "block"
+        });
+    }
+    else{
+        $("#postsHidden").css({
+            display: "none"
+        });
+    }
+});
 
 //————————————————————————— 动态添加楼层 —————————————————————————————
 /**
