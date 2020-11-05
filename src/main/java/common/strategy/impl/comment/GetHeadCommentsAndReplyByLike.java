@@ -15,7 +15,7 @@ import java.util.List;
  * 不添加回复引用
  * @date 2020/10/23
  */
-public class GetHeadCommentsByLike extends AbstractCommentsStrategy {
+public class GetHeadCommentsAndReplyByLike extends AbstractCommentsStrategy {
 
 	/**
 	 * @param vo 需要 dao conn parentId userId
@@ -39,7 +39,6 @@ public class GetHeadCommentsByLike extends AbstractCommentsStrategy {
 		vo.setCommentStart(DaoEnum.START_FROM_ZERO);
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
-		//不添加回复引用
 		List<CommentDto> returnList = getCommentDto(vo);
 		return returnList;
 	}

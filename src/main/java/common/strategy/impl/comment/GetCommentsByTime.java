@@ -34,7 +34,6 @@ public class GetCommentsByTime extends AbstractCommentsStrategy {
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
 		logger.debug(vo);
-		//不添加回复引用
 		List<CommentDto> returnList = getCommentDto(vo);
 		return returnList;
 	}

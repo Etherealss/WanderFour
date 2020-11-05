@@ -4,21 +4,27 @@ import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.enums.TargetType;
 import common.factory.DaoFactory;
+import common.strategy.choose.CommentChoose;
 import common.strategy.choose.GetWritingListChoose;
 import common.strategy.impl.GetArticleStrategyImpl;
+import common.strategy.impl.comment.GetOnlyCommentByLike;
 import common.util.FileUtil;
 import common.util.JdbcUtil;
 import dao.LikeDao;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import pojo.dto.WritingBean;
+import pojo.CommentVo;
+import pojo.bean.WritingBean;
+import pojo.dto.CommentDto;
+import pojo.dto.WritingDto;
 import pojo.po.Article;
 import pojo.po.LikeRecord;
 import pojo.po.User;
 import service.WritingService;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,16 +69,9 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		if (article == null) {
 			return null;
 		}
-		article.setContent(writingDao.getWritingContent(conn, id));
-		WritingBean<Article> bean = new WritingBean<>();
+		//获取文章信息包
 		UserDao userDao = DaoFactory.getUserDAO();
-		User userInfo = userDao.getImgAndNicknameById(conn, article.getAuthorId());
-
-		bean.setWriting(article);
-		byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
-		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-		bean.setUserImg(imgByBase64);
-		bean.setUserNickname(userInfo.getNickname());
+		WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(conn, userDao, article);
 
 		//userid可能为null
 		if (userid != null){
@@ -95,8 +94,35 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		return bean;
 	}
 
+	/**
+	 * @param conn
+	 * @param article
+	 * @param userDao 因为可能会循环包装bean，所以dao在外部初始化
+	 * @return
+	 * @throws SQLException
+	 */
+	private WritingBean<Article> getWrticleBeanWithAuthorInfo(Connection conn, UserDao userDao, Article article) throws SQLException {
+		//获取文章的内容
+		String content = writingDao.getWritingContent(conn, article.getId());
+		article.setContent(content);
+
+		//获取用户的信息
+		User reviewerInfo = userDao.getImgAndNicknameById(conn, article.getAuthorId());
+		WritingBean<Article> bean = new WritingBean<>();
+		//用户头像 使用base64转码
+		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+
+		//打包
+		bean.setWriting(article);
+		bean.setUserNickname(reviewerInfo.getNickname());
+		//TODO 设置作品的作者头像数据
+		bean.setUserImg(imgByBase64);
+		return bean;
+	}
+
 	@Override
-	public List<WritingBean<Article>> getWritingList(int partition, String order) throws Exception {
+	public List<WritingDto<Article>> getWritingList(Long userid, int partition, String order) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		GetWritingListChoose<Article> choose = new GetWritingListChoose<>(new GetArticleStrategyImpl());
 		//判断排序方式
@@ -110,26 +136,32 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			throw new Exception("获取列表结果为null");
 		}
 
+
+		List<WritingDto<Article>> wdList = new ArrayList<>();
+
 		UserDao userDao = DaoFactory.getUserDAO();
-		List<WritingBean<Article>> beanList = new ArrayList<>();
 		for (Article article : articleList) {
-			//获取文章的内容
-			String content = writingDao.getWritingContent(conn, article.getId());
-			article.setContent(content);
+			WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(conn, userDao, article);
 
-			//获取用户的信息
-			User reviewerInfo = userDao.getImgAndNicknameById(conn, article.getAuthorId());
-			WritingBean<Article> wb = new WritingBean<>();
-			//用户头像 使用base64转码
-			byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
-			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+			//获取评论
+			CommentChoose commentChoose = new CommentChoose(new GetOnlyCommentByLike());
+			CommentVo commentVo = new CommentVo();
+			commentVo.setConn(conn);
+			commentVo.setDao(DaoFactory.getCommentDao(Article.class));
+			commentVo.setUserid(userid);
+			//评论的文章的id
+			commentVo.setParentId(article.getId());
+			//获取多条评论的Dto数据
+			List<CommentDto> commentDtos = commentChoose.doGet(commentVo);
 
-			wb.setWriting(article);
-			wb.setUserNickname(reviewerInfo.getNickname());
-			wb.setUserImg(imgByBase64);
-			beanList.add(wb);
+			//封装文章数据及其评论数据
+			WritingDto<Article> writingDto = new WritingDto<>();
+			writingDto.setCommentDtoList(commentDtos);
+			writingDto.setWritingBean(bean);
+
+			wdList.add(writingDto);
 		}
-		return beanList;
+		return wdList;
 	}
 
 	@Override

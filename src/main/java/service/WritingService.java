@@ -1,7 +1,8 @@
 package service;
 
 import common.enums.ResultType;
-import pojo.dto.WritingBean;
+import pojo.bean.WritingBean;
+import pojo.dto.WritingDto;
 import pojo.po.Writing;
 
 import java.util.List;
@@ -31,12 +32,14 @@ public interface WritingService<T extends Writing> {
 
 	/**
 	 * 获取作品列表
+	 *
+	 * @param userid
 	 * @param partition
 	 * @param order
 	 * @return
 	 * @throws Exception
 	 */
-	List<WritingBean<T>> getWritingList(int partition, String order) throws Exception;
+	List<WritingDto<T>> getWritingList(Long userid, int partition, String order) throws Exception;
 
 	/**
 	 * 获取简单的作品信息，仅包含作品id和标题

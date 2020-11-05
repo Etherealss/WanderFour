@@ -32,6 +32,8 @@ public class DaoEnum {
 	 * 每条评论获取10条回复
 	 */
 	public static final int REPLY_ROWS_TEN = 10;
+
+	public static final int ROWS_ZERO = 0;
 	/**
 	 * 每页显示10条评论
 	 */

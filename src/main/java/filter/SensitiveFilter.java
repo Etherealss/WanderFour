@@ -1,9 +1,12 @@
 package filter;
 
+import common.bean.SensitiveNode;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -16,61 +19,54 @@ public class SensitiveFilter {
 	/**
 	 * 敏感词树
 	 */
-	private static Map<String, Object> sensitiveWordMap;
+	private static Map<Character, SensitiveNode> sensitiveWordMap;
 
-	private static final String IS_END = "1";
-
-	public static Map<String, Object> transWordListToHashMap(List<String> keyWordSet) {
+	public static Map<Character, SensitiveNode> transWordListToHashMap(List<String> keyWordSet) {
 		//初始化敏感词容器，减少扩容操作
-		/*
-		本来可以使用Map<Character, Object>的，
-		但是因为需要一个标识isEnd来判断
-		如果使用character，容易误判
-		因为单个字符也可能是敏感词的组成
-		所以使用字符串作为结束表示肯定不会出错
-		String会在字符串的末尾添加\0，所以会占用更多空间
-		TODO 待优化
-		*/
-		Map<String, Object> sensitiveWordMap = new HashMap(keyWordSet.size());
-		Map<String, Object> nowMap = null;
-		Map<String, Object> newWordMap = null;
 		//迭代keyWordSet
+		Map<Character, SensitiveNode> sensitiveWordMap = new HashMap<>(keyWordSet.size());
+		Map<Character, SensitiveNode> nowMap = null;
+		SensitiveNode sensitiveNode = null;
 		for (String key : keyWordSet) {
-			//关键字
+//			if ("三.级.片".equals(key)){
+//				System.out.println();
+//			}
+			//新的敏感词，获取整棵树，方便待会儿检查敏感词是否已存在结点
+			//两个引用指向同个内存地址
 			nowMap = sensitiveWordMap;
+			//将敏感词字符串拆分成字符
 			for (int i = 0; i < key.length(); i++) {
 				//敏感词转换成char型
-				String keyChar = String.valueOf(key.charAt(i));
-				//获取
-				Object wordMap = nowMap.get(keyChar);
-				if (wordMap != null) {
-					//如果存在该key，直接赋值
-					nowMap = (Map<String, Object>) wordMap;
+				Character c = key.charAt(i);
+				//检查是否已存在结点
+				SensitiveNode node = nowMap.get(c);
+				if (node != null) {
+					//已存在，获取该节点，所有树的大小，方便匹配到最小的树
+					nowMap = node.getMap();
+
 				} else {
-					//不存在则，则构建一个map，同时将end设置为0，表示该敏感词不完整
-					newWordMap = new HashMap<>(5);
-
-					//不是最后一个
-					newWordMap.put("isEnd", "0");
-					nowMap.put(String.valueOf(keyChar), newWordMap);
-					nowMap = newWordMap;
+					//不存在，新建结点
+					sensitiveNode = new SensitiveNode();
+					nowMap.put(c, sensitiveNode);
+					//更改结点，接下来将在这个结点下继续添加结点，构成一个敏感词树
+					nowMap = sensitiveNode.getMap();
 				}
-
-				if (i == key.length() - 1) {
-					//获取了一个完整的敏感词，添加结束标识
-					nowMap.put("isEnd", "1");
+				if (key.length() - 1 == i) {
+					// 获取了一个完整的敏感词，添加结束标识
+					assert sensitiveNode != null;
+					sensitiveNode.setEnd(true);
 				}
 			}
 		}
 		return sensitiveWordMap;
 	}
 
-	public static Map<String, Object> getSensitiveWordsMap() {
+	public static Map<Character, SensitiveNode> getSensitiveWordsMap() {
 		logger.trace("获取敏感词数据");
 		if (sensitiveWordMap == null) {
 			logger.trace("初始化敏感词数据");
 			//获取敏感词树
-			Map<String, Object> sensitiveWordsMap =
+			Map<Character, SensitiveNode> sensitiveWordsMap =
 					ServiceFactory.getSensitiveService().getSensitiveWordsMap();
 			//添加到内存
 			setSensitiveWordMap(sensitiveWordsMap);
@@ -78,7 +74,7 @@ public class SensitiveFilter {
 		return sensitiveWordMap;
 	}
 
-	private static void setSensitiveWordMap(Map<String, Object> sensitiveWordMap) {
+	private static void setSensitiveWordMap(Map<Character, SensitiveNode> sensitiveWordMap) {
 		SensitiveFilter.sensitiveWordMap = sensitiveWordMap;
 	}
 
@@ -92,7 +88,7 @@ public class SensitiveFilter {
 			return null;
 		}
 		//获取内存中的敏感词树，如果没有会初始化
-		Map<String, Object> sensitiveWordsMap = getSensitiveWordsMap();
+		Map<Character, SensitiveNode> sensitiveWordsMap = getSensitiveWordsMap();
 
 		int len = txt.length();
 		//遍历字符串
@@ -103,26 +99,28 @@ public class SensitiveFilter {
 			匹配到的敏感词map，初始化为敏感词集合
 			每次匹配到敏感词组成都会细化到下一分支
 			 */
-			Map<String, Object> wordMap = sensitiveWordsMap;
+			Map<Character, SensitiveNode> wordMap = sensitiveWordsMap;
 			//表示是否拼接完一个完整的敏感词
 			boolean match = false;
 			int front = i;
 			//替换后字符串长度改变，要动态改变阈值
 			for (int j = i; j < txt.length(); j++) {
 				//截取字符
-				String c = String.valueOf(txt.charAt(j));
+				Character c = txt.charAt(j);
 				//获取字符对应的Map
-				wordMap = (Map<String, Object>) wordMap.get(c);
-				if (wordMap != null) {
+				SensitiveNode sensitiveNode = wordMap.get(c);
+
+				if (sensitiveNode != null) {
 					//是敏感词的组成
 					//拼接敏感词
 					fragment.append(c);
-					String isEnd = wordMap.get("isEnd").toString();
-					if (isEnd.equals(IS_END)) {
+					boolean isEnd = sensitiveNode.isEnd();
+					if (isEnd) {
 						match = true;
 						//完整的敏感词长度
 						front = j - i + 1;
 					}
+					wordMap = sensitiveNode.getMap();
 				} else {
 					if (match) {
 						String substring = fragment.substring(0, front);
@@ -138,26 +136,4 @@ public class SensitiveFilter {
 		return txt;
 	}
 
-//	/**
-//	 * 判断是否存在敏感词
-//	 * @param str
-//	 * @param sensitiveWordsMap
-//	 * @return
-//	 */
-//	private static boolean containSensitive(String str, Map<String, Object> sensitiveWordsMap) {
-//		int count = 0;
-//		for (int i = 0; i < str.length(); i++) {
-//			char c = str.charAt(i);
-//			Map<String, Object> wordMap = (Map<String, Object>) sensitiveWordsMap.get(c);
-//			if (wordMap != null) {
-//				//该字是敏感词（的一部分）
-//				count++;
-//				if ("1".equals(wordMap.get("isEnd"))) {
-//				}
-//			} else {
-//
-//			}
-//		}
-//		return false;
-//	}
 }

@@ -33,7 +33,6 @@ public class GetCommentsByLike extends AbstractCommentsStrategy {
 		//从0开始
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
-		//不添加回复引用
 		List<CommentDto> returnList = getCommentDto(vo);
 		return returnList;
 	}

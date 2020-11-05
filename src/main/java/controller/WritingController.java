@@ -10,7 +10,7 @@ import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import pojo.dto.WritingBean;
+import pojo.bean.WritingBean;
 import pojo.po.Article;
 import pojo.po.Posts;
 import pojo.po.Writing;

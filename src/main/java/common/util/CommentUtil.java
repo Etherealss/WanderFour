@@ -35,6 +35,7 @@ public class CommentUtil {
 		CommentBean cb = new CommentBean();
 		//判断是否为当前用户
 		Long reviewerUserId = comment.getUserid();
+		//userid可以为null
 		cb.setCanDelete(reviewerUserId.equals(userid));
 		//封装回复数据，如果没有，则赋值为null，不影响
 		cb.setRelayComment(reply);
@@ -51,8 +52,8 @@ public class CommentUtil {
 		//使用base64转码
 		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
 		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-		//TODO 图片转码
-		cb.setUserImg(imgByBase64);
+		//TODO 评论图片转码储存
+		cb.setUserImg("imgByBase64");
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;

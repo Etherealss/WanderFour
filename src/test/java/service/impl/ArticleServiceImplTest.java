@@ -6,7 +6,8 @@ import common.enums.Partition;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import pojo.dto.WritingBean;
+import pojo.bean.WritingBean;
+import pojo.dto.WritingDto;
 import pojo.po.Article;
 import service.WritingService;
 import common.util.TestUtil;
@@ -75,7 +76,7 @@ public class ArticleServiceImplTest {
 
 	@Test
 	public void testGetWritingByTime() throws Exception {
-		List<WritingBean<Article>> time = service.getWritingList(1, "time");
+		List<WritingDto<Article>> time = service.getWritingList(4L, 1, "time");
 		JSONObject json = new JSONObject();
 		json.put("articleList", time);
 		logger.debug(json);

@@ -34,7 +34,9 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 			}
 			JSONObject resultJson = JSONObject.parseObject(responseStrBuilder.toString());
 			//TODO 防止了js注入
-			JSONObject returnJson = SecurityUtil.ensureJsSafe(resultJson);
+			if (resultJson != null) {
+				JSONObject returnJson = SecurityUtil.ensureJsSafe(resultJson);
+			}
 			return resultJson;
 		} catch (Exception e) {
 			logger.error("解析json 失败 " + e.getMessage());

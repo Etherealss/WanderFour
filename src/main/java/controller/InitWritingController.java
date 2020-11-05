@@ -1,14 +1,12 @@
 package controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import common.enums.Partition;
 import common.enums.TargetType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
-import pojo.dto.WritingBean;
+import pojo.dto.WritingDto;
 import pojo.po.Article;
 import pojo.po.Posts;
 import service.WritingService;
@@ -30,13 +28,15 @@ public class InitWritingController extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		JSONObject params = GetParamChoose.getJsonByJson(req);
+		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		String partStr = params.getString("partition");
 		String order = params.getString("order");
 		String type = params.getString("type");
 
 		ControllerUtil.checkParamExist(resp, "初始化分区页面", partStr, order, type);
 
+		//未登录则获取为null，不影响
+		Long userId = ControllerUtil.getUserId(req);
 
 		int partition = Integer.parseInt(partStr);
 		JSONObject resultJson = new JSONObject();
@@ -44,12 +44,12 @@ public class InitWritingController extends BaseServlet {
 		try {
 			if (TargetType.ARTICLE.val().equals(type)) {
 				WritingService<Article> articleService = ServiceFactory.getArticleService();
-				List<WritingBean<Article>> articleList = articleService.getWritingList(partition, order);
+				List<WritingDto<Article>> articleList = articleService.getWritingList(userId, partition, order);
 				resultJson.put("writings", articleList);
 
 			} else if (TargetType.POSTS.val().equals(type)) {
 				WritingService<Posts> postsService = ServiceFactory.getPostsService();
-				List<WritingBean<Posts>> postsList = postsService.getWritingList(partition, order);
+				List<WritingDto<Posts>> postsList = postsService.getWritingList(userId, partition, order);
 				resultJson.put("writings", postsList);
 			}
 

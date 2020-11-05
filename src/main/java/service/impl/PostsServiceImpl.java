@@ -3,19 +3,26 @@ package service.impl;
 import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
+import common.strategy.choose.CommentChoose;
 import common.strategy.choose.GetWritingListChoose;
 import common.strategy.impl.GetPostsStrategyImpl;
+import common.strategy.impl.comment.GetOnlyCommentByLike;
 import common.util.FileUtil;
 import common.util.JdbcUtil;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import pojo.dto.WritingBean;
+import pojo.CommentVo;
+import pojo.bean.WritingBean;
+import pojo.dto.CommentDto;
+import pojo.dto.WritingDto;
+import pojo.po.Article;
 import pojo.po.Posts;
 import pojo.po.User;
 import service.WritingService;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,11 +68,13 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		try {
 			conn = JdbcUtil.getConnection();
 			Posts posts = dao.getWritingById(conn, id);
-			WritingBean<Posts> bean = new WritingBean<>();
+
 			UserDao userDao = DaoFactory.getUserDAO();
 			User userInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
 			byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
 			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+
+			WritingBean<Posts> bean = new WritingBean<>();
 			bean.setUserImg(imgByBase64);
 			bean.setWriting(posts);
 			bean.setUserNickname(userInfo.getNickname());
@@ -82,7 +91,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	@Override
-	public List<WritingBean<Posts>> getWritingList(int partition, String order) throws Exception {
+	public List<WritingDto<Posts>> getWritingList(Long userid, int partition, String order) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		GetWritingListChoose<Posts> choose = new GetWritingListChoose<>(new GetPostsStrategyImpl());
 		//判断排序方式
@@ -97,20 +106,43 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		}
 
 		UserDao userDao = DaoFactory.getUserDAO();
-		List<WritingBean<Posts>> beanList = new ArrayList<>();
+		List<WritingDto<Posts>> wdList = new ArrayList<>();
 		for (Posts posts : postsList) {
-			User reviewerInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
-			WritingBean<Posts> wb = new WritingBean<>();
-			//用户头像 使用base64转码
-			byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
-			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 
-			wb.setWriting(posts);
-			wb.setUserNickname(reviewerInfo.getNickname());
-			wb.setUserImg(imgByBase64);
-			beanList.add(wb);
+			WritingBean<Posts> bean = this.getWritingBeanWithAuthorInfo(conn, userDao, posts);
+
+			//获取评论
+			CommentChoose commentChoose = new CommentChoose(new GetOnlyCommentByLike());
+			CommentVo commentVo = new CommentVo();
+			commentVo.setConn(conn);
+			commentVo.setDao(DaoFactory.getCommentDao(Posts.class));
+			commentVo.setUserid(userid);
+			//评论的问贴的id
+			commentVo.setParentId(posts.getId());
+			//获取多条评论的Dto数据
+			List<CommentDto> commentDtos = commentChoose.doGet(commentVo);
+
+			//封装问贴数据及其评论数据
+			WritingDto<Posts> writingDto = new WritingDto<>();
+			writingDto.setCommentDtoList(commentDtos);
+			writingDto.setWritingBean(bean);
+
+			wdList.add(writingDto);
 		}
-		return beanList;
+		return wdList;
+	}
+
+	private WritingBean<Posts> getWritingBeanWithAuthorInfo(Connection conn, UserDao userDao, Posts posts) throws SQLException {
+		User reviewerInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
+		WritingBean<Posts> bean = new WritingBean<>();
+		//用户头像 使用base64转码
+		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+
+		bean.setWriting(posts);
+		bean.setUserNickname(reviewerInfo.getNickname());
+		bean.setUserImg(imgByBase64);
+		return bean;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package service.impl;
 
+import common.bean.SensitiveNode;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -20,7 +21,14 @@ public class SensitiveServiceImplTest {
 
 	@Test
 	public void testGetSensitiveWordsList() {
-		Map<String, Object> sensitiveWordsList = service.getSensitiveWordsMap();
+		Map<Character, SensitiveNode> sensitiveWordsList = service.getSensitiveWordsMap();
 		logger.debug(sensitiveWordsList);
+	}
+
+	@Test
+	public void testGetSensitiveWordsMap2() throws Exception {
+		SensitiveServiceImpl service = new SensitiveServiceImpl();
+		Map<Character, SensitiveNode> sensitiveWordsMap2 = service.getSensitiveWordsMap();
+		logger.debug(sensitiveWordsMap2);
 	}
 }

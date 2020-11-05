@@ -27,7 +27,6 @@ public class GetReplysByTime extends AbstractReplysStrategy {
 		//10+3
 		vo.setReplyRows(DaoEnum.REPLY_ROWS_TEN);
 
-		//不添加回复引用
 		List<CommentDto> returnList = getReplysDtoList(vo);
 		return returnList;
 	}

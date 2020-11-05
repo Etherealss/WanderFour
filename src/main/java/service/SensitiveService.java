@@ -1,5 +1,7 @@
 package service;
 
+import common.bean.SensitiveNode;
+
 import java.util.Map;
 
 /**
@@ -20,5 +22,5 @@ public interface SensitiveService {
 	 * 获取敏感词列表
 	 * @return
 	 */
-	Map<String, Object> getSensitiveWordsMap();
+	Map<Character, SensitiveNode> getSensitiveWordsMap();
 }

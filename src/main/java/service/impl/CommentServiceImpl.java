@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		//选择策略 按点赞数获取热门评论及其回复
-		CommentChoose choose = new CommentChoose(new GetHeadCommentsByLike());
+		CommentChoose choose = new CommentChoose(new GetHeadCommentsAndReplyByLike());
 		//获取评论DtoList
 		CommentVo vo = new CommentVo();
 		vo.setParentId(parentId);

@@ -72,16 +72,21 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 			 */
 			Comment targetComment = dao.getComment(conn, targetId);
 			CommentBean commentBean = CommentUtil.getCommentBean(conn, comment, targetComment, userid);
-
-			/*
-			获取该评论的回复记录信息列表
-			TODO 此处按获赞数获取回复
-			 */
-			CommentVo voForReply = vo;
-			voForReply.setOrder(DaoEnum.FIELD_ORDER_BY_LIKE);
-			List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, false);
-			//封装到Dto
-			CommentDto dto = new CommentDto(commentBean, replysCommentBean);
+			CommentDto dto = null;
+			//判断是否要获取评论的回复
+			if (vo.getReplyRows() != 0) {
+				/*
+				获取该评论的回复记录信息列表
+				TODO 此处按获赞数获取回复
+				*/
+				CommentVo voForReply = vo;
+				voForReply.setOrder(DaoEnum.FIELD_ORDER_BY_LIKE);
+				List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, false);
+				//封装到Dto
+				dto = new CommentDto(commentBean, replysCommentBean);
+			} else {
+				dto = new CommentDto(commentBean, null);
+			}
 			returnDtoList.add(dto);
 		}
 		return returnDtoList;
