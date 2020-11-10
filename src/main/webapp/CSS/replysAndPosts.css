@@ -1,0 +1,220 @@
+/* —————————————— 点击“点击展开”查看全文的颜色 ———————————————— */
+.clickReadFullArticle{
+    color: #f7ad3a;
+    /* color: #81cbbf; */
+    /* color: #ffd995; */
+}
+
+/* ——————————————————————— 评论的页脚盒子部分 ——————————————————————————————— */
+.APlist_likeAndReplyBox{
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    /* border: 1px solid #0f0; */
+}
+
+/* ———————————— 楼内页脚 ———————————————————— */
+.APlist_likeAndReply{
+    padding-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    border-bottom: 1px solid #e7e7e7;
+}
+/* 中间那条小竖线 */
+.APlist_likeAndReply > span{
+    height: 11px;
+    position: absolute;
+    right: 37px;
+    top: 8px;
+    border-left: 1px solid #999999;
+}
+/* 点赞 */
+.APReply_like,.APlist_like{
+    padding: 5px 14px 5px 24px;
+    font-size: 12px;
+    color: #666666;
+    background: url(../img/answerPosts_Like.png) no-repeat 5px 4.5px;
+    background-size: 15px;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+/* 点赞后变色 */
+.APlist_likeHover{
+    color: #81CBBF;
+    background-image: url(../img/answerPosts_LikeHover.png);
+}
+
+/* .APlist_like:hover{
+    color: #81CBBF;
+} */
+
+/* ————————— 回复 ————————— */
+.APlist_reply{
+    padding: 5px 0 5px 14px;
+    font-size: 12px;
+    color: #666666;
+    cursor: pointer;
+    /* border: 1px solid #0f0; */
+}
+
+.APlist_reply:hover{
+    color: #81cbbf;
+}
+
+/* ——————————————————————— 发表回复的输入框 ————————————————————————— */
+.replyInputBox{
+    width: 914px;
+    padding: 10px 0;
+    position: fixed;
+    display: none;
+    bottom: 0;
+    z-index: 200;
+    background: rgba(173, 225, 217,0.95);
+    border: 1px solid #f00;
+}
+
+.replyInputBox > textarea{
+    width: 740px;
+    min-height: 100px;
+    line-height: 25px;
+    margin: 0 0 0 30px;
+    padding: 10px;
+    color: #333333;
+    font-size: 15px;
+    font-family: "Microsoft YaHei UI";
+    border-radius: 5px;
+    background: #f7f7f7;
+    outline: none;
+    border: none;
+    resize:none;
+    border: 1px solid #dad9d9;
+}
+
+.replyInputBox > button{
+    width: 75px;
+    height: 30px;
+    margin-right: 25px;
+    float: right;
+    background: #81cbbf;
+    color: #fff;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    transition-duration: 0.3s;
+}
+
+.replyInputBox > button:hover{
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+}
+
+/* —————————————————————— 回复楼层里的样式 ———————————————————————— */
+.APReplys_list{
+    list-style-type: none;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.APReplys_list > li{
+    padding: 10px 0 0 0;
+    margin: 0 15px 0 38px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+/* 回复的最后一个贴近 */
+.APReplys_list > li:nth-last-child(1){
+    border-bottom: none;
+}
+
+/* ————— 回复页眉信息 ————— */
+.APReply_message{
+    height: 50px;
+    position: relative;
+    /* border: 1px solid #00f; */
+}
+
+.APReply_headIcon{
+    width: 37px;
+    height: 37px;
+    position: absolute;
+    top: 3px;
+    border-radius: 50%;
+    /* background: #81cbbf; */
+}
+
+.APReply_headIcon > img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    outline: none;
+}
+
+.APReply_userName{
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    line-height: 25px;
+    font-size: 14px;
+    color: #6D7A70;
+    font-weight: 700;
+}
+
+.APReply_postTime{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    line-height: 22px;
+    font-size: 12px;
+    color: #999999;
+    border: 1px solid #0f0;
+}
+
+/* ———————— 回复的文本 ———————————— */
+.APReply_content{
+    padding: 0 5px;
+    margin: 8px 0 0;
+    line-height: 24px;
+    color: #333;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    text-indent: 2rem;
+    /* border: 1px solid #00f; */
+}
+
+/* ———————————— 页脚的点赞和回复 ———————————— */
+.APReply_afterMessage{
+    margin-bottom: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    /* border: 1px solid #0f0; */
+}
+
+/* 中间那条小竖线 */
+.APReply_afterMessage > span{
+    height: 11px;
+    position: absolute;
+    right: 37px;
+    top: 8px;
+    border-left: 1px solid #999999;
+}
+
+/* 点赞后变色 */
+.APReply_likeHover{
+    color: #81CBBF;
+    background-image: url(../img/answerPosts_LikeHover.png);
+}
+
+/* .APlist_like:hover{
+    color: #81CBBF;
+} */
+
+/* 回复 */
+.APReply_reply{
+    padding: 5px 0 5px 14px;
+    font-size: 12px;
+    color: #666666;
+    cursor: pointer;
+    /* border: 1px solid #0f0; */
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试用的</title>
+    <style type="text/css">
+        p{
+            width:300px;
+            height:100px;
+            text-indent:2em;
+            line-height:150%;
+            margin:5px 0 0;
+        }
+        p a{
+            color:#FDCD3D;
+        }
+
+        .outsideBox{
+            width: 200px;
+            border: 1px solid #f00;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+    </p>
+
+    <div class="outsideBox">回复@MRR：Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Repudiandae voluptatem illum impedit. Pariatur, incidunt. 
+        Repellendus, inventore? Impedit soluta odit harum laboriosam fugit? 
+        Facilis dolores, ab aperiam animi consequatur inventore dolorum!
+    </div>
+    <div class="toString"></div>
+
+    <script src="./JS/jQuery.js"></script>
+    <script>
+        $(function(){
+            //获取outsideBox内前几个字符
+            //（1）单独获取“回复”两个字，加粗
+            // var str =  $(".outsideBox").text().substring(0,2);
+            // $(".toString").html("<b>"+"回复"+"</b>");
+            
+            //（2）获取“@username”，加蓝色a链接
+            var username = 'Mr.MUSHROOM';
+            // $(".toString").html("<b>回复</b>"+"<span style='color:#4a9cd6'>@"+username+"</span>："+$(".outsideBox").text());
+
+            //——————————————————— 截取掉@某某 ———————————————————————
+            function splitContent(replyContent)
+            {
+                var indexColon =  replyContent.indexOf("：");  //获取第一个冒号所在的下标
+                return replyContent.substr(indexColon+1,replyContent.length);
+            }
+
+            console.log($(".outsideBox").text());
+            console.log(splitContent($(".outsideBox").text()));
+            /*
+            （1）单独获取“回复”两个字，加粗
+            （2）获取“@username”，加蓝色a链接
+            （3）显示内容部分截取掉“回复@username”
+            */
+
+            $("p").each(function(){
+                var maxwidth=60;//设置最多显示的字数
+                var text=$(this).text();
+                if($(this).text().length>maxwidth){
+                    $(this).text($(this).text().substring(0,maxwidth));
+                    $(this).html($(this).html()+"..."+"<a href='javascript:;'> 点击展开</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+
+                };
+                $(this).find("a").click(function(){
+                    $(this).parent().text(text);//点击“点击展开”，展开全文
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!-- ry10660801
+ry10660912 -->
