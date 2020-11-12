@@ -144,15 +144,15 @@ function loginSumbit(loginEmailVal, loginPwVal) {
     $.ajax({
         type: 'post',
         url: '/UserEnterServlet',
-        data: {
+        data: JSON.stringify({
             action: "login",
             //传递邮箱
             email: loginEmailVal,
             //传递密码
-            pw: loginPwVal,
-        },
+            pw: loginPwVal
+        }),
         dataType: 'json',
-        contentType: "application/json",
+        contentType: 'application/json;charset=utf-8',
         success: function (data) {
             //TODO 成功：跳转至首页
             //异常情况

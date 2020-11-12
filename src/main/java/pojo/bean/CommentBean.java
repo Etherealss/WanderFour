@@ -39,10 +39,12 @@ public class CommentBean {
 
 	@Override
 	public String toString() {
+		//TODO 删除测试
 		return "CommentBean{" +
 				"comment=" + comment +
 				", userNickname='" + userNickname + '\'' +
-				", userImg='" + userImg.substring(0,20) + "...'" +
+				", userImg='" +
+				((userImg.length() >= 20) ? ("(注释)Base64数组前20位："+userImg.substring(0, 20) + "...'") : userImg) +
 				'}';
 	}
 

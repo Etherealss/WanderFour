@@ -83,6 +83,11 @@ $(".APlist_like").on({
 });
 
 // ————————————————————————— 滑动时被限制在浏览器顶部 —————————————————————————————
+// 评论的“点击阅读全文”
+readFullArticle($(".APlist_content"));
+// 回复的“点击阅读全文”
+readFullArticle($(".APReply_content"));
+
 //给外框定义的高度为帖子的高度
 $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 
@@ -117,13 +122,13 @@ $(window).scroll(function()
 var floorNum = 0;   //层楼数（全局变量）
 var userId = "小华er";
 
-// var imgSrc = "../img/homePage_highSchoolStudent_head.png";
-function postsPublish(userId, postTime, postsContent, postsLikeNum) {
+function postsPublish(userId, postTime, postsContent, postsLikeNum,src) 
+{
     var li = $("<li></li>");
     //———————— 楼层发表样式 —————————
     var str = "<div class='APlist_message'>" +
         "<div class='APlist_headIcon'>" +
-        "<img src='./img/homePage_universityStudent_head.png'/>" +
+        "<img src='"+src+"'/>" +
         "</div>" +
         "<a class='APlist_userName'>" + userId + "</a>" +
         "<span class='APlist_userIntro'>简介blabla</span>" +
@@ -132,20 +137,32 @@ function postsPublish(userId, postTime, postsContent, postsLikeNum) {
         "</div>" +
         "<p class='APlist_content'>" + postsContent + "</p>" +
         "<div class='APlist_likeAndReply'>" +
-        "<div class='APlist_like'>" + postsLikeNum + "</div>" +
-        "<span></span>" +
         "<div class='APlist_reply'>回复</div>" +
+        "<span></span>" +
+        "<div class='APlist_like'>" + postsLikeNum + "</div>" +
         "</div>";
     li.html(str);   //插入到<li>里
     $(".answerPosts_list").prepend(li);    //插入到楼层里
     li.slideDown();     //为评论的添加缓冲效果
     $("#postsTextarea").val("");  //点击发表后，清空textarea里的内容
 
-    // 点赞后，更换👍的颜色
-    $(".APlist_like").on({
+    clickLike($(".APlist_like"));    //点赞换色
+}
+
+// ———————————————————————— 点赞后，更换👍的颜色 ——————————————————————————————
+function clickLike(AP_like)
+{
+    AP_like.on({
         click: function () {
             $(this).toggleClass("APlist_likeHover");
-            // $(this).text("1");
+            if($(this).hasClass("APlist_likeHover"))    //点击前后显示“1”和“点赞”
+            {
+                $(this).text("1");
+            }
+            else
+            {
+                $(this).text("点赞");
+            }
         }
     });
 }
@@ -155,46 +172,32 @@ function getPostsContent() {
     return $("#postsTextarea").val();
 }
 
-//获取当前系统时间
-function getPostsTime(timeKeeping) {
-    console.log(timeKeeping);
-    return postsDisplayTime(timeKeeping);
+//———————————————————— 点击后将输入的内容发表到楼层里 ————————————————————
+function clickPostPosts()
+{
+    $("#postPosts").on({
+        click: function () 
+        {
+            time = '1分钟前';
+            postPostsUp(userId, time, getPostsContent());
+        }
+    });
 }
 
-//显示时间
-function postsDisplayTime(timeKeeping) {
-    var curTime = new Date();
-    // setTimeout("getPostsTime()", 60000); //每一分钟更新一次
-    //一小时内显示多少分钟前：“XX分钟前”
-    if (timeKeeping < 60) {
-        return curTime.getMinutes() + "分钟前";
-    }
-    //24小时内显示多少小时前：“XX小时前”
-    else if (timeKeeping < 24 * 60) {
-        return curTime.getHours() + "小时前";
-    }
-    //24小时以上，当年内，显示月日
-    else if (timeKeeping >= 24 * 60) {
-        return (curTime.getMonth() + 1) + "." + curTime.getDate();
-    }
-    //过了一年后，显示加上年
-    else {
-        // curTime.getFullYear() + "." + (curTime.getMonth() + 1) + "." + curTime.getDate();
-    }
+clickPostPosts();
+
+//————— 输入的内容发表到楼层里 ———————————
+function postPostsUp(userId,time,postContent,postsLikeNum,src)
+{
+    var postsLikeNum = "点赞";
+    postsPublish(userId, time,postContent,postsLikeNum,src);
+    
+    // 评论的“点击阅读全文”
+    readFullArticle($(".APlist_content"));
+
+    //更改中间内容部分的高度
+    $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 }
-
-//点击后将输入的内容发表到楼层里
-$("#postPosts").on({
-    click: function () {
-        var nowTime = new Date();
-        var timeKeeping = nowTime.getMinutes();
-
-        var postsLikeNum = "点赞";
-        postsPublish(userId, getPostsTime(timeKeeping), getPostsContent(), postsLikeNum);
-        //更改中间内容部分的高度
-        $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
-    }
-});
 
 //——————————————— 点击回到顶部 —————————————————
 slowToTop($("#returnToTopBtn"));

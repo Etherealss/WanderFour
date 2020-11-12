@@ -49,7 +49,7 @@ public class CommentServiceImplTestTest {
 		Comment comment = new Comment();
 		comment.setContent("这是一条评论/回复");
 		comment.setParentId(2L);
-		comment.setTargetId(2L);
+//		comment.setTargetId(2L);
 		comment.setUserid(1L);
 		ResultType resultType = service.publishNewComment(comment);
 		logger.debug(resultType);

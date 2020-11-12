@@ -77,7 +77,6 @@ public class UserEnterController extends BaseServlet {
 			UserService us = ServiceFactory.getUserService();
 
 			state = us.checkUserExist(email);
-			logger.trace(state);
 			//用户存在
 			if (state == ResultType.IS_REGISTED) {
 
@@ -132,7 +131,6 @@ public class UserEnterController extends BaseServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.debug(info.toString());
 
 		jsonObject.put("state", info);
 		ResponseChoose.respToBrowser(resp, jsonObject);

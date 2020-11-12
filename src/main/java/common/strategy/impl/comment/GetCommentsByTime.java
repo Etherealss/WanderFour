@@ -33,7 +33,7 @@ public class GetCommentsByTime extends AbstractCommentsStrategy {
 		//回复从0开始
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
-		logger.debug(vo);
+		logger.debug(vo.toString());
 		List<CommentDto> returnList = getCommentDto(vo);
 		return returnList;
 	}
