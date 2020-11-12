@@ -29,11 +29,17 @@ public class InitWritingController extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
+
+		//空参检查
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "初始化作品",
+				"partition", "order", "type");
+		if (paramMissing) {
+			return;
+		}
+
 		String partStr = params.getString("partition");
 		String order = params.getString("order");
 		String type = params.getString("type");
-
-		ControllerUtil.checkParamExist(resp, "初始化分区页面", partStr, order, type);
 
 		//未登录则获取为null，不影响
 		Long userId = ControllerUtil.getUserId(req);

@@ -2,6 +2,7 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.choose.GetParamChoose;
+import common.util.ControllerUtil;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -30,12 +31,16 @@ public class CheckUserExistController extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		JSONObject params = GetParamChoose.getJsonByJson(req);
-		String email = params.getString("email");
-		logger.debug(email);
-		if (email == null) {
-			ResponseChoose.respNoParameterError(resp, "检查账号是否已注册");
+
+		//空参检查
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "检查账号是否已注册",
+				"email");
+		if (paramMissing){
 			return;
 		}
+
+		String email = params.getString("email");
+		logger.debug(email);
 		//获取service，检查email是否存在
 		UserService us = ServiceFactory.getUserService();
 		ResultType state = null;

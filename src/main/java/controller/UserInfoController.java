@@ -30,11 +30,14 @@ public class UserInfoController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("获取用户信息");
 		Long userId = ControllerUtil.getUserId(req);
+
 		JSONObject resJson = new JSONObject();
 		ResultState state;
+
 		if (userId == null) {
 			ResultType type = ResultType.NOT_LOGGED;
 			state = new ResultState(type, "用户未登录");
+
 		} else {
 			UserService userService = ServiceFactory.getUserService();
 			try {
@@ -65,7 +68,7 @@ public class UserInfoController extends BaseServlet {
 		if (user == null) {
 			ResponseChoose.respNoParameterError(resp, "获取不到User对象");
 			return;
-		}else if(userId == null){
+		} else if (userId == null) {
 			ResponseChoose.respUserUnloggedError(resp);
 			return;
 		}
@@ -73,7 +76,7 @@ public class UserInfoController extends BaseServlet {
 		UserService userService = ServiceFactory.getUserService();
 		try {
 			boolean b = userService.updateUserInfo(user);
-			if (!b){
+			if (!b) {
 				ResponseChoose.respToBrowser(resp, new ResultState(ResultType.EXCEPTION, "修改用户异常"));
 				return;
 			}

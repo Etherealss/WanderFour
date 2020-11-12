@@ -6,6 +6,7 @@ import common.enums.TargetType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
+import common.util.ControllerUtil;
 import pojo.po.Article;
 import pojo.po.Posts;
 import service.WritingService;
@@ -35,17 +36,13 @@ public class WritingBesideController extends BaseServlet{
 		String type = params.getString("type");
 		String partition = params.getString("partition");
 
-		//TODO 工具类实现判空
-		if ("".equals(type) || type == null){
-			logger.error("type参数缺失");
-			ResponseChoose.respNoParameterError(resp, "type参数缺失");
+		//空参检查
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "获取侧边的推荐作品",
+				"type", "partition");
+		if (paramMissing) {
 			return;
 		}
-		if ("".equals(partition) || partition == null) {
-			logger.error("partition参数缺失");
-			ResponseChoose.respNoParameterError(resp, "partition参数缺失");
-			return;
-		}
+
 		int part = Integer.parseInt(partition);
 
 

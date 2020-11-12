@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 寒洲
- * @description
+ * @description 获取参数
  * @date 2020/10/16
  */
 public class GetParamChoose {

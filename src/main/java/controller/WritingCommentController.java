@@ -44,11 +44,13 @@ public class WritingCommentController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("获取评论");
 		JSONObject param = GetParamChoose.getJsonByUrl(req);
+
 		//空参检查
-		if (param == null) {
-			ResponseChoose.respNoParameterError(resp, "获取文章评论");
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "评论");
+		if (paramMissing) {
 			return;
 		}
+
 		//判断文章还是帖子
 		String type = param.getString("type");
 		//获取请求的数据

@@ -2,6 +2,7 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.choose.GetParamChoose;
+import common.util.ControllerUtil;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -26,13 +27,13 @@ public class CategoryController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("分类Get");
 		JSONObject params = GetParamChoose.getJsonByJson(req);
-		Integer partition = params.getInteger("partition");
-
 		//空参判断
-		if (partition == null){
-			ResponseChoose.respNoParameterError(resp, "获取分类信息(partition参数)");
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "获取分类", "partition");
+		if (paramMissing){
 			return;
 		}
+
+		Integer partition = params.getInteger("partition");
 		logger.debug(partition);
 
 		CategoryService service = ServiceFactory.getCategoryService();
