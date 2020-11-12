@@ -183,8 +183,8 @@
             </div>
             <div class="asmainComment">
                 <span>评论</span>
-                <input type="text" name="">
-                <button>发表评论</button>
+                <input type="text" name="" id="toComInput">
+                <button id="clickToCom">发表评论</button>
                 <div class="asmainLike like" id="articleLike"
                      onclick="doLikeOperate($(this), params.article, 'article')">
                     0
@@ -192,187 +192,196 @@
                 <div class="asmainCol" onclick="doCollectOperate($(this), params.article, 'article')">收藏</div>
             </div>
             <div class="asmainComments">
-                <div class="asCommentsContent">
-                    <div class="asCommentsContentOri">
-                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                        <span class="asCommentsContentID">用户1:</span>
-                        <span class="asCommentConmain">太棒了！</span>
-                        <div class="asCommentInteract">
-                            <span class="asCommmentTime">2020.10.13</span>
-                            <span class="toComment">回复</span>
-                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                <ul id="asmainCommentsUl">
+                    <li>
+                        <div class="asCommentsContent">
+                            <div class="asCommentsContentOri">
+                                <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                <span class="asCommentsContentID">用户1:</span>
+                                <span class="asCommentConmain">太棒了！</span>
+                                <div class="asCommentInteract">
+                                    <span class="asCommmentTime">2020.10.13</span>
+                                    <span class="toComment">回复</span>
+                                    <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                </div>
+                            </div>
+                            <div class="commentTocomment" style="display: none;">
+                                <ul></ul>
+                                <div>共<strong>0</strong>条回复，<i style="color: #81CBBF; cursor: pointer;">点击查看</i></div>
+                            </div>
+                            <div class="clickComment" style="display: none;">
+                                <input type="text" placeholder="请输入评论...">
+                                <button>发表评论</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="commentTocomment" style="display: none;">
-                        <ul></ul>
-                        <div>共<strong>0</strong>条回复，<i style="color: #81CBBF; cursor: pointer;">点击查看</i></div>
-                    </div>
-                    <div class="clickComment" style="display: none;">
-                        <input type="text" placeholder="请输入评论...">
-                        <button>发表评论</button>
-                    </div>
-                </div>
-                <div class="asCommentsContent">
-                    <div class="asCommentsContentOri">
-                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                        <span class="asCommentsContentID">用户2:</span>
-                        <span class="asCommentConmain">太棒了！</span>
-                        <div class="asCommentInteract">
-                            <span class="asCommmentTime">2020.10.13</span>
-                            <span class="toComment">回复</span>
-                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                    </li>
+                    <li>
+                        <div class="asCommentsContent">
+                            <div class="asCommentsContentOri">
+                                <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                <span class="asCommentsContentID">用户2:</span>
+                                <span class="asCommentConmain">太棒了！</span>
+                                <div class="asCommentInteract">
+                                    <span class="asCommmentTime">2020.10.13</span>
+                                    <span class="toComment">回复</span>
+                                    <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                </div>
+                            </div>
+                            <div class="commentTocomment" style="display: none;">
+                                <ul></ul>
+                                <div>共<strong>1条</strong>回复，<i style="color: #81CBBF; cursor: pointer;">点击查看</i></div>
+                            </div>
+                            <div class="clickComment" style="display: none;">
+                                <input type="text" placeholder="请输入评论...">
+                                <button>发表评论</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="commentTocomment" style="display: none;">
-                        <ul></ul>
-                        <div>共<strong>1条</strong>回复，<i style="color: #81CBBF; cursor: pointer;">点击查看</i></div>
-                    </div>
-                    <div class="clickComment" style="display: none;">
-                        <input type="text" placeholder="请输入评论...">
-                        <button>发表评论</button>
-                    </div>
-                </div>
-                <div class="asCommentsContent">
-                    <div class="asCommentsContentOri">
-                        <img src="./img/articleShowLogo/userLogo.png" alt="">
-                        <span class="asCommentsContentID">用户3:</span>
-                        <span class="asCommentConmain">太棒了！</span>
-                        <div class="asCommentInteract">
-                            <span class="asCommmentTime">2020.10.13</span>
-                            <span class="toComment">回复</span>
-                            <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                    </li>
+                    <li>
+                        <div class="asCommentsContent">
+                            <div class="asCommentsContentOri">
+                                <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                <span class="asCommentsContentID">用户3:</span>
+                                <span class="asCommentConmain">太棒了！</span>
+                                <div class="asCommentInteract">
+                                    <span class="asCommmentTime">2020.10.13</span>
+                                    <span class="toComment">回复</span>
+                                    <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                </div>
+                            </div>
+                            <div class="commentTocomment">
+                                <ul>
+                                    <li class="addCommentFirst">
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户4:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户5:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户6:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户7:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户8:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户9:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户10:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户11:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户12:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="./img/articleShowLogo/userLogo.png" alt="">
+                                            <span class="asCommentsContentID">用户13:</span>
+                                            <span class="asCommentConmain">太棒了！</span>
+                                            <div class="asCommentInteract">
+                                                <span class="asCommmentTime">2020.10.13</span>
+                                                <span class="toComment">回复</span>
+                                                <img src="./img/articleShowIcon/asUnLike.png" alt="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div>共<strong>10</strong>条回复，<i style="color: rgb(32, 171, 159); cursor: pointer;">点击查看</i></div>
+                            </div>
+                            <div class="clickComment" style="display: none;">
+                                <input type="text" placeholder="请输入评论...">
+                                <button>发表评论</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="commentTocomment">
-                        <ul>
-                            <li class="addCommentFirst">
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户4:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户5:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户6:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户7:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户8:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户9:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户10:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户11:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户12:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <img src="./img/articleShowLogo/userLogo.png" alt="">
-                                    <span class="asCommentsContentID">用户13:</span>
-                                    <span class="asCommentConmain">太棒了！</span>
-                                    <div class="asCommentInteract">
-                                        <span class="asCommmentTime">2020.10.13</span>
-                                        <span class="toComment">回复</span>
-                                        <img src="./img/articleShowIcon/asUnLike.png" alt="">
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div>共<strong>10</strong>条回复，<i style="color: rgb(32, 171, 159); cursor: pointer;">点击查看</i></div>
-                    </div>
-                    <div class="clickComment" style="display: none;">
-                        <input type="text" placeholder="请输入评论...">
-                        <button>发表评论</button>
-                    </div>
-                </div>
+                    </li>
+                </ul>
+                
                 <!-- <div class="clickComment clickCommentInit">
                     <input type="text" placeholder="请输入评论...">
                     <button>发表评论</button>
