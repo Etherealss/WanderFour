@@ -1,6 +1,8 @@
 package common.strategy.choose;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.regexp.internal.RE;
+import org.apache.log4j.Logger;
 import pojo.dto.ResultState;
 import common.enums.ResultMsg;
 import common.enums.ResultType;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/10/17
  */
 public class ResponseChoose {
+
+	private static Logger logger = Logger.getLogger(ResponseChoose.class);
 
 	/**
 	 * 策略类
@@ -65,7 +69,8 @@ public class ResponseChoose {
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
 				ResultMsg.NO_PARAMETER + msg);
-		throw new ServletException(ResultMsg.NO_PARAMETER + msg);
+		logger.error(ResultMsg.NO_PARAMETER + msg);
+//		throw new ServletException(ResultMsg.NO_PARAMETER + msg);
 	}
 
 
@@ -80,7 +85,8 @@ public class ResponseChoose {
 		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		strategy.respOnlyStateToBrowser(resp, ResultType.NO_RECORD,
 				ResultMsg.UN_FOUND + msg);
-		throw new ServletException(ResultMsg.UN_FOUND + msg);
+		logger.error(ResultMsg.UN_FOUND + msg);
+//		throw new ServletException(ResultMsg.UN_FOUND + msg);
 	}
 
 	/**
@@ -105,7 +111,8 @@ public class ResponseChoose {
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
 				ResultMsg.WRONG_PARAMETER + msg);
-		throw new ServletException(ResultMsg.WRONG_PARAMETER + msg);
+		logger.error(ResultMsg.WRONG_PARAMETER + msg);
+//		throw new ServletException(ResultMsg.WRONG_PARAMETER + msg);
 	}
 
 	/**

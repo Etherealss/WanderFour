@@ -44,11 +44,13 @@ public class WritingCommentController extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("获取评论");
 		JSONObject param = GetParamChoose.getJsonByUrl(req);
+
 		//空参检查
-		if (param == null) {
-			ResponseChoose.respNoParameterError(resp, "获取文章评论");
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "评论");
+		if (paramMissing) {
 			return;
 		}
+
 		//判断文章还是帖子
 		String type = param.getString("type");
 		//获取请求的数据
@@ -71,14 +73,18 @@ public class WritingCommentController extends BaseServlet {
 			String orderBy = param.getString("order");
 			Long targetId = param.getLong("targetId");
 			Long parentId = param.getLong("parentId");
-			Long userid = param.getLong("userid");
 			int currentPage = param.getIntValue("currentPage");
+
 
 			CommentVo vo = new CommentVo();
 			vo.setParentId(parentId);
 			//如果targetId没有参数，设置为null，不影响
 			vo.setTargetId(targetId);
+
+			//userid可以为null，即未登录
+			Long userid = ControllerUtil.getUserId(req);
 			vo.setUserid(userid);
+
 			if (orderBy == null) {
 				/*
 				没有该参数，说明是获取作品的推荐评论
@@ -182,7 +188,7 @@ public class WritingCommentController extends BaseServlet {
 
 		Long userId = ControllerUtil.getUserId(req);
 		if (userId == null) {
-			logger.error("评论时用户未登录");
+			logger.error("删除评论时用户未登录");
 			ResponseChoose.respUserUnloggedError(resp);
 			return;
 		}

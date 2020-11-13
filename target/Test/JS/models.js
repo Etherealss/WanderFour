@@ -39,11 +39,32 @@ function scrollLimiteHeight(outsideBox,insideBox)
             insideBox.css({top: distance});
         }
         else{   //scrollLen > outsideBox.offset().top+outsideBox.height()-insideBox.height()
-            // insideBox.css({top: outsideBox.height()-insideBox.height()+45});  
-            insideBox.css({bottom: 0});
+            insideBox.css({top: outsideBox.height()-insideBox.height()-45});  
+            // insideBox.css({bottom: 0});
         }   
     });
 }
 
+//————————————————————————————— 点击阅读全文 —————————————————————————————
+function readFullArticle(fullAritcle)
+{
+    fullAritcle.each(function()
+    {
+        var maxwidth = 300; //设置最多显示字数
+        var text = $(this).text();
+        if($(this).text().length > maxwidth)
+        {
+            $(this).text($(this).text().substring(0,maxwidth));
+            //如果字数超过最大字数，超出部分用"..."代替，并且在后面展开“点击展开”的链接
+            $(this).html($(this).html()+"...&nbsp;"+"<a class='clickReadFullArticle' href='javascript:;'>点击展开</a>");
+        }
 
+        $(this).find(".clickReadFullArticle").on({
+            click: function(){
+                $(this).parent().text(text);  //点击“点击展开”，展开全文
+                $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
+            }
+        });
+    });
+}
 

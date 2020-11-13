@@ -6,7 +6,7 @@
 body{
     background-color: #f7f7f7;
 }
-
+ 
 /* ———————————————————————————————— 主体部分 ————————————————————————————————————————— */
 .answerPosts_Content{
     width: 1250px;
@@ -264,7 +264,7 @@ body{
     bottom: -28px;
 }
 
-/* ——————————————————————————— 回答和评论 ———————————————————————————————————— */
+/* ———————————————————————————————————————— 回答和评论 ————————————————————————————————————————————————— */
 .answerPosts_answerAndComment{
     padding-bottom: 40px;
     border-radius: 10px;
@@ -342,9 +342,8 @@ body{
 /* ——————— 每层楼的样式 ——————— */
 .answerPosts_list > li{
     width: 840px;
-    padding: 18px 0;
+    padding-top: 18px;
     position: relative;
-    border-bottom: 1px solid #e7e7e7;
     /* border: 1px solid #0f0; */
 }
 
@@ -411,59 +410,13 @@ body{
 /* ———— 楼内文本 ———— */
 .APlist_content{
     padding: 0 5px;
-    margin: 10px 0 15px;
+    margin-top: 10px;
     line-height: 24px;
     color: #333;
     font-size: 15px;
     letter-spacing: 0.2px;
     text-indent: 2rem;
     /* border: 1px solid #00f; */
-}
-
-/* ———— 楼内页脚 ———— */
-.APlist_likeAndReply{
-    /* margin-bottom: 10px; */
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
-    display: flex;
-    /* border: 1px solid #f0f; */
-}
-/* 中间那条小竖线 */
-.APlist_likeAndReply > span{
-    height: 11px;
-    position: absolute;
-    right: 37px;
-    top: 8px;
-    border-left: 1px solid #999999;
-}
-/* 点赞 */
-.APlist_like{
-    padding: 5px 14px 5px 24px;
-    font-size: 12px;
-    color: #666666;
-    background: url(../img/answerPosts_Like.png) no-repeat 5px 4.5px;
-    background-size: 15px;
-    cursor: pointer;
-    /* border: 1px solid #f00; */
-}
-/* 点赞后变色 */
-.APlist_likeHover{
-    color: #81CBBF;
-    background-image: url(../img/answerPosts_LikeHover.png);
-}
-
-/* .APlist_like:hover{
-    color: #81CBBF;
-} */
-
-/* 回复 */
-.APlist_reply{
-    padding: 5px 0 5px 14px;
-    font-size: 12px;
-    color: #666666;
-    cursor: pointer;
-    /* border: 1px solid #0f0; */
 }
 
 /* ———————————————————————— 回到顶部 ———————————————————————————— */

@@ -25,11 +25,25 @@ public class ControllerUtil {
 		return (Long) userid;
 	}
 
-	public static void checkParamExist(HttpServletResponse resp, String msg, String... params) throws ServletException {
+	/**
+	 * 接口参数判空
+	 * @param resp
+	 * @param msg
+	 * @param params
+	 * @return 参数缺失返回true
+	 * @throws ServletException
+	 */
+	public static boolean isParamMissing(HttpServletResponse resp, String msg, String... params) throws ServletException {
+		if (params == null){
+			ResponseChoose.respNoParameterError(resp, msg + " Json为null，获取不到Json参数");
+			return true;
+		}
 		for (String param : params) {
 			if ("".equals(param) || param == null) {
 				ResponseChoose.respNoParameterError(resp, msg + "参数缺失");
+				return true;
 			}
 		}
+		return false;
 	}
 }

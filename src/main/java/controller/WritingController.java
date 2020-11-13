@@ -46,6 +46,9 @@ public class WritingController extends BaseServlet {
 		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 			return;
+		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_POSTS))) {
+			ResponseChoose.respWrongParameterError(resp, "参数undefined");
+			return;
 		}
 		logger.trace("获取作品 params = " + params);
 

@@ -208,7 +208,7 @@ function submitVal(partition, category, editPostsTitleVal, editPostsContentVal, 
     $.ajax({
         type: 'POST',
         url: '/WritingServlet',
-        data: {
+        data: JSON.stringify({
             type: "posts",
             partition: partition,
             category: category,
@@ -219,7 +219,7 @@ function submitVal(partition, category, editPostsTitleVal, editPostsContentVal, 
             label3: label[3],
             label4: label[4],
             label5: label[5]
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (res) {//成功的回调函数

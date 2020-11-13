@@ -76,6 +76,11 @@ public class ServiceFactory {
 		return ProxyUtil.getProxyForTransaction(new SensitiveServiceImpl());
 	}
 
+
+	public static EsServiceImpl getEsService(){
+		return new EsServiceImpl();
+	}
+
 //	/**
 //	 * 获取代理的指定分区的文章Service
 //	 * @return 经过代理的文章Service对象
