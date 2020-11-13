@@ -1,7 +1,5 @@
 package service.impl;
 
-import static org.junit.Assert.*;
-
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -15,7 +13,7 @@ public class EsServiceImplTest {
 
 	@Test
 	public void testCreateIndex() throws Exception {
-		service.createIndex();
+		service.createWritingIndex();
 	}
 
 	@Test

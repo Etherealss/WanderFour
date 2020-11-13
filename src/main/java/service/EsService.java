@@ -8,26 +8,23 @@ import java.util.Map;
 
 /**
  * @author 寒洲
- * @description
+ * @description ES搜索
  * @date 2020/11/10
  */
 public interface EsService {
 
 	/**
 	 * 添加索引
-	 * @throws IOException
 	 */
-
-	void createIndex() throws IOException;
+	void createWritingIndex();
 
 	/**
 	 * 根据索引名删除索引
 	 *
 	 * @param indexName 索引名
 	 * @return
-	 * @throws IOException
 	 */
-	boolean deleteIndex(String indexName) throws IOException;
+	boolean deleteIndex(String indexName);
 
 	/**
 	 * 判断索引是否存在
@@ -36,7 +33,7 @@ public interface EsService {
 	 * @return
 	 * @throws IOException
 	 */
-	boolean existsIndex(String indexName) throws IOException;
+	boolean existsIndex(String indexName);
 
 	/**
 	 * 新增文档
@@ -47,7 +44,7 @@ public interface EsService {
 	 * @throws IOException
 	 * @return 如果返回结果为CREATED，新增文档，如果返回结果是UPDATED，更新文档
 	 */
-	String addDoc(Map<String, Object> jsonMap, String indexName, String rowId) throws IOException;
+	String addDoc(Map<String, Object> jsonMap, String indexName, String rowId);
 
 	/**
 	 * 根据文档id，删除文档
@@ -57,7 +54,7 @@ public interface EsService {
 	 * @throws IOException
 	 * @return 如果返回结果deleted，删除成功，如果返回结果是not_found，文档不存在，删除失败
 	 */
-	String deleteDoc(String indexName, String id) throws IOException;
+	String deleteDoc(String indexName, String id);
 	/**
 	 * 根据文档id，更新文档，如果返回结果为UPDATED，更新成功，否则更新失败
 	 *
@@ -67,7 +64,7 @@ public interface EsService {
 	 * @throws IOException
 	 * @return
 	 */
-	String updateDoc(Map<String, Object> jsonMap, String indexName, String rowId) throws IOException;
+	String updateDoc(Map<String, Object> jsonMap, String indexName, String rowId);
 
 	/**
 	 * 批量操作
@@ -77,5 +74,5 @@ public interface EsService {
 	 * @return 如果返回结果为SUCCESS，则全部记录操作成功，否则至少一条记录操作失败，并返回失败的日志
 	 * @throws IOException
 	 */
-	String bulkDoc(String indexName, List<Article> docs, String action) throws IOException;
+	String bulkDoc(String indexName, List<Article> docs, String action);
 }

@@ -1,12 +1,19 @@
 package service;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.*;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.BoostingQueryBuilder;
 import org.elasticsearch.index.query.Operator;
@@ -28,9 +35,54 @@ import java.util.List;
  * @description ES 查询API操作
  * @date 2020/11/12
  */
-public class EsSearchOperator {
+public class EsOperator {
 
-	private Logger logger = Logger.getLogger(EsSearchOperator.class);
+	private Logger logger = Logger.getLogger(EsOperator.class);
+
+	/**
+	 * 添加索引
+	 * @param client
+	 * @param settings
+	 * @param mappings
+	 * @param indexName
+	 * @return
+	 * @throws IOException
+	 */
+	public CreateIndexResponse createIndex(RestHighLevelClient client, Settings.Builder settings,
+	                                       XContentBuilder mappings, String indexName) throws IOException {
+		// 将settings和mappings封装到Request中
+		CreateIndexRequest request = new CreateIndexRequest(indexName)
+				.settings(settings)
+				.mapping(mappings);
+		// 通过client对象连接ES并执行
+		return client.indices().create(request, RequestOptions.DEFAULT);
+	}
+
+	/**
+	 * 根据索引名删除索引
+	 * @param client
+	 * @param indexName
+	 * @return
+	 * @throws IOException
+	 */
+	public AcknowledgedResponse deleteIndex(RestHighLevelClient client, String indexName) throws IOException {
+		DeleteIndexRequest request = new DeleteIndexRequest(indexName);
+		return client.indices().delete(request, RequestOptions.DEFAULT);
+	}
+
+	/**
+	 * 判断索引是否存在
+	 * @param client
+	 * @param indexName
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean existsIndex(RestHighLevelClient client, String indexName) throws IOException {
+		GetIndexRequest request = new GetIndexRequest(indexName);
+		return client.indices().exists(request, RequestOptions.DEFAULT);
+	}
+
+
 
 	/**
 	 * 根据id查询
@@ -170,8 +222,8 @@ public class EsSearchOperator {
 	 * @param fieldName
 	 * @param from
 	 * @param size
-	 * @param lt 小于
-	 * @param gt 大于
+	 * @param lt        小于
+	 * @param gt        大于
 	 * @return
 	 * @throws IOException
 	 */
@@ -329,9 +381,9 @@ public class EsSearchOperator {
 	 * @param client
 	 * @param indexName
 	 * @param fieldName
-	 * @param size 记录数
+	 * @param size      记录数
 	 * @param sortOrder 排序方式
-	 * @param timeOut 超时时间
+	 * @param timeOut   超时时间
 	 * @return
 	 * @throws IOException
 	 */
@@ -387,7 +439,7 @@ public class EsSearchOperator {
 	 * @param lt
 	 * @throws IOException
 	 */
-	public void deleteByRangeQuery(RestHighLevelClient client, String indexName, String fieldName, int lt) throws IOException{
+	public void deleteByRangeQuery(RestHighLevelClient client, String indexName, String fieldName, int lt) throws IOException {
 		DeleteByQueryRequest request = new DeleteByQueryRequest(indexName);
 
 		//查询要删除的文档有多种方式,，此处为range
@@ -403,7 +455,7 @@ public class EsSearchOperator {
 	 * @return
 	 * @throws IOException
 	 */
-	public SearchResponse boolQuery(RestHighLevelClient client, String indexName) throws IOException{
+	public SearchResponse boolQuery(RestHighLevelClient client, String indexName) throws IOException {
 		SearchRequest request = new SearchRequest(indexName);
 		SearchSourceBuilder builder = new SearchSourceBuilder();
 		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
@@ -430,7 +482,7 @@ public class EsSearchOperator {
 	 * @return
 	 * @throws IOException
 	 */
-	public SearchResponse boostingQuery(RestHighLevelClient client, String indexName, int negativeBoost) throws IOException{
+	public SearchResponse boostingQuery(RestHighLevelClient client, String indexName, int negativeBoost) throws IOException {
 
 		BoostingQueryBuilder boostingQueryBuilder = QueryBuilders.boostingQuery(
 				QueryBuilders.matchQuery("content", "数学"),
@@ -489,8 +541,9 @@ public class EsSearchOperator {
 
 		// 同时指定高亮部分的前后标签
 		highlightBuilder.field(fieldName, fragmentSize)
-				.preTags("<font color='red'>")
-				.postTags("</font>");
+				.preTags("<span color='red'>")
+				.postTags("</span>");
+
 		builder.highlighter(highlightBuilder);
 
 		SearchRequest request = new SearchRequest(indexName);
@@ -542,9 +595,9 @@ public class EsSearchOperator {
 
 		builder.aggregation(
 				AggregationBuilders.range(aggName).field("createTime")
-				.addUnboundedTo(5)
-				.addRange(5, 10)
-				.addUnboundedFrom(10)
+						.addUnboundedTo(5)
+						.addRange(5, 10)
+						.addUnboundedFrom(10)
 		);
 
 		request.source(builder);
