@@ -4,8 +4,8 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strateg
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\DaoEnum.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\AbstractCommentsStrategy.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\PostsDaoImpl.java
-D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\EsSearchOperator.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetHeadCommentsAndReplyByLike.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\EsOperator.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\LikeService.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\CommentUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\ArticleServiceImpl.java
@@ -74,6 +74,7 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\annonta
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\EsServiceImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\listener\UserStateListener.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\LikeStrategyImpl.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\UserLoginController.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\GetParamStrategyImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\FileUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\choose\LikePersistChoose.java

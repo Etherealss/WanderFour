@@ -18,6 +18,7 @@ dao\WritingDao.class
 dao\CategoryDao.class
 controller\UserInfoController.class
 controller\WritingSearchController.class
+controller\UserLoginController.class
 common\strategy\impl\LikeStrategyImpl.class
 common\util\JedisUtil.class
 common\util\SecurityUtil.class
@@ -56,6 +57,7 @@ pojo\dto\CommentDto.class
 controller\WritingController.class
 pojo\bean\WritingBean.class
 dao\UserDao.class
+service\EsOperator.class
 service\WritingService.class
 pojo\po\Comment.class
 dao\impl\CategoryDaoImpl.class
@@ -101,7 +103,6 @@ common\enums\Partition.class
 common\util\JdbcUtil.class
 common\strategy\GetParamStrategy.class
 common\strategy\impl\GetArticleStrategyImpl.class
-service\EsSearchOperator.class
 common\util\EsUtil.class
 common\strategy\impl\CancelLikeStrategyImpl.class
 dao\SensitiveDao.class

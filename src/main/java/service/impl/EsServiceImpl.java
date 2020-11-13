@@ -11,10 +11,10 @@ import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexResponse;
@@ -23,9 +23,11 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.common.xcontent.json.JsonXContent;
 import pojo.po.Article;
+import pojo.po.Writing;
 import service.EsOperator;
 import service.EsService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +42,7 @@ public class EsServiceImpl implements EsService {
 
 	private RestHighLevelClient client = EsUtil.getClient();
 
-
-	private static final String INDEX_NAME = "writings";
+	public static final String INDEX_NAME = "writings";
 	/** ik分词器 */
 	private static final String ANALYZER_IK_MAX_WORD = "ik_max_word";
 	/** 最大分片数 */
@@ -50,7 +51,7 @@ public class EsServiceImpl implements EsService {
 	private static final int NUMBER_OF_REPLICAS = 1;
 
 	@Override
-	public void createWritingIndex() {
+	public boolean createWritingIndex() {
 		RestHighLevelClient client = null;
 		/*
 		准备索引相关的setting
@@ -96,6 +97,7 @@ public class EsServiceImpl implements EsService {
 			EsOperator operator = new EsOperator();
 			client = EsUtil.getClient();
 			CreateIndexResponse resp = operator.createIndex(client, settings, mappings, INDEX_NAME);
+			return resp.isAcknowledged();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -107,7 +109,7 @@ public class EsServiceImpl implements EsService {
 				}
 			}
 		}
-
+		return false;
 	}
 
 	@Override
@@ -154,17 +156,45 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public String addDoc(Map<String, Object> jsonMap, String indexName, String rowId) {
+	public String addDoc(Writing writing, String indexName, String docId) {
+		Map<String, Object> jsonMap = new HashMap<>();
+		if(writing instanceof Article){
+			Article article = (Article) writing;
+			jsonMap.put("title", article.getTitle());
+			jsonMap.put("content", article.getContent());
+		}
+
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
-			IndexRequest indexRequest = new IndexRequest(indexName)
-					.id(rowId)
-					.source(jsonMap);
-			IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
+			EsOperator operator = new EsOperator();
+			IndexResponse resp = operator.addDoc(client, jsonMap, indexName, docId);
 
 			//如果返回结果为CREATED，新增文档，如果返回结果是UPDATED，更新文档
+			DocWriteResponse.Result result = resp.getResult();
+			return result.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (client != null) {
+				try {
+					client.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String deleteDoc(String indexName, String docId) {
+		RestHighLevelClient client = null;
+		try {
+			client = EsUtil.getClient();
+			EsOperator operator = new EsOperator();
+			DeleteResponse response = operator.deleteDoc(client, indexName, docId);
 			DocWriteResponse.Result result = response.getResult();
 			return result.toString();
 		} catch (Exception e) {
@@ -182,39 +212,15 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public String deleteDoc(String indexName, String id) {
-		RestHighLevelClient client = null;
-		try {
-			client = EsUtil.getClient();
-			DeleteRequest deleteRequest = new DeleteRequest(indexName, id);
-			DeleteResponse response = client.delete(deleteRequest, RequestOptions.DEFAULT);
-			DocWriteResponse.Result result = response.getResult();
-			return result.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (client != null) {
-				try {
-					client.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
-	}
-
-
-	@Override
-	public String updateDoc(Map<String, Object> jsonMap, String indexName, String rowId) {
+	public String updateDoc(Map<String, Object> jsonMap, String indexName, String docId) {
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
-			UpdateRequest request = new UpdateRequest(indexName, rowId).doc(jsonMap);
-			UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
+			EsOperator operator = new EsOperator();
+			UpdateResponse resp = operator.updateDoc(client, jsonMap, indexName, docId);
 
-			DocWriteResponse.Result result = response.getResult();
+			DocWriteResponse.Result result = resp.getResult();
 
 			logger.debug("updateDoc: " + result.toString());
 			return result.toString();
@@ -232,7 +238,6 @@ public class EsServiceImpl implements EsService {
 		}
 		return null;
 	}
-
 
 	@Override
 	public String bulkDoc(String indexName, List<Article> docs, String action) {
@@ -324,17 +329,29 @@ public class EsServiceImpl implements EsService {
 		}
 	}
 
-
-	public void searchByHighLigh(String word) {
+	@Override
+	public void searchByHighLigh(String word, int from, int size) {
+		String[] fieldNames = {"title", "content", "label1", "label2", "label3", "label4", "label5"};
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
 			EsOperator operator = new EsOperator();
-			operator.highLightQuery(client, INDEX_NAME, "title", word);
+			SearchResponse resp =
+					operator.mulitHighLightQuery(client, INDEX_NAME, fieldNames, word, from, size);
+
+
 
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			if (client != null) {
+				try {
+					client.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

@@ -2,10 +2,16 @@ package service;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.*;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
@@ -14,10 +20,7 @@ import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.BoostingQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.range.Range;
@@ -29,6 +32,7 @@ import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -82,7 +86,47 @@ public class EsOperator {
 		return client.indices().exists(request, RequestOptions.DEFAULT);
 	}
 
+	/**
+	 /**
+	 * 新增文档
+	 *
+	 * @param client
+	 * @param jsonMap   索引字段key和value
+	 * @param indexName 索引名名称
+	 * @param docId     文档id，指定生成的文档id，如果为空，es会自动生成id
+	 * @throws IOException
+	 * @return 如果返回结果为CREATED，新增文档，如果返回结果是UPDATED，更新文档
+	 * @throws IOException
+	 */
+	public IndexResponse addDoc(RestHighLevelClient client, Map<String, Object> jsonMap,
+	                            String indexName, String docId) throws IOException {
+		IndexRequest indexRequest = new IndexRequest(indexName)
+				.id(docId)
+				.source(jsonMap);
+		return client.index(indexRequest, RequestOptions.DEFAULT);
+	}
 
+	/**
+	 * 根据文档id，删除文档
+	 *
+	 * @param client
+	 * @param indexName 索引名
+	 * @param id        文档id
+	 * @throws IOException
+	 * @return 如果返回结果deleted，删除成功，如果返回结果是not_found，文档不存在，删除失败
+	 */
+	public DeleteResponse deleteDoc(RestHighLevelClient client, String indexName,
+	                                String id) throws IOException {
+		DeleteRequest deleteRequest = new DeleteRequest(indexName, id);
+		return client.delete(deleteRequest, RequestOptions.DEFAULT);
+	}
+
+
+	public UpdateResponse updateDoc(RestHighLevelClient client, Map<String, Object> jsonMap,
+	                                String indexName, String docId) throws IOException {
+		UpdateRequest request = new UpdateRequest(indexName, docId).doc(jsonMap);
+		return client.update(request, RequestOptions.DEFAULT);
+	}
 
 	/**
 	 * 根据id查询
@@ -551,6 +595,49 @@ public class EsOperator {
 
 		return client.search(request, RequestOptions.DEFAULT);
 	}
+
+
+	/**
+	 * 高亮查询
+	 * @param client
+	 * @param indexName
+	 * @param fieldNames
+	 * @param value
+	 * @return
+	 * @throws IOException
+	 */
+	public SearchResponse mulitHighLightQuery(RestHighLevelClient client, String indexName, String[] fieldNames,
+	                                     String value, int from, int size) throws IOException {
+		SearchSourceBuilder builder = new SearchSourceBuilder();
+		// 分页信息
+		builder.from(from);
+		builder.size(size);
+
+
+		// 配置multiMatch查询
+		MultiMatchQueryBuilder matchQueryBuilder =
+				QueryBuilders.multiMatchQuery(value, fieldNames);
+		builder.query(matchQueryBuilder);
+
+		// 配置高亮查询
+		int fragmentSize = 10;
+		HighlightBuilder highlightBuilder = new HighlightBuilder();
+
+		for (String name : fieldNames) {
+			highlightBuilder.field(name, fragmentSize);
+		}
+
+		// 同时指定高亮部分的前后标签
+		highlightBuilder.preTags("<span color='red'>").postTags("</span>");
+
+		builder.highlighter(highlightBuilder);
+
+		SearchRequest request = new SearchRequest(indexName);
+		request.source(builder);
+
+		return client.search(request, RequestOptions.DEFAULT);
+	}
+
 
 	/**
 	 * 去重聚合查询

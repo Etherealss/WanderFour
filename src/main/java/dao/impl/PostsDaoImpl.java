@@ -26,7 +26,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 		Object[] params = {
 				p.getPartition().code(), p.getCategory(), p.getAuthorId(), p.getTitle(), p.getContent(),
 				p.getLabel1(), p.getLabel2(), p.getLabel3(), p.getLabel4(), p.getLabel5(),
-				p.getLiked(), p.getFollow()
+				p.getLiked(), p.getCollected()
 		};
 		return qr.update(conn, sql, params) == 1;
 	}
@@ -67,7 +67,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 		// 在储存partitionStr时，会调用对应的set方法，但是数据是复制到枚举属性partition上的
 		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
 				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
-				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow`" +
+				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected`" +
 				" FROM `posts` LEFT JOIN `partition` ON `posts`.`partition` = `partition`.`id` WHERE `posts`.`id`= ?;";
 		return qr.query(conn, sql, new BeanHandler<>(Posts.class), id);
 	}
@@ -93,7 +93,7 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	public List<Posts> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
 		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
 				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
-				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow`" +
+				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected`" +
 				" FROM `posts` LEFT JOIN `partition` ON `posts`.`partition` = `partition`.`id` WHERE `posts`.`partition`= ?" +
 				" ORDER BY " + order + " DESC LIMIT ?,? ";
 		return qr.query(conn, sql, new BeanListHandler<>(Posts.class), partition, start, rows);
