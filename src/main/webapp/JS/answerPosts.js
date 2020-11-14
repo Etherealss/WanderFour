@@ -119,27 +119,29 @@ $(window).scroll(function()
  * @param {*} postsLikeNum 点赞数
  */
 
-var floorNum = 0;   //层楼数（全局变量）
 var userId = "小华er";
 
-// var imgSrc = "../img/homePage_highSchoolStudent_head.png";
-function postsPublish(userId, postTime, postsContent, postsLikeNum) {
+function postsPublish(userId, postTime, postsContent, postsLikeNum,src,floorNum) 
+{
     var li = $("<li></li>");
     //———————— 楼层发表样式 —————————
     var str = "<div class='APlist_message'>" +
         "<div class='APlist_headIcon'>" +
-        "<img src='./img/homePage_universityStudent_head.png'/>" +
+        "<img src='"+src+"'/>" +
         "</div>" +
         "<a class='APlist_userName'>" + userId + "</a>" +
         "<span class='APlist_userIntro'>简介blabla</span>" +
-        "<p class='APlist_postTime'>" + postTime + "</p>" +
-        "<span class='APlist_position'>" + (++floorNum) + "楼</span>" +
+        "<p class='APlist_postTime'>" + timestampToTime(postTime) + "</p>" +
+        "<span class='APlist_position'>" + floorNum + "楼</span>" +
         "</div>" +
-        "<p class='APlist_content'>" + postsContent + "</p>" +
-        "<div class='APlist_likeAndReply'>" +
-        "<div class='APlist_reply'>回复</div>" +
-        "<span></span>" +
-        "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+        "<p class='APlist_content' commentFloor='"+floorNum+"'>" + postsContent + "</p>" +
+        "<div class='APlist_likeAndReplyBox'>"+
+            "<div class='APlist_likeAndReply'>" +
+                "<div class='APlist_reply'>回复</div>" +
+                "<span></span>" +
+            "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+        "</div>"+
+        "<ul class='APReplys_list'></ul>"+
         "</div>";
     li.html(str);   //插入到<li>里
     $(".answerPosts_list").prepend(li);    //插入到楼层里
@@ -172,46 +174,35 @@ function getPostsContent() {
     return $("#postsTextarea").val();
 }
 
-//获取当前系统时间
-function getPostsTime(timeKeeping) {
-    console.log(timeKeeping);
-    return postsDisplayTime(timeKeeping);
+//———————————————————— 点击后将输入的内容发表到楼层里 ————————————————————
+function clickPostPosts()
+{
+    $("#postPosts").on({
+        click: function () 
+        {
+            time = '1分钟前';
+            postPostsUp(userId, time, getPostsContent());
+        }
+    });
 }
 
-//显示时间
-function postsDisplayTime(timeKeeping) {
-    var curTime = new Date();
-    // setTimeout("getPostsTime()", 60000); //每一分钟更新一次
-    //一小时内显示多少分钟前：“XX分钟前”
-    if (timeKeeping < 60) {
-        return curTime.getMinutes() + "分钟前";
-    }
-    //24小时内显示多少小时前：“XX小时前”
-    else if (timeKeeping < 24 * 60) {
-        return curTime.getHours() + "小时前";
-    }
-    //24小时以上，当年内，显示月日
-    else if (timeKeeping >= 24 * 60) {
-        return (curTime.getMonth() + 1) + "." + curTime.getDate();
-    }
+clickPostPosts();
+
+//————— 输入的内容发表到楼层里 ———————————
+function postPostsUp(userId,time,postContent,postsLikeNum,src,floorNum)
+{
+    var postsLikeNum = "点赞";
+    postsPublish(userId, time,postContent,postsLikeNum,src,floorNum);
+    
+    //点击评论的回复
+    APlistAddContent("MR","1分钟前");
+
+    // 评论的“点击阅读全文”
+    readFullArticle($(".APlist_content"));
+
+    //更改中间内容部分的高度
+    $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 }
-
-//点击后将输入的内容发表到楼层里
-$("#postPosts").on({
-    click: function () {
-        var nowTime = new Date();
-        var timeKeeping = nowTime.getMinutes();
-
-        var postsLikeNum = "点赞";
-        postsPublish(userId, getPostsTime(timeKeeping), getPostsContent(), postsLikeNum);
-        
-        // 评论的“点击阅读全文”
-        readFullArticle($(".APlist_content"));
-
-        //更改中间内容部分的高度
-        $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
-    }
-});
 
 //——————————————— 点击回到顶部 —————————————————
 slowToTop($("#returnToTopBtn"));

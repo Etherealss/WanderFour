@@ -218,3 +218,46 @@
     cursor: pointer;
     /* border: 1px solid #0f0; */
 }
+
+/*———————————————————————— 点击出现回复Part ——————————————————————————*/
+.upfoldBox{
+    height: 35px;
+    line-height: 35px;
+    display: flex;
+    flex-direction: row;
+    color: #666666;
+    font-size: 14px;
+    /* border: 1px solid #f00; */
+}
+
+.upfoldBox > i{
+    color: rgb(32, 171, 159);
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+/*———————————————————————— 分页的设计 ——————————————————————————*/
+.laypagelist{  
+    padding-top: 5px;
+    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    /* border: 1px solid #0f0; */
+}
+
+.laypagelist > li{
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    margin-right: 10px;
+    color: #333333;
+    background: #daf2ee;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.laypagelist > li:hover{
+    color: #20ab9f;
+}

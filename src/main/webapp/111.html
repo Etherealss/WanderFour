@@ -59,8 +59,8 @@
                 return replyContent.substr(indexColon+1,replyContent.length);
             }
 
-            console.log($(".outsideBox").text());
-            console.log(splitContent($(".outsideBox").text()));
+            // console.log($(".outsideBox").text());
+            // console.log(splitContent($(".outsideBox").text()));
             /*
             （1）单独获取“回复”两个字，加粗
             （2）获取“@username”，加蓝色a链接
@@ -80,6 +80,120 @@
                 });
             });
         });
+        
+        
+        
+        var aaa = {"pageData": {
+                        "currentPage": 1,
+                        "list": 
+                        [
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": true,
+                                    "comment": 
+                                    {
+                                        "content": "回复内容",
+                                        "createTime": 1603416794000,
+                                        "id": 11,
+                                        "liked": 0,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 1,
+                                        "userId": 3
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []//回复没有回复列表	//回复没有回复列表  //回复没有回复列表
+                            
+                            }, 
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": false,
+                                    "comment": 
+                                    {
+                                        "content": "我回复了id为1的评论",
+                                        "createTime": 1603370874000,
+                                        "id": 4,
+                                        "liked": 1,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 2,
+                                        "userId": 1
+                                    },
+                                    //如果一个用户回复了评论下的另一个回复，那么就会添加引用relayComment
+                                    "relayComment": 
+                                    {				//回复的引用
+                                        "content": "我也评论了1L文章",
+                                        "createTime": 1603367957000,
+                                        "id": 2,
+                                        "liked": 6,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "userId": 1
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []
+                            }, 
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": false,
+                                    "comment": 
+                                    {
+                                        "content": "我又回复了id为1的评论",
+                                        "createTime": 1602679674000,
+                                        "id": 5,
+                                        "liked": 7,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 2,
+                                        "userId": 1
+                                    },
+                                    "relayComment": 
+                                    {
+                                        "content": "我也评论了1L文章",
+                                        "createTime": 1603367957000,
+                                        "id": 2,
+                                        "liked": 6,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "userId": 1
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []
+                            }
+                        ],
+                        "rows": 10, //每页显示的评论数
+                        "totalCount": 3,    //总评论数
+                        "totalPage": 1  //总页数
+                    }
+                };
+
+                /*
+                * 时间戳转日期
+                * @param timestamp
+                * @returns {*}
+                */
+                function timestampToTime(timestamp) 
+                {
+                    //var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                    var date = new Date(timestamp);
+                    Y = date.getFullYear() + '-';
+                    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    D = date.getDate() + ' ';
+                    h = date.getHours() + ':';
+                    m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+                    s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+                    return Y + M + D + h + m + s;
+                }
+                console.log(timestampToTime(1603367957000));
     </script>
 </body>
 </html>
