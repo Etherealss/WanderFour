@@ -304,7 +304,7 @@ function submitVal(partition, category, articleTitleVal, articleContentVal, labe
     $.ajax({
         type: 'POST',
         url: '/WritingServlet',
-        data: {
+        data: JSON.stringify({
             type: "article",
             partition: partition,
             category: category,
@@ -315,7 +315,7 @@ function submitVal(partition, category, articleTitleVal, articleContentVal, labe
             label3: label[3],
             label4: label[4],
             label5: label[5]
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         /**

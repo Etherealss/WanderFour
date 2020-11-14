@@ -2,6 +2,7 @@ package controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import common.util.ControllerUtil;
 import common.util.Md5Utils;
 import pojo.dto.ResultState;
 import common.strategy.choose.GetParamChoose;
@@ -54,6 +55,13 @@ public class UserEnterController extends BaseServlet {
 	public void login(HttpServletRequest req, HttpServletResponse resp, JSONObject params) throws ServletException, IOException {
 		logger.trace("用户登录...");
 
+		//空参检查
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "登录",
+				"email", "pw");
+		if (paramMissing) {
+			return;
+		}
+
 		String email = params.getString("email");
 		String password = params.getString("pw");
 		//密码再次加密
@@ -69,7 +77,6 @@ public class UserEnterController extends BaseServlet {
 			UserService us = ServiceFactory.getUserService();
 
 			state = us.checkUserExist(email);
-			logger.trace(state);
 			//用户存在
 			if (state == ResultType.IS_REGISTED) {
 
@@ -124,7 +131,6 @@ public class UserEnterController extends BaseServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.debug(info.toString());
 
 		jsonObject.put("state", info);
 		ResponseChoose.respToBrowser(resp, jsonObject);

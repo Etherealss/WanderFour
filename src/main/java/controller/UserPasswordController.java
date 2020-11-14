@@ -34,13 +34,16 @@ public class UserPasswordController extends BaseServlet {
 		}
 
 		JSONObject params = GetParamChoose.getJsonByJson(req);
-		String orginalPw = params.getString("orginalPw");
-		String newPw = params.getString("newPw");
 
-		if (orginalPw == null || newPw == null) {
-			ResponseChoose.respNoParameterError(resp, "接收不到参数");
+		//空参检查
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, "修改密码",
+				"orginalPw", "newPw");
+		if (paramMissing) {
 			return;
 		}
+
+		String orginalPw = params.getString("orginalPw");
+		String newPw = params.getString("newPw");
 
 		UserService service = ServiceFactory.getUserService();
 		ResultState state;

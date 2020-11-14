@@ -15,7 +15,6 @@ function homeRequestCheckUserLogin() {
         type: "GET",
         url: "/UserLoginServlet",
         dataType: "json",
-        contentType: "application/json",
         success: function (result) {
             changeHomeEnter(result);
             changeNav(result);

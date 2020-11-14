@@ -70,14 +70,14 @@ function sendLike(targetId, targetType, doLike) {
     $.ajax({
         type: 'POST',
         url: '/LikeServlet',
-        data: {
+        data: JSON.stringify({
             //目标作品id
             targetId: targetId,
             //目标作品类型，文章点赞-article，帖子-posts，评论-comment
             targetType: targetType,
             //点赞状态，1-点赞 0-未点赞/取消赞
             likeState: state
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (res) {

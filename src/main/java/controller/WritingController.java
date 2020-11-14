@@ -46,6 +46,9 @@ public class WritingController extends BaseServlet {
 		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 			return;
+		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_POSTS))) {
+			ResponseChoose.respWrongParameterError(resp, "参数undefined");
+			return;
 		}
 		logger.trace("获取作品 params = " + params);
 
@@ -128,17 +131,19 @@ public class WritingController extends BaseServlet {
 			return;
 		}
 
+		//因为属性都在writing里，无法通过子类型反射属性获取实例，只有通过父类型获取
+		Writing writing = GetParamChoose.getObjByParam(params, Writing.class);
+		if (writing == null) {
+			logger.error("发表作品空参");
+			ResponseChoose.respNoParameterError(resp, "发表作品");
+			return;
+		}
+
 		//确定类型
 		//根据类型获取实体和Service
 		if (TYPE_ARTICLE.equals(type)) {
-			Article article = GetParamChoose.getObjByParam(params, Article.class);
+			Article article = (Article) writing;
 			logger.debug(article);
-
-			if (article == null) {
-				logger.error("发表文章空参");
-				ResponseChoose.respNoParameterError(resp, "发表文章");
-				return;
-			}
 
 			article.setAuthorId(userId);
 			WritingService<Article> service = ServiceFactory.getArticleService();
@@ -160,14 +165,8 @@ public class WritingController extends BaseServlet {
 
 		} else if (TYPE_POSTS.equals(type)) {
 			//获取参数
-			Posts posts = GetParamChoose.getObjByParam(params, Posts.class);
+			Posts posts = (Posts) writing;
 			logger.debug(posts);
-
-			if (posts == null) {
-				logger.fatal("发表问贴空参");
-				ResponseChoose.respNoParameterError(resp, "发表问贴");
-				return;
-			}
 
 			posts.setAuthorId(userId);
 			WritingService<Posts> service = ServiceFactory.getPostsService();
@@ -236,15 +235,19 @@ public class WritingController extends BaseServlet {
 		}
 
 		//根据类型获取实体和Service
+		Writing writing = GetParamChoose.getObjByParam(param, Writing.class);
+
+		//空参检查
+		if (writing == null) {
+			ResponseChoose.respNoParameterError(resp, "修改作品时获取不到信息");
+			return;
+		}
+
 		if (TYPE_ARTICLE.equals(type)) {
-			Article article = GetParamChoose.getObjByParam(param, Article.class);
+			Article article = (Article) writing;
 			logger.debug("获取article参数：\n\t" + article);
 
-			//空参检查
-			if (article == null) {
-				ResponseChoose.respNoParameterError(resp, "修改文章（获取文章信息）");
-				return;
-			}
+
 
 			WritingService<Article> service = ServiceFactory.getArticleService();
 			//修改文章
@@ -265,14 +268,9 @@ public class WritingController extends BaseServlet {
 		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("Posts put:" + type);
 
-			Posts posts = GetParamChoose.getObjByParam(param, Posts.class);
+			Posts posts = (Posts) writing;
 			logger.debug("获取article参数：\n\t" + posts);
 
-			//空参检查
-			if (posts == null) {
-				ResponseChoose.respNoParameterError(resp, "修改文章");
-				return;
-			}
 			WritingService<Posts> service = ServiceFactory.getPostsService();
 			//修改文章
 			ResultType resultType = null;
@@ -294,6 +292,7 @@ public class WritingController extends BaseServlet {
 			//空参
 			logger.error("doPut空参");
 			ResponseChoose.respNoParameterError(resp, "修改作品(type参数)");
+			return;
 		}
 	}
 

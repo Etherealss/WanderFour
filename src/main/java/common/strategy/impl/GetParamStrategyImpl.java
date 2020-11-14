@@ -53,7 +53,6 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 				logger.error("无参数");
 				return null;
 			}
-			logger.debug(urlParams);
 			//切割 & ，得到一个个键值对
 			String[] params = urlParams.split("&");
 			JSONObject json = new JSONObject();

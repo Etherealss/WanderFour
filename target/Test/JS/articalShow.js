@@ -1,3 +1,17 @@
+$(function(){
+    //—————————————————————— 侧栏动画效果 ——————————————————————————
+    scrollLimiteHeight($(".articleShow_body"),$(".articleShow_nav"));
+    $(window).on({
+        scroll: function(){
+            var scrollHeight = $(".articleShow_body").offset().top+$(".articleShow_body").height()-$(".articleShow_nav").height();
+            if($(window).scrollTop() > scrollHeight)
+            {
+                $(".articleShow_nav").css({top: $(".articleShow_body").height()-$(".articleShow_nav").height()-15});
+            }
+        }
+    });
+});
+
 var params;
 $(function () {
     params = getParams();
@@ -168,11 +182,11 @@ function editArticle(id) {
     $.ajax({
         type: 'PUT',
         url: '/WritingServlet',
-        data: {
+        data: JSON.stringify({
             type: "article",   //用于区分文章和帖子
             id: id,  //文章编号
             partition: "learning",   //分区 learning / major / college
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (res) {
@@ -195,10 +209,10 @@ function removeArticle(id) {
     $.ajax({
         type: 'Delete',
         url: '/WritingServlet',
-        data: {
+        data: JSON.stringify({
             // 文章编号
             article: id,
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (res) {
