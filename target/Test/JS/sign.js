@@ -223,7 +223,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, sign
     $.ajax({
         type: 'post',
         url: '/UserEnterServlet',
-        data: {
+        data: JSON.stringify({
             action: "register",
             //传递用户名
             nickname: registerUseridVal,
@@ -235,7 +235,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, sign
             userType: signIdentity,
             //传递性别
             sex: signSex,
-        },
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (data) {

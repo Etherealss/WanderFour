@@ -18,6 +18,7 @@ dao\WritingDao.class
 dao\CategoryDao.class
 controller\UserInfoController.class
 controller\WritingSearchController.class
+controller\UserLoginController.class
 common\strategy\impl\LikeStrategyImpl.class
 common\util\JedisUtil.class
 common\util\SecurityUtil.class
@@ -60,11 +61,15 @@ service\WritingService.class
 pojo\po\Comment.class
 dao\impl\CategoryDaoImpl.class
 dao\impl\CommentDaoImpl.class
+common\enums\EsEnum.class
 controller\CategoryController.class
 controller\UserPasswordController.class
+common\enums\WritingType.class
 service\impl\CommentServiceImpl.class
 common\strategy\impl\comment\GetReplysByLike.class
 pojo\CommentVo.class
+common\initialization\EsInit.class
+common\util\JsonUtil.class
 controller\CheckUserExistController.class
 common\factory\NamedThreadFactory.class
 common\util\ControllerUtil.class
@@ -101,7 +106,6 @@ common\enums\Partition.class
 common\util\JdbcUtil.class
 common\strategy\GetParamStrategy.class
 common\strategy\impl\GetArticleStrategyImpl.class
-service\EsSearchOperator.class
 common\util\EsUtil.class
 common\strategy\impl\CancelLikeStrategyImpl.class
 dao\SensitiveDao.class
@@ -113,6 +117,7 @@ service\impl\LikeServiceImpl$1.class
 common\strategy\impl\ResponseStrategyImpl.class
 service\impl\EsServiceImpl.class
 common\strategy\AbstractCommentAndReplyStrategy.class
+operator\EsOperator.class
 pojo\po\LikeRecord.class
 common\strategy\ResponseStrategy.class
 common\strategy\AbstractReplysStrategy.class

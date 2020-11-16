@@ -16,12 +16,11 @@ public class EsUtil {
 	 * 连接
 	 * @return
 	 */
-	public static RestHighLevelClient getClient(){
+	public static RestHighLevelClient getClient() {
 		HttpHost httpHost = new HttpHost("localhost", 9200);
 		RestClientBuilder clientBuilder = RestClient.builder(httpHost);
 		return new RestHighLevelClient(clientBuilder);
 	}
-
 
 
 }

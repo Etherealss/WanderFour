@@ -1,5 +1,5 @@
 //——————————————————————————————— 点击评论的回复，回复评论，增加楼层 ———————————————————————————————————
-function APlistAddContent(userName,postTime)
+function APlistAddContent(userName,postTime,src)
 {
     $(".APlist_reply").on({
         click: function()
@@ -18,9 +18,18 @@ function APlistAddContent(userName,postTime)
                     var replyList = thisListReply.parent().parent().parent().find(".APReplys_list");    //要增加的楼层的位置
                     var emptyInput = $(this).prev("textarea");  //输入框
 
-                    //----------创建一个新的楼层 ------------
-                    replyPublish(replyList,userName,postTime,replyContent,emptyInput);
+                    //内容判空
+                    if(replyContent == undefined || replyContent == null || replyContent == "")
+                    {
+                        alert("请输入评论的回复");
+                        //收起回复框
+                        $(".replyInputBox").hide();
+                        return false;
+                    }
 
+                    //----------创建一个新的楼层 ------------
+                    replyPublish(replyList,userName,postTime,replyContent,emptyInput,src);
+                    
                     // 回复的“点击阅读全文”
                     readFullArticle($(".APReply_content"));
 
@@ -35,7 +44,7 @@ function APlistAddContent(userName,postTime)
 //——————————————————————————————————— 评论的回复-发布新楼层的函数 ———————————————————————————————————
 function replyPublish(replyList,userName,postTime,replyContent,emptyInput,src)
 {
-    replyPublishContent(replyList,userName,postTime,replyContent,src);
+    replyPublishUp(replyList,userName,postTime,replyContent,src);
     //发表后清空回复框内的内容
     emptyInput.val("");
     emptyInput.parent().hide();
@@ -48,6 +57,25 @@ function replyPublish(replyList,userName,postTime,replyContent,emptyInput,src)
     // publishPost($("#postReplyContent"),targetComment,userid,parentId);
 }
 
+//—————————— 将输入的回复发表到楼层中 ————————————————————
+function replyPublishUp(replyList,userName,postTime,replyContent,src)
+{
+    replyPublishContent(replyList,userName,postTime,replyContent,src);
+    
+    //点击回复的回复
+    APReplyAddContent("MR","111","./img/homePage_highSchoolStudent_head.png");
+    
+    //点击回复的回复
+    // APReplyAddContent("MR","1分钟前");
+
+    // 评论的“点击阅读全文”
+    readFullArticle($(".APlist_content"));
+
+    //更改中间内容部分的高度
+    $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
+}
+
+//———————————————————— 评论的回复 ——————————————————————
 function replyPublishContent(replyList,userName,postTime,replyContent,src)
 {
     var li = $("<li></li>");
@@ -69,23 +97,7 @@ function replyPublishContent(replyList,userName,postTime,replyContent,src)
     li.slideDown(); //缓冲效果
 }
 
-//————————————————————————— 对问贴发表评论 —————————————————————————————————
-
 APlistAddContent("MR","0000");
-
-//点击其他任意区域,"回复"框消失
-// $("document").on("click","not(.replyInputBox)",function()
-// {
-//     $(".replyInputBox").hide();
-//     console.log(1111);
-
-//     //阻止事件冒泡
-//     $(".replyInputBox").on({
-//         click: function(event){
-//             event.stopPropagation();
-//         }
-//     });
-// });
 
 //————————————— 点击回复的回复，在输入框中获取“@某某”，给评论的回复做回复，增加楼层 ———————————————————
 function APReplyAddContent(userName,postTime,src)
@@ -93,12 +105,14 @@ function APReplyAddContent(userName,postTime,src)
     $(".APReply_reply").on({
         click: function()
         {
+            // console.log("这是回复框的回复");
             var thisListReply = $(this);
-            var replyNameStr =  $(this).parent().parent().find(".APReply_message").find(".APReply_userName").text();
-            var replyName = replyNameStr.substr(0,replyNameStr.length-1);
-            //点击出现回复框，并把要回复的对象加入回复框中
-            $(".replyInputBox").show().find("#postReplyContent").val("回复@"+replyName+"：");
-            console.log(replyName);
+            //获取用户名的字符串
+            var replyName =  $(this).parent().parent().find(".APReply_message").find(".APReply_userName").text();
+            // var replyName = replyNameStr.substr(0,replyNameStr.length-1);
+            
+             //点击出现回复框，并把要回复的对象加入回复框中
+             $(".replyInputBox").show().find("#postReplyContent").val("回复@"+replyName+"：");
             
             $("#postReply").one({
                 click: function(){
@@ -106,8 +120,20 @@ function APReplyAddContent(userName,postTime,src)
                     var replyList = thisListReply.parent().parent().parent();    //要增加的楼层的位置
                     var emptyInput = $(this).prev("textarea");  //输入框
 
+                    //输入内容判空
+                    if(replyContent == null || replyContent == undefined || replyContent == "")
+                    {
+                        alert("请输入回复的回复");
+                        //收起回复框
+                        $(".replyInputBox").hide();
+                        return false;
+                    }
+            
                     replyAddPublish(replyList,userName,replyName,postTime,replyContent,emptyInput,src);
                     
+                    //点击回复的回复
+                    APReplyAddContent("HHH","111","./img/homePage_highSchoolStudent_head.png");
+
                     // 回复的“点击阅读全文”
                     readFullArticle($(".APReply_content"));
 
@@ -137,7 +163,7 @@ function replyAddPublish(replyList,userName,replyName,postTime,replyContent,empt
     emptyInput.parent().hide();
 
     //新创建的也可以点击“回复”
-    APReplyAddContent("HHHH","233");
+    // APReplyAddContent("HHHH","233");
 }
 
 function replyAddPublishContent(replyList,userName,replyName,postTime,replyContent,src)
@@ -212,75 +238,141 @@ function publishPost(PC_content,targetComment,userid,parentId)
     })
 }
 
-//——————————————————————— 点击展开 —————————————————————————————
+//———————————————— 当评论的回复数量大于3，出现“点击查看” —————————————————————————————
+function clickUnfoldShow(list,replysCount,floorNum)
+{
+    //只显示三个，剩下的隐藏掉
+    for(var i = 3;i < list.length;i++)
+    {
+        list.eq(i).hide();  
+    }
+    //———————————————— 要插入的部分 —————————————————————
+    var upfoldBox = $("<div class='upfoldBox'></div>");
+    var upfoldStr = "<span>共<b>"+replysCount+"</b>条回复，</span>"+
+            "<i>点击查看</i>"+"<i>点击收起</i>";
+    upfoldBox.html(upfoldStr);  //隐藏三个，更换效果  
+    list.parent().append(upfoldBox);    //将内容插入尾部
+    // laypageList(list);  //分页Part
+    list.eq(2).css({border: "none"});   //出现多条时出现
+
+    //“点击收起”最开始为隐藏状态
+    list.parent().find(".upfoldBox").find("i").eq(1).hide();
+    
+    //点击对应的“点击查看”后，显示更多$("i[commentssReplyFloor='"+floorNum+"']")
+    list.parent().find(".upfoldBox").find("i").eq(0).on({
+        click: function(){
+            //隐藏“点击查看”，出现“点击收起”
+            list.parent().find(".upfoldBox").find("i").eq(0).hide();
+            list.parent().find(".upfoldBox").find("i").eq(1).show();
+            //点击“点击查看”后，把缩略的出现，同时把原先的3个隐藏掉
+            //点击后才发送展示评论的回复列表
+            if(list.length == 3)
+            {
+                list.hide();
+            }
+            getUnderCommentssReplys(floorNum);   //获取最新的回复列表长度
+            
+            //点击后，收起回复，回到最初的状态
+            // list.parent().find(".upfoldBox").find("i").eq(1).on({
+            //     click: function(){
+            //         clickUnfold(list);
+            //         // clickUnfold(getUnderCommentssReplys(1).getReplysList);
+            //     }
+            // });
+            // console.log(getUnderCommentssReplys(floorNum));     
+        }
+    });
+}
+
+//—————————————————————— 点击查看后，能够出现下拉的所有 ——————————————————————————
 function clickUnfold(list)
 {
-    if(list.length > 3)
+    // console.log("clickUnfold函数");
+    // console.log(list.length);
+    //隐藏“点击查看”，出现“点击收起”
+    list.parent().find(".upfoldBox").find("i").eq(1).hide();
+    list.parent().find(".upfoldBox").find("i").eq(0).show();
+    //最后的页脚不显示
+    // list.eq(list.length-4).css({border: "none"}).siblings().css({borderBottom: "1px solid #e7e7e7"});
+    //点击“点击收起”后，收起只剩下三个
+    for(var i = 0;i < list.length;i++)
     {
-        //只显示三个，剩下的隐藏掉
-        for(var i = 3;i < list.length;i++)
+        //最前10个隐藏
+        if(i < 10)
         {
-            list.eq(i).hide();  
+            list.eq(i).remove();
         }
-
-        //———————————————— 要插入的部分 —————————————————————
-        var upfoldBox = $("<div class='upfoldBox'></div>");
-        var upfoldStr = "<span>共<b>"+list.length+"</b>条回复，</span>"+
-                "<i>点击查看</i>";
-        upfoldBox.html(upfoldStr);  //隐藏三个，更换效果  
-        list.parent().append(upfoldBox);    //将内容插入尾部
-        laypageList(list);  //分页Part
-        list.eq(2).css({border: "none"});   //出现多条时出现
-            
-        //———————— 点击“点击查看”后，把缩略的出现 ————————————————
-        upfoldBox.find("i").on({
-            click: function(){
-                //楼层的伸缩
-                for(var i = 3;i < list.length;i++)
-                {
-                    list.eq(i).stop().toggle();  
-                }
-
-                //底部字体变化
-                if(list.eq(3).is(':visible'))
-                {
-                    $(this).text("点击收起");
-                    list.eq(list.length-1).css({border: "none"}).siblings().css({borderBottom: "1px solid #e7e7e7"});
-                    $(".laypagelist").show();
-                }
-                else{
-                    $(this).text("点击查看");
-                    list.eq(2).css({border: "none"}).siblings().css({borderBottom: "1px solid #e7e7e7"});
-                    $(".laypagelist").hide();
-                }
-            }
-        });
+        else{
+            //最后3个显示
+            list.eq(i).show();
+            //最后的页脚不显示
+            if(i == list.length-1)
+                list.eq(i).css({border: "none"});
+        }
     }
+
+    //若出现多页
+    // laypageList($(".upfoldBox"),2,$(".answerPosts_list"));
+
+    //更改中间内容部分的高度，防止与底部相联
+    $(".answerPosts_Content").height($(".answerPostsBox").height() + 50);
 }
 
 //——————————— 点击 ———————————————
-clickUnfold($(".APReplys_list > li"));
+// clickUnfoldShow($(".APReplys_list > li"));
 
 //———————————————————————— 超过十条有分页，分页Part ——————————————————————————————
 //在统计条数和“点击查看/收起”部分出现
-function laypageList(list)
+function laypageList(positionBox,pageNum)
 {
-    if(list.length > 10)
+    console.log(pageNum);
+    //点击后只显示十条，只有这十条会显示，其他隐藏
+    // var laypageBlock = Number(list.length/10);
+    var ul = $("<ul class='laypagelist'></ul>");
+    for(var i = 0;i < pageNum;i++)
     {
-        //点击后只显示十条，只有这十条会显示，其他隐藏
-        var laypageBlock = Number(list.length/10);
-        var ul = $("<ul class='laypagelist'></ul>");
-        for(var i = 0;i < laypageBlock;i++)
-        {
-            ul.append($("<li>"+(i+1)+"</li>"));
-        }
-        $(".upfoldBox").append(ul); //添加到尾部
+        ul.append($("<li>"+(i+1)+"</li>"));
     }
-
-    $(".laypagelist").hide();   //初始状态为隐藏
+    positionBox.append(ul); //添加到尾部
+    
+    // //用页码的宽度来让positionBox自适应
+    // positionBox.width($(".laypagelist").width());
+    // console.log($(".laypagelist").width());
 
     //——————————————————————— 点击页码发送请求取得评论信息 —————————————————————————————
-    // $(".laypagelist > li")
+    $(".laypagelist > li").on({
+        click: function(){
+            var pageNumber = Number($(this).index()+1);
+            //先将原先的全部清空
+            $(".answerPosts_list > li").remove();
+            getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage='+pageNumber+'&type=article');
+            //缓慢回到顶部
+            $("html,body").stop().animate({
+                scrollTop: 800
+            },0);
+        }
+    });
 }
 
+// laypageList($(".upfoldBox"),2,$(".answerPosts_list"));
+//————————————————————————— 对问贴发表评论 —————————————————————————————————
+//点击其他任意区域,"回复"框消失
+function clickOtherAreaHidden()
+{
+    $("body").click(function(e)
+    {
+        if(!$(e.target).closest(".APlist_reply",".APReply_reply",".replyInputBox").length)
+        {
+            $(".replyInputBox").hide();
+        }
 
+        //阻止事件冒泡
+        $(".replyInputBox").on({
+            click: function(event){
+                event.stopPropagation();
+            }
+        });
+    });
+}
+
+// clickOtherAreaHidden();
