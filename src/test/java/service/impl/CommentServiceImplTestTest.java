@@ -22,9 +22,9 @@ public class CommentServiceImplTestTest {
 	CommentService service = ServiceFactory.getCommentService(Posts.class);
 	@Test
 	public void testGetHotCommentList() throws Exception {
-		List<CommentDto> list = service.getHotCommentList(1L, 1L);
+		PageBean<CommentDto> list = service.getHotCommentList(1L, 1L);
 		JSONObject json = new JSONObject();
-		json.put("CommentData", list);
+		json.put("pageData", list);
 		logger.debug(json);
 	}
 

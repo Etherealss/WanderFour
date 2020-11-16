@@ -89,9 +89,10 @@ public class WritingCommentController extends BaseServlet {
 				/*
 				没有该参数，说明是获取作品的推荐评论
 				 */
-				List<CommentDto> resultList = service.getHotCommentList(parentId, userid);
+				logger.trace("获取推荐评论");
+				PageBean<CommentDto> resultList = service.getHotCommentList(parentId, userid);
 				assert resultList != null;
-				jsonObject.put("commentData", resultList);
+				jsonObject.put("pageData", resultList);
 				state = new ResultState(ResultType.SUCCESS, "获取推荐评论成功");
 			} else {
 				/*
@@ -105,7 +106,6 @@ public class WritingCommentController extends BaseServlet {
 					PageBean<CommentDto> resultPageBean =
 							service.getCommentListByPage(vo, currentPage);
 					List<CommentDto> list = resultPageBean.getList();
-					logger.debug(list);
 					if (list == null || list.size() == 0) {
 						state = new ResultState(ResultType.NO_RECORD, "当前页没有评论记录");
 

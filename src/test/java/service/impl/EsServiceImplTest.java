@@ -1,9 +1,18 @@
 package service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import common.enums.EsEnum;
+import common.factory.DaoFactory;
 import common.factory.ServiceFactory;
+import common.util.JdbcUtil;
+import dao.WritingDao;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import pojo.po.Article;
+import service.CategoryService;
 import service.EsService;
+
+import java.sql.Connection;
 
 public class EsServiceImplTest {
 
@@ -19,18 +28,34 @@ public class EsServiceImplTest {
 
 	@Test
 	public void testDeleteIndex() throws Exception {
-		boolean b = service.deleteIndex(EsServiceImpl.INDEX_NAME);
+		boolean b = service.deleteIndex(EsEnum.INDEX_NAME);
 		logger.debug(b);
 	}
 
 	@Test
 	public void testExistsIndex() throws Exception {
-		boolean b = service.existsIndex(EsServiceImpl.INDEX_NAME);
+		boolean b = service.existsIndex(EsEnum.INDEX_NAME);
 		logger.debug(b);
 	}
 
 	@Test
 	public void testAddDoc() throws Exception {
+		// 获取所有的分类Json
+		CategoryService categoryService = ServiceFactory.getArticleService();
+		// Connection连接会在categoryService中关闭而引起bug
+		JSONObject allCategory = categoryService.getAllCategory();
+
+		Connection conn = JdbcUtil.beginTransaction();
+		WritingDao<Article> dao = DaoFactory.getArticleDao();
+
+		for (int i = 5; i < 9; i++) {
+			Article article = dao.getWritingById(conn, (long) i);
+			String categoryName = (String) allCategory.get(article.getCategory());
+			assert categoryName != null;
+			String s = service.addDoc(EsEnum.INDEX_NAME, article, categoryName);
+			logger.debug(s);
+		}
+		JdbcUtil.closeTransaction();
 	}
 
 	@Test

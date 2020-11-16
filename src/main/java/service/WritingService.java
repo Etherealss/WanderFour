@@ -23,12 +23,12 @@ public interface WritingService<T extends Writing> {
 
 	/**
 	 * 获取作品
-	 * @param id
-	 * @param userid
+	 * @param writingId 作品id
+	 * @param userid 可以为null，用户判断是否为作者
 	 * @return
 	 * @throws Exception
 	 */
-	WritingBean<T> getWriting(Long id, Long userid) throws Exception;
+	WritingBean<T> getWritingBean(Long writingId, Long userid) throws Exception;
 
 	/**
 	 * 获取作品列表
@@ -49,6 +49,7 @@ public interface WritingService<T extends Writing> {
 	 * @throws Exception
 	 */
 	List<T> getSimpleWritingList(int partition, String order) throws Exception;
+
 	/**
 	 * 修改作品
 	 * @param t
@@ -65,4 +66,18 @@ public interface WritingService<T extends Writing> {
 	 * @throws Exception
 	 */
 	ResultType deleteWriting(Long writingId, Long deleterId) throws Exception;
+
+	/**
+	 * 获取所有文章/问贴的id
+	 * @return
+	 * @throws Exception
+	 */
+	List<Long> getAllWritingsId() throws Exception;
+
+	/**
+	 * 荣光id获取作品
+	 * @param ids
+	 * @return
+	 */
+	List<T> getWritingListByIds(List<Long> ids) throws Exception;
 }

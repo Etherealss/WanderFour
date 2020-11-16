@@ -1,5 +1,7 @@
 package pojo.po;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
@@ -8,30 +10,44 @@ import java.util.Date;
  * @date 2020/10/22
  */
 public class Comment {
-
+	@JSONField(ordinal = 0)
 	private Long id;
+
+	@JSONField(ordinal = 1)
 	private Long userid;
+
 	/**
 	 * 记录悬挂的父对象Id，
 	 * 如评论悬挂在文章/帖子之下
 	 * 回复悬挂在评论之下
 	 * 而回复的子回复同样悬挂在评论之下
 	 */
+	@JSONField(ordinal = 3)
 	private Long parentId;
+
 	/**
 	 * 评论/回复的目标Id
 	 */
+	@JSONField(ordinal = 4)
 	private Long targetId;
-	private String content;
-	private Date createTime;
+
 	/**
 	 * 状态，未删除为1（默认），已删除为0
 	 */
+	@JSONField(ordinal = 5)
 	private boolean state;
+
+	@JSONField(ordinal = 6)
+	private String content;
+
 	/**
 	 * 获赞数
 	 */
+	@JSONField(ordinal = 7)
 	private int liked;
+
+	@JSONField(ordinal = 8)
+	private Date createTime;
 
 
 	public Long getId() {

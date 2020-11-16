@@ -3,6 +3,7 @@ package dao.impl;
 import dao.WritingDao;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import pojo.po.Posts;
 
@@ -129,5 +130,11 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 		String sql = "UPDATE `posts` SET `liked`=? WHERE `id`=?;";
 		int res = qr.update(conn, sql, count, id);
 		assert res == 1;
+	}
+
+	@Override
+	public List<Long> getAllWritingsId(Connection conn) throws SQLException {
+		String sql = "SELECT `id` FROM `posts`";
+		return qr.query(conn, sql, new ColumnListHandler<Long>("id"));
 	}
 }

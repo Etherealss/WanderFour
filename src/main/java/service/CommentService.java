@@ -6,8 +6,6 @@ import pojo.bean.PageBean;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
 
-import java.util.List;
-
 /**
  * @author 寒洲
  * @description 评论service
@@ -23,7 +21,7 @@ public interface CommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception;
+	PageBean<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception;
 
 	/**
 	 * 按分页获取页面所有评论
