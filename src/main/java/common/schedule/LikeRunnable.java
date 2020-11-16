@@ -18,6 +18,7 @@ public class LikeRunnable implements Runnable{
 		LikeService service = ServiceFactory.getLikeService();
 		try {
 			//TODO 了解 消息队列
+			//TODO 点赞是持久化待优化：获取记录时统计点赞数，并将关系储存在数据库，之后根据统计数更新字段
 			service.persistLikeCount();
 			service.persistLikeRecord();
 		} catch (Exception e) {

@@ -16,4 +16,11 @@ public interface CategoryService {
 	 * @throws Exception
 	 */
 	JSONObject getAllCategoryByPart(int partition) throws Exception;
+
+	/**
+	 * 获取所有分区的可选分类
+	 * @return
+	 * @throws Exception
+	 */
+	JSONObject getAllCategory() throws Exception;
 }

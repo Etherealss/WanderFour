@@ -8,10 +8,12 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pojo.bo.EsBo;
 import pojo.po.Posts;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostsDaoImplTest {
@@ -85,6 +87,18 @@ public class PostsDaoImplTest {
 				conn, 1, "`create_time`", 0L, 5);
 		for (Posts posts : writingListByTime) {
 			logger.debug(posts);
+		}
+	}
+
+	@Test
+	public void testGetWritingsByIds() throws Exception {
+		List<Long> list = new ArrayList<>();
+		list.add(1L);
+		list.add(2L);
+		list.add(3L);
+		List<EsBo> writingsByIds = dao.getWritingsByIds(conn, list);
+		for (EsBo writingsById : writingsByIds) {
+			logger.debug(writingsById.toString());
 		}
 	}
 }

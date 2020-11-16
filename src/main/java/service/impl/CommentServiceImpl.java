@@ -10,7 +10,7 @@ import common.util.JdbcUtil;
 import dao.CommentDao;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
-import pojo.bean.PageBean;
+import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
 import pojo.po.Writing;
@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception {
+	public PageBo<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		//选择策略 按点赞数获取热门评论及其回复
 		CommentChoose choose = new CommentChoose(new GetHeadCommentsAndReplyByLike());
@@ -54,16 +54,24 @@ public class CommentServiceImpl implements CommentService {
 		vo.setDao(dao);
 		//策略 获取所有评论数据
 		List<CommentDto> list = choose.doGet(vo);
-		return list;
+
+		// 包装Bean
+		PageBo<CommentDto> pb = new PageBo<>(1, 3);
+		pb.setList(list);
+		//获取并存入总记录数
+		Long totalCount = dao.countCommentByParentId(conn, parentId);
+		pb.setTotalCount(totalCount);
+
+		return pb;
 	}
 
 	@Override
-	public PageBean<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception {
+	public PageBo<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		vo.setConn(conn);
 		vo.setDao(dao);
 
-		PageBean<CommentDto> pb;
+		PageBo<CommentDto> pb;
 
 		if (vo.getTargetId() == null) {
 			//要获取评论
@@ -75,14 +83,13 @@ public class CommentServiceImpl implements CommentService {
 			vo.setReplyRows(replyRows);
 			Long parentId = vo.getParentId();
 			//存入当前页码和每页显示的记录数
-			pb = new PageBean<>(currentPage, commentRows);
+			pb = new PageBo<>(currentPage, commentRows);
 			//获取并存入总记录数
 			Long totalCount = dao.countCommentByParentId(conn, parentId);
 			pb.setTotalCount(totalCount);
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
 			Long start = (currentPage - 1L) * commentRows;
 			vo.setCommentStart(start);
-			logger.debug("获取评论：vo = " + vo);
 
 			//策略选择
 			CommentChoose choose;
@@ -116,7 +123,7 @@ public class CommentServiceImpl implements CommentService {
 			Long parentId = vo.getParentId();
 			Long targetId = vo.getTargetId();
 			//存入当前页码和每页显示的记录数
-			pb = new PageBean<>(currentPage, replyRows);
+			pb = new PageBo<>(currentPage, replyRows);
 
 			//获取并存入总回复记录数
 			Long totalCount = dao.countReplyByParentId(conn, parentId);
@@ -156,7 +163,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public ResultType publishNewComment(Comment comment) throws Exception {
-		Connection conn  = JdbcUtil.getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		boolean success;
 		if (comment.getTargetId() == null) {
 			//评论
@@ -165,7 +172,7 @@ public class CommentServiceImpl implements CommentService {
 			//回复
 			success = dao.createNewReply(conn, comment);
 		}
-		if (success){
+		if (success) {
 			return ResultType.SUCCESS;
 		}
 		return ResultType.EXCEPTION;
@@ -173,13 +180,13 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public ResultType deleteComment(Long commentId, Long userid) throws Exception {
-		Connection conn  = JdbcUtil.getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		Long commentUserId = dao.getCommentUserId(conn, userid);
-		if (!commentId.equals(commentUserId)){
+		if (!commentId.equals(commentUserId)) {
 			return ResultType.NOT_AUTHOR;
 		}
 		boolean success = dao.deleteComment(conn, commentId);
-		if (success){
+		if (success) {
 			return ResultType.SUCCESS;
 		}
 		return ResultType.EXCEPTION;

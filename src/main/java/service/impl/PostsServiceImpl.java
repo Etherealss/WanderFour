@@ -14,9 +14,9 @@ import dao.WritingDao;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
 import pojo.bean.WritingBean;
+import pojo.bo.EsBo;
 import pojo.dto.CommentDto;
 import pojo.dto.WritingDto;
-import pojo.po.Article;
 import pojo.po.Posts;
 import pojo.po.User;
 import service.WritingService;
@@ -62,12 +62,12 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	@Override
-	public WritingBean<Posts> getWriting(Long id, Long userid) {
+	public WritingBean<Posts> getWritingBean(Long writingId, Long userid) {
 		logger.trace("获取问贴");
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
-			Posts posts = dao.getWritingById(conn, id);
+			Posts posts = dao.getWritingById(conn, writingId);
 
 			UserDao userDao = DaoFactory.getUserDAO();
 			User userInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
@@ -204,5 +204,19 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			e.printStackTrace();
 			return ResultType.EXCEPTION;
 		}
+	}
+
+	@Override
+	public List<Long> getAllWritingsId() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		WritingDao<Posts> postsDao = DaoFactory.getPostsDao();
+		return postsDao.getAllWritingsId(conn);
+	}
+
+	@Override
+	public List<EsBo> getWritingListByIds(List<Long> ids) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		WritingDao<Posts> articleDao = DaoFactory.getPostsDao();
+		return articleDao.getWritingsByIds(conn, ids);
 	}
 }

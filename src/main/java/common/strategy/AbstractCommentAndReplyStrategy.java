@@ -1,7 +1,9 @@
 package common.strategy;
 
+import common.factory.DaoFactory;
 import common.util.CommentUtil;
 import dao.CommentDao;
+import dao.UserDao;
 import pojo.CommentVo;
 import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
@@ -27,12 +29,10 @@ public abstract class AbstractCommentAndReplyStrategy {
 	/**
 	 * 获取某一评论下的多条回复记录
 	 * @param vo
-	 * @param addReplyReference 是否添加回复引用
 	 * @return
 	 * @throws SQLException
 	 */
-	protected List<CommentBean> getReplysCommentBean(
-			CommentVo vo, boolean addReplyReference) throws SQLException {
+	protected List<CommentBean> getReplysCommentBean(CommentVo vo) throws SQLException {
 
 		Connection conn = vo.getConn();
 		CommentDao dao = vo.getDao();
@@ -50,20 +50,21 @@ public abstract class AbstractCommentAndReplyStrategy {
 		for (Comment reply : replyList) {
 			//判断是否添加回复的引用
 			Comment targetComment = null;
-			if (addReplyReference) {
-				//封装可能存在的回复对象
-				Long targetId = reply.getTargetId();
-				//如果targetId为parentId，说明没有回复对象
-				if (!parentId.equals(targetId)) {
-					//如果两个Id不相同，说明targetId指向了一个回复对象，添加引用
-					targetComment = dao.getComment(conn, targetId);
-				}
-			}
+//			if (addReplyReference) {
+//				//封装可能存在的回复对象
+//				Long targetId = reply.getTargetId();
+//				//如果targetId为parentId，说明没有回复对象
+//				if (!parentId.equals(targetId)) {
+//					//如果两个Id不相同，说明targetId指向了一个回复对象，添加引用
+//					targetComment = dao.getComment(conn, targetId);
+//				}
+//			}
 			/*
 			获取CommentBean
 			（包装了用户信息、评论数据和其下的回复数据）
 			 */
-			CommentBean commentBean = CommentUtil.getCommentBean(conn, reply, targetComment, userid);
+			UserDao userDao = DaoFactory.getUserDAO();
+			CommentBean commentBean = CommentUtil.getCommentBean(conn, userDao, reply, userid);
 			//储存数据
 			list.add(commentBean);
 		}

@@ -1,15 +1,16 @@
 package listener;
 
-import common.factory.ServiceFactory;
+import common.others.EsProcessManager;
 import common.strategy.choose.LikePersistChoose;
+import common.util.EsUtil;
+import common.util.FileUtil;
 import common.util.JedisUtil;
 import org.apache.log4j.Logger;
-import service.EsService;
-import service.impl.EsServiceImpl;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.io.IOException;
 
 /**
  * @author 寒洲
@@ -38,12 +39,11 @@ public class TomcatListener implements ServletContextListener {
 		//启动定时任务，周期性持久化redis数据
 		LikePersistChoose.persistDelayMinutes();
 
-		EsService esService = ServiceFactory.getEsService();
-		boolean existsIndex = esService.existsIndex(EsServiceImpl.INDEX_NAME);
-		// 判断是否存在索引
-		if (!existsIndex){
-			logger.trace("创建ES索引");
-			esService.createWritingIndex();
+		// 启动ES服务
+		boolean runSuccess = EsUtil.runEsService();
+		if (runSuccess){
+			// 检查ES数据
+			EsProcessManager.esDataInit();
 		}
 
 

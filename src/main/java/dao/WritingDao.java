@@ -1,5 +1,6 @@
 package dao;
 
+import pojo.bo.EsBo;
 import pojo.po.Writing;
 
 import java.math.BigInteger;
@@ -156,4 +157,20 @@ public interface WritingDao<T extends Writing>{
 	 */
 	void updateLikeCount(Connection conn, Long id, Integer count) throws SQLException;
 
+	/**
+	 * 获取所有文章/问贴的id
+	 * @param conn
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Long> getAllWritingsId(Connection conn) throws SQLException;
+
+	/**
+	 * 通过ids获取作品列表
+	 * @param conn
+	 * @param ids
+	 * @return
+	 * @throws SQLException
+	 */
+	List<EsBo> getWritingsByIds(Connection conn, List<Long> ids) throws SQLException;
 }

@@ -69,7 +69,7 @@
     position: fixed;
     display: none;
     bottom: 0;
-    z-index: 200;
+    z-index: 1000;
     background: rgba(173, 225, 217,0.95);
     border: 1px solid #f00;
 }
@@ -227,7 +227,7 @@
     flex-direction: row;
     color: #666666;
     font-size: 14px;
-    /* border: 1px solid #f00; */
+    border-bottom: 1px solid #e7e7e7;
 }
 
 .upfoldBox > i{
@@ -236,17 +236,34 @@
     cursor: pointer;
 }
 
+/*———————————————————— 评论的分页 ————————————————————*/
+.answerLayPageBox
+{
+    margin: 25px auto 0;
+    display: block;
+    /* border: 1px solid #f00; */
+}
+
+/* 加载更多Part */
+.answerLayPageBox > p{
+    text-align: center;
+    color: #20ab9f;
+    cursor: pointer;
+}
+
 /*———————————————————————— 分页的设计 ——————————————————————————*/
-.laypagelist{  
+/* ————————————————————— 评论的分页 ——————————————————————— */
+.answerLayPageBox > .laypagelist{
     padding-top: 5px;
-    margin-left: 25px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     list-style-type: none;
     /* border: 1px solid #0f0; */
 }
 
-.laypagelist > li{
+.answerLayPageBox > .laypagelist > li{
     width: 25px;
     height: 25px;
     line-height: 25px;
@@ -258,6 +275,36 @@
     cursor: pointer;
 }
 
-.laypagelist > li:hover{
+.answerLayPageBox > .laypagelist > li:hover{
     color: #20ab9f;
 }
+/* ————————————————————— 回复的分页 ——————————————————————— */
+.upfoldBox > .laypagelist{
+    min-width: 200px;  
+    padding-top: 5px;
+    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    /* border: 1px solid #0f0; */
+}
+
+.upfoldBox > .laypagelist > li{
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    margin-right: 10px;
+    color: #333333;
+    background: #daf2ee;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.upfoldBox > .laypagelist > li:hover{
+    color: #20ab9f;
+}
+
+
+
+

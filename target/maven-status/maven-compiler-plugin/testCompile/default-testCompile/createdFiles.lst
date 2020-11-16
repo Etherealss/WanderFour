@@ -14,6 +14,7 @@ PathTest.class
 dao\impl\CategoryDaoImplTest.class
 GetPartitionTest.class
 common\strategy\impl\LikeStrategyImplTest.class
+common\util\FileUtilTest.class
 JedisTest.class
 filter\SensitiveFilterTest.class
 dao\impl\ArticleDaoImplTest.class

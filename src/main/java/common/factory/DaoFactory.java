@@ -24,7 +24,7 @@ public class DaoFactory {
 	}
 
 	/**
-	 * 获取各分区文章的DAO
+	 * 获取文章的DAO
 	 * @return
 	 */
 	public static WritingDao<Article> getArticleDao() {
@@ -32,7 +32,7 @@ public class DaoFactory {
 	}
 
 	/**
-	 * 获取各分区问贴的DAO
+	 * 获取问贴的DAO
 	 * @return
 	 */
 	public static WritingDao<Posts> getPostsDao() {

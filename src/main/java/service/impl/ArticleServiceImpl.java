@@ -1,8 +1,6 @@
 package service.impl;
 
-import common.enums.DaoEnum;
-import common.enums.ResultType;
-import common.enums.TargetType;
+import common.enums.*;
 import common.factory.DaoFactory;
 import common.strategy.choose.CommentChoose;
 import common.strategy.choose.GetWritingListChoose;
@@ -16,6 +14,7 @@ import dao.WritingDao;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
 import pojo.bean.WritingBean;
+import pojo.bo.EsBo;
 import pojo.dto.CommentDto;
 import pojo.dto.WritingDto;
 import pojo.po.Article;
@@ -62,10 +61,10 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	}
 
 	@Override
-	public WritingBean<Article> getWriting(Long id, Long userid) throws Exception {
+	public WritingBean<Article> getWritingBean(Long writingId, Long userid) throws Exception {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
-		Article article = writingDao.getWritingById(conn, id);
+		Article article = writingDao.getWritingById(conn, writingId);
 		if (article == null) {
 			return null;
 		}
@@ -82,7 +81,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			LikeRecord likeRecord = new LikeRecord();
 			likeRecord.setUserid(userid);
 			likeRecord.setTargetType(TargetType.ARTICLE);
-			likeRecord.setTargetId(id);
+			likeRecord.setTargetId(writingId);
 			boolean isLiked = likeDao.countUserLikeRecord(conn, likeRecord);
 
 			//注意取反
@@ -216,6 +215,25 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		} else {
 			return ResultType.NOT_AUTHOR;
 		}
+	}
+
+	@Override
+	public List<Long> getAllWritingsId() throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		WritingDao<Article> articleDao = DaoFactory.getArticleDao();
+		return articleDao.getAllWritingsId(conn);
+	}
+
+	@Override
+	public List<EsBo> getWritingListByIds(List<Long> ids) throws Exception {
+		Connection conn = JdbcUtil.getConnection();
+		WritingDao<Article> dao = DaoFactory.getArticleDao();
+		List<EsBo> writings = dao.getWritingsByIds(conn, ids);
+		for (EsBo esBo : writings) {
+			esBo.setWritingType(WritingType.ARTICLE.val());
+			esBo.setContent(dao.getWritingContent(conn, esBo.getWritingId()));
+		}
+		return writings;
 	}
 
 }

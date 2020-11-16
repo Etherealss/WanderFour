@@ -2,11 +2,9 @@ package service;
 
 import common.enums.ResultType;
 import pojo.CommentVo;
-import pojo.bean.PageBean;
+import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
-
-import java.util.List;
 
 /**
  * @author 寒洲
@@ -23,7 +21,7 @@ public interface CommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception;
+	PageBo<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception;
 
 	/**
 	 * 按分页获取页面所有评论
@@ -34,7 +32,7 @@ public interface CommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	PageBean<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception;
+	PageBo<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception;
 
 	/**
 	 * 发表新评论/回复

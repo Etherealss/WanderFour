@@ -3,7 +3,7 @@
     width: 100%;
     height: 175px;
     background: #81cbbf;
-    z-index: 1000;
+    z-index: 400;
     margin-top: 100px;
     /* position: absolute; */
     /* bottom: 50px; */
@@ -15,7 +15,7 @@
     margin: 0 auto;
     position: relative;
     /* border: 1px solid #f00; */
-    z-index: 1000;
+    z-index: 400;
 }
 
 /* ———————— 页脚图标 —————————— */

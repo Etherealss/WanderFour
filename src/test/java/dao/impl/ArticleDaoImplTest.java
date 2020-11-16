@@ -9,10 +9,12 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pojo.bo.EsBo;
 import pojo.po.Article;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,6 +108,18 @@ public class ArticleDaoImplTest {
 				conn, 1, "time", 0L, 5);
 		for (Article article : writingListByLike) {
 			logger.debug(article);
+		}
+	}
+
+	@Test
+	public void testGetWritingsByIds() throws Exception {
+		List<Long> list = new ArrayList<>();
+		list.add(1L);
+		list.add(2L);
+		list.add(3L);
+		List<EsBo> writingsByIds = dao.getWritingsByIds(conn, list);
+		for (EsBo writingsById : writingsByIds) {
+			logger.debug(writingsById.toString());
 		}
 	}
 }

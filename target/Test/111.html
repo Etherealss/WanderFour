@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试用的</title>
+    <style type="text/css">
+        p{
+            width:300px;
+            height:100px;
+            text-indent:2em;
+            line-height:150%;
+            margin:5px 0 0;
+        }
+        p a{
+            color:#FDCD3D;
+        }
+
+        .outsideBox{
+            width: 200px;
+            border: 1px solid #f00;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+        这是一个P标签，点击展开查看全文这是一个P标签，点击展开查看全文
+    </p>
+
+    <div class="outsideBox">回复@MRR：Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Repudiandae voluptatem illum impedit. Pariatur, incidunt. 
+        Repellendus, inventore? Impedit soluta odit harum laboriosam fugit? 
+        Facilis dolores, ab aperiam animi consequatur inventore dolorum!
+    </div>
+    <div class="toString"></div>
+
+    <script src="./JS/jQuery.js"></script>
+    <script>
+        $(function(){
+            //获取outsideBox内前几个字符
+            //（1）单独获取“回复”两个字，加粗
+            // var str =  $(".outsideBox").text().substring(0,2);
+            // $(".toString").html("<b>"+"回复"+"</b>");
+            
+            //（2）获取“@username”，加蓝色a链接
+            var username = 'Mr.MUSHROOM';
+            // $(".toString").html("<b>回复</b>"+"<span style='color:#4a9cd6'>@"+username+"</span>："+$(".outsideBox").text());
+
+            //——————————————————— 截取掉@某某 ———————————————————————
+            function splitContent(replyContent)
+            {
+                var indexColon =  replyContent.indexOf("：");  //获取第一个冒号所在的下标
+                return replyContent.substr(indexColon+1,replyContent.length);
+            }
+
+            // console.log($(".outsideBox").text());
+            // console.log(splitContent($(".outsideBox").text()));
+            /*
+            （1）单独获取“回复”两个字，加粗
+            （2）获取“@username”，加蓝色a链接
+            （3）显示内容部分截取掉“回复@username”
+            */
+
+            $("p").each(function(){
+                var maxwidth=60;//设置最多显示的字数
+                var text=$(this).text();
+                if($(this).text().length>maxwidth){
+                    $(this).text($(this).text().substring(0,maxwidth));
+                    $(this).html($(this).html()+"..."+"<a href='javascript:;'> 点击展开</a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+
+                };
+                $(this).find("a").click(function(){
+                    $(this).parent().text(text);//点击“点击展开”，展开全文
+                });
+            });
+        });
+        
+        
+        
+        var aaa = {"pageData": {
+                        "currentPage": 1,
+                        "list": 
+                        [
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": true,
+                                    "comment": 
+                                    {
+                                        "content": "回复内容",
+                                        "createTime": 1603416794000,
+                                        "id": 11,
+                                        "liked": 0,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 1,
+                                        "userId": 3
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []//回复没有回复列表	//回复没有回复列表  //回复没有回复列表
+                            
+                            }, 
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": false,
+                                    "comment": 
+                                    {
+                                        "content": "我回复了id为1的评论",
+                                        "createTime": 1603370874000,
+                                        "id": 4,
+                                        "liked": 1,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 2,
+                                        "userId": 1
+                                    },
+                                    //如果一个用户回复了评论下的另一个回复，那么就会添加引用relayComment
+                                    "relayComment": 
+                                    {				//回复的引用
+                                        "content": "我也评论了1L文章",
+                                        "createTime": 1603367957000,
+                                        "id": 2,
+                                        "liked": 6,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "userId": 1
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []
+                            }, 
+                            {
+                                "parentComment": 
+                                {
+                                    "canDelete": false,
+                                    "comment": 
+                                    {
+                                        "content": "我又回复了id为1的评论",
+                                        "createTime": 1602679674000,
+                                        "id": 5,
+                                        "liked": 7,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "targetId": 2,
+                                        "userId": 1
+                                    },
+                                    "relayComment": 
+                                    {
+                                        "content": "我也评论了1L文章",
+                                        "createTime": 1603367957000,
+                                        "id": 2,
+                                        "liked": 6,
+                                        "parentId": 1,
+                                        "state": true,
+                                        "userId": 1
+                                    },
+                                    "userImg": "Base64转码后的头像数据",
+                                    "userNickname": "李四"
+                                },
+                                "replys": []
+                            }
+                        ],
+                        "rows": 10, //每页显示的评论数
+                        "totalCount": 3,    //总评论数
+                        "totalPage": 1  //总页数
+                    }
+                };
+
+                /*
+                * 时间戳转日期
+                * @param timestamp
+                * @returns {*}
+                */
+                function timestampToTime(timestamp) 
+                {
+                    //var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                    var date = new Date(timestamp);
+                    Y = date.getFullYear() + '-';
+                    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    D = date.getDate() + ' ';
+                    h = date.getHours() + ':';
+                    m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+                    s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+                    return Y + M + D + h + m + s;
+                }
+                console.log(timestampToTime(1603367957000));
+    </script>
+</body>
+</html>
+
+<!-- ry10660801
+ry10660912 -->

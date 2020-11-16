@@ -12,7 +12,7 @@ import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
-import pojo.bean.PageBean;
+import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.dto.ResultState;
 import pojo.po.Article;
@@ -89,9 +89,10 @@ public class WritingCommentController extends BaseServlet {
 				/*
 				没有该参数，说明是获取作品的推荐评论
 				 */
-				List<CommentDto> resultList = service.getHotCommentList(parentId, userid);
+				logger.trace("获取推荐评论");
+				PageBo<CommentDto> resultList = service.getHotCommentList(parentId, userid);
 				assert resultList != null;
-				jsonObject.put("commentData", resultList);
+				jsonObject.put("pageData", resultList);
 				state = new ResultState(ResultType.SUCCESS, "获取推荐评论成功");
 			} else {
 				/*
@@ -102,17 +103,16 @@ public class WritingCommentController extends BaseServlet {
 					//判断是按时间获取还是按点赞数获取
 					vo.setOrder(orderBy);
 					//具体是评论还是回复要看有无targetId，但是两种请求调用的方法相同，去下一层判断
-					PageBean<CommentDto> resultPageBean =
+					PageBo<CommentDto> resultPageBo =
 							service.getCommentListByPage(vo, currentPage);
-					List<CommentDto> list = resultPageBean.getList();
-					logger.debug(list);
+					List<CommentDto> list = resultPageBo.getList();
 					if (list == null || list.size() == 0) {
 						state = new ResultState(ResultType.NO_RECORD, "当前页没有评论记录");
 
 					} else {
 						state = new ResultState(ResultType.SUCCESS, "获取评论记录成功");
 					}
-					jsonObject.put("pageData", resultPageBean);
+					jsonObject.put("pageData", resultPageBo);
 
 				} else {
 					//参数异常

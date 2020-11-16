@@ -1,5 +1,5 @@
 import com.alibaba.fastjson.JSONObject;
-import pojo.bean.PageBean;
+import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
@@ -123,36 +123,36 @@ public class JsonTest {
 
 	@Test
 	public void testCommentToJson() {
-		PageBean<CommentDto> pageBean = new PageBean<>();
-		pageBean.setCurrentPage(1);
-		pageBean.setTotalPage(6);
-		pageBean.setTotalCount(52L);
-		pageBean.setRows(3);
+		PageBo<CommentDto> pageBo = new PageBo<>();
+		pageBo.setCurrentPage(1);
+		pageBo.setTotalPage(6);
+		pageBo.setTotalCount(52L);
+		pageBo.setRows(3);
 
 		List<CommentDto> list = new LinkedList<>();
 		for (int i = 0; i < 3; i++) {
 			CommentDto dto = TestUtil.getDeultCommentDto();
 			list.add(dto);
 		}
-		pageBean.setList(list);
+		pageBo.setList(list);
 
 		JSONObject json = new JSONObject();
-		json.put("pageBean", pageBean);
+		json.put("pageBean", pageBo);
 		System.out.println(json);
 	}
 
 	@Test
 	public void testReplyToJson() {
-		PageBean<CommentDto> pageBean = new PageBean<>();
-		pageBean.setCurrentPage(1);
-		pageBean.setTotalPage(5);
-		pageBean.setTotalCount(14L);
-		pageBean.setRows(3);
+		PageBo<CommentDto> pageBo = new PageBo<>();
+		pageBo.setCurrentPage(1);
+		pageBo.setTotalPage(5);
+		pageBo.setTotalCount(14L);
+		pageBo.setRows(3);
 		List<CommentDto> list = TestUtil.getDeultReplyDto();
-		pageBean.setList(list);
+		pageBo.setList(list);
 
 		JSONObject json = new JSONObject();
-		json.put("pageBean", pageBean);
+		json.put("pageBean", pageBo);
 		System.out.println(json);
 	}
 }

@@ -5,7 +5,6 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\D
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\AbstractCommentsStrategy.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\PostsDaoImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetHeadCommentsAndReplyByLike.java
-D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\EsOperator.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\LikeService.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\CommentUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\ArticleServiceImpl.java
@@ -25,6 +24,7 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strateg
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\filter\ValidateLoginFilter.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\PostsServiceImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\ArticleDaoImpl.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\pojo\bo\EsBo.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\CategoryController.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\WritingService.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\factory\NamedThreadFactory.java
@@ -33,6 +33,7 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\Wri
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\filter\EncodingFilter.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\schedule\LikeRunnable.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\choose\LikeStategyChoose.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\pojo\bo\PageBo.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\WritingController.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\pojo\dto\CommentDto.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\choose\GetParamChoose.java
@@ -63,9 +64,11 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\annonta
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\ObjectUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\LikeStrategy.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\CategoryServiceImpl.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\WritingType.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\LikeDao.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\SensitiveUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\listener\TomcatListener.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\EsEnum.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\factory\DaoFactory.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetReplysByLike.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\UserEnterController.java
@@ -78,6 +81,7 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\Use
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\GetParamStrategyImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\FileUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\choose\LikePersistChoose.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\others\EsOperator.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\UserDaoImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\bean\SensitiveNode.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\GetArticleStrategyImpl.java
@@ -98,9 +102,9 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\T
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\JdbcUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\pojo\po\Posts.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\ResponseStrategyImpl.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\JsonUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetCommentsByTime.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\service\impl\LikeServiceImpl.java
-D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\pojo\bean\PageBean.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\util\ControllerUtil.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\CommentDaoImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetReplysByTime.java
@@ -113,6 +117,7 @@ D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\controller\Ini
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\enums\Partition.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\filter\SensitiveFilter.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\choose\ResponseChoose.java
+D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\others\EsProcessManager.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\common\strategy\impl\comment\GetOnlyCommentByLike.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\impl\LikeDaoImpl.java
 D:\MyProgrammingWorld\IdeaWorkSpace\WanderFour\Test\src\main\java\dao\CommentDao.java

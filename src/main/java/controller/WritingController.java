@@ -59,7 +59,7 @@ public class WritingController extends BaseServlet {
 			WritingService<Article> artivleService = ServiceFactory.getArticleService();
 			WritingBean<Article> article = null;
 			try {
-				article = artivleService.getWriting(
+				article = artivleService.getWritingBean(
 						Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -73,7 +73,7 @@ public class WritingController extends BaseServlet {
 			WritingService<Posts> postsService = ServiceFactory.getPostsService();
 			WritingBean<Posts> posts = null;
 			try {
-				posts = postsService.getWriting(
+				posts = postsService.getWritingBean(
 						Long.valueOf(String.valueOf(params.get(TYPE_POSTS))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -315,34 +315,30 @@ public class WritingController extends BaseServlet {
 		param.put("deleter", userId);
 
 
-		Long articleId = param.getLong(TYPE_ARTICLE);
-		if (articleId != null) {
+		Long deleteId = param.getLong(TYPE_ARTICLE);
+		WritingService<?> service;
+		if (deleteId != null) {
 			//删除文章
-			WritingService<Article> service = ServiceFactory.getArticleService();
-			ResultType resultType = null;
-			try {
-				resultType = service.deleteWriting(articleId, param.getLong("deleterId"));
-			} catch (Exception e) {
-				e.printStackTrace();
-				resultType = ResultType.EXCEPTION;
-			}
-			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章删除结果");
+			service = ServiceFactory.getArticleService();
 		} else if (param.getLong(TYPE_POSTS) != null) {
 			//删除问贴
-			Long postsId = param.getLong(TYPE_POSTS);
-			WritingService<Posts> service = ServiceFactory.getPostsService();
-			ResultType resultType = null;
-			try {
-				resultType = service.deleteWriting(postsId, param.getLong("deleterId"));
-			} catch (Exception e) {
-				resultType = ResultType.EXCEPTION;
-				e.printStackTrace();
-			}
-			ResponseChoose.respOnlyStateToBrowser(resp, resultType, "问贴删除结果");
+			deleteId = param.getLong(TYPE_POSTS);
+			service = ServiceFactory.getPostsService();
 		} else {
 			//空参
 			ResponseChoose.respNoParameterError(resp, "删除作品(type参数)");
+			return;
 		}
+
+		// 删除、获取结果
+		ResultType resultType;
+		try {
+			resultType = service.deleteWriting(deleteId, param.getLong("deleterId"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultType = ResultType.EXCEPTION;
+		}
+		ResponseChoose.respOnlyStateToBrowser(resp, resultType, "文章删除结果");
 	}
 
 }

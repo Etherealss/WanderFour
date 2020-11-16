@@ -7,13 +7,11 @@ import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import pojo.CommentVo;
-import pojo.bean.PageBean;
+import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
 import pojo.po.Posts;
 import service.CommentService;
-
-import java.util.List;
 
 public class CommentServiceImplTestTest {
 
@@ -22,9 +20,9 @@ public class CommentServiceImplTestTest {
 	CommentService service = ServiceFactory.getCommentService(Posts.class);
 	@Test
 	public void testGetHotCommentList() throws Exception {
-		List<CommentDto> list = service.getHotCommentList(1L, 1L);
+		PageBo<CommentDto> list = service.getHotCommentList(1L, 1L);
 		JSONObject json = new JSONObject();
-		json.put("CommentData", list);
+		json.put("pageData", list);
 		logger.debug(json);
 	}
 
@@ -38,9 +36,9 @@ public class CommentServiceImplTestTest {
 		vo.setReplyRows(3);
 		vo.setOrder(DaoEnum.ORDER_BY_TIME);
 
-		PageBean<CommentDto> pageBean = service.getCommentListByPage(vo, 1);
+		PageBo<CommentDto> pageBo = service.getCommentListByPage(vo, 1);
 		JSONObject json = new JSONObject();
-		json.put("pageBean", pageBean);
+		json.put("pageBean", pageBo);
 		logger.debug(json);
 	}
 

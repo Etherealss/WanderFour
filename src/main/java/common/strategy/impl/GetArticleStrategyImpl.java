@@ -1,5 +1,6 @@
 package common.strategy.impl;
 
+import common.enums.WritingType;
 import common.factory.DaoFactory;
 import common.strategy.GetWritingStrategy;
 import dao.WritingDao;

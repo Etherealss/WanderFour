@@ -3,7 +3,9 @@ package dao.impl;
 import dao.WritingDao;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import pojo.bo.EsBo;
 import pojo.po.Article;
 
 import java.math.BigInteger;
@@ -132,5 +134,25 @@ public class ArticleDaoImpl extends BaseDaoImpl implements WritingDao<Article> {
 		String sql = "UPDATE `article` SET `liked`=? WHERE `id`=?;";
 		int res = qr.update(conn, sql, count, id);
 		assert res == 1;
+	}
+
+	@Override
+	public List<Long> getAllWritingsId(Connection conn) throws SQLException {
+		String sql = "SELECT `id` FROM `article`";
+		return qr.query(conn, sql, new ColumnListHandler<>("id"));
+	}
+
+	@Override
+	public List<EsBo> getWritingsByIds(Connection conn, List<Long> ids) throws SQLException {
+		StringBuilder sql = new StringBuilder("SELECT `article`.`id` `writingId`,`category`.`id` `categoryId`, `category`.`name` `categoryName`,`author_id` `authorId`,\n" +
+				"`title`, `label1`, `label2`, `label3`, `label4`,`label5`, \n" +
+				" `create_time` `createTime`, `update_time` `updateTime`, `liked`, `collected`\n" +
+				"FROM `article` LEFT JOIN `category` ON `article`.`category` = `category`.`id` WHERE `article`.`id` IN (");
+		for (Long id : ids) {
+			sql.append(id.toString()).append(",");
+		}
+		sql.deleteCharAt(sql.length() - 1);
+		sql.append(");");
+		return qr.query(conn, sql.toString(), new BeanListHandler<>(EsBo.class));
 	}
 }
