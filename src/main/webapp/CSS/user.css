@@ -237,7 +237,7 @@ a {
 /* --------------------------------------------------user_header-------------------------------------------- */
 .user_header {
     /* width: 100%; */
-    width: 1520px;
+    width: 1519px;
     /* min-width: 1520px; */
     margin: 0 auto;
     height: 258px;
@@ -318,7 +318,7 @@ a {
 .user_nav {
     float: left;
     width: 240px;
-    height: 215px;
+    height: 295px;
     background: #FFFFFF;
     box-shadow: 0px 0px 9px 1px rgba(102, 102, 102, 0.08);
 }
@@ -460,7 +460,9 @@ a {
 
 /* ------------------------userMyCollection--------------- */
 .userMyCollection h1,
-.userCreate h1 {
+.userCreate h1,
+.userAvatarBox h1,
+.userChangePW h1 {
     /* width: 40px; */
     height: 20px;
     font-size: 20px;
@@ -591,3 +593,162 @@ a {
 }
 
 /* --------------------------userInboxes--------------------- */
+
+/* --------------------userAvatarBox------------------ */
+.userAvatarBoxMain {
+    width: 431px;
+    height: 200px;
+    margin-top: 43px;
+    margin-left: 223px;
+}
+.changeAvatar {
+    float: left;
+    width: 180px;
+    height: 180px;
+    background: #E7E7E7;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-image: url(../img/userAvatar/changeAvatar.png);
+    background-size: 53px 42px;
+    background-repeat: no-repeat;
+    background-position: 64px 51px;
+    cursor: pointer;
+}
+.changeAvatar span {
+    display: block;
+    width: 64px;
+    height: 17px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 22px;
+    margin-left: 58px;
+    margin-top: 112px;
+}
+.divideAvatar {
+    float: left;
+    width: 1px;
+    height: 200px;
+    margin-left: 60px;
+    background: #E7E7E7;
+}
+.alreadyAvatar {
+    float: left;
+    width: 130px;
+    height: 130px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px 0px rgba(102, 102, 102, 0.08);
+    margin-left: 60px;
+    margin-top: 22px;
+}
+.userAvatarBox p {
+    width: 409px;
+    height: 13px;
+    font-size: 12px;
+    color: #999999;
+    line-height: 22px;
+    margin-top: 45px;
+    margin-left: 258px;
+}
+.userAvatarBox button {
+    width: 100px;
+    height: 30px;
+    background: #81CBBF;
+    border-radius: 15px;
+    color: #333;
+    outline: none;
+    border: none;
+    margin-left: 414px;
+    margin-top: 45px;
+    cursor: pointer;
+}
+
+/* --------------------userChangePW------------------ */
+.userChangePWBox {
+    width: 410px;
+    /* height: 165px; */
+    /* background-color: #333333; */
+    margin-left: 228px;
+    margin-top: 49px;
+}
+.userChangePWBox div {
+    margin-bottom: 15px;
+}
+.userChangePWBox span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 22px;
+}
+/* .userChangePWBox input {
+    position: relative;
+} */
+.userChangePWBox div:nth-child(1) span,
+.userChangePWBox div:nth-child(2) span {
+    margin-left: 32px;
+}
+.userChangePW .userChangePWBox div input{
+    float: none;
+    width: 285px;
+    height: 40px;
+    padding-left: 15px;
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    font-size: 14px;
+    color: #999999;
+    position: relative;
+    margin-left: 15px;
+}
+.userChangePW button {
+    width: 100px;
+    height: 30px;
+    background: #81CBBF;
+    border-radius: 15px;
+    color: #333333;
+    font-size: 14px;
+    /* margin-top: 10px; */
+    margin-left: 413px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.userChangePW .userChangePWBox .inputBlur {
+    border: 1px solid #81CBBF;
+}
+.userChangePW .userChangePWBox .success{
+    color: #3c763d;
+    display: none;
+    margin-left: 103px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.userChangePW .userChangePWBox .error {
+    color: #a94442;
+    display: none;
+    margin-left: 103px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.userChangePW .userChangePWBox .testLogo {
+    position: absolute;
+    display: none;
+    width: 14px;
+    height: 14px;
+    right: 7px;
+    top: 20px;
+}
+.userChangePW .userChangePWBox .successGreen,
+.userChangePW .userChangePWBox .errorRed {
+    position: relative;
+    border: 1px solid #3c763d;
+    border-radius: 4px;
+}
+.userChangePW .userChangePWBox .successGreen:focus {
+    border-color: #3c763d;
+}
+.userChangePW .userChangePWBox .errorRed {
+    border: 1px solid #a94442;
+}
+.userChangePW .userChangePWBox .errorRed:focus {
+    border-color: #a94442;
+}
