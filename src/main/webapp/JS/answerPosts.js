@@ -119,10 +119,9 @@ $(window).scroll(function()
  * @param {*} postsLikeNum 点赞数
  */
 
-var floorNum = 0;   //层楼数（全局变量）
 var userId = "小华er";
 
-function postsPublish(userId, postTime, postsContent, postsLikeNum,src) 
+function postsPublish(userId, postTime, postsContent, postsLikeNum,src,floorNum) 
 {
     var li = $("<li></li>");
     //———————— 楼层发表样式 —————————
@@ -132,14 +131,17 @@ function postsPublish(userId, postTime, postsContent, postsLikeNum,src)
         "</div>" +
         "<a class='APlist_userName'>" + userId + "</a>" +
         "<span class='APlist_userIntro'>简介blabla</span>" +
-        "<p class='APlist_postTime'>" + postTime + "</p>" +
-        "<span class='APlist_position'>" + (++floorNum) + "楼</span>" +
+        "<p class='APlist_postTime'>" + timestampToTime(postTime) + "</p>" +
+        "<span class='APlist_position'>" + floorNum + "楼</span>" +
         "</div>" +
-        "<p class='APlist_content'>" + postsContent + "</p>" +
-        "<div class='APlist_likeAndReply'>" +
-        "<div class='APlist_reply'>回复</div>" +
-        "<span></span>" +
-        "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+        "<p class='APlist_content' commentFloor='"+floorNum+"'>" + postsContent + "</p>" +
+        "<div class='APlist_likeAndReplyBox'>"+
+            "<div class='APlist_likeAndReply'>" +
+                "<div class='APlist_reply'>回复</div>" +
+                "<span></span>" +
+            "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+        "</div>"+
+        "<ul class='APReplys_list'></ul>"+
         "</div>";
     li.html(str);   //插入到<li>里
     $(".answerPosts_list").prepend(li);    //插入到楼层里
@@ -187,11 +189,14 @@ function clickPostPosts()
 clickPostPosts();
 
 //————— 输入的内容发表到楼层里 ———————————
-function postPostsUp(userId,time,postContent,postsLikeNum,src)
+function postPostsUp(userId,time,postContent,postsLikeNum,src,floorNum)
 {
     var postsLikeNum = "点赞";
-    postsPublish(userId, time,postContent,postsLikeNum,src);
+    postsPublish(userId, time,postContent,postsLikeNum,src,floorNum);
     
+    //点击评论的回复
+    APlistAddContent("MR","1分钟前");
+
     // 评论的“点击阅读全文”
     readFullArticle($(".APlist_content"));
 
