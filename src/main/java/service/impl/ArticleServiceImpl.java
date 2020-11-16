@@ -62,10 +62,10 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	}
 
 	@Override
-	public WritingBean<Article> getWritingBean(Long writingId, Long userid) throws Exception {
+	public WritingBean<Article> getWriting(Long id, Long userid) throws Exception {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
-		Article article = writingDao.getWritingById(conn, writingId);
+		Article article = writingDao.getWritingById(conn, id);
 		if (article == null) {
 			return null;
 		}
@@ -82,7 +82,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			LikeRecord likeRecord = new LikeRecord();
 			likeRecord.setUserid(userid);
 			likeRecord.setTargetType(TargetType.ARTICLE);
-			likeRecord.setTargetId(writingId);
+			likeRecord.setTargetId(id);
 			boolean isLiked = likeDao.countUserLikeRecord(conn, likeRecord);
 
 			//注意取反
@@ -216,20 +216,6 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		} else {
 			return ResultType.NOT_AUTHOR;
 		}
-	}
-
-	@Override
-	public List<Long> getAllWritingsId() throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		WritingDao<Article> articleDao = DaoFactory.getArticleDao();
-		return articleDao.getAllWritingsId(conn);
-	}
-
-	@Override
-	public List<Article> getWritingListByIds(List<Long> ids) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		WritingDao<Article> articleDao = DaoFactory.getArticleDao();
-		return articleDao.getWritingsByIds(conn, ids);
 	}
 
 }

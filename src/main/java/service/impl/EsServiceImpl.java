@@ -1,17 +1,10 @@
 package service.impl;
 
 
-import com.alibaba.fastjson.JSONObject;
-import common.enums.EsEnum;
-import common.enums.ResultType;
-import common.enums.WritingType;
-import common.factory.DaoFactory;
-import common.factory.ServiceFactory;
 import common.util.EsUtil;
-import common.util.JdbcUtil;
-import dao.WritingDao;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -28,16 +21,15 @@ import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.json.JsonXContent;
 import pojo.po.Article;
 import pojo.po.Writing;
-import service.CategoryService;
-import common.others.EsOperator;
+import service.EsOperator;
 import service.EsService;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -50,6 +42,7 @@ public class EsServiceImpl implements EsService {
 
 	private RestHighLevelClient client = EsUtil.getClient();
 
+	public static final String INDEX_NAME = "writings";
 	/** ik分词器 */
 	private static final String ANALYZER_IK_MAX_WORD = "ik_max_word";
 	/** 最大分片数 */
@@ -59,10 +52,6 @@ public class EsServiceImpl implements EsService {
 
 	@Override
 	public boolean createWritingIndex() {
-		if (this.existsIndex(EsEnum.INDEX_NAME)) {
-			// 已存在，返回false
-			return false;
-		}
 		RestHighLevelClient client = null;
 		/*
 		准备索引相关的setting
@@ -73,12 +62,41 @@ public class EsServiceImpl implements EsService {
 				.put("number_of_shards", NUMBER_OF_SHARDS)
 				.put("number_of_replicas", NUMBER_OF_REPLICAS);
 
+		// 准备关于索引结构的mappings
+		XContentBuilder mappings = null;
 		try {
-			// 准备关于索引结构的mappings
-			XContentBuilder mappings = EsUtil.getEsWritingMappings();
+			mappings = JsonXContent.contentBuilder()
+					.startObject()
+					.startObject("properties")
+					.startObject("title")
+					.field("type", "text")
+					.endObject()
+					.startObject("content")
+					.field("type", "text")
+					.endObject()
+					.startObject("category")
+					.field("type", "keyword")
+					.endObject()
+					.startObject("label1")
+					.field("type", "keyword")
+					.endObject()
+					.startObject("label2")
+					.field("type", "keyword")
+					.endObject()
+					.startObject("label3")
+					.field("type", "keyword")
+					.endObject()
+					.startObject("label4")
+					.field("type", "keyword")
+					.endObject()
+					.startObject("label5")
+					.field("type", "keyword")
+					.endObject()
+					.endObject()
+					.endObject();
 			EsOperator operator = new EsOperator();
 			client = EsUtil.getClient();
-			CreateIndexResponse resp = operator.createIndex(client, settings, mappings, EsEnum.INDEX_NAME);
+			CreateIndexResponse resp = operator.createIndex(client, settings, mappings, INDEX_NAME);
 			return resp.isAcknowledged();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,52 +111,6 @@ public class EsServiceImpl implements EsService {
 		}
 		return false;
 	}
-
-	@Override
-	public List<Long> checkWritingsExist(WritingType type, List<Long> writingsId) {
-		/*
-		之所以不在这里使用DAO获取writingIds，是因为这个EsService本质上不算数据库Service，
-		而且也没有代理，没有处理异常情况和回滚
-		 */
-		List<Long> notExistIds = new ArrayList<>();
-		EsOperator operator = new EsOperator();
-		try {
-			RestHighLevelClient client = EsUtil.getClient();
-			// 遍历作品id，检查是不是所有的作品都在ES中，并返回存在的作品的id
-			for (Long id : writingsId) {
-				String docId = type.val() + id;
-				boolean isExist = operator.existDoc(client, EsEnum.INDEX_NAME, docId);
-				if (!isExist){
-					// 不存在
-					notExistIds.add(id);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return notExistIds;
-	}
-
-	@Override
-	public void initWritingDocs(WritingType type, List<Long> writingsId) throws Exception {
-		// 获取所有的分类Json
-		CategoryService categoryService = ServiceFactory.getArticleService();
-		// Connection连接会在categoryService中关闭而引起bug
-		JSONObject allCategory = categoryService.getAllCategory();
-
-		Connection conn = JdbcUtil.beginTransaction();
-		WritingDao<Article> dao = DaoFactory.getArticleDao();
-
-		for (Long i : writingsId) {
-			Article article = dao.getWritingById(conn, (long) i);
-			String categoryName = (String) allCategory.get(article.getCategory());
-			assert categoryName != null;
-//			String s = service.addDoc(EsEnum.INDEX_NAME, article, categoryName);
-//			logger.debug(s);
-		}
-		JdbcUtil.closeTransaction();
-	}
-
 
 	@Override
 	public boolean deleteIndex(String indexName) {
@@ -184,29 +156,23 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public <T extends Writing> String addDoc(String indexName, T writing, String categoryName) {
+	public String addDoc(Writing writing, String indexName, String docId) {
+		Map<String, Object> jsonMap = new HashMap<>();
+		if(writing instanceof Article){
+			Article article = (Article) writing;
+			jsonMap.put("title", article.getTitle());
+			jsonMap.put("content", article.getContent());
+		}
+
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
-			// 获取文章的分类的字符串 要用到的service
-			CategoryService categoryService = ServiceFactory.getCategoryService();
-
-			// 封装实体数据到Json中
-			JSONObject jsonObject = EsUtil.getJsonObject(writing, categoryName);
-
-			// 将Map存储到ES中
 			EsOperator operator = new EsOperator();
-			// 拼接ES的Id "article" + writingId
-			String docId = EsUtil.getWritingTypeStr(writing) + writing.getId();
-			IndexResponse resp = operator.addDoc(client, jsonObject.toJSONString(), indexName, docId);
+			IndexResponse resp = operator.addDoc(client, jsonMap, indexName, docId);
 
 			//如果返回结果为CREATED，新增文档，如果返回结果是UPDATED，更新文档
 			DocWriteResponse.Result result = resp.getResult();
-
-			if (result == null || "".equals(result.toString())) {
-				return ResultType.EXCEPTION.val();
-			}
 			return result.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,7 +187,6 @@ public class EsServiceImpl implements EsService {
 		}
 		return null;
 	}
-
 
 	@Override
 	public String deleteDoc(String indexName, String docId) {
@@ -247,25 +212,17 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public <T extends Writing> String updateDoc(String indexName, T writing, String categoryName) {
+	public String updateDoc(Map<String, Object> jsonMap, String indexName, String docId) {
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
-			// 封装实体数据到Json中
-			JSONObject jsonObject = EsUtil.getJsonObject(writing, categoryName);
-
-			// 将Map存储到ES中
 			EsOperator operator = new EsOperator();
-			// 拼接ES的Id "article"/"posts" + writingId
-			String docId = EsUtil.getWritingTypeStr(writing) + writing.getId();
-			UpdateResponse resp = operator.updateDoc(client, jsonObject.toJSONString(), indexName, docId);
+			UpdateResponse resp = operator.updateDoc(client, jsonMap, indexName, docId);
 
 			DocWriteResponse.Result result = resp.getResult();
 
-			if (result == null || "".equals(result.toString())) {
-				return ResultType.EXCEPTION.val();
-			}
+			logger.debug("updateDoc: " + result.toString());
 			return result.toString();
 
 		} catch (Exception e) {
@@ -283,44 +240,56 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public <T extends Writing> String bulkDoc(String indexName, String action, List<T> docs, String[] docCategorys) {
+	public String bulkDoc(String indexName, List<Article> docs, String action) {
 		BulkRequest request = new BulkRequest();
 		// 封装request
-		try {
-			// 判断操作类型
-			switch (action) {
-				case "add":
-					// 添加文档
-					int add = 0;
-					for (T writing : docs) {
-						JSONObject sourceMap = EsUtil.getJsonObject(writing, docCategorys[add++]);
-						request.add(new IndexRequest(indexName).id(writing.getId().toString())
-								.source(XContentType.JSON, sourceMap.toJSONString())
-						);
-					}
-					break;
-				case "update":
-					// 更新文档
-					int up = 0;
-					for (T writing : docs) {
-						JSONObject sourceMap = EsUtil.getJsonObject(writing, docCategorys[up++]);
-						request.add(new UpdateRequest(indexName, writing.getId().toString())
-								.doc(XContentType.JSON, sourceMap.toJSONString())
-						);
-					}
-					break;
-				case "delete":
-					// 删除文档
-				default:
-					for (T writing : docs) {
-						request.add(new DeleteRequest(indexName, writing.getId().toString()));
-					}
-			}
+		switch (action) {
+			case "add":
+				// 添加文档
+				for (Article user : docs) {
+					request.add(new IndexRequest(indexName).id(user.getId().toString())
+							.source(XContentType.JSON, "title", user.getTitle(),
+									"content", user.getContent(),
+									"category", user.getCategory(),
+									"label1", user.getLabel1(),
+									"label2", user.getLabel2(),
+									"label3", user.getLabel3(),
+									"label4", user.getLabel4(),
+									"label5", user.getLabel5()
+							)
+					);
+				}
+				break;
+			case "update":
+				// 更新文档
+				for (Article user : docs) {
+					request.add(new UpdateRequest(indexName, user.getId().toString())
+							.doc(XContentType.JSON, "title", user.getTitle(),
+									"content", user.getContent(),
+									"category", user.getCategory(),
+									"label1", user.getLabel1(),
+									"label2", user.getLabel2(),
+									"label3", user.getLabel3(),
+									"label4", user.getLabel4(),
+									"label5", user.getLabel5()
+							)
+					);
+				}
+				break;
+			case "delete":
+				// 删除文档
+			default:
+				for (Article user : docs) {
+					request.add(new DeleteRequest(indexName, user.getId().toString()));
+				}
+		}
 
-			RestHighLevelClient client = EsUtil.getClient();
+		RestHighLevelClient client = null;
+		try {
+			client = EsUtil.getClient();
 			BulkResponse bulkResponse = client.bulk(request, RequestOptions.DEFAULT);
 			// 获取结果日志
-			return EsUtil.getBulkRespLog(bulkResponse, logger);
+			return getBulkRespLog(bulkResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -336,6 +305,29 @@ public class EsServiceImpl implements EsService {
 		return null;
 	}
 
+	/**
+	 * 获取ES操作结果日志
+	 * @param bulkResponse
+	 * @return 结果日志，如果操作全部成功，返回"SUCCESS"
+	 */
+	private String getBulkRespLog(BulkResponse bulkResponse) {
+		// 如果至少有一个操作失败，此方法返回true
+		if (bulkResponse.hasFailures()) {
+			StringBuilder sb = new StringBuilder();
+			for (BulkItemResponse bulkItemResponse : bulkResponse) {
+				//指示给定操作是否失败
+				if (bulkItemResponse.isFailed()) {
+					//检索失败操作的失败
+					BulkItemResponse.Failure failure = bulkItemResponse.getFailure();
+					sb.append(failure.toString()).append("\n");
+				}
+			}
+			logger.error("=bulk error=" + sb.toString());
+			return sb.toString();
+		} else {
+			return "SUCCESS";
+		}
+	}
 
 	@Override
 	public void searchByHighLigh(String word, int from, int size) {
@@ -346,10 +338,11 @@ public class EsServiceImpl implements EsService {
 
 			EsOperator operator = new EsOperator();
 			SearchResponse resp =
-					operator.mulitHighLightQuery(client, EsEnum.INDEX_NAME, fieldNames, word, from, size);
+					operator.mulitHighLightQuery(client, INDEX_NAME, fieldNames, word, from, size);
 
 
-		} catch (Exception e) {
+
+		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			if (client != null) {

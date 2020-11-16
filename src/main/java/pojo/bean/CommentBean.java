@@ -1,6 +1,5 @@
 package pojo.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import pojo.po.Comment;
 
 /**
@@ -13,31 +12,30 @@ import pojo.po.Comment;
 public class CommentBean {
 
 	/**
+	 * 该评论/回复的具体信息
+	 */
+	private Comment comment;
+
+	/**
+	 * 当前回复的引用
+	 */
+	private Comment relayComment;
+
+	/**
+	 * 评论者头像(base64)
+	 */
+	private String userImg;
+
+	/**
 	 * 评论者昵称
 	 */
-	@JSONField(ordinal = 0)
 	private String userNickname;
 
 	/**
 	 * 判断当前请求的用户是否可以删除该评论
 	 * （是否为评论者）
 	 */
-	@JSONField(ordinal = 1)
 	private boolean canDelete;
-
-	/**
-	 * 该评论/回复的具体信息
-	 */
-	@JSONField(ordinal = 2)
-	private Comment comment;
-
-	/**
-	 * 评论者头像(base64)
-	 */
-	@JSONField(ordinal = 3)
-	private String userImg;
-
-
 
 	@Override
 	public String toString() {
@@ -74,13 +72,13 @@ public class CommentBean {
 		this.userNickname = userNickname;
 	}
 
-//	public Comment getBeRepliedComment() {
-//		return beRepliedComment;
-//	}
-//
-//	public void setBeRepliedComment(Comment beRepliedComment) {
-//		this.beRepliedComment = beRepliedComment;
-//	}
+	public Comment getRelayComment() {
+		return relayComment;
+	}
+
+	public void setRelayComment(Comment relayComment) {
+		this.relayComment = relayComment;
+	}
 
 	public boolean isCanDelete() {
 		return canDelete;

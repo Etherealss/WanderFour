@@ -12,8 +12,6 @@ import java.util.List;
  * @date 2020/11/4
  */
 public class WritingDto<T extends Writing> {
-
-
 	private WritingBean<T> writingBean;
 
 	private List<CommentDto> commentDtoList;

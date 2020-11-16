@@ -1,7 +1,5 @@
 package pojo.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.util.List;
 
 /**
@@ -11,23 +9,15 @@ import java.util.List;
  */
 public class PageBean<T> {
 	/** 总记录数 */
-	@JSONField(ordinal = 0)
 	private Long totalCount;
-
 	/** 总页码 */
-	@JSONField(ordinal = 0)
 	private int totalPage;
-
-	/** 当前页码 */
-	@JSONField(ordinal = 0)
-	private int currentPage;
-
-	/** 每一页显示的记录数 */
-	@JSONField(ordinal = 0)
-	private int rows;
-
 	/** 每页的数据 */
 	private List<T> list;
+	/** 当前页码 */
+	private int currentPage;
+	/** 每一页显示的记录数 */
+	private int rows;
 
 	public Long getTotalCount() {
 		return totalCount;

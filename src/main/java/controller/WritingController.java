@@ -59,7 +59,7 @@ public class WritingController extends BaseServlet {
 			WritingService<Article> artivleService = ServiceFactory.getArticleService();
 			WritingBean<Article> article = null;
 			try {
-				article = artivleService.getWritingBean(
+				article = artivleService.getWriting(
 						Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -73,7 +73,7 @@ public class WritingController extends BaseServlet {
 			WritingService<Posts> postsService = ServiceFactory.getPostsService();
 			WritingBean<Posts> posts = null;
 			try {
-				posts = postsService.getWritingBean(
+				posts = postsService.getWriting(
 						Long.valueOf(String.valueOf(params.get(TYPE_POSTS))), ControllerUtil.getUserId(req));
 			} catch (Exception e) {
 				e.printStackTrace();

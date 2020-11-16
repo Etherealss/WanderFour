@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public PageBean<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception {
+	public List<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		//选择策略 按点赞数获取热门评论及其回复
 		CommentChoose choose = new CommentChoose(new GetHeadCommentsAndReplyByLike());
@@ -54,15 +54,7 @@ public class CommentServiceImpl implements CommentService {
 		vo.setDao(dao);
 		//策略 获取所有评论数据
 		List<CommentDto> list = choose.doGet(vo);
-
-		// 包装Bean
-		PageBean<CommentDto> pb = new PageBean<>(1, 3);
-		pb.setList(list);
-		//获取并存入总记录数
-		Long totalCount = dao.countCommentByParentId(conn, parentId);
-		pb.setTotalCount(totalCount);
-
-		return pb;
+		return list;
 	}
 
 	@Override
@@ -90,6 +82,7 @@ public class CommentServiceImpl implements CommentService {
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
 			Long start = (currentPage - 1L) * commentRows;
 			vo.setCommentStart(start);
+			logger.debug("获取评论：vo = " + vo);
 
 			//策略选择
 			CommentChoose choose;
@@ -163,7 +156,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public ResultType publishNewComment(Comment comment) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
+		Connection conn  = JdbcUtil.getConnection();
 		boolean success;
 		if (comment.getTargetId() == null) {
 			//评论
@@ -172,7 +165,7 @@ public class CommentServiceImpl implements CommentService {
 			//回复
 			success = dao.createNewReply(conn, comment);
 		}
-		if (success) {
+		if (success){
 			return ResultType.SUCCESS;
 		}
 		return ResultType.EXCEPTION;
@@ -180,13 +173,13 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public ResultType deleteComment(Long commentId, Long userid) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
+		Connection conn  = JdbcUtil.getConnection();
 		Long commentUserId = dao.getCommentUserId(conn, userid);
-		if (!commentId.equals(commentUserId)) {
+		if (!commentId.equals(commentUserId)){
 			return ResultType.NOT_AUTHOR;
 		}
 		boolean success = dao.deleteComment(conn, commentId);
-		if (success) {
+		if (success){
 			return ResultType.SUCCESS;
 		}
 		return ResultType.EXCEPTION;

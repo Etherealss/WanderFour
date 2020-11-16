@@ -1,11 +1,9 @@
 package service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import common.enums.Partition;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import common.util.JedisUtil;
-import common.util.JsonUtil;
 import dao.CategoryDao;
 import org.apache.log4j.Logger;
 import redis.clients.jedis.Jedis;
@@ -27,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public JSONObject getAllCategoryByPart(int partition) throws Exception {
 		Jedis jedis = JedisUtil.getJedis();
-		String category = jedis.get(getJedisCategoryIndex(partition));
+		String category = jedis.get("Category");
 		JSONObject returnJson;
 		if (category != null) {
 			//缓存中存在分类数据
@@ -45,32 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
 			for (Map<String, Object> map : maps) {
 				returnJson.put(String.valueOf(map.get("id")), map.get("name"));
 			}
-			jedis.set(getJedisCategoryIndex(partition), returnJson.toJSONString());
+			jedis.set("Category", returnJson.toJSONString());
 		}
 		return returnJson;
-	}
-
-	@Override
-	public JSONObject getAllCategory() throws Exception {
-		JSONObject result = new JSONObject();
-		// 获取所有分区
-		Partition[] partitions = Partition.getAllPartition();
-		// 遍历分区，获取所有分区的分类
-		for (Partition p : partitions){
-			int code = p.code();
-			JSONObject allCategoryByPart = this.getAllCategoryByPart(code);
-			// 拼接两个json
-			JsonUtil.combineJson(result, allCategoryByPart);
-		}
-		return result;
-	}
-
-	/**
-	 *
-	 * @param partition
-	 * @return "Category::" + partition
-	 */
-	private String getJedisCategoryIndex(int partition) {
-		return "Category::" + partition;
 	}
 }

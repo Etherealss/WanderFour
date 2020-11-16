@@ -9,9 +9,9 @@ public enum  Partition {
 	/** 学习天地 */
 	LEARNING(1, "learning"),
 	/** 专业介绍 */
-	MAJOR(2, "major"),
+	COLLEGE(2, "major"),
 	/** 大学风采 */
-	COLLEGE(3,"college"),
+	MAJOR(3,"college"),
 	;
 
 	private final int CODE;
@@ -56,9 +56,5 @@ public enum  Partition {
 			}
 		}
 		return null;
-	}
-
-	public static Partition[] getAllPartition(){
-		return new Partition[] {LEARNING, MAJOR, COLLEGE};
 	}
 }

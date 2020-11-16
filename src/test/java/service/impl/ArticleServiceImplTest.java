@@ -35,7 +35,7 @@ public class ArticleServiceImplTest {
 	public void getWriting() {
 		WritingBean<Article> writing = null;
 		try {
-			writing = service.getWritingBean(1L, 2L);
+			writing = service.getWriting(1L, 2L);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -146,9 +146,9 @@ public class TestUtil {
 		CommentBean reply1 = TestUtil.getDefaultReplyBean(comment1);
 
 		CommentBean reply2 = TestUtil.getDefaultReplyBean(comment2);
-//		reply2.setBeRepliedComment(comment1);
+		reply2.setRelayComment(comment1);
 		CommentBean reply3 = TestUtil.getDefaultReplyBean(comment3);
-//		reply2.setBeRepliedComment(comment1);
+		reply2.setRelayComment(comment1);
 		CommentDto dto2 = new CommentDto();
 		dto2.setParentComment(reply2);
 		list.add(dto2);

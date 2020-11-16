@@ -1,10 +1,8 @@
 package common.strategy;
 
 import common.enums.DaoEnum;
-import common.factory.DaoFactory;
 import common.util.CommentUtil;
 import dao.CommentDao;
-import dao.UserDao;
 import org.apache.log4j.Logger;
 import pojo.CommentVo;
 import pojo.bean.CommentBean;
@@ -44,17 +42,16 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 	 * @throws SQLException
 	 */
 	public List<CommentDto> getCommentDto(CommentVo vo) throws SQLException {
-		CommentDao commentDao = vo.getDao();
+		CommentDao dao = vo.getDao();
 		Connection conn = vo.getConn();
 		String order = vo.getOrder();
 		Long parentId = vo.getParentId();
 		Long userid = vo.getUserid();
-
 		//结果列表
 		List<CommentDto> returnDtoList = new ArrayList<>();
 
 		//获取rows条 顶层评论 数据
-		List<Comment> commentList = commentDao.getCommentList(
+		List<Comment> commentList = dao.getCommentList(
 				conn, order, vo.getCommentStart(), vo.getCommentRows(), parentId);
 
 		/*
@@ -62,54 +59,35 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 		1、封装CommentBean，包括评论信息、评论用户昵称和头像
 		2、封装回复的评论信息
 			2.1封装回复的评论的CommentBean
-		3、判断是否要添加引用
-			2.1、需要添加引用：获取并添加引用targetBean
-			2.2、不需要添加，则进行下一步
-		3、将commentBean, [replysCommentBean]，[targetBean]封装到Dto，添加到要返回的list中
+		3、将commentBean, replysCommentBean封装到Dto，添加到要返回的list中
 		 */
 		for (Comment comment : commentList) {
 			Long targetId = comment.getTargetId();
 			/*
 			包装 顶层评论的Bean
+			1、parentId和targetId不相同，说明该评论是回复其他评论
+			则查询回复的评论，添加引用(reply)
+			2、parentId和targetId相同，说明该回复是回复评论，不引用
+			获取的targetComment为null，不影响封装
 			 */
-			// 封装回复的评论的CommentBean
-			UserDao userDao = DaoFactory.getUserDAO();
-			CommentBean commentBean = CommentUtil.getCommentBean(conn, userDao, comment, userid);
-
-			CommentDto resultDto = null;
-			//判断是否获取回复列表（评论才有回复列表，回复列表就显示在回复没有回复列表
+			Comment targetComment = dao.getComment(conn, targetId);
+			CommentBean commentBean = CommentUtil.getCommentBean(conn, comment, targetComment, userid);
+			CommentDto dto = null;
+			//判断是否要获取评论的回复
 			if (vo.getReplyRows() != 0) {
 				/*
-				要获取该评论的回复记录信息列表
+				获取该评论的回复记录信息列表
+				TODO 此处按获赞数获取回复
 				*/
 				CommentVo voForReply = vo;
 				voForReply.setOrder(DaoEnum.FIELD_ORDER_BY_LIKE);
-				List<CommentBean> replysCommentBeanList = getReplysCommentBean(voForReply);
-
-				// 获取回复总数
-				int count = commentDao.countReplyByParentId(conn, parentId).intValue();
-				//创建评论的Dto，封装数据
-				resultDto = new CommentDto(commentBean, replysCommentBeanList, count);
+				List<CommentBean> replysCommentBean = getReplysCommentBean(voForReply, false);
+				//封装到Dto
+				dto = new CommentDto(commentBean, replysCommentBean);
 			} else {
-
-				// 获取的是评论下的【回复列表】
-				/*
-				1、parentId和targetId不相同，说明该评论是回复其他评论
-				则进入if语句，查询回复的评论，添加引用(reply)
-				2、parentId和targetId相同，说明该回复是回复评论，不引用
-				获取的targetComment为null，不影响封装
-				 */
-				CommentBean targetBean = null;
-				if (!comment.getTargetId().equals(comment.getParentId())){
-					//该回复是回复另一条回复，则查询被回复的评论，添加引用(reply)
-					//targetComment 意：复的那个记录的对象，用户添加引用
-					Comment targetComment = commentDao.getComment(conn, targetId);
-					targetBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
-				}
-				// 回复的Dto，封装数据
-				resultDto = new CommentDto(commentBean, targetBean);
+				dto = new CommentDto(commentBean, null);
 			}
-			returnDtoList.add(resultDto);
+			returnDtoList.add(dto);
 		}
 		return returnDtoList;
 	}

@@ -1,6 +1,5 @@
 package pojo.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import common.enums.ResultType;
 
 /**
@@ -10,9 +9,7 @@ import common.enums.ResultType;
  */
 public class ResultState {
 
-	@JSONField(ordinal = 0)
 	private ResultType code;
-	@JSONField(ordinal = 1)
 	private String msg;
 
 	public ResultState() {}

@@ -82,6 +82,9 @@ $(".APlist_like").on({
     }
 });
 
+//全局变量————楼层数
+var commentsFloorNum = 1;
+
 // ————————————————————————— 滑动时被限制在浏览器顶部 —————————————————————————————
 // 评论的“点击阅读全文”
 readFullArticle($(".APlist_content"));
@@ -131,18 +134,19 @@ function postsPublish(userId, postTime, postsContent, postsLikeNum,src,floorNum)
         "</div>" +
         "<a class='APlist_userName'>" + userId + "</a>" +
         "<span class='APlist_userIntro'>简介blabla</span>" +
-        "<p class='APlist_postTime'>" + timestampToTime(postTime) + "</p>" +
-        "<span class='APlist_position'>" + floorNum + "楼</span>" +
+        "<p class='APlist_postTime'>" + postTime + "</p>" +
+        "<span class='APlist_position'>" + (commentsFloorNum != 1?floorNum:commentsFloorNum) + "楼</span>" +
         "</div>" +
-        "<p class='APlist_content' commentFloor='"+floorNum+"'>" + postsContent + "</p>" +
+        //"<p class='APlist_content' commentFloor='"+floorNum+"'>" + postsContent + "</p>" +
+        "<p class='APlist_content' commentFloor='"+(commentsFloorNum != 1?floorNum:commentsFloorNum)+"'>" + postsContent + "</p>" +
         "<div class='APlist_likeAndReplyBox'>"+
             "<div class='APlist_likeAndReply'>" +
                 "<div class='APlist_reply'>回复</div>" +
                 "<span></span>" +
-            "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+                "<div class='APlist_like'>" + postsLikeNum + "</div>" +
+            "</div>"+
         "</div>"+
-        "<ul class='APReplys_list'></ul>"+
-        "</div>";
+        "<ul class='APReplys_list'></ul>";
     li.html(str);   //插入到<li>里
     $(".answerPosts_list").prepend(li);    //插入到楼层里
     li.slideDown();     //为评论的添加缓冲效果
@@ -180,8 +184,15 @@ function clickPostPosts()
     $("#postPosts").on({
         click: function () 
         {
+            if(getPostsContent() == undefined || getPostsContent() == null || getPostsContent() == "")
+            {
+                alert("请输入内容再发表评论");
+                return false;
+            }
             time = '1分钟前';
             postPostsUp(userId, time, getPostsContent());
+            //点击评论的回复
+            APlistAddContent("MR","1分钟前");
         }
     });
 }
@@ -194,8 +205,10 @@ function postPostsUp(userId,time,postContent,postsLikeNum,src,floorNum)
     var postsLikeNum = "点赞";
     postsPublish(userId, time,postContent,postsLikeNum,src,floorNum);
     
+    commentsFloorNum++;
+    
     //点击评论的回复
-    APlistAddContent("MR","1分钟前");
+    // APlistAddContent("MR","1分钟前");
 
     // 评论的“点击阅读全文”
     readFullArticle($(".APlist_content"));
@@ -206,3 +219,6 @@ function postPostsUp(userId,time,postContent,postsLikeNum,src,floorNum)
 
 //——————————————— 点击回到顶部 —————————————————
 slowToTop($("#returnToTopBtn"));
+
+//加载更多本为隐藏
+$(".answerLayPageBox > p").hide();
