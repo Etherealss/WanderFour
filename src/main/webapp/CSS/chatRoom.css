@@ -1,0 +1,314 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.CROutsideBox{
+    max-width: 1600px;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+/* —————————————————————— 左侧聊天室框 ———————————————————————————— */
+.CRLeftBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ————————————————————————— 聊天室Part ————————————————————————— */
+.charRoomBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* ————————————————— 左侧功能列表 —————————————————— */
+.basicListBox{
+    width: 400px;
+    height: 100%;
+    background: #7dc5b9;
+}
+
+/* ————— 聊天室 ————— */
+#CRTitleBox{
+    width: 400px;
+    height: 73px;
+    position: relative;
+}
+
+/* logo */
+#CRTitleBox img{
+    width: 88px;
+    position: absolute;
+    top: 13px;
+    left: 25px;
+}
+
+#CRTitleBox h2{
+    position: absolute;
+    top: 25px;
+    left: 127px;
+    color: #fff;
+    font-size: 22px;
+}
+
+/* ——————————————— （1）用户列表Part ————————————————— */
+.usersListBox{
+    width: 100%;
+}
+
+/* ——————————— 用户自己的信息 ————————————— */
+#userSelfBox{
+    height: 65px;
+    display: flex;
+    /* border: 1px solid #f00; */
+}
+
+/* 用户头像 */
+#userSelfHeadPortraits{
+    width: 65px;
+    margin-left: 25px;
+}
+
+#userSelfHeadPortraits > img{
+    width: 65px;
+}
+
+/* ——————— 用户昵称 ————————— */
+#userSelfBox > h3{
+    line-height: 65px;
+    margin-left: 15px;
+}
+
+
+/* ——————— 用户列表 ————————— */
+/* .usersListBox > ul */
+#usersList{
+    margin: 17px 20px;
+    list-style-type: none;
+    /* border: 1px solid #f00; */
+}
+
+#usersList > li{
+    width: 360px;
+    height: 70px;
+    margin-bottom: 17px;
+    background: #aee1d8;
+    box-shadow: 0px 5px 16px 0px rgba(0,0,0,0.22);
+    border-radius: 10px;
+}
+
+/* ————————————————— 右侧显示及输入框 —————————————————— */
+.charFrameOutsideBox{
+    width: calc(100% - 325px);
+    background: #f2f2f2;
+}
+
+.charFrameTitle{
+    height: 80px;
+    line-height: 80px;
+    box-shadow: 1px 1px 15px 1px rgba(83, 83, 83, 0.5);
+}
+
+.charFrameTitle > p{
+    width: 72px;
+    height: 30px;
+    line-height: 22px;
+    padding: 26px 0 0 30px;
+    color: #333333;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: "Microsoft YaHei UI";
+}
+
+/* ———————————————————— 聊天内容显示 ———————————————————————— */
+.charFrameBox{
+    width: 100%;
+    height: calc(100% - 320px);    
+}
+
+/* ———————————— 聊天内容显示列表 ———————————— */
+#charFrame{
+    min-height: 100%;
+    padding: 25px;
+    overflow-y: scroll;
+    list-style-type: none;
+}
+
+/* —————————— 共同内容 ———————————— */
+#charFrame > li{
+    height: 80px;
+    display: flex;
+    border: 1px solid #f00;   
+}
+
+/* ——————— 用户头像 ————————— */
+#charFrame > li > img{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    /* border: 1px solid #f00; */
+}
+
+/* ——————用户发言的文本框 —————— */
+#charFrame > li > span{
+    max-width: 400px;
+    height: 55px;
+    line-height: 55px;
+    padding: 0 13px;
+    margin: 0 15px;
+    display: inline-block;
+    background: #aee1d8;
+    border-radius: 10px;
+}
+
+/* ——————— 用户自己发表的内容的样式 —————————— */
+/* #charFrame > .userSelfPost{} */
+
+/* ——————— 对方用户发表的内容的样式 —————————— */
+/* #charFrame > .userOtherPost{} */
+
+/* —————————————————— 文本输入Part ———————————————————— */
+.textFieldBox{
+    width: 100%;
+    height: 250px;
+    box-shadow: 4px 2px 15px 1px rgba(83, 83, 83, 0.5);
+}
+
+.textFieldBox > textarea{
+    width: calc(100% - 30px);
+    height: 165px;
+    margin: 15px 15px 10px 15px;
+    padding: 10px;
+    line-height: 25px;
+    color: #333;
+    font-size: 16px;
+    font-family: "Microsoft YaHei UI";
+    background: #fff;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.27);
+}
+
+/* —————————— 点击发送的按钮 —————————— */
+.textFieldBox > button{
+    width: 100px;
+    height: 30px;
+    float: right;
+    margin-right: 15px;
+    color: #333333;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 15px;
+    background: #81CBBF;
+    box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.22);
+}
+
+/* ———————————————————————— 右侧导航侧栏框 —————————————————————————— */
+.CRRightBox{
+    width: 0;
+    /* width: 200px; */
+    height: 100%;
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    transition: all ease-in-out .6s;
+    /* border: 1px solid #f00; */
+}
+
+/* ——————————— 点击显示与隐藏的按钮 ————————————— */
+.clickShowSideBar{
+    width: 50px;
+    height: 50px;
+    margin: 25px 45px 0 0;
+    position: absolute;
+    right: 0;
+    background: #007acc;
+    border-radius: 50%;
+    transition: all ease-in-out .6s;
+}
+
+/* ———————————————— 导航侧栏 —————————————————— */
+.sideBarBox{
+    width: 105px;
+    height: 100%;
+    background: #7dc5b9;
+    box-shadow: 1px 1px 16px rgba(0,0,0,0.25);
+    position: absolute;
+    right: -110px;
+    transition: all ease-in-out .6s;
+    /* border: 1px solid #f00; */
+}
+
+.sideBarBox > ul{
+    list-style-type: none;
+}
+
+.sideBarBox > ul > li{
+    text-align: center;
+    /* border: 1px solid #f00; */
+}
+
+.sideBarBox > ul > li > a{
+    padding: 5px 0;
+    display: block;
+    color: #fff;
+    /* color: #343434; */
+    font-size: 18px;
+    text-decoration: none;
+    /* border: 1px solid #f00; */
+}
+
+.sideBarBox > ul > li > a:hover{
+    /* color: #81cbbf; */
+    color: seagreen;
+}
+
+/* ——————————— 网站logo ————————————— */
+.sideBarBox > ul > li:nth-child(1) img{
+    width: 88px;
+    margin: 10px 8px 5px;
+}
+
+/* ——————————————— 侧栏的个人中心 ——————————————————— */
+#personalCenter{
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    /* border: 1px solid #00f; */
+}
+
+#userHeadPortrait{
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 1px 1px 16px rgba(0,0,0,0.15);
+}
+
+#userHeadPortrait > img{
+    width: 100%;
+}
+
+#userHeadPortrait+p{
+    margin-top: 10px;
+    text-align: center;
+    color: #fff;
+}
+/* 要是想在周六展示的话，按照效率你写好像快点，但是我想以后我来重写这部分， */

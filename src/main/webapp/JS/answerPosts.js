@@ -190,6 +190,9 @@ function clickPostPosts()
                 return false;
             }
             time = '1分钟前';
+            //发表评论的ajax
+            // publishComment(getPostsContent(),userid,parentId);
+            //发表在楼层中
             postPostsUp(userId, time, getPostsContent());
             //点击评论的回复
             APlistAddContent("MR","1分钟前");
