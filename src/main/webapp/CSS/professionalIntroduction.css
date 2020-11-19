@@ -392,8 +392,10 @@ body{
 
 /* —————————————— 悬浮才出现的部分（学校） ———————————————————— */
 .SI_hoverHiddenBox{
-    width: 380px;
-    height: 455px;
+    width: 260px;
+    /* width: 380px; */
+    /* height: 455px; */
+    max-height: 280px;
     position: absolute;
     top: 0;
     z-index: 50;
@@ -417,11 +419,25 @@ body{
 }
 
 .SI_hoverHiddenBox > p{
-    padding: 2px 20px 2px 28px;
+    height: 200px;
+    margin: 2px 20px 20px 28px;
     font-size: 15.2px;
     line-height: 23px;
+    overflow-y: scroll;
     /* border: 1px solid #f00; */
 } 
+
+/* 整体滚动条 */
+.SI_hoverHiddenBox > p::-webkit-scrollbar{
+    width: 12px;
+    height: 12px;
+}
+
+/* 滚动条里的滚动长方条 */
+.SI_hoverHiddenBox > p::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background: #cccccc;
+}
 
 /* —————————————————————————————————— 问贴Part ———————————————————————————————————————— */
 .PI_toAskBox{

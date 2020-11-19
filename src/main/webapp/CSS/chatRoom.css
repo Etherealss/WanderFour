@@ -77,6 +77,8 @@
 #userSelfHeadPortraits{
     width: 65px;
     margin-left: 25px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
 }
 
 #userSelfHeadPortraits > img{
@@ -88,15 +90,33 @@
     color: #fff;
     line-height: 65px;
     margin-left: 15px;
+    text-shadow: 0.1px 0.1px 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
 }
 
 
 /* ——————— 用户列表 ————————— */
 /* .usersListBox > ul */
 #usersList{
-    margin: 17px 20px;
+    max-height: 520px;
+    margin: 0 10px;
+    padding: 17px 10px;
     list-style-type: none;
-    /* border: 1px solid #f00; */
+    overflow-x: scroll;
+}
+
+/* 整体滚动条 */
+#usersList::-webkit-scrollbar{
+    width: 12px;
+    height: 12px;
+}
+
+/* 滚动条里的滚动长方条 */
+#usersList::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    /* border: 2px solid #7dc5b9; */
+    background: #a8a8a8;
 }
 
 #usersList > li{
@@ -107,6 +127,12 @@
     background: #aee1d8;
     box-shadow: 0px 5px 16px 0px rgba(0,0,0,0.22);
     border-radius: 10px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+#usersList > li:hover{
+    box-shadow: 0px 5px 25px rgba(0,0,0,0.5);
 }
 
 /* ——————————————— 信息的样式 ——————————————————— */
@@ -311,11 +337,74 @@
     width: 50px;
     height: 50px;
     margin: 15px 40px 0 0;
+    padding: 10px;
     position: absolute;
     right: 0;
-    background: #007acc;
     border-radius: 50%;
+    border: 3px solid #7dc5b9;
     transition: all ease-in-out .6s;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+#waterMove{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #7dc5b9;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#waterMove::before{
+    content: '';
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: rgba(255,255,255,0.8);
+    /* background-color: rgba(174, 225, 216,0.8); */
+    border-radius: 40%;
+    transform: translate(-50%,-60%);
+    animation: mave 5s linear infinite;
+}
+
+#waterMove::after{
+    content: '';
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    /* background-color: rgba(255,255,255,0.8); */
+    background-color: rgba(174, 225, 216,0.8);
+    border-radius: 40%;
+    transform: translate(-50%,-60%);
+    animation: mave 5s linear infinite;
+}
+
+/* 下面定位水波纹效果 */
+@keyframes mave{
+    0%{
+        /* top: 20px; */
+    }
+    100%{
+        /* top: -10px; */
+        transform: translate(-50%,-60%) rotate(360deg);
+    }
+}
+
+/* 图标里面的字 */
+#waterMove > p{
+    line-height: 40px;
+    position: absolute;
+    left: 3px;
+    z-index: 100;
+    color: #444;
+    font-size: 15px;
 }
 
 /* ———————————————— 导航侧栏 —————————————————— */

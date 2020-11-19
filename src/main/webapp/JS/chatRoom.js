@@ -28,6 +28,19 @@ $(".clickShowSideBar").on({
     }
 });
 
+//右侧小图标的悬浮动画
+$(".clickShowSideBar").hover(
+    function(){
+    $(this).animate({
+        marginTop: 5
+    },0);
+},
+function(){
+    $(this).animate({
+        marginTop: 15
+    },0);
+});
+
 //点击其他任意区域，侧栏消失
 
 function clickAnotherPosition()
