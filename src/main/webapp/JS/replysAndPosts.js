@@ -252,7 +252,6 @@ function clickUnfoldShow(list,replysCount,floorNum)
             "<i>点击查看</i>"+"<i>点击收起</i>";
     upfoldBox.html(upfoldStr);  //隐藏三个，更换效果  
     list.parent().append(upfoldBox);    //将内容插入尾部
-    // laypageList(list);  //分页Part
     list.eq(2).css({border: "none"});   //出现多条时出现
 
     //“点击收起”最开始为隐藏状态
@@ -331,7 +330,7 @@ function clickUnfold(list)
 
 //———————————————————————— 超过十条有分页，分页Part ——————————————————————————————
 //在统计条数和“点击查看/收起”部分出现
-function laypageList(positionBox,pageNum)
+function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
 {
     //创建分页列表
     var ul = $("<ul class='laypagelist'></ul>");
@@ -387,7 +386,20 @@ function clickOtherAreaHidden()
 {
     $("body").click(function(e)
     {
-        if(!$(e.target).closest(".APlist_reply",".APReply_reply",".replyInputBox").length)
+        // if(!$(e.target).closest(".APlist_reply",".APReply_reply",".replyInputBox").length)
+        // {
+        //     $(".replyInputBox").hide();
+        // }
+
+        // //阻止事件冒泡
+        // $(".replyInputBox").on({
+        //     click: function(event){
+        //         event.stopPropagation();
+        //     }
+        // });
+        var target = $(e.target);
+        //如果是这些部分及以下的子元素，可使用，其他都不可以
+        if(!target.is(".APlist_reply") && !target.is(".APReply_reply") && !target.is(".replyInputBox"))
         {
             if($(".replyInputBox").is(":visible"))
             {
@@ -404,12 +416,12 @@ function clickOtherAreaHidden()
             });
         }
 
-        //阻止事件冒泡
-        $(".replyInputBox").on({
-            click: function(event){
-                event.stopPropagation();
-            }
-        });
+        // //阻止事件冒泡
+        // $(".replyInputBox").on({
+        //     click: function(event){
+        //         event.stopPropagation();
+        //     }
+        // });
     });
 }
 
