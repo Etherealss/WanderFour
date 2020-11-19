@@ -61,3 +61,17 @@ function clickAnotherPosition()
     });
 }
 
+// ——————————————————————— 创建标签样式 ———————————————————————————
+// —————————————— 创建用户自己的发言 ————————————————
+function createUserSelfPost(src,content)
+{
+    var li = $("<li class='userSelfPost'></li>");
+    var liStr = "<img class='uersSelfImg' src='"+src+"'/>"+
+    "<span>"+content+"</span>";
+    li.html(liStr);
+    $("#charFrame").append();
+}
+
+//src = ./img/homePage_highSchoolStudent_head.png
+
+

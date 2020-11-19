@@ -148,7 +148,7 @@
 #charFrame > li{
     height: 80px;
     display: flex;
-    border: 1px solid #f00;   
+    /* border: 1px solid #f00;    */
 }
 
 /* ——————— 用户头像 ————————— */
@@ -156,6 +156,7 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
     /* border: 1px solid #f00; */
 }
 
@@ -167,15 +168,27 @@
     padding: 0 13px;
     margin: 0 15px;
     display: inline-block;
-    background: #aee1d8;
     border-radius: 10px;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* ——————— 用户自己发表的内容的样式 —————————— */
-/* #charFrame > .userSelfPost{} */
+#charFrame > .userSelfPost{
+    flex-direction: row-reverse;
+}
+
+#charFrame > .userSelfPost > span{
+    background: #aee1d8;
+}
 
 /* ——————— 对方用户发表的内容的样式 —————————— */
-/* #charFrame > .userOtherPost{} */
+#charFrame > .userOtherPost{
+    flex-direction: row;
+}
+
+#charFrame > .userOtherPost > span{
+    background: #fff;
+}
 
 /* —————————————————— 文本输入Part ———————————————————— */
 .textFieldBox{
