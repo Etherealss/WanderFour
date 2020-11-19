@@ -252,6 +252,7 @@ function clickUnfoldShow(list,replysCount,floorNum)
             "<i>点击查看</i>"+"<i>点击收起</i>";
     upfoldBox.html(upfoldStr);  //隐藏三个，更换效果  
     list.parent().append(upfoldBox);    //将内容插入尾部
+    // laypageList(list);  //分页Part
     list.eq(2).css({border: "none"});   //出现多条时出现
 
     //“点击收起”最开始为隐藏状态
@@ -269,14 +270,8 @@ function clickUnfoldShow(list,replysCount,floorNum)
             {
                 list.hide();
             }
-            //获取最新的回复列表长度的首页
-            getUnderCommentssReplys(floorNum,1,'time',1,'article',1);
-            //计算分页的页数
-            var totalPage = Number(replysCount/10);
-            //获取页面，创建分页栏
-            laypageList($(this).parent(),totalPage,1,1,'time','article',false);            
-
-            console.log("回复的页码："+totalPage);
+            getUnderCommentssReplys(floorNum);   //获取最新的回复列表长度
+            
             //点击后，收起回复，回到最初的状态
             // list.parent().find(".upfoldBox").find("i").eq(1).on({
             //     click: function(){
@@ -328,9 +323,9 @@ function clickUnfold(list)
 
 //———————————————————————— 超过十条有分页，分页Part ——————————————————————————————
 //在统计条数和“点击查看/收起”部分出现
-function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
+function laypageList(positionBox,pageNum)
 {
-    // console.log(pageNum);
+    console.log(pageNum);
     //点击后只显示十条，只有这十条会显示，其他隐藏
     // var laypageBlock = Number(list.length/10);
     var ul = $("<ul class='laypagelist'></ul>");
@@ -348,33 +343,13 @@ function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
     $(".laypagelist > li").on({
         click: function(){
             var pageNumber = Number($(this).index()+1);
-            if(isComment)
-            {
-                //先将原先的全部清空
-                $(".answerPosts_list > li").remove();
-                //获得评论楼层的
-                getCommentsAndReplys(parentId,userid,order,pageNumber,type);
-                // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage='+pageNumber+'&type=article');
-                //缓慢回到顶部
-                $("html,body").stop().animate({
-                    scrollTop: 800
-                },0);
-            }else{
-                //获取回复所在的评论楼层
-                var replysFloor = $(this).parent().parent().parent();
-                //先将原先的全部清空
-                replysFloor.children("li").remove();
-                // $(".APReplys_list > li").remove();
-                //获取回复所在的评论楼层的层数
-                var replysFloorNum = replysFloor.parent().find(".APlist_content").attr("commentfloor");
-                //获得回复楼层的
-                getUnderCommentssReplys(replysFloorNum,parentId,order,pageNumber,type,1);
-                //缓慢回到该层评论的位置
-                $("html,body").stop().animate({
-                    scrollTop: replysFloor.offset().top - 180
-                },500);
-                // console.log("这是回复列表");
-            }    
+            //先将原先的全部清空
+            $(".answerPosts_list > li").remove();
+            getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage='+pageNumber+'&type=article');
+            //缓慢回到顶部
+            $("html,body").stop().animate({
+                scrollTop: 800
+            },0);
         }
     });
 }
@@ -386,33 +361,17 @@ function clickOtherAreaHidden()
 {
     $("body").click(function(e)
     {
-        // if(!$(e.target).closest(".APlist_reply",".APReply_reply",".replyInputBox").length)
-        // {
-        //     $(".replyInputBox").hide();
-        // }
-
-        // //阻止事件冒泡
-        // $(".replyInputBox").on({
-        //     click: function(event){
-        //         event.stopPropagation();
-        //     }
-        // });
-        var target = $(e.target);
-        //如果是这些部分及以下的子元素，可使用，其他都不可以
-        if(!target.is(".APlist_reply") && !target.is(".APReply_reply") && !target.is(".replyInputBox"))
+        if(!$(e.target).closest(".APlist_reply",".APReply_reply",".replyInputBox").length)
         {
-            if($(".replyInputBox").is(":visible"))
-            {
-                $(".replyInputBox").hide();
-            }
+            $(".replyInputBox").hide();
         }
 
-        // //阻止事件冒泡
-        // $(".replyInputBox").on({
-        //     click: function(event){
-        //         event.stopPropagation();
-        //     }
-        // });
+        //阻止事件冒泡
+        $(".replyInputBox").on({
+            click: function(event){
+                event.stopPropagation();
+            }
+        });
     });
 }
 
