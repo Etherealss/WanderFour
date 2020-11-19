@@ -21,12 +21,12 @@ function timestampToTime(timestamp)
  */
 
 //—————————————————————————————— 初始化评论和回复区域 ——————————————————————————————
-function initializeCommentsAndReplys(type,parentId,userid)
+function initializeCommentsAndReplys()
 {
     $.ajax({
         type:'get',
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?type='+type+'&userid=3&parentId='+parentId,
+        url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
+        // url:'/WritingCommentServlet?type=posts&parentId='+parentId+'&order='+order+'&currentPage='+currentPage,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -43,7 +43,7 @@ function initializeCommentsAndReplys(type,parentId,userid)
             }
 
             //判断是否显示加载更多和页面
-            countsAndPages(totalCount,totalPage,type,parentId,userid);
+            countsAndPages(totalCount,totalPage);
         },
         error:function(){
             console.log("获取评论出错，获取不到");
@@ -54,8 +54,8 @@ function initializeCommentsAndReplys(type,parentId,userid)
 //加载页面时初始化出来的
 // initializeCommentsAndReplys('article',1,3);
 
-//—————————————————— 判断是否显示评论列表的加载更多和页面 ——————————————————
-function countsAndPages(totalCount,totalPage,type,parentId,userid)
+//—————————————————— 判断是否显示加载更多和页面 ——————————————————
+function countsAndPages(totalCount,totalPage)
 {
     //获取总条数后，确定是否显示“加载更多”（大于3，显示“加载更多”）
     if(totalCount > 3)
@@ -76,7 +76,7 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
                     totalPage = Number(totalCount/10);
                     var isComment = true;   //判断是评论还是回复
                     //创建分页栏
-                    laypageList($(".answerLayPageBox"),totalPage,parentId,userid,"time",type,isComment);
+                    laypageList($(".answerLayPageBox"),totalPage);
                     // laypageList($(".answerLayPageBox"),totalPage,$(".answerPosts_list"));   
                 }
             }
@@ -84,21 +84,25 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
     }
 }
 
-//—————————————————————————————— 点击评论列表的“加载更多”出现 ——————————————————————————————
 // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
+//—————————————————————————————— 点击“加载更多”出现 ——————————————————————————————
+// getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
+// getCommentsAndReplys(1,3);
 
+// function getCommentsAndReplys(url)
 function getCommentsAndReplys(parentId,userid,order,currentPage,type)
 {
     $.ajax({
         type:'get',
         // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
+        // url: url,
         //1评论3回复的测试192.168.43.236
         // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
         //热点的ip
         // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
         // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
         //直接上的
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type,
+        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&userid='+userid+'&order='+order+'&currentPage='+currentPage+'&type='+type,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -119,16 +123,17 @@ function getCommentsAndReplys(parentId,userid,order,currentPage,type)
 }
 // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
 
-//————————————————————————— 评论下的回复，点击“加载更多”后才出现 ——————————————————————————————————
-function getUnderCommentssReplys(floorNum,parentId,order,currentPage,type,targetId)
+
+//————————————————————————— 评论下的回复，点击后才出现 ——————————————————————————————————
+function getUnderCommentssReplys(floorNum)
 {
     $.ajax({
         type:'get',
         //热点的ip
-        // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
+        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
         //直接上的
         // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type+'&targetId='+targetId,
+        // url:'/WritingCommentServlet?type=posts&parentId='+parentId+'&order='+order+'&currentPage='+currentPage,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -188,7 +193,7 @@ function commentsRender(commentsList,num)
         replysCommentsRender(commentsList[num].replys[i],floorNum);
     }
 
-    //当回复的条数 > 3，出现“点击查看”样式（该样式在回复所属的评论楼层中）
+    //当条数 > 3，出现“点击查看”样式（该样式在回复所属的评论楼层中）
     if(replysCount > 3)
     {
         clickUnfoldShow(replyListPosition(floorNum).find("li"),replysCount,floorNum);
@@ -213,8 +218,7 @@ function replysCommentsRender(replys,floorNum)
 //————————————————————— 获取回复所属评论的list位置 ———————————————————————————
 function replyListPosition(floorNum)
 {   //根据楼层数，让回复跟着所在的评论楼层
-    var replyList = $(".APlist_content[commentfloor='"+floorNum+"']").parent().find(".APReplys_list");
-    // var replyList = $(".APlist_content[commentFloor='"+floorNum+"']").parent().find(".APReplys_list");
+    var replyList = $(".APlist_content[commentFloor='"+floorNum+"']").parent().find(".APReplys_list");
     return replyList;
 }
 
@@ -232,8 +236,11 @@ function replysReplysRender(replys,floorNum)
 
 // replyAddPublishContent(replyListPosition($("#111")),"userName","岚岚","123","replyContent","./img/homePage_highSchoolStudent_head.png");
 
-//————————————————————————————— 获取评论的回复列表的分页 ——————————————————————————————————
+//————————————————————————————— 获取被回复回复的值replyName ——————————————————————————————————
+function getReplyName()
+{
 
+}
 
 
 //获取当前页面的用户信息
