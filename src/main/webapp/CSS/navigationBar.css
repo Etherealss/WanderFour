@@ -70,10 +70,11 @@
 }
 
 .topmargin_searchOutsideBox{
-    width: 320px;
+    width: 370px;
     height: 40px;
     padding: 0 25px;
     font-size: 15px;
+    /* border: 1px solid #f00; */
 }
 
 .topmargin_searchOutsideBox input{

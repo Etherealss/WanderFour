@@ -63,7 +63,7 @@ function replyPublishUp(replyList,userName,postTime,replyContent,src)
     replyPublishContent(replyList,userName,postTime,replyContent,src);
     
     //点击回复的回复
-    APReplyAddContent("MR","111","./img/homePage_highSchoolStudent_head.png");
+    APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
     
     //点击回复的回复
     // APReplyAddContent("MR","1分钟前");
@@ -132,7 +132,7 @@ function APReplyAddContent(userName,postTime,src)
                     replyAddPublish(replyList,userName,replyName,postTime,replyContent,emptyInput,src);
                     
                     //点击回复的回复
-                    APReplyAddContent("HHH","111","./img/homePage_highSchoolStudent_head.png");
+                    APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
 
                     // 回复的“点击阅读全文”
                     readFullArticle($(".APReply_content"));
@@ -145,7 +145,7 @@ function APReplyAddContent(userName,postTime,src)
     });
 }
 
-APReplyAddContent("MR","111","./img/homePage_highSchoolStudent_head.png");
+APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
 
 //—————————————— 截取掉@某某 ——————————————————
 function splitContent(replyContent)

@@ -195,7 +195,7 @@ function clickPostPosts()
             //发表在楼层中
             postPostsUp(userId, time, getPostsContent());
             //点击评论的回复
-            APlistAddContent("MR","1分钟前");
+            APlistAddContent("小华er","1分钟前");
         }
     });
 }
