@@ -52,7 +52,7 @@ function getSearchDetails(str,idNum)
 {
     $.ajax({
         type:'get',
-        url:'http://192.168.43.236:8080/WritingSearchServlet?wd='+str+'&currentPage=1',
+        url:'/WritingSearchServlet?wd='+str+'&currentPage=1',
         data:{},
         dataType: 'json',
         contentType: 'application/json',
@@ -76,13 +76,13 @@ function skipToType(type,id)
 {
     if(type == 'posts')
     {//跳转到帖子
-        window.location.href = 'http://192.168.43.236:8080/answerPosts.html?'+type+'=' + id;
-        // window.open('http://192.168.43.236:8080/answerPosts.html?'+type+'=' + id); 
+        window.location.href = '/answerPosts.html?'+type+'=' + id;
+        // window.open('/answerPosts.html?'+type+'=' + id); 
     }
     else if(type == 'article')
     {//跳转到文章
-        window.location.href = 'http://192.168.43.236:8080/articleShow.html?'+type+'=' + id;
-        // window.open('http://192.168.43.236:8080/articleShow.html?'+type+'=' + id); 
+        window.location.href = '/articleShow.html?'+type+'=' + id;
+        // window.open('/articleShow.html?'+type+'=' + id); 
     }
 }
 
@@ -102,7 +102,7 @@ function getSearchTipsData(str)
 {
     $.ajax({
         type:'get',
-        url:'http://192.168.43.236:8080/WritingSearchTipServlet?wd='+str+'&currentPage=1',
+        url:'/WritingSearchTipServlet?wd='+str+'&currentPage=1',
         data:{},
         dataType: 'json',
         contentType: 'application/json',
