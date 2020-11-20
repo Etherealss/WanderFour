@@ -347,6 +347,17 @@
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* 拖拽的小线条 */
+.clickShowSideBar::after{
+    content: '';
+    position: absolute;
+    right: -65px;
+    top: 22px;
+    width: 65px;
+    height: 3px;
+    background: #7dc5b9;
+}
+
 #waterMove{
     width: 40px;
     height: 40px;
