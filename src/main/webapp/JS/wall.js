@@ -33,7 +33,7 @@ $(function () {
         var li = $("<li></li>");
         // 新建note
         var str = "<a href='#'>" +
-            " <h2>" + noteUser + "</h2>" +
+            " <h2>" + noteUser + ":</h2>" +
             " <p>" + noteP + "</p>" +
             "</a>";
         li.html(str);   //插入到<li>里
