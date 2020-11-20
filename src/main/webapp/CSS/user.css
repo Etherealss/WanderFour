@@ -56,31 +56,70 @@ a {
 }
 .userToDoList {
     float: left;
-    width: 300px;
-    height: 133px;
+    width: 241px;
+    height: 126px;
     background: #FFFFFF;
     box-shadow: 0px 4px 14px 2px rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
+    border-radius: 50px;
     margin: 77px 0 42px 580px;
-    background: url(../img/userClickAdd/userClickAdd.png) no-repeat left/ 20px 18.6px,
+    /* background: url(../img/userClickAdd/userClickAdd.png) no-repeat left/ 20px 18.6px; */
 }
-.user_header .userToDoList span {
-    float: left;
-    width: 125px;
-    height: 28px;
-    font-size: 36px;
-    font-family: Impact;
-    font-weight: 400;
+.userToDoList h1 {
+    /* width: 53px;
+    height: 18px; */
+    font-size: 18px;
+    font-weight: bold;
     color: #333333;
-    line-height: 22px;
-    margin: 26px 0 0 87px;
+    line-height: 18px;
+    margin-top: 11px;
+    margin-left: 100px;
 }
-.userClickAdd {
+.userTalk {
+    height: 48px;
+    width: 193px;
+    margin-left: 24px;
+}
+.talk1,
+.talk2 {
+    width: 79px;
+    height: 24px;
+}
+.talk1 {
+    /* background-color: rgb(174, 225, 216); */
+    margin-left: 137px;
+    margin-top: 8px;
+}
+.talk1 div,
+.talk2 div {
+    display: block;
     float: left;
-    width: 50px;
-    height: 50px;
-    background: url(../img/userClickAdd/userClickAdd.png) no-repeat left/ 50px;
-    margin: 15px 0 10px 123px;
+    width: 48px;
+    height: 24px;
+    background: #AEE1D8;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+}
+.talk2 div {
+    background: #FFFFFF;
+    margin-left: 7px;
+}
+.talk1 img,
+.talk2 img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    float: left;
+    margin-left: 4px;
+}
+.talk2 img {
+    margin-left: 0;
+}
+.talkAdd {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-left: 95px;
+    margin-bottom: 8px;
 }
 
 /* ----------------------------------------------------user_body--------------------------------------- */
