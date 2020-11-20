@@ -230,7 +230,7 @@ function registerSumbit(registerUseridVal, registerEmailVal, registerPwVal, sign
             //传递邮箱
             email: registerEmailVal,
             //传递密码
-            pw: registerPwVal,
+            password: registerPwVal,
             //传递身份
             userType: signIdentity,
             //传递性别

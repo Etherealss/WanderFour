@@ -147,6 +147,24 @@
     /* border-radius: 20px 20px 0 0; */
 }
 
+/* ———————————————————— 目标墙 —————————————————————— */
+.topmargin_wall {
+    width: 55px;
+    height: 50px;
+    position: absolute;
+    left: 935px;
+    
+}
+.topmargin_wall a {
+    display: inline-block;
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+}
+.topmargin_wall a:hover {
+    color: #81cbbf;
+}
+
 /* ———————————————————— 个人中心 —————————————————————— */
 .topmargin_personal_center{
     width: 163px;
