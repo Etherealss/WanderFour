@@ -155,17 +155,26 @@
 
 /* ———————————————————— 目标墙 —————————————————————— */
 .topmargin_wall {
-    width: 55px;
-    height: 50px;
     position: absolute;
     left: 935px;
-    
+    top: 20px;
 }
 .topmargin_wall a {
-    display: inline-block;
+    /* display: inline-block; */
+    width: 90px;
+    height: 25px;
+    /* padding: 25px; */
     text-decoration: none;
     color: #343434;
     font-size: 18px;
+    padding-left: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    /* background: url(../img/wall/wallNavLogo.png) no-repeat left bottom / 25px; */
+    background-image: url(../img/wall/wallNavLogo.png);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: 0 26px;
 }
 .topmargin_wall a:hover {
     color: #81cbbf;
