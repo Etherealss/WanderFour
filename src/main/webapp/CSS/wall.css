@@ -104,7 +104,7 @@ a {
     left: -90px;
 }
 .wallMain ul li:nth-child(-n+28):nth-child(n+20):nth-child(odd) a {
-    /* position: relative; */
+    position: relative;
     top: -280px;
     left: -30px;
 }
@@ -121,10 +121,6 @@ a {
     top: -802px;
     left: 167px;
 }
-/* .wallMain ul li:nth-child(-n+39) a {
-    top: -802px;
-    left: 167px;
-} */
 .wallMain ul li a:hover
 /* ,
 .wallMain ul li a:focus */
@@ -312,6 +308,7 @@ a {
     flex-direction: row;
     transition: all ease-in-out .6s;
     /* border: 1px solid #f00; */
+    z-index: 100;
 }
 
 /* ——————————— 点击显示与隐藏的按钮 ————————————— */
@@ -327,6 +324,7 @@ a {
     transition: all ease-in-out .6s;
     cursor: pointer;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    z-index: 100;
 }
 
 /* 拖拽的小线条 */
@@ -482,11 +480,12 @@ a {
     width: 100%;
 }
 
-#userHeadPortrait a {
+#userNickName {
+    display: block;
     margin-top: 10px;
     text-align: center;
     color: #fff;
-    margin-left: 13px;
+    /* margin-left: 13px; */
 }
 
 /* -------------------------------writeNotes-------------------*/
