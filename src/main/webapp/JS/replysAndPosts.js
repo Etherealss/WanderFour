@@ -351,7 +351,6 @@ function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
                 $(".answerPosts_list > li").remove();
                 //获得评论楼层的
                 getCommentsAndReplys(parentId,userid,order,pageNumber,type);
-                // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage='+pageNumber+'&type=article');
                 //缓慢回到顶部
                 $("html,body").stop().animate({
                     scrollTop: 800

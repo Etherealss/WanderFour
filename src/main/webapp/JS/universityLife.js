@@ -124,3 +124,6 @@ setInterval(function () {
         HP_time = 0;
     }
 }, 150);
+
+//——————————————— 点击回到顶部 —————————————————
+slowToTop($("#returnToTopBtn"));

@@ -351,7 +351,7 @@
 .clickShowSideBar::after{
     content: '';
     position: absolute;
-    right: -65px;
+    right: -66px;
     top: 22px;
     width: 65px;
     height: 3px;

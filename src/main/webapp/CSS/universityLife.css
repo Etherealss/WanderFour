@@ -510,3 +510,23 @@ body{
     color: #333333;
 }
 
+/* ———————————————————————— 回到顶部 ———————————————————————————— */
+#returnToTopBtn{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: calc(25% - 60px);
+    right: 60px;
+    border-radius: 50%;
+    background: url(../img/answerPosts_toTop.png) no-repeat;
+    background-size: 51px;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.2);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    /* border: 1px solid #f00; */
+}
+
+#returnToTopBtn:hover{
+    background-image: url(../img/answerPosts_toTopHover.png);
+}

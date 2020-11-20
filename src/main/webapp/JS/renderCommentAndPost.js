@@ -25,8 +25,8 @@ function initializeCommentsAndReplys(type,parentId,userid)
 {
     $.ajax({
         type:'get',
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?type='+type+'&userid=3&parentId='+parentId,
+        // url: '/WritingCommentServlet?parentId=1&userid=3&type=article',
+        url:'/WritingCommentServlet?type='+type+'&userid=3&parentId='+parentId,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -68,7 +68,6 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
                 $(".answerPosts_list > li").remove();
                 //加载出页码为1的评论
                 getCommentsAndReplys(parentId,userid,"time",1,type);
-                // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
                 $(".answerLayPageBox > p").hide();  //点击完“加载更多”后，加载更多消失
                //总条数大于10，显示分页栏
                 if(totalCount > 10)
@@ -77,7 +76,6 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
                     var isComment = true;   //判断是评论还是回复
                     //创建分页栏
                     laypageList($(".answerLayPageBox"),totalPage,parentId,userid,"time",type,isComment);
-                    // laypageList($(".answerLayPageBox"),totalPage,$(".answerPosts_list"));   
                 }
             }
         });
@@ -85,20 +83,11 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
 }
 
 //—————————————————————————————— 点击评论列表的“加载更多”出现 ——————————————————————————————
-// getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
-
 function getCommentsAndReplys(parentId,userid,order,currentPage,type)
 {
     $.ajax({
         type:'get',
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
-        //1评论3回复的测试192.168.43.236
-        // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
-        //热点的ip
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
-        // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        //直接上的
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type,
+        url:'/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -117,18 +106,13 @@ function getCommentsAndReplys(parentId,userid,order,currentPage,type)
         }
     });
 }
-// getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
 
 //————————————————————————— 评论下的回复，点击“加载更多”后才出现 ——————————————————————————————————
 function getUnderCommentssReplys(floorNum,parentId,order,currentPage,type,targetId)
 {
     $.ajax({
         type:'get',
-        //热点的ip
-        // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        //直接上的
-        // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type+'&targetId='+targetId,
+        url:'/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type+'&targetId='+targetId,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -209,7 +193,6 @@ function replysCommentsRender(replys,floorNum)
     replyPublishUp(replyListPosition(floorNum),userNickname,timestampToTime(postTime),replyContent,src);
 }
 
-// replyPublishContent(replyListPosition($("#111")),"sfa","111","wjfh","");
 //————————————————————— 获取回复所属评论的list位置 ———————————————————————————
 function replyListPosition(floorNum)
 {   //根据楼层数，让回复跟着所在的评论楼层
