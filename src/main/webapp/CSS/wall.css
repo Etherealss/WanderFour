@@ -60,7 +60,7 @@ a {
 .wallMain ul li:nth-child(even) a {
     -webkit-transform: rotate(4deg);
     position: relative;
-    top: 45px;
+    top: -55px;
     background:#D9E9E6;
     /* left: -70px; */
     left: 50px;
@@ -83,8 +83,23 @@ a {
 .wallMain ul li:nth-child(5n) a {
     -webkit-transform: rotate(5deg);
     position: relative;
-    top: -10px;
+    top: -50px;
     left: 80px;
+}
+.wallMain ul li:nth-child(-n+28):nth-child(n+20):nth-child(even) a {
+    /* position: relative; */
+    top: -555px;
+    left: -30px;
+}
+.wallMain ul li:nth-child(-n+28):nth-child(n+20):nth-child(odd) a {
+    /* position: relative; */
+    top: -280px;
+    left: -30px;
+}
+.wallMain ul li:nth-child(-n+34):nth-child(n+28):nth-child(even) a {
+    /* position: relative; */
+    top: -860px;
+    left: -50px;
 }
 .wallMain ul li a:hover
 /* ,

@@ -157,7 +157,7 @@ function loginSumbit(loginEmailVal, loginPwVal) {
             //TODO 成功：跳转至首页
             //异常情况
             if (data.state.code == "SUCCESS") {
-                window.location.href = "/index.html";
+                window.location.replace("/index.html");
             } else if (data.state.code == "PW_ERROR") {
                 clearStyle($("#loginPwSuccess"), $("#loginPwSuccess"), $("#check5"), $("#check5"), $("#sign_login_password"));
                 $("#loginPwError").css("display", "block");
@@ -190,9 +190,8 @@ function checkEmailRepeat() {
             type: 'GET',
             url: '/CheckUserExistServlet',
             data: {
-                // method: "checkUserExist",
                 //传递邮箱
-                email: $('#registerEmail').val(),
+                email: $('#registerEmail').val()
             },
             dataType: 'json',
             contentType: "application/json",
@@ -210,8 +209,9 @@ function checkEmailRepeat() {
                     $("#registerEmail").addClass('successGreen');
                 }
             },
-            error: function () {
+            error: function (evt) {
                 console.log("检验邮箱是否已被注册发送error");
+                console.log(evt);
             }
         })
     })

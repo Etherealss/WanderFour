@@ -106,17 +106,38 @@ $(function () {
         }
     });
 
-    //判断原密码输入是否正确
-    $('.userChangePW input').eq(0).change(function () {
-        var originalPW = md5($('.userChangePW input').eq(0).val());  //获取原密码并加密
-        checkOriginalPwFun(originalPW);
-    })
+    // //判断原密码输入是否正确
+    // $('.userChangePW input').eq(0).change(function () {
+    //     var originalPW = md5($('.userChangePW input').eq(0).val());  //获取原密码并加密
+    //     checkOriginalPwFun(originalPW);
+    // })
+    //
+    // $("#changeButton").click(function () {
+    //     //获取登录表单的值
+    //     var changePW = md5($('.userChangePW input').eq(2).val());  //获取新密码并加密
+    //     if ($('#changePwAgainSuccess').css('display') == 'blcok' && $('#originalPwSuccess').css('display') == 'blcok') {
+    //         changePwFun(changePW);  //调用函数发送数据
+    //     }
+    // });
 
+    // 腾坤修改 我复制出来了 上面是原始版本
     $("#changeButton").click(function () {
-        //获取登录表单的值
+        var regPw = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+        checkInputVal($('.userChangePW input').eq(1), $("#changePwSuccess"), $("#changePwError"), $("#check1"), $("#bug1"), regPw);
+
+        // 获取登录表单的值
+        var originalPW = md5($('.userChangePW input').eq(0).val());  //获取原密码并加密
         var changePW = md5($('.userChangePW input').eq(2).val());  //获取新密码并加密
-        if ($('#changePwAgainSuccess').css('display') == 'blcok' && $('#originalPwSuccess').css('display') == 'blcok') {
-            changePwFun(changePW);  //调用函数发送数据
+        // if ($('#changePwAgainSuccess').css('display') == 'block' && $('#originalPwSuccess').css('display') == 'blcok') {
+        //     changePwFun(originalPW, changePW);  //调用函数发送数据
+        // } else {
+        //     console.log("密码格式检查未通过");
+        // }
+        // TODO 上面是原代码
+        if ($('#changePwAgainSuccess').css('display') == 'block') {
+            changePwFun(originalPW, changePW);  //调用函数发送数据
+        } else {
+            console.log("密码格式检查未通过");
         }
     });
 
@@ -143,41 +164,58 @@ function checkOriginalPwFun(originalPW) {
             } else if (res.state.code == "UN_LOGGED") {
                 alert('请在登录后修改密码！');
             } else if (res.state.code == "EXCEPTION") {
-                alert('接口异常！');
-            } else if (res.state.code == "ERROE") {
+                alert('接口异常！请重试！');
+            } else if (res.state.code == "PW_ERROR") {
                 $("#changePwAgainError").css("display", "block");
                 $("#bug0").css("display", "block");
                 $(this).addClass('errorRed');
             }
         },
         error: function () {
-            console.log("检验原密码接口error");
+            console.log("检验原密码回调error");
         }
     })
 }
 
 //发送修改后的密码ajax
-function changePwFun(changePW) {
+function changePwFun(originalPw, changePw) {
     $.ajax({
         type: 'PUT',
         url: '/UserPasswordServlet',
-        data: {
+        data: JSON.stringify({
             //传递新密码
-            changePW: changePW,
-        },
+            // TODO Pw的w是小写
+            originalPw: originalPw,
+            newPw: changePw
+        }),
         dataType: 'json',
         contentType: "application/json",
         success: function (res) {
             console.log(res);
             clearStyle($('#originalPwSuccess'), $('#originalPwError'), $('#check0'), $('#bug0'), $('.userChangePW input').eq(0));
-            if (res.state.code == "SUCCESS") {
+            var resCode = res.state.code;
+            if (resCode == "SUCCESS") {
                 alert('修改密码成功！');
-                window.location.href = '/user.html';
-            } else if (res.state.code == "UN_LOGGED") {
+                window.location.replace('/user.html');
+            } else if (resCode == "UN_LOGGED") {
                 alert('请在登录后修改密码！');
-            } else if (res.state.code == "EXCEPTION") {
-                alert('接口异常！');
+            } else if (resCode == "EXCEPTION") {
+                alert('接口异常！请重试！');
+            } else if (resCode == "PW_ERROR") {
+                $("#originalPwError").css("display", "block");
+                $("#bug0").css("display", "block");
+                $(this).addClass('errorRed');
             }
+            // console.log(res);
+            // clearStyle($('#originalPwSuccess'), $('#originalPwError'), $('#check0'), $('#bug0'), $('.userChangePW input').eq(0));
+            // if (res.state.code == "SUCCESS") {
+            //     alert('修改密码成功！');
+            //     window.location.href = '/user.html';
+            // } else if (res.state.code == "UN_LOGGED") {
+            //     alert('请在登录后修改密码！');
+            // } else if (res.state.code == "EXCEPTION") {
+            //     alert('接口异常！');
+            // }
         },
         error: function () {
             console.log("发送新密码接口error");
