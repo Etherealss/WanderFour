@@ -40,18 +40,18 @@ function goIndex() {
     clearActive();
     $(".HP_item").eq(HP_index).prop("class", 'HP_item active');
 
-    $(".HP_item").eq(HP_index - 1).animate({
+    $(".HP_item").eq(HP_index - 1).stop().animate({
         left: 0,
         opacity: 0.8
     }, 400);
 
-    $(".HP_item").eq(HP_index).animate({
+    $(".HP_item").eq(HP_index).stop().animate({
         left: 350,
         opacity: 1
     }, 400);
 
     // 移动的这一张是2，切回0
-    $(".HP_item").eq((HP_index == 2) ? 0 : (Number(HP_index) + 1)).animate({
+    $(".HP_item").eq((HP_index == 2) ? 0 : (Number(HP_index) + 1)).stop().animate({
         left: 700,
         opacity: 0.8
     }, 400);

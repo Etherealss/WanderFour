@@ -59,31 +59,40 @@
 
 .topmargin_target > li a:hover{color: #81cbbf;}
 
-/* —————————— 搜索Part ———————————— */
+/* ———————————————————— 搜索Part —————————————————————— */
 .topmargin_searchBox{
     position: absolute;
     left: 470px;
-    top: 12px;
-}
-
-.topmargin_searchBox input{
-    width: 320px;
-    height: 40px;
-    padding: 0 20px;
+    top: 8px;
     border-radius: 20px;
-    border: none;
-    outline: none;
     border: 2px solid #e0e0e0;
     background: #f7f7f7;
-    font-size: 15px;
 }
 
-.topmargin_searchBox input::placeholder{
+.topmargin_searchOutsideBox{
+    width: 370px;
+    height: 40px;
+    padding: 0 25px;
+    font-size: 15px;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_searchOutsideBox input{
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: #f7f7f7;
+    font-size: 15px;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_searchOutsideBox input::placeholder{
     color: #c0c0c0;
     font-size: 15px;
 }
 
-.topmargin_searchBox button{
+.topmargin_searchOutsideBox button{
     width: 28px;
     height: 28px;
     position: absolute;
@@ -96,7 +105,49 @@
     cursor: pointer; 
 }
 
-/* —————————— 个人中心 ———————————— */
+/* —————————————— 搜索的下拉列表 ———————————————— */
+.topmargin_searchBox > #ComboBox{
+    width: 370px;
+    position: absolute;
+    top: 40px;
+    left: -2px;
+    box-sizing: content-box;
+    /* border: 2px solid #36b3a8; */
+    border-radius: 0 0 20px 20px;
+    border-top: none;
+    background: #f7f7f7;
+}
+/* 下拉后出现的选项的样式 */
+.topmargin_searchBox > #ComboBox a{
+    height: 32px;
+    line-height: 32px;
+    padding: 0 25px;
+    display: block;
+    color: #666;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_searchBox > #ComboBox a:hover{
+    color: #36b3a8;
+    /* background: #e7e7e7; */
+}
+
+/* 下拉后出现的灰色线条 */
+.topmargin_searchBox > #ComboBox hr{
+    border: .5px solid #CACACA;
+    margin: 0 15px 5px;
+}
+
+/* 搜索框颜色 */
+.searchBoxColor{
+    border-color: #36b3a8;
+    /* border-radius: 20px 20px 0 0; */
+}
+
+/* ———————————————————— 个人中心 —————————————————————— */
 .topmargin_personal_center{
     width: 163px;
     height: 50px;

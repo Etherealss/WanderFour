@@ -1,8 +1,20 @@
 /* —————————————— 点击“点击展开”查看全文的颜色 ———————————————— */
 .clickReadFullArticle{
-    color: #f7ad3a;
-    /* color: #81cbbf; */
-    /* color: #ffd995; */
+    color: #65B2A6;
+    position: relative;
+    /* color: #f7ad3a; */
+}
+/* 后面的小三角形 */
+.clickReadFullArticle::after{
+    content: '';
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 6px;
+    right: -13px;
+    border-top: 2px solid #65B2A6;
+    border-right: 2px solid #65B2A6;
+    transform: rotate(135deg);
 }
 
 /* ——————————————————————— 评论的页脚盒子部分 ——————————————————————————————— */
@@ -65,13 +77,15 @@
 /* ——————————————————————— 发表回复的输入框 ————————————————————————— */
 .replyInputBox{
     width: 914px;
-    padding: 10px 0;
+    padding: 12px 0 10px;
     position: fixed;
     display: none;
     bottom: 0;
-    z-index: 200;
-    background: rgba(173, 225, 217,0.95);
-    border: 1px solid #f00;
+    z-index: 500;
+    background: #daf2ee;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 1px 1px 16px rgba(0,0,0,0.15);
+    /* border: 1px solid #f00; */
 }
 
 .replyInputBox > textarea{
@@ -92,21 +106,22 @@
 }
 
 .replyInputBox > button{
-    width: 75px;
+    width: 85px;
     height: 30px;
-    margin-right: 25px;
+    margin-right: 20px;
     float: right;
     background: #81cbbf;
-    color: #fff;
+    color: #333;
     border-radius: 15px;
     border: none;
     outline: none;
     cursor: pointer;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
     transition-duration: 0.3s;
 }
 
 .replyInputBox > button:hover{
+    /* background: #1a7c74; */
     box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
 }
 
@@ -167,7 +182,7 @@
     line-height: 22px;
     font-size: 12px;
     color: #999999;
-    border: 1px solid #0f0;
+    /* border: 1px solid #0f0; */
 }
 
 /* ———————— 回复的文本 ———————————— */
