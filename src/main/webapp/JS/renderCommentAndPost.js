@@ -52,7 +52,7 @@ function initializeCommentsAndReplys(type,parentId,userid)
 }
  
 //加载页面时初始化出来的
-// initializeCommentsAndReplys('article',1,3);
+initializeCommentsAndReplys('article',1,3);
 
 //—————————————————— 判断是否显示评论列表的加载更多和页面 ——————————————————
 function countsAndPages(totalCount,totalPage,type,parentId,userid)

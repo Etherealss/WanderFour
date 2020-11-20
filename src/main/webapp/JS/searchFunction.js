@@ -108,40 +108,47 @@ function getSearchTipsData(str)
         contentType: 'application/json',
         success:function(res){
             console.log(res);
-            //隔0.5s获取一次数据
-            getListData(res.tips);
-            
-            //点击搜索出来的提示词，跳转对应的页面
-            $("#ComboBox").find("a").on({
-                click: function()
-                {
-                    var idNum = $(this).attr("tipsNum");
-                    $(this).css({
-                        background: "#e7e7e7",
-                        color: "#36b3a8"
-                    }).siblings().css({background: "#f7f7f7"});
-                    getSearchDetails(str,idNum);
-                    console.log(idNum);
-                }
-            });
 
-            //按方向盘的下键，默认到第一个，且搜索框内显示第一个的文本
-            onkeydown = function()
+            if(res.tips.length != 0)
             {
-                if(event.keyCode == 40)
-                {
-                    $("#ComboBox").find("a").eq(0).css({background: "#e7e7e7"});
-                    $("#topmarginSearch").val($("#ComboBox").find("a").eq(0).text());
-                }
-            }
-            //点击搜索，直接跳转到这篇文章
-            $("#topmarginSearch+button").on({
-                click: function()
-                {
-                    getSearchDetails(str,0);   
-                }
-            });
+                //隔0.5s获取一次数据
+                getListData(res.tips);
 
+                //点击搜索出来的提示词，跳转对应的页面
+                $("#ComboBox").find("a").on({
+                    click: function()
+                    {
+                        var idNum = $(this).attr("tipsNum");
+                        $(this).css({
+                            background: "#e7e7e7",
+                            color: "#36b3a8"
+                        }).siblings().css({background: "#f7f7f7"});
+                        getSearchDetails(str,idNum);
+                        console.log(idNum);
+                    }
+                });
+
+                //按方向盘的下键，默认到第一个，且搜索框内显示第一个的文本
+                onkeydown = function()
+                {
+                    if(event.keyCode == 40)
+                    {
+                        $("#ComboBox").find("a").eq(0).css({background: "#e7e7e7"});
+                        $("#topmarginSearch").val($("#ComboBox").find("a").eq(0).text());
+                    }
+                }
+                //点击搜索，直接跳转到这篇文章
+                $("#topmarginSearch+button").on({
+                    click: function()
+                    {
+                        getSearchDetails(str,0);   
+                    }
+                });
+            }
+            else{
+                var noneTips = new Array("查询结果为空，请重新查询");
+                getListData(noneTips);
+            }
         },
         error:function(){
             console.log("获取搜索提示词失败");
@@ -185,7 +192,7 @@ function getSearchTipsData(str)
 function getInputTheTips()
 {
     //输入不为空，为空显示默认值
-    console.log(typeof(this.value.length));
+    // console.log(typeof(this.value.length));
     if(this.value != null && this.value != undefined && this.value.length != 0)
     {
         //重新输入后，下拉框内的内容全部清空

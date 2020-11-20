@@ -32,12 +32,12 @@ $(".clickShowSideBar").on({
 $(".clickShowSideBar").hover(
     function(){
     $(this).animate({
-        marginTop: 5
+        marginRight: 55
     },0);
 },
 function(){
     $(this).animate({
-        marginTop: 15
+        marginRight: 40
     },0);
 });
 
@@ -107,6 +107,31 @@ $("#postReplyBtn").on({
     }
 });
 
+//————————————————————— 左侧用户列表点击后赋予用户id ——————————————————————————————
+function doubleClick()
+{
+    $("#usersList").eq("li").on({
+        dblclick: function()
+        {
+            var toUsersId = $(this).attr("toUsersId");
+            //函数返回用户id
+            return toUsersId;
+        }
+    });
+}
+
+
+// ————————————————————————— 页面初始化产生左侧列表 —————————————————————————————
+function createList(toUsersId,src,toUsersName,theNewMessage,theNewTime)
+{
+    var li = $("<li></li>");
+    var str =  "<img src='"+src+"' />"+
+                "<a toUsersId='"+toUsersId+"'>"+toUsersName+"</a>"+
+                "<p>"+theNewMessage+"</p>"+
+                "<span>"+theNewTime+"</span>";
+    li.html(str);
+    $("#userList").append(li);
+}
 
 
 

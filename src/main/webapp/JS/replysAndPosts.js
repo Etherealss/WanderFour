@@ -426,4 +426,4 @@ function clickOtherAreaHidden()
 }
 
 //有bug，会出现输入值后，依旧说为空的情况
-clickOtherAreaHidden();
+// clickOtherAreaHidden();
