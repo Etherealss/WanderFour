@@ -458,6 +458,7 @@
 .sideBarBox > ul > li:nth-child(1) img{
     width: 88px;
     margin: 15px 8px 5px;
+    cursor: pointer;
 }
 
 /* ——————————————— 侧栏的个人中心 ——————————————————— */

@@ -11,29 +11,50 @@ $(".homePage_LWid").click(function () {
 
 
 //在距离顶部某一位置的伸缩与出现消失（得先有position定位）
-function flexTop(button) {
+function flexTop(button)
+{
     if ($(window).scrollTop() == 0)  //处于顶部时
     {
         button.addClass("homePage_hide");
-        $(".topmargin_box").show();
+        $(".topmargin_box").css({
+            display: "block",
+            position: "relative",
+            overflow: "visible"
+        });
     }
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() < 500) {
-            button.addClass("homePage_hide");
-            button.removeClass("homePage_appear");
-            $(".topmargin_box").hide();
-        }
-        else    //滑动到“学习天地”这一部分
+    $(window).on({
+        scroll: function () 
         {
-            button.addClass("homePage_appear");
-            button.removeClass("homePage_hide");
-            $(".topmargin_box").show();
-        }
-
-        if ($(this).scrollTop() < 50) {
-            $(".topmargin_box").show();
-        }
+            if ($(this).scrollTop() < 50) 
+            {
+                $(".topmargin_box").css({
+                    display: "block",
+                    position: "relative",
+                    overflow: "hidden"
+                });
+            }
+            else if($(this).scrollTop() >= 50 && $(this).scrollTop() < 500)
+            {
+                button.addClass("homePage_hide");
+                button.removeClass("homePage_appear");
+                $(".topmargin_box").css({
+                    display: "none",
+                    position: "relative",
+                    overflow: "visible"
+                });
+            }
+            else    //滑动到“学习天地”这一部分
+            {
+                button.addClass("homePage_appear");
+                button.removeClass("homePage_hide");
+                $(".topmargin_box").css({
+                    display: "block",
+                    position: "fixed",
+                    overflow: "visible"
+                });
+            }
+        }        
     });
 }
 
