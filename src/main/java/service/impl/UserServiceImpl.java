@@ -2,6 +2,7 @@ package service.impl;
 
 import common.util.FileUtil;
 import common.util.Md5Utils;
+import org.apache.log4j.Logger;
 import pojo.po.User;
 import common.enums.ResultType;
 import common.factory.DaoFactory;
@@ -17,6 +18,7 @@ import java.sql.Connection;
  * @date 2020/10/2
  */
 public class UserServiceImpl implements UserService {
+	private Logger logger = Logger.getLogger(UserServiceImpl.class);
 	private final UserDao dao = DaoFactory.getUserDAO();
 
 	@Override
@@ -53,6 +55,9 @@ public class UserServiceImpl implements UserService {
 		Connection conn = JdbcUtil.getConnection();
 		boolean b1 = dao.registerNewUser(conn, user);
 		Long lastInsertId = dao.getLastInsertId(conn).longValue();
+		// 新的头像路径
+		String savePath = "D:\\WanderFourAvatar\\" + lastInsertId + ".png";
+		dao.updateUserAvatarPath(conn, lastInsertId, savePath);
 		return lastInsertId;
 	}
 
@@ -65,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User getLoggedUserInfo(Long userid) throws Exception {
+	public User getUserInfo(Long userid) throws Exception {
 		Connection conn;
 		conn = JdbcUtil.getConnection();
 		User user = dao.getUserById(conn, userid);
@@ -74,12 +79,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultType updateUserPw(Long userid, String orginal, String newPw)  throws Exception{
+	public ResultType updateUserPw(Long userid, String originalPw, String newPw)  throws Exception{
 		Connection conn = JdbcUtil.getConnection();
 		User user = dao.getUserEmailAndPwById(conn, userid);
 		//Md5加密
-		orginal = Md5Utils.md5Encode(user.getEmail() + orginal);
-		if (orginal.equals(user.getPassword())){
+		originalPw = Md5Utils.md5Encode(user.getEmail() + originalPw);
+		logger.debug("\n修改密码：原始密码：" + user.getPassword() + "\n修改密码：新的密码：" + originalPw);
+		if (originalPw.equals(user.getPassword())){
 			//密码相同，可以修改
 			boolean b = dao.updateUserPw(conn, userid, newPw);
 			if (b){

@@ -56,15 +56,17 @@ public interface UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	User getLoggedUserInfo(Long userid) throws Exception;
+	User getUserInfo(Long userid) throws Exception;
 
 	/**
 	 * 修改密码
 	 * @param userid
-	 * @param orginal
+	 * @param originalPw
 	 * @param newPw
 	 * @return
 	 * @throws Exception
 	 */
-	ResultType updateUserPw(Long userid, String orginal, String newPw) throws Exception;
+	ResultType updateUserPw(Long userid, String originalPw, String newPw) throws Exception;
+
+
 }

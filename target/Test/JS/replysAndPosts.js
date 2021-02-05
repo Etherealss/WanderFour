@@ -28,7 +28,7 @@ function APlistAddContent(userName,postTime,src)
                     }
 
                     //----------创建一个新的楼层 ------------
-                    replyPublish(replyList,userName,postTime,replyContent,emptyInput,src);
+                    replyPublish(replyList,userName,postTime,replyContent,emptyInput,"./img/homePage_highSchoolStudent_head.png");
                     
                     // 回复的“点击阅读全文”
                     readFullArticle($(".APReply_content"));
@@ -63,7 +63,7 @@ function replyPublishUp(replyList,userName,postTime,replyContent,src)
     replyPublishContent(replyList,userName,postTime,replyContent,src);
     
     //点击回复的回复
-    APReplyAddContent("MR","111","./img/homePage_highSchoolStudent_head.png");
+    APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
     
     //点击回复的回复
     // APReplyAddContent("MR","1分钟前");
@@ -128,11 +128,13 @@ function APReplyAddContent(userName,postTime,src)
                         $(".replyInputBox").hide();
                         return false;
                     }
-            
-                    replyAddPublish(replyList,userName,replyName,postTime,replyContent,emptyInput,src);
+
+                    // TODO 头像img标签
+                    replyAddPublish(replyList,userName,replyName,postTime,replyContent,emptyInput,"./img/homePage_highSchoolStudent_head.png");
                     
                     //点击回复的回复
-                    APReplyAddContent("HHH","111","./img/homePage_highSchoolStudent_head.png");
+                    // TODO 点击回复的回复 头像img标签
+                    APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
 
                     // 回复的“点击阅读全文”
                     readFullArticle($(".APReply_content"));
@@ -145,7 +147,7 @@ function APReplyAddContent(userName,postTime,src)
     });
 }
 
-APReplyAddContent("MR","111","./img/homePage_highSchoolStudent_head.png");
+APReplyAddContent("小华er","1分钟前","./img/homePage_highSchoolStudent_head.png");
 
 //—————————————— 截取掉@某某 ——————————————————
 function splitContent(replyContent)
@@ -189,7 +191,7 @@ function replyAddPublishContent(replyList,userName,replyName,postTime,replyConte
     replyList.prepend(li);  //将内容插入对应的楼层里
     li.slideDown(); //缓冲效果
 }
-
+ 
 //—————————————————————————————— 评论的AJAX ——————————————————————————————————————————
 //——————————————————— 发表评论 ————————————————————————
 function publishComment(PC_content,userid,parentId)
@@ -264,19 +266,20 @@ function clickUnfoldShow(list,replysCount,floorNum)
             list.parent().find(".upfoldBox").find("i").eq(0).hide();
             list.parent().find(".upfoldBox").find("i").eq(1).show();
             //点击“点击查看”后，把缩略的出现，同时把原先的3个隐藏掉
-            //点击后才发送展示评论的回复列表
-            if(list.length == 3)
+            //把最底下三个隐藏起来
+            for(var i = 0;i < 3;i++)
             {
-                list.hide();
+                list.eq(list.length-1-i).hide();
+                
             }
-            //获取最新的回复列表长度的首页
+            //获取最新的回复列表长度的回复列表
             getUnderCommentssReplys(floorNum,1,'time',1,'article',1);
             //计算分页的页数
             var totalPage = Number(replysCount/10);
             //获取页面，创建分页栏
             laypageList($(this).parent(),totalPage,1,1,'time','article',false);            
 
-            console.log("回复的页码："+totalPage);
+            // console.log("回复的页码："+totalPage);
             //点击后，收起回复，回到最初的状态
             // list.parent().find(".upfoldBox").find("i").eq(1).on({
             //     click: function(){
@@ -289,12 +292,12 @@ function clickUnfoldShow(list,replysCount,floorNum)
     });
 }
 
-//—————————————————————— 点击查看后，能够出现下拉的所有 ——————————————————————————
+//—————————————————————— 点击收起后，能够上拉，只剩下最开始三个 ——————————————————————————
 function clickUnfold(list)
 {
     // console.log("clickUnfold函数");
     // console.log(list.length);
-    //隐藏“点击查看”，出现“点击收起”
+    //隐藏“点击收起”，出现“点击查看”
     list.parent().find(".upfoldBox").find("i").eq(1).hide();
     list.parent().find(".upfoldBox").find("i").eq(0).show();
     //最后的页脚不显示
@@ -302,8 +305,9 @@ function clickUnfold(list)
     //点击“点击收起”后，收起只剩下三个
     for(var i = 0;i < list.length;i++)
     {
-        //最前10个隐藏
-        if(i < 10)
+        //除了最后三个，其他直接去除
+        // if(i < 10)
+        if(i < list.length-3)
         {
             list.eq(i).remove();
         }
@@ -330,31 +334,25 @@ function clickUnfold(list)
 //在统计条数和“点击查看/收起”部分出现
 function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
 {
-    // console.log(pageNum);
-    //点击后只显示十条，只有这十条会显示，其他隐藏
-    // var laypageBlock = Number(list.length/10);
+    //创建分页列表
     var ul = $("<ul class='laypagelist'></ul>");
     for(var i = 0;i < pageNum;i++)
     {
         ul.append($("<li>"+(i+1)+"</li>"));
     }
-    positionBox.append(ul); //添加到尾部
+    positionBox.append(ul);
     
-    // //用页码的宽度来让positionBox自适应
-    // positionBox.width($(".laypagelist").width());
-    // console.log($(".laypagelist").width());
-
     //——————————————————————— 点击页码发送请求取得评论信息 —————————————————————————————
     $(".laypagelist > li").on({
         click: function(){
-            var pageNumber = Number($(this).index()+1);
+            var pageNumber = Number($(this).index()+1); //获取所点击的页码数
+            //判断是否为评论
             if(isComment)
             {
                 //先将原先的全部清空
                 $(".answerPosts_list > li").remove();
                 //获得评论楼层的
                 getCommentsAndReplys(parentId,userid,order,pageNumber,type);
-                // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage='+pageNumber+'&type=article');
                 //缓慢回到顶部
                 $("html,body").stop().animate({
                     scrollTop: 800
@@ -362,18 +360,21 @@ function laypageList(positionBox,pageNum,parentId,userid,order,type,isComment)
             }else{
                 //获取回复所在的评论楼层
                 var replysFloor = $(this).parent().parent().parent();
-                //先将原先的全部清空
-                replysFloor.children("li").remove();
-                // $(".APReplys_list > li").remove();
+                //先将原先显示的全部清空，但仍然保留最初的三个
+                for(var i = 0;i < replysFloor.children("li").length-3;i++)
+                {
+                    replysFloor.children("li").eq(i).remove();
+                }
+                // replysFloor.children("li").remove();
+
                 //获取回复所在的评论楼层的层数
                 var replysFloorNum = replysFloor.parent().find(".APlist_content").attr("commentfloor");
                 //获得回复楼层的
                 getUnderCommentssReplys(replysFloorNum,parentId,order,pageNumber,type,1);
-                //缓慢回到该层评论的位置
+                //缓慢回到该层评论的第一层回复所在的位置
                 $("html,body").stop().animate({
-                    scrollTop: replysFloor.offset().top - 180
+                    scrollTop: replysFloor.offset().top
                 },500);
-                // console.log("这是回复列表");
             }    
         }
     });
@@ -403,8 +404,17 @@ function clickOtherAreaHidden()
         {
             if($(".replyInputBox").is(":visible"))
             {
+                $(".replyInputBox").find("#postReplyContent").val("");
                 $(".replyInputBox").hide();
             }
+
+            //阻止事件冒泡
+            $(".replyInputBox").stop().on({
+                click: function(event)
+                {
+                    event.stopPropagation();
+                }
+            });
         }
 
         // //阻止事件冒泡
@@ -416,4 +426,5 @@ function clickOtherAreaHidden()
     });
 }
 
+//有bug，会出现输入值后，依旧说为空的情况
 // clickOtherAreaHidden();

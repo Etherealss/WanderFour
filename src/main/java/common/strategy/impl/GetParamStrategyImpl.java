@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -29,11 +30,9 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 			StringBuilder responseStrBuilder = new StringBuilder();
 			String inputStr;
 			while ((inputStr = streamReader.readLine()) != null) {
-				logger.debug(inputStr);
 				responseStrBuilder.append(inputStr);
 			}
 			JSONObject resultJson = JSONObject.parseObject(responseStrBuilder.toString());
-			//TODO 防止了js注入
 			if (resultJson != null) {
 				JSONObject returnJson = SecurityUtil.ensureJsSafe(resultJson);
 			}
@@ -106,5 +105,15 @@ public class GetParamStrategyImpl implements GetParamStrategy {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public JSONObject getJsonByForm(HttpServletRequest req) {
+		JSONObject json = new JSONObject();
+		Map<String, String[]> parameterMap = req.getParameterMap();
+		for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+			json.put(entry.getKey(), entry.getValue()[0]);
+		}
+		return json;
 	}
 }

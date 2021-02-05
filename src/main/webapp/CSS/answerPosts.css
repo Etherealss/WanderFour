@@ -162,7 +162,7 @@ body{
     width: 914px;
     /* position: fixed; */
     border-radius: 10px 10px 0 0;
-    background: #fff;
+    background: #ffffff;
     box-shadow: 1px 1px 10px rgba(193, 193, 193,0.25);
     z-index: 10;
     /* border: 1px solid #f00; */
@@ -192,7 +192,8 @@ body{
     position: fixed;
     top: 0;
     border-radius: 0;
-    background: rgba(173, 225, 217,0.95);
+    background: #ffffff;
+    /* background: rgba(173, 225, 217,0.95); */
     display: none;
     /* border: 1px solid #f00; */
 }
@@ -425,7 +426,7 @@ body{
     height: 50px;
     position: fixed;
     bottom: calc(25% - 60px);
-    right: 60px;
+    right: 51px;
     border-radius: 50%;
     background: url(../img/answerPosts_toTop.png) no-repeat;
     background-size: 51px;

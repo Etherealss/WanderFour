@@ -4,9 +4,8 @@ import common.factory.DaoFactory;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import dao.UserDao;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bean.CommentBean;
-import pojo.dto.CommentDto;
 import pojo.po.Comment;
 
 import java.sql.Connection;

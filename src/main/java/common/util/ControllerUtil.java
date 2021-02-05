@@ -1,5 +1,7 @@
 package common.util;
 
+import com.alibaba.fastjson.JSONObject;
+import common.enums.AttrEnum;
 import common.strategy.choose.ResponseChoose;
 
 import javax.servlet.ServletException;
@@ -21,29 +23,35 @@ public class ControllerUtil {
 	 */
 	public static Long getUserId(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		Object userid = session.getAttribute("userid");
+		Object userid = session.getAttribute(AttrEnum.LOGIN_SESSION_NAME);
 		return (Long) userid;
 	}
 
 	/**
 	 * 接口参数判空
 	 * @param resp
+	 * @param params 参数的json对象
 	 * @param msg
-	 * @param params
-	 * @return 参数缺失返回true
+	 * @param paramNames 参数名
+	 * @return 参数缺失返回true，没有参数缺失，返回false
 	 * @throws ServletException
 	 */
-	public static boolean isParamMissing(HttpServletResponse resp, String msg, String... params) throws ServletException {
-		if (params == null){
-			ResponseChoose.respNoParameterError(resp, msg + " Json为null，获取不到Json参数");
+	public static boolean isParamMissing(HttpServletResponse resp, JSONObject params, String msg, String... paramNames) throws ServletException {
+		if (params == null) {
+			ResponseChoose.respNoParameterError(resp, msg + " JSONObject为null，获取不到Json参数");
+			// 确认参数缺失（is missing）返回true
 			return true;
 		}
-		for (String param : params) {
+		for (String name : paramNames) {
+			String param = params.getString(name);
 			if ("".equals(param) || param == null) {
-				ResponseChoose.respNoParameterError(resp, msg + "参数缺失");
+				ResponseChoose.respNoParameterError(resp, msg + " '" + name + "' 参数缺失");
+				// 确认参数缺失（is missing）返回true
 				return true;
 			}
 		}
+		// 没有参数缺失，返回false
 		return false;
 	}
+
 }

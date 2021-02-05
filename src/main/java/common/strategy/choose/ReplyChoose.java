@@ -1,8 +1,7 @@
 package common.strategy.choose;
 
-import common.strategy.AbstractCommentAndReplyStrategy;
 import common.strategy.AbstractReplysStrategy;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.dto.CommentDto;
 
 import java.sql.SQLException;

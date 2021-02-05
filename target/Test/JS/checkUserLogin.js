@@ -5,6 +5,7 @@
  * @date 2020/10/31
  * @ignore  =====================================================================================
  */
+var user;
 $(function () {
     //检查用户是否已登录，改变导航栏
     requestCheckUserLogin();
@@ -16,6 +17,7 @@ function requestCheckUserLogin() {
         url: "/UserLoginServlet",
         dataType: "json",
         contentType: "application/json",
+        async:false,
         /**
          * @param {Object}result
          * @param {Object}result.state              接口状态
@@ -38,6 +40,7 @@ function requestCheckUserLogin() {
          *
          */
         success: function (result) {
+            user = result.user;
             changeNav(result);
         },
         error: function () {

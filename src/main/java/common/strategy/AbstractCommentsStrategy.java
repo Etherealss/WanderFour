@@ -6,7 +6,7 @@ import common.util.CommentUtil;
 import dao.CommentDao;
 import dao.UserDao;
 import org.apache.log4j.Logger;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
@@ -69,6 +69,10 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 		 */
 		for (Comment comment : commentList) {
 			Long targetId = comment.getTargetId();
+
+			assert comment.getParentId() != null;
+			assert targetId != null;
+
 			/*
 			包装 顶层评论的Bean
 			 */
@@ -100,9 +104,11 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 				获取的targetComment为null，不影响封装
 				 */
 				CommentBean targetBean = null;
-				if (!comment.getTargetId().equals(comment.getParentId())){
+				// parentId和targetId不为null
+				if (!comment.getParentId().equals(targetId)) {
 					//该回复是回复另一条回复，则查询被回复的评论，添加引用(reply)
 					//targetComment 意：复的那个记录的对象，用户添加引用
+
 					Comment targetComment = commentDao.getComment(conn, targetId);
 					targetBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
 				}

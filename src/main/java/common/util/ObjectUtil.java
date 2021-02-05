@@ -2,6 +2,7 @@ package common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -48,4 +49,38 @@ public class ObjectUtil {
 		}
 		return null;
 	}
+
+	/**
+	 * 调用obj对象的setter方法
+	 * @param obj   操作的对象
+	 * @param fieldName   操作的属性
+	 * @param value 设置的值
+	 */
+	public static void invokeSetter(Object obj, String fieldName, Object value) {
+		try {
+			Class<?> clazz = obj.getClass();
+			// 获取属性的数据类型
+			Field field = clazz.getDeclaredField(fieldName);
+
+			field.setAccessible(true);
+			field.set(obj, value);
+//			logger.debug("methodName = " + "set" + capiFirstLetter(fieldName)+ ", type = " + field.getType());
+//			Method method = clazz.getMethod("set" + capiFirstLetter(fieldName), field.getType());
+//			// 执行
+//			method.invoke(obj, value);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 将单词的首字母大写
+	 * @param str
+	 * @return
+	 */
+	public static String capiFirstLetter(String str) {
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
+
 }

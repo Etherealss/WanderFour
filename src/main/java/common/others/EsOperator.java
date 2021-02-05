@@ -33,6 +33,7 @@ import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -87,15 +88,14 @@ public class EsOperator {
 	}
 
 	/**
-	 /**
+	 * /**
 	 * 新增文档
-	 *
 	 * @param client
-	 * @param docJsonStr   索引字段key和value
-	 * @param indexName 索引名名称
-	 * @param docId     文档id，指定生成的文档id，如果为空，es会自动生成id
-	 * @throws IOException
+	 * @param docJsonStr 索引字段key和value
+	 * @param indexName  索引名名称
+	 * @param docId      文档id，指定生成的文档id，如果为空，es会自动生成id
 	 * @return 如果返回结果为CREATED，新增文档，如果返回结果是UPDATED，更新文档
+	 * @throws IOException
 	 * @throws IOException
 	 */
 	public IndexResponse addDoc(RestHighLevelClient client, String docJsonStr,
@@ -108,12 +108,11 @@ public class EsOperator {
 
 	/**
 	 * 根据文档id，删除文档
-	 *
 	 * @param client
 	 * @param indexName 索引名
-	 * @param docId 文档id
-	 * @throws IOException
+	 * @param docId     文档id
 	 * @return 如果返回结果deleted，删除成功，如果返回结果是not_found，文档不存在，删除失败
+	 * @throws IOException
 	 */
 	public DeleteResponse deleteDoc(RestHighLevelClient client, String indexName,
 	                                String docId) throws IOException {
@@ -126,8 +125,8 @@ public class EsOperator {
 	 * 更新文档
 	 * @param client
 	 * @param docJsonStr 文档的json数据
-	 * @param indexName 索引
-	 * @param docId 文档id
+	 * @param indexName  索引
+	 * @param docId      文档id
 	 * @return
 	 * @throws IOException
 	 */
@@ -145,7 +144,7 @@ public class EsOperator {
 	 * @return
 	 * @throws IOException
 	 */
-	public boolean existDoc(RestHighLevelClient client, String indexName, String docId) throws IOException{
+	public boolean existDoc(RestHighLevelClient client, String indexName, String docId) throws IOException {
 		GetRequest request = new GetRequest(indexName, docId);
 		return client.exists(request, RequestOptions.DEFAULT);
 	}
@@ -202,6 +201,8 @@ public class EsOperator {
 
 		SearchSourceBuilder builder = getSearchSourceBuilder(from, size);
 		builder.query(QueryBuilders.prefixQuery(fieldName, prefix));
+		String[] includeField = {"title"};
+		builder.fetchSource(includeField, null);
 
 		request.source(builder);
 
@@ -629,38 +630,42 @@ public class EsOperator {
 	 * @return
 	 * @throws IOException
 	 */
-	public SearchResponse mulitHighLightQuery(RestHighLevelClient client, String indexName, String[] fieldNames,
-	                                     String value, int from, int size) throws IOException {
+	public SearchResponse mulitHighLightQuery(RestHighLevelClient client, String indexName,
+	                                          Map<String, Float> fieldNames, String value,
+	                                          int from, int size) throws IOException {
 		SearchSourceBuilder builder = new SearchSourceBuilder();
 		// 分页信息
-		builder.from(from);
-		builder.size(size);
-
+		builder.from(0);
+		builder.size(10);
 
 		// 配置multiMatch查询
-		MultiMatchQueryBuilder matchQueryBuilder =
-				QueryBuilders.multiMatchQuery(value, fieldNames);
+		String[] fields = {"title", "content", "categoryName", "label1",
+				"label2", "label3", "label4", "label5"};
+		// fields是字段名
+		MultiMatchQueryBuilder matchQueryBuilder = QueryBuilders.multiMatchQuery(value);
+		// fieldNames是字段+权重
+		matchQueryBuilder.fields(fieldNames);
+		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 		builder.query(matchQueryBuilder);
-
+		logger.debug(matchQueryBuilder);
 		// 配置高亮查询
-		int fragmentSize = 10;
-		HighlightBuilder highlightBuilder = new HighlightBuilder();
-
-		for (String name : fieldNames) {
-			highlightBuilder.field(name, fragmentSize);
-		}
-
-		// 同时指定高亮部分的前后标签
-		highlightBuilder.preTags("<span color='red'>").postTags("</span>");
-
-		builder.highlighter(highlightBuilder);
+//		int fragmentSize = 10;
+//		HighlightBuilder highlightBuilder = new HighlightBuilder();
+//
+//		for (String name : fieldNames.keySet()) {
+//			highlightBuilder.field(name, fragmentSize);
+//		}
+//
+//		// 同时指定高亮部分的前后标签
+//		highlightBuilder.preTags("<span color='red'>").postTags("</span>");
+//
+//		builder.highlighter(highlightBuilder);
 
 		SearchRequest request = new SearchRequest(indexName);
 		request.source(builder);
-
+		logger.debug(builder);
 		return client.search(request, RequestOptions.DEFAULT);
 	}
-
 
 	/**
 	 * 去重聚合查询

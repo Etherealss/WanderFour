@@ -5,8 +5,11 @@ import common.strategy.choose.LikePersistChoose;
 import common.util.EsUtil;
 import common.util.FileUtil;
 import common.util.JedisUtil;
+import controller.UserEnterController;
 import org.apache.log4j.Logger;
+import service.EsService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -31,6 +34,13 @@ public class TomcatListener implements ServletContextListener {
 		//结束定时任务
 		logger.info("结束定时任务.....");
 		LikePersistChoose.shutDownPersistenceDelayMinutes();
+
+		// 关闭ElasticSearch
+		if (EsUtil.isEsHostConnected()){
+			// 已连接，关闭服务
+			logger.info("关闭ES服务");
+			EsProcessManager.destroyEsProcess();
+		}
 	}
 
 	@Override
@@ -38,15 +48,22 @@ public class TomcatListener implements ServletContextListener {
 		logger.info("tomcat初始化......");
 		//启动定时任务，周期性持久化redis数据
 		LikePersistChoose.persistDelayMinutes();
+//		launchEsService();
 
+	}
+
+	/**
+	 * 启动ES服务器
+	 */
+	private void launchEsService() {
 		// 启动ES服务
 		boolean runSuccess = EsUtil.runEsService();
 		if (runSuccess){
 			// 检查ES数据
 			EsProcessManager.esDataInit();
+		} else {
+			logger.warn("ES数据未初始化");
 		}
-
-
 	}
 }
 

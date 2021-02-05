@@ -32,8 +32,17 @@
                 </li>
             </ul>
             <div class="topmargin_searchBox">
-                <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
-                <button></button>
+                <div class="topmargin_searchOutsideBox">
+                    <input type="search" name="" id="topmarginSearch" placeholder="搜索学习经验/资源分享" />
+                    <button></button>
+                </div>
+                <!-- 下拉框 -->
+                <div id="ComboBox">
+                    <hr color="#CACACA"/>
+                </div>
+            </div>
+            <div class="topmargin_wall">
+                <a href="./wall.html">目标墙</a>
             </div>
             <div class="topmargin_personal_center">
                 <a id="topmargin_PC" href="./user.html">个人中心</a>
@@ -372,11 +381,7 @@
             <p>
                 <i>加载更多</i>
             </p>
-            <ul class="laypagelist">
-                <!-- <li>1</li>
-                <li>2</li>
-                <li>3</li> -->
-            </ul>
+            <ul class="laypagelist"></ul>
         </div>
         <!-- 在295行那里的 <div class="upfoldBox">
                             <span>共<b>10</b>条回复，</span>
@@ -435,6 +440,8 @@
 <script src="JS/jQuery.js"></script>
 <script src="./JS/getSearch.js"></script>
 <script src="JS/models.js"></script>
+<script src="./JS/debounceAndThrottle.js"></script>
+<script src="./JS/searchFunction.js"></script>
 <script src="JS/answerPosts.js"></script>
 <script src="JS/replysAndPosts.js"></script>
 <script src="JS/renderCommentAndPost.js"></script>

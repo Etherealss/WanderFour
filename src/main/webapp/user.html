@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user</title>
     <link rel="stylesheet" href="./CSS/user.css" />
+    <link rel="stylesheet" href="./CSS/navigationBar.css"/>
     <link rel="stylesheet" href="CSS/footPage.css" type="text/css" />
     <script src="./JS/jQuery.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
     <script src="./JS/getSearch.js"></script>
     <script src="./JS/user.js"></script>
     <script src="./JS/checkUserLogin.js"></script>
+    <script src="./JS/sign.js"></script>
 </head>
 
 <body>
@@ -19,7 +22,7 @@
         <div class="topmargin_box">
             <div class="topmargin">
                 <!-- 头像 -->
-                <div class="topmargin_head_portrait"  onclick="toIndex()">
+                <div class="topmargin_head_portrait" onclick="toIndex()">
                     <!-- <img src="" alt=""/>  看看换头像是CSS背景容易换还是HTML容易换-->
                 </div>
                 <ul class="topmargin_target">
@@ -34,8 +37,17 @@
                     </li>
                 </ul>
                 <div class="topmargin_searchBox">
-                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
-                    <button></button>
+                    <div class="topmargin_searchOutsideBox">
+                        <input type="search" name="" id="topmarginSearch" placeholder="搜索学习经验/资源分享" />
+                        <button></button>
+                    </div>
+                    <!-- 下拉框 -->
+                    <div id="ComboBox">
+                        <hr color="#CACACA"/>
+                    </div>
+                </div>
+                <div class="topmargin_wall">
+                    <a href="./wall.html">目标墙</a>
                 </div>
                 <div class="topmargin_personal_center">
                     <a id="topmargin_PC" href="./user.html">个人中心</a>
@@ -65,6 +77,9 @@
                         <li>
                             <a href="">收件箱</a>
                         </li>
+                        <li>
+                            <a href="./chatRoom.html">聊天室</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="topmarginLogin">
@@ -87,11 +102,22 @@
             <img src="./img/userAvatar/userAvatar.png" alt="">
         </div>
         <span>小华er</span>
+
         <div class="userToDoList">
-            <span>ToDoList</span>
-            <div class="userClickAdd">
-                <!-- <img src="./img/userClickAdd/userClickAdd.png" alt=""> -->
-            </div>
+            <a href="./chatRoom.html">
+                <h1>聊天室</h1>
+                <div class="userTalk">
+                    <div class="talk1">
+                        <div></div>
+                        <img src="./img/articleShowLogo/userLogo.png" alt="">
+                    </div>
+                    <div class="talk2">
+                        <img src="./img/articleShowLogo/talkLogo.png" alt="">
+                        <div></div>
+                    </div>
+                    <img src="./img/userAvatar/talkAdd.png" alt="" class="talkAdd">
+                </div>
+            </a>
         </div>
     </div>
 
@@ -111,6 +137,12 @@
                     <li id="userNavLi4">
                         <span>收件箱</span>
                     </li>
+                    <li id="userNavLi5">
+                        <span>我的头像</span>
+                    </li>
+                    <li id="userNavLi6">
+                        <span>修改密码</span>
+                    </li>
                 </ul>
             </div>
             <div class="user_details">
@@ -121,31 +153,31 @@
                             <hr>
                         </div>
                         <div>
-                            <span>账号</span> <input type="text" name="" id="" readonly="readonly" value="123456789">
+                            <span>账号</span> <input type="text" readonly="readonly" value="123456789">
                         </div>
                         <div>
-                            <span>昵称</span> <input type="text" name="" id="" readonly="readonly" value="小华er">
+                            <span>昵称</span> <input type="text" readonly="readonly" value="小华er">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>
                         </div>
                         <div>
-                            <span>姓名</span> <input type="text" name="" id="" readonly="readonly" value="李华">
+                            <span>姓名</span> <input type="text" readonly="readonly" value="李华">
                         </div>
                         <div>
-                            <span>生日</span> <input type="text" name="" id="" readonly="readonly" value="03-14">
+                            <span>生日</span> <input type="text" readonly="readonly" value="03-14">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>
                         </div>
                         <div>
-                            <span>性别</span> <input type="text" name="" id="" readonly="readonly" value="男">
+                            <span>性别</span> <input type="text" readonly="readonly" value="男">
                         </div>
                         <div>
-                            <span>身份</span> <input type="text" name="" id="" readonly="readonly" value="高中生">
+                            <span>身份</span> <input type="text" readonly="readonly" value="高中生">
                         </div>
                         <div>
-                            <span>简介</span> <input type="text" name="" id="" readonly="readonly" value="无">
+                            <span>简介</span> <input type="text" readonly="readonly" value="无">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>
@@ -157,13 +189,13 @@
                             <hr>
                         </div>
                         <div>
-                            <span>在读学校</span> <input type="text" name="" id="" readonly="readonly" value="广州一中">
+                            <span>在读学校</span> <input type="text" readonly="readonly" value="广州一中">
                         </div>
                         <div>
-                            <span>入学年份</span> <input type="text" name="" id="" readonly="readonly" value="2019年">
+                            <span>入学年份</span> <input type="text" readonly="readonly" value="2019年">
                         </div>
                         <div>
-                            <span>选科</span> <input type="text" name="" id="" readonly="readonly" value="">
+                            <span>选科</span> <input type="text" readonly="readonly" value="">
                             <div class="userFillIn">
                                 <img src="./img/userIcon/useFillIn.png" alt="">
                             </div>
@@ -280,9 +312,59 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="differentDetails userInboxes" id="differentDetails4">
                     收件箱开发中
+                </div>
+                <div class="differentDetails userAvatarBox" id="differentDetails5">
+                    <h1>我的头像</h1>
+                    <div class="userAvatarBoxMain">
+                        <div class="changeAvatar">
+                            <span>更改头像</span>
+                            <!-- <input type="file" accept="image/jpg,image/png,image/jpeg,image/gif" required = 'required' name="photo"> -->
+                        </div>
+                        <div class="divideAvatar"></div>
+                        <div class="alreadyAvatar"></div>
+                    </div>
+                    <p>
+                        请选择图片上传：大小180 * 180像素支持JPG、PNG等格式，图片需小于2M
+                    </p>
+                    <button>更新</button>
+                </div>
+                <div class="differentDetails userChangePW" id="differentDetails6">
+                    <h1>修改密码</h1>
+                    <div class="userChangePWBox">
+                        <div>
+                            <span>原密码</span>
+                            <input type="password" placeholder="请输入原密码">
+                            <span class="success" id="originalPwSuccess">原密码输入正确</span>
+                            <span class="error" id="originalPwError"><strong>原密码错误！</strong>请输入正确的原始密码！</span>
+                            <div style="position: relative;">
+                                <img src="./img/right.png" class="testLogo" id="check0">
+                                <img src="./img/error.png" class="testLogo" id="bug0">
+                            </div>
+                        </div>
+                        <div>
+                            <span>新密码</span>
+                            <input type="password" placeholder="请输入新密码">
+                            <span class="success" id="changePwSuccess">该密码安全性高</span>
+                            <span class="error" id="changePwError"><strong>请输入仅包含英文字母和数字的6~18位字符的密码</strong></span>
+                            <div style="position: relative;">
+                                <img src="./img/right.png" class="testLogo" id="check1">
+                                <img src="./img/error.png" class="testLogo" id="bug1">
+                            </div>
+                        </div>
+                        <div>
+                            <span>确认新密码</span>
+                            <input type="password" placeholder="请再次输入新密码">
+                            <span class="success" id="changePwAgainSuccess">密码核对成功</span>
+                            <span class="error" id="changePwAgainError"><strong>请注意！</strong>输入的密码与上次输入的密码不一</span>
+                            <div style="position: relative;">
+                                <img src="./img/right.png" class="testLogo" id="check2">
+                                <img src="./img/error.png" class="testLogo" id="bug2">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="changeButton">确认</button>
                 </div>
             </div>
         </div>
@@ -305,5 +387,6 @@
         </div>
     </div>
 </body>
-
+<script src="./JS/debounceAndThrottle.js"></script>
+<script src="./JS/searchFunction.js"></script>
 </html>

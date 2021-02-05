@@ -2,7 +2,6 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
-import common.enums.TargetType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
@@ -36,14 +35,13 @@ public class UserLoginController extends BaseServlet {
 		} else {
 			UserService userService = ServiceFactory.getUserService();
 			try {
-				User user = userService.getLoggedUserInfo(userId);
+				User user = userService.getUserInfo(userId);
 				state = new ResultState(ResultType.LOGGED, "用户已登录，用户信息获取成功");
 
 				if (user == null) {
 					state = new ResultState(ResultType.EXCEPTION, "用户已登录，但是获取用户信息失败");
 				} else {
 					resJson.put("user", user);
-					logger.debug("用户已登录，id=" + user.getId() + ", userType = " + user.getUserType());
 				}
 
 			} catch (Exception e) {

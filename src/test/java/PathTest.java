@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServlet;
@@ -8,9 +9,10 @@ import javax.servlet.http.HttpServlet;
  * @date 2020/10/2
  */
 public class PathTest extends HttpServlet {
+	private Logger logger = Logger.getLogger(PathTest.class);
 	@Test
 	public void pathTest(){
 		String avatarPath = this.getServletContext().getRealPath("boy.png");
-		System.out.println(avatarPath);
+		logger.debug(avatarPath);
 	}
 }

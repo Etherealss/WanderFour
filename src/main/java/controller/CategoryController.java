@@ -26,9 +26,9 @@ public class CategoryController extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("分类Get");
-		JSONObject params = GetParamChoose.getJsonByJson(req);
+		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		//空参判断
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, "获取分类", "partition");
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "获取分类", "partition");
 		if (paramMissing){
 			return;
 		}

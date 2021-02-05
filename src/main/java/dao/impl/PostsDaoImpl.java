@@ -22,11 +22,11 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 
 	@Override
 	public boolean createWritingInfo(Connection conn, Posts p) throws SQLException {
-		String sql = "insert into `posts` (`partition`, `category`, `author_id`, `title`," +
+		String sql = "insert into `posts` (`category`, `author_id`, `title`," +
 				"`content`, `label1`, `label2`, `label3`, `label4`, `label5`, `liked`, `follow`)" +
-				"values(?,?,?,?,?, ?,?,?,?,?, ?,?)";
+				"values(?,?,?,?, ?,?,?,?,?, ?,?)";
 		Object[] params = {
-				p.getPartition().code(), p.getCategory(), p.getAuthorId(), p.getTitle(), p.getContent(),
+				p.getCategory(), p.getAuthorId(), p.getTitle(), p.getContent(),
 				p.getLabel1(), p.getLabel2(), p.getLabel3(), p.getLabel4(), p.getLabel5(),
 				p.getLiked(), p.getCollected()
 		};
@@ -47,11 +47,11 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	@Override
 	public boolean updateWritingInfo(Connection conn, Posts p) throws SQLException {
 		String sql = "UPDATE `posts` SET " +
-				"`partition`=?, `category`=?, `author_id`=?, `title`=?, `content`=?, " +
+				"`category`=?, `author_id`=?, `title`=?, `content`=?, " +
 				"`label1`=?, `label2`=?, `label3`=?, `label4`=?, `label5`=? " +
 				"WHERE id=?";
 		Object[] params = {
-				p.getPartition().code(), p.getCategory(), p.getAuthorId(), p.getTitle(), p.getContent(),
+				p.getCategory(), p.getAuthorId(), p.getTitle(), p.getContent(),
 				p.getLabel1(), p.getLabel2(), p.getLabel3(), p.getLabel4(), p.getLabel5(),
 				p.getId()
 		};
@@ -67,10 +67,22 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	@Override
 	public Posts getWritingById(Connection conn, Long id) throws SQLException {
 		// 在储存partitionStr时，会调用对应的set方法，但是数据是复制到枚举属性partition上的
-		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
-				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
-				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected`" +
-				" FROM `posts` LEFT JOIN `partition` ON `posts`.`partition` = `partition`.`id` WHERE `posts`.`id`= ?;";
+		String sql = "SELECT " +
+				" `posts`.`id`,\n" +
+				" `partition`.`name` `partitionStr`, " +
+				" `posts`.`category`, " +
+				" `posts`.`content`, " +
+				" `author_id` `authorId`, " +
+				" `title`, " +
+				" `label1`,`label2`,`label3`,`label4`,`label5`, " +
+				" `create_time` `createTime`, " +
+				" `update_time` `updateTime`, " +
+				" `liked`, " +
+				" `follow` `collected` " +
+				"FROM `posts` " +
+				"LEFT JOIN `category` ON `posts`.`category` = `category`.`id` " +
+				"LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id` " +
+				"WHERE `posts`.`id`= ?;";
 		return qr.query(conn, sql, new BeanHandler<>(Posts.class), id);
 	}
 
@@ -93,19 +105,26 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 
 	@Override
 	public List<Posts> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
-		String sql = "SELECT `posts`.`id`, `name` `partitionStr`, `category`, `author_id` `authorId`, " +
-				" `content`, `title`, `label1`, `label2`, `label3`, `label4`, `label5`, " +
-				"  `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected`" +
-				" FROM `posts` LEFT JOIN `partition` ON `posts`.`partition` = `partition`.`id` WHERE `posts`.`partition`= ?" +
-				" ORDER BY " + order + " DESC LIMIT ?,? ";
+		String sql = "SELECT `posts`.`id`,`partition`.`name` `partitionStr`, `category`.`id` category," +
+				" `author_id` `authorId`,`title`, " +
+				" `label1`,`label2`,`label3`,`label4`,`label5`, " +
+				" `create_time`,`update_time`,`liked`,`follow` " +
+				"FROM `posts` " +
+				"LEFT JOIN `category` ON `posts`.`category` = `category`.`id` " +
+				"LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id` " +
+				"WHERE `category`.`partition`=? " +
+				"ORDER BY " + order + " DESC LIMIT ?,?;";
 		return qr.query(conn, sql, new BeanListHandler<>(Posts.class), partition, start, rows);
 	}
 
 	@Override
 	public List<Posts> getSimpleWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
 		String sql = "SELECT `posts`.`id`, `title` " +
-				" FROM `posts` WHERE `posts`.`partition`= ? " +
-				" ORDER BY " + order + " DESC LIMIT ?,? ";
+				"FROM `posts` " +
+				"LEFT JOIN `category` ON `posts`.`category` = `category`.`id` " +
+				"LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id` " +
+				"WHERE `partition`.`id`=? " +
+				"ORDER BY " + order + " DESC LIMIT ?,? ";
 		return qr.query(conn, sql, new BeanListHandler<>(Posts.class), partition, start, rows);
 	}
 
@@ -143,9 +162,9 @@ public class PostsDaoImpl extends BaseDaoImpl implements WritingDao<Posts> {
 	public List<EsBo> getWritingsByIds(Connection conn, List<Long> ids) throws SQLException {
 		StringBuilder sql = new StringBuilder(
 				"SELECT `posts`.`id` `writingId`,`category`.`id` `categoryId`, `category`.`name` `categoryName`,`content`, `author_id` `authorId`, " +
-				"`title`, `label1`, `label2`, `label3`, `label4`,`label5`, " +
-				" `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected` " +
-				"FROM `posts` LEFT JOIN `category` ON `posts`.`category` = `category`.`id` WHERE `posts`.`id` IN (");
+						"`title`, `label1`, `label2`, `label3`, `label4`,`label5`, " +
+						" `create_time` `createTime`, `update_time` `updateTime`, `liked`, `follow` `collected` " +
+						"FROM `posts` LEFT JOIN `category` ON `posts`.`category` = `category`.`id` WHERE `posts`.`id` IN (");
 		for (Long id : ids) {
 			sql.append(id.toString()).append(",");
 		}

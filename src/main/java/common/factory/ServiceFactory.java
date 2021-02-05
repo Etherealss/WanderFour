@@ -13,6 +13,13 @@ import service.impl.*;
  * @date 2020/10/3
  */
 public class ServiceFactory {
+	/**
+	 * 好友列表
+	 * @return
+	 */
+	public static FriendRelationService getFriendRelationService(){
+		return ProxyUtil.getProxyForTransaction(new FriendRelationServiceImpl());
+	}
 
 	/**
 	 * 获取代理后的用户Service
@@ -72,15 +79,29 @@ public class ServiceFactory {
 		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(clazz));
 	}
 
+	/**
+	 * 敏感词
+	 * @return
+	 */
 	public static SensitiveService getSensitiveService(){
 		return ProxyUtil.getProxyForTransaction(new SensitiveServiceImpl());
 	}
 
-
+	/**
+	 * elasticsearch
+	 * @return
+	 */
 	public static EsServiceImpl getEsService(){
 		return new EsServiceImpl();
 	}
 
+	/**
+	 * 便利贴
+	 * @return
+	 */
+	public static StickyNoteService getStickyNoteService(){
+		return ProxyUtil.getProxyForTransaction(new StickyNoteServiceImpl());
+	}
 //	/**
 //	 * 获取代理的指定分区的文章Service
 //	 * @return 经过代理的文章Service对象

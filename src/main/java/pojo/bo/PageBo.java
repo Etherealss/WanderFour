@@ -27,6 +27,7 @@ public class PageBo<T> {
 	private int rows;
 
 	/** 每页的数据 */
+	@JSONField(ordinal = 1)
 	private List<T> list;
 
 	public Long getTotalCount() {

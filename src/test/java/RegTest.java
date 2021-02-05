@@ -1,4 +1,7 @@
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import pojo.po.Article;
+import pojo.po.Writing;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -10,6 +13,8 @@ import java.util.regex.Pattern;
  * @date 2020/10/10
  */
 public class RegTest {
+
+	private static Logger logger = Logger.getLogger(RegTest.class);
 
 	@Test
 	public void regTest1() {
@@ -60,5 +65,14 @@ public class RegTest {
 		} else {
 			System.out.println("NOT MATCH");
 		}
+	}
+
+	@Test
+	public void testCastWriting() throws Exception {
+		Writing writing = new Article();
+		writing.setId(1L);
+		writing.setContent("123123");
+		Article article = (Article) writing;
+		logger.debug(article);
 	}
 }

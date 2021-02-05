@@ -1,7 +1,7 @@
 package service;
 
 import common.enums.ResultType;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;

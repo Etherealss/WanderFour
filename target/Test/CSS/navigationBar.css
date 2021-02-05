@@ -3,7 +3,7 @@
     /* height: 240px; */
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    z-index: 200;
     background: #f7f7f7;
     /* border: 1px solid #f00; */
 }
@@ -14,6 +14,10 @@
     min-width: 1200px; 
     background: #fff;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+}
+
+.topmarginBoxDisplay{
+    display: hide;
 }
 
 .topmargin{
@@ -59,31 +63,42 @@
 
 .topmargin_target > li a:hover{color: #81cbbf;}
 
-/* —————————— 搜索Part ———————————— */
+/* ———————————————————— 搜索Part —————————————————————— */
 .topmargin_searchBox{
     position: absolute;
     left: 470px;
-    top: 12px;
-}
-
-.topmargin_searchBox input{
-    width: 320px;
-    height: 40px;
-    padding: 0 20px;
+    top: 8px;
+    padding: 0 25px;
     border-radius: 20px;
-    border: none;
-    outline: none;
     border: 2px solid #e0e0e0;
     background: #f7f7f7;
-    font-size: 15px;
 }
 
-.topmargin_searchBox input::placeholder{
+.topmargin_searchOutsideBox{
+    width: 320px;
+    height: 40px;
+    /* padding: 0 25px; */
+    font-size: 15px;
+    box-sizing: border-box;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_searchOutsideBox input{
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: #f7f7f7;
+    font-size: 15px;
+    /* border: 1px solid #00f; */
+}
+
+.topmargin_searchOutsideBox input::placeholder{
     color: #c0c0c0;
     font-size: 15px;
 }
 
-.topmargin_searchBox button{
+.topmargin_searchOutsideBox button{
     width: 28px;
     height: 28px;
     position: absolute;
@@ -96,7 +111,76 @@
     cursor: pointer; 
 }
 
-/* —————————— 个人中心 ———————————— */
+/* —————————————— 搜索的下拉列表 ———————————————— */
+.topmargin_searchBox > #ComboBox{
+    width: 370px;
+    position: absolute;
+    top: 40px;
+    left: -2px;
+    box-sizing: content-box;
+    /* border: 2px solid #36b3a8; */
+    border-radius: 0 0 20px 20px;
+    border-top: none;
+    background: #f7f7f7;
+}
+/* 下拉后出现的选项的样式 */
+.topmargin_searchBox > #ComboBox a{
+    height: 32px;
+    line-height: 32px;
+    padding: 0 25px;
+    display: block;
+    color: #666;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    /* border: 1px solid #f00; */
+}
+
+.topmargin_searchBox > #ComboBox a:hover{
+    color: #36b3a8;
+    /* background: #e7e7e7; */
+}
+
+/* 下拉后出现的灰色线条 */
+.topmargin_searchBox > #ComboBox hr{
+    border: .5px solid #CACACA;
+    margin: 0 15px 5px;
+}
+
+/* 搜索框颜色 */
+.searchBoxColor{
+    border-color: #36b3a8;
+    /* border-radius: 20px 20px 0 0; */
+}
+
+/* ———————————————————— 目标墙 —————————————————————— */
+.topmargin_wall {
+    position: absolute;
+    left: 935px;
+    top: 20px;
+}
+.topmargin_wall a {
+    /* display: inline-block; */
+    width: 90px;
+    height: 25px;
+    /* padding: 25px; */
+    text-decoration: none;
+    color: #343434;
+    font-size: 18px;
+    padding-left: 30px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    /* background: url(../img/wall/wallNavLogo.png) no-repeat left bottom / 25px; */
+    background-image: url(../img/wall/wallNavLogo.png);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: 0 25px;
+}
+.topmargin_wall a:hover {
+    color: #81cbbf;
+}
+
+/* ———————————————————— 个人中心 —————————————————————— */
 .topmargin_personal_center{
     width: 163px;
     height: 50px;
@@ -107,7 +191,7 @@
 }
 
 .topmargin_personal_center #topmargin_PC{
-    width: 105px;
+    width: 130px;
     height: 60px;
     line-height: 60px;
     padding-left: 53px;
@@ -119,6 +203,7 @@
     font-size: 18px;
     text-decoration: none;
     z-index: 10;
+    top: 1px;
 }
 
 .topmargin_personal_center > img{
@@ -132,7 +217,7 @@
 /* hover的内容 */
 .topmargin_personal_center > ul{
     width: 200px;
-    height: 205px;
+    height: 242px;
     margin-top: 45px;
     padding: 10px 0 20px 0; 
     display: none;
@@ -203,7 +288,7 @@
 }
 .homePage_side{
     position: absolute;
-    top: 7px;
+    top: 10px;
     right: 0;
     display: flex;
     list-style-type: none;

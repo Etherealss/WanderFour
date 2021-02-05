@@ -12,7 +12,7 @@ import dao.LikeDao;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
 import pojo.bo.EsBo;
 import pojo.dto.CommentDto;
@@ -70,6 +70,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		}
 		//获取文章信息包
 		UserDao userDao = DaoFactory.getUserDAO();
+		logger.debug(article);
 		WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(conn, userDao, article);
 
 		//userid可能为null
@@ -141,7 +142,6 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		UserDao userDao = DaoFactory.getUserDAO();
 		for (Article article : articleList) {
 			WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(conn, userDao, article);
-
 			//获取评论
 			CommentChoose commentChoose = new CommentChoose(new GetOnlyCommentByLike());
 			CommentVo commentVo = new CommentVo();
@@ -150,6 +150,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 			commentVo.setUserid(userid);
 			//评论的文章的id
 			commentVo.setParentId(article.getId());
+			commentVo.setReplyRows(DaoEnum.ROWS_ZERO);
 			//获取多条评论的Dto数据
 			List<CommentDto> commentDtos = commentChoose.doGet(commentVo);
 
@@ -228,10 +229,13 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	public List<EsBo> getWritingListByIds(List<Long> ids) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		WritingDao<Article> dao = DaoFactory.getArticleDao();
-		List<EsBo> writings = dao.getWritingsByIds(conn, ids);
-		for (EsBo esBo : writings) {
-			esBo.setWritingType(WritingType.ARTICLE.val());
-			esBo.setContent(dao.getWritingContent(conn, esBo.getWritingId()));
+		List<EsBo> writings = null;
+		if (ids.size()!=0){
+			writings = dao.getWritingsByIds(conn, ids);
+			for (EsBo esBo : writings) {
+				esBo.setWritingType(WritingType.ARTICLE.val());
+				esBo.setContent(dao.getWritingContent(conn, esBo.getWritingId()));
+			}
 		}
 		return writings;
 	}

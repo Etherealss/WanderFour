@@ -28,9 +28,9 @@ getParams = function () {
  * @returns {boolean} 是在规定长度内的中英文字符串且不为空返回true，否则为false
  */
 checkInput = function (maxLen, targetTxt) {
-    maxLen = maxLen*2;
+    maxLen = maxLen * 2;
     var targetLength = targetTxt.length;
-    if (targetLength == 0){
+    if (targetLength == 0) {
         return false;
     }
     var txtLen = 0;
@@ -66,7 +66,58 @@ toArticle = function (id) {
     window.location.href = "articleShow.html?article=" + id;
 }
 
+toLearningWord = function () {
+    var loc = "";
+    if (user != undefined) {
+        if (user.userType == "COLLEGE") {
+            loc += "LearningWorld_UM.html";
+        }
+    } else {
+        loc += "LearningWorld_HS.html";
+    }
+
+    window.location.href = loc;
+}
+
+toProfessional = function () {
+    window.location.href = "professionalIntroduction.html";
+}
+
+toUniversity = function () {
+    window.location.href = "universityLife.html";
+}
 
 toIndex = function () {
     window.location.href = "./index.html";
 }
+
+
+/**
+ * 格式化日期函数
+ * @param dateMs
+ * @returns {string}
+ */
+dateFormat = function (dateMs) {
+    var date = new Date(dateMs);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var mintue = date.getMinutes();
+    var second = date.getSeconds();
+    return year + "-" + month + "-" + day + " " + hour + ":" + mintue + ":" + second;
+}
+
+//转义  元素的innerHTML内容即为转义后的字符
+function htmlEncode ( str ) {
+    var ele = document.createElement('span');
+    ele.appendChild( document.createTextNode( str ) );
+    return ele.innerHTML;
+}
+//解析
+function htmlDecode ( str ) {
+    var ele = document.createElement('span');
+    ele.innerHTML = str;
+    return ele.textContent;
+}
+

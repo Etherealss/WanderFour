@@ -31,7 +31,7 @@ public class InitWritingController extends BaseServlet {
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, "初始化作品",
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "初始化作品",
 				"partition", "order", "type");
 		if (paramMissing) {
 			return;

@@ -26,7 +26,7 @@ public class ArticleDaoImplTest {
 	@Before
 	public void init() throws Exception {
 		dao = DaoFactory.getArticleDao();
-		conn = JdbcUtil.beginTransaction();
+		conn = JdbcUtil.beginTransactionForTest();
 	}
 
 	@After
@@ -66,7 +66,8 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectArticleById() throws SQLException {
-		System.out.println(dao.getWritingById(conn, 2L));
+		Article writing = dao.getWritingById(conn, 2L);
+		logger.debug(writing);
 	}
 
 	@Test
@@ -105,7 +106,7 @@ public class ArticleDaoImplTest {
 	@Test
 	public void testGetByTime() throws Exception {
 		List<Article> writingListByLike = dao.getWritingListByOrder(
-				conn, 1, "time", 0L, 5);
+				conn, 1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
 		for (Article article : writingListByLike) {
 			logger.debug(article);
 		}

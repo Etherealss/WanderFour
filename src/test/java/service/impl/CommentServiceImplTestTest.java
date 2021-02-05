@@ -6,7 +6,7 @@ import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;

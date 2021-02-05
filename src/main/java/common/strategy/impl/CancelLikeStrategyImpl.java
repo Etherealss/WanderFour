@@ -21,9 +21,9 @@ public class CancelLikeStrategyImpl extends LikeStrategy {
 	@Override
 	public void likeOperate(Long userid, Long targetId, TargetType targetType) {
 		//点赞关系的域名
-		String likeRecordFieldKey = getLikeKey(userid, targetId, targetType.code());
+		String likeRecordFieldKey = getLikeFieldName(userid, targetId, targetType.code());
 		//用于点赞数量统计的域名
-		String likeCountFieldKey = getLikeKey(targetId, targetType.code());
+		String likeCountFieldKey = getLikeFieldName(targetId, targetType.code());
 
 		logger.debug(likeRecordFieldKey);
 

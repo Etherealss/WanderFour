@@ -20,7 +20,7 @@ public class LikeDaoImplTest {
 
 	@Before
 	public void init() throws Exception{
-		conn = JdbcUtil.beginTransaction();
+		conn = JdbcUtil.beginTransactionForTest();
 	}
 
 	@After

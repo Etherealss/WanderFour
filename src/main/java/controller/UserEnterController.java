@@ -2,8 +2,11 @@ package controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import common.enums.AttrEnum;
 import common.util.ControllerUtil;
+import common.util.FileUtil;
 import common.util.Md5Utils;
+import org.w3c.dom.Attr;
 import pojo.dto.ResultState;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
@@ -11,7 +14,6 @@ import pojo.po.User;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import service.UserService;
-import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -42,7 +44,7 @@ public class UserEnterController extends BaseServlet {
 			register(resp, params);
 		} else {
 			logger.error("错误的方法: action = " + action);
-			ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查method参数：method=login(/register)");
+			ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查action参数：action=login(/register)");
 			throw new ServletException("错误的方法action");
 		}
 	}
@@ -56,7 +58,7 @@ public class UserEnterController extends BaseServlet {
 		logger.trace("用户登录...");
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, "登录",
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "登录",
 				"email", "pw");
 		if (paramMissing) {
 			return;
@@ -65,8 +67,9 @@ public class UserEnterController extends BaseServlet {
 		String email = params.getString("email");
 		String password = params.getString("pw");
 		//密码再次加密
-		logger.debug(password);
-		password = Md5Utils.md5Encode(email + password);
+		logger.debug(email + ", " + password);
+		password = Md5Utils.md5Encode((email + password));
+		logger.debug("登录密码" + password);
 
 		ResultType state;
 		JSONObject jsonObject = new JSONObject();
@@ -116,7 +119,7 @@ public class UserEnterController extends BaseServlet {
 						}
 						//用servletContext判断登录状态，用session储存用户的信息
 						servletContext.setAttribute(useridStr, sessionId);
-						session.setAttribute("userid", user.getId());
+						session.setAttribute(AttrEnum.LOGIN_SESSION_NAME, user.getId());
 
 						logger.info("用户：" + user.getId() + "登录");
 					}
@@ -145,22 +148,32 @@ public class UserEnterController extends BaseServlet {
 			return;
 		}
 		//密码再次加密
-		user.setPassword(Md5Utils.md5Encode(user.getEmail() + user.getPassword()));
+		logger.debug("未加密：" + user);
+		user.setPassword(Md5Utils.md5Encode((user.getEmail() + user.getPassword())));
+		logger.debug("已加密：" + user);
 		// 封装到user对象中
 		String avatarPath;
 		//根据性别加载默认头像
 		if (user.getSex()) {
-			avatarPath = "D:\\WanderFourAvatar\\default\\boy.png";
+			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_BOY;
 		} else {
-			avatarPath = "D:\\WanderFourAvatar\\default\\girl.png";
+			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_GIRL;
 		}
-		logger.debug("avatarPath = " + avatarPath);
 		user.setAvatarPath(avatarPath);
 		logger.debug(user);
 		//提交用户信息，获取业务结果
 		Long userid = null;
 		try {
-			userid = new UserServiceImpl().registerNewUser(user);
+			UserService userService = ServiceFactory.getUserService();
+			userid = userService.registerNewUser(user);
+
+			// 获取默认头像的数据流，复制图片，以userId命名
+			// 拼接储存的文件路径和文件名
+			String savePath = AttrEnum.AVATAR_PATH + userid + ".png";
+			// 复制文件
+			String base64Str = FileUtil.getBase64ByImgPath(avatarPath);
+			FileUtil.generateImageByBase64(base64Str, savePath);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

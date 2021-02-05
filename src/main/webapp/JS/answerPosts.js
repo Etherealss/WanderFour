@@ -1,6 +1,3 @@
-//全局变量————楼层数
-var commentsFloorNum = 1;
-
 //个人中心悬浮
 $(".topmargin_personal_center").stop().hover(function () {
     $(this).find("ul").stop().fadeToggle();
@@ -85,6 +82,8 @@ $(".APlist_like").on({
     }
 });
 
+//全局变量————楼层数
+var commentsFloorNum = 1;
 
 // ————————————————————————— 滑动时被限制在浏览器顶部 —————————————————————————————
 // 评论的“点击阅读全文”
@@ -191,9 +190,12 @@ function clickPostPosts()
                 return false;
             }
             time = '1分钟前';
-            postPostsUp(userId, time, getPostsContent());
+            //发表评论的ajax
+            // publishComment(getPostsContent(),userid,parentId);
+            //发表在楼层中
+            postPostsUp(userId, time, getPostsContent(),0,"./img/homePage_highSchoolStudent_head.png");
             //点击评论的回复
-            APlistAddContent("MR","1分钟前");
+            APlistAddContent("小华er","1分钟前");
         }
     });
 }

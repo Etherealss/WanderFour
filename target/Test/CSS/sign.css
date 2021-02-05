@@ -14,6 +14,20 @@ section{
     background: #AEE1D8;    
 }
 
+.backIndex {
+    width: 184px;
+    height: 99px;
+    position: absolute;
+    left: 670px;
+    top: 20px;
+    z-index: 1000;
+}
+
+.backIndex img {
+    width: 184px;
+    height: 99px;
+}
+
 .sign_container{
     position: relative;
     width: 800px;
@@ -136,8 +150,8 @@ section{
     border-color:  #8a6d3b;
 }
 .success{
-  color: #3c763d;
-  display: none;
+    color: #3c763d;
+    display: none;
 }
 .testLogo {
     position: absolute;

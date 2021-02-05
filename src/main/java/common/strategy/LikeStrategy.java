@@ -26,7 +26,7 @@ public abstract class LikeStrategy {
 	 * @param targetType
 	 * @return 形如"targetType::userid::targetId"
 	 */
-	protected String getLikeKey(Long userid, Long targetId, int targetType) {
+	protected String getLikeFieldName(Long userid, Long targetId, int targetType) {
 		String likeKey = targetType + "::" + userid + "::" + targetId;
 		return likeKey;
 	}
@@ -37,7 +37,7 @@ public abstract class LikeStrategy {
 	 * @param targetType
 	 * @return 形如"targetType::targetId"
 	 */
-	protected String getLikeKey(Long targetId, int targetType) {
+	protected String getLikeFieldName(Long targetId, int targetType) {
 		String likeKey = targetType + "::" + targetId;
 		return likeKey;
 	}

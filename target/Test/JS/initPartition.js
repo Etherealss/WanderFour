@@ -61,6 +61,7 @@ function getWritingList(type, partition, order) {
 
 function setLearningArticle(list) {
     //渲染
+    
 
 }
 function setLearningPosts(list) {

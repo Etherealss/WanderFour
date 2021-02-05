@@ -34,10 +34,17 @@ public class DaoEnum {
 	public static final int REPLY_ROWS_TEN = 10;
 
 	public static final int ROWS_ZERO = 0;
+
 	/**
 	 * 每页显示10条评论
 	 */
 	public static final int COMMENT_ROWS_TEN = 10;
+
+	/**
+	 * 20张便利贴
+	 */
+	public static final int NOTES_ROWS = 20;
+
 	/**
 	 * 数据库表字段名
 	 */

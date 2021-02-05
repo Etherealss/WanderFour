@@ -22,7 +22,7 @@ public class CategoryDaoImplTest {
 	@Before
 	public void setUp() throws Exception {
 		dao = DaoFactory.getCategoryDao();
-		conn = JdbcUtil.beginTransaction();
+		conn = JdbcUtil.beginTransactionForTest();
 	}
 
 	@After

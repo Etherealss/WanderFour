@@ -2,6 +2,7 @@ package service.impl;
 
 import common.enums.DaoEnum;
 import common.enums.ResultType;
+import common.enums.WritingType;
 import common.factory.DaoFactory;
 import common.strategy.choose.CommentChoose;
 import common.strategy.choose.GetWritingListChoose;
@@ -12,7 +13,7 @@ import common.util.JdbcUtil;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
 import pojo.bo.EsBo;
 import pojo.dto.CommentDto;
@@ -216,7 +217,15 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	@Override
 	public List<EsBo> getWritingListByIds(List<Long> ids) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
-		WritingDao<Posts> articleDao = DaoFactory.getPostsDao();
-		return articleDao.getWritingsByIds(conn, ids);
+		WritingDao<Posts> dao = DaoFactory.getPostsDao();
+		List<EsBo> writings = null;
+		if (ids.size() != 0){
+			writings = dao.getWritingsByIds(conn, ids);
+
+			for (EsBo esBo : writings) {
+				esBo.setWritingType(WritingType.POSTS.val());
+			}
+		}
+		return writings;
 	}
 }

@@ -91,7 +91,7 @@ public class CommentDaoImpl extends BaseDaoImpl implements CommentDao {
 	public List<Comment> getCommentList(Connection conn, String orderByType, Long start, int rows, Long parentId) throws SQLException {
 		String sql = "SELECT `id`,`user_id` `userId`,`parent_id` `parentId`, `target_id` `targetId`," +
 				"`content`,`liked`,`create_time` `createTime`,`state` FROM " + COMMENT_TABLE +
-				" WHERE `parent_id`=? AND ISNULL(`target_id`) ORDER BY " + orderByType + " DESC LIMIT ?,?";
+				" WHERE `parent_id`=? AND `target_id` IS NOT NULL ORDER BY " + orderByType + " DESC LIMIT ?,?";
 		Object[] params = {parentId, start, rows};
 		List<Comment> list = qr.query(conn, sql, new BeanListHandler<>(Comment.class), params);
 		return list;

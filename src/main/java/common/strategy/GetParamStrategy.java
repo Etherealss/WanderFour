@@ -40,7 +40,14 @@ public interface GetParamStrategy {
 	 * @param clazz
 	 * @param <T>
 	 * @return 封装的实例
-	 * @throws Exception json解析错误
 	 */
 	<T> T getObjByParam(JSONObject jsonObject, Class<T> clazz);
+
+	/**
+	 * 获取表单数据并包装在json中
+	 * json的键为参数名，值为参数数组的第一个元素
+	 * @param req
+	 * @return
+	 */
+	JSONObject getJsonByForm(HttpServletRequest req);
 }

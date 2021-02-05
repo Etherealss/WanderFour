@@ -26,7 +26,7 @@ public class CommentDaoImplTest {
 	@Before
 	public void setUp() throws Exception {
 		dao = DaoFactory.getCommentDao(Article.class);
-		conn = JdbcUtil.beginTransaction();
+		conn = JdbcUtil.beginTransactionForTest();
 	}
 
 	@After

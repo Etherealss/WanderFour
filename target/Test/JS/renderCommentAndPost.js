@@ -25,8 +25,8 @@ function initializeCommentsAndReplys(type,parentId,userid)
 {
     $.ajax({
         type:'get',
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?type='+type+'&userid=3&parentId='+parentId,
+        // url: '/WritingCommentServlet?parentId=1&userid=3&type=article',
+        url:'/WritingCommentServlet?type='+type+'&userid=3&parentId='+parentId,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -50,7 +50,7 @@ function initializeCommentsAndReplys(type,parentId,userid)
         }
     });
 }
-
+ 
 //加载页面时初始化出来的
 initializeCommentsAndReplys('article',1,3);
 
@@ -67,18 +67,15 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
                 //先将原先的全部清空
                 $(".answerPosts_list > li").remove();
                 //加载出页码为1的评论
-                // getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
                 getCommentsAndReplys(parentId,userid,"time",1,type);
                 $(".answerLayPageBox > p").hide();  //点击完“加载更多”后，加载更多消失
                //总条数大于10，显示分页栏
                 if(totalCount > 10)
                 {
                     totalPage = Number(totalCount/10);
-                    // console.log("totalCount = "+totalCount);
                     var isComment = true;   //判断是评论还是回复
                     //创建分页栏
                     laypageList($(".answerLayPageBox"),totalPage,parentId,userid,"time",type,isComment);
-                    // laypageList($(".answerLayPageBox"),totalPage,$(".answerPosts_list"));   
                 }
             }
         });
@@ -86,20 +83,11 @@ function countsAndPages(totalCount,totalPage,type,parentId,userid)
 }
 
 //—————————————————————————————— 点击评论列表的“加载更多”出现 ——————————————————————————————
-// getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
-
 function getCommentsAndReplys(parentId,userid,order,currentPage,type)
 {
     $.ajax({
         type:'get',
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&type=article',
-        //1评论3回复的测试192.168.43.236
-        // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
-        //热点的ip
-        // url: 'http://192.168.43.236:8080/WritingCommentServlet?parentId=4&userid=3&order=time&currentPage=1&type=article',
-        // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        //直接上的
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type,
+        url:'/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -118,19 +106,13 @@ function getCommentsAndReplys(parentId,userid,order,currentPage,type)
         }
     });
 }
-// getCommentsAndReplys('http://192.168.43.236:8080/WritingCommentServlet?parentId=1&userid=3&order=time&currentPage=1&type=article');
-// getCommentsAndReplys(1,3,'time',2,'article');
 
 //————————————————————————— 评论下的回复，点击“加载更多”后才出现 ——————————————————————————————————
 function getUnderCommentssReplys(floorNum,parentId,order,currentPage,type,targetId)
 {
     $.ajax({
         type:'get',
-        //热点的ip
-        // url:'http://192.168.43.236:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        //直接上的
-        // url:'http://192.168.137.150:8080/WritingCommentServlet?parentId=1&order=time&currentPage=1&type=article&targetId=1',
-        url:'http://192.168.43.236:8080/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type+'&targetId='+targetId,
+        url:'/WritingCommentServlet?parentId='+parentId+'&order='+order+'&currentPage='+currentPage+'&type='+type+'&targetId='+targetId,
         dataType: 'json',
         contentType: "application/json",
         success:function(res){//成功的回调函数
@@ -149,19 +131,18 @@ function getUnderCommentssReplys(floorNum,parentId,order,currentPage,type,target
                 }
             }
 
-            // 点击后，收起回复，回到最初的状态
+            //评论底下所显示的回复列表当前页面最后一个消失
+            replyListPosition(floorNum).find("li").eq(replysList.length-1).css({border: "none"});
+
+            // 点击“点击收起”后，收起回复，回到最初的状态
             replyListPosition(floorNum).find("li").parent().find(".upfoldBox").find("i").eq(1).one({
                 click: function(){
+                    //点击收起后，将分页去除掉，让下一次点击在生成
+                    $(this).parent().find(".laypagelist").remove();
+                    //重新加载回初始化的状态（一条评论带三条回复）
                     clickUnfold(replyListPosition(floorNum).find("li"));
-                    console.log("点击收起后回到最初");
                 }
             });
-            // console.log(replyListPosition(floorNum).find("li").length);
-            //评论底下的回复列表长度更新，第九个的页脚消失
-            replyListPosition(floorNum).find("li").eq(9).css({border: "none"});
-            // replyListPosition(floorNum).find("li:last-child").css({border: "none"});
-            //分页栏
-
         },
         error:function(){
             console.log("获取评论下的回复出错，获取不到");
@@ -177,12 +158,11 @@ function commentsRender(commentsList,num)
     var postTime = commentsList[num].parentComment.comment.createTime;
     var postsContent = commentsList[num].parentComment.comment.content;
     var like = commentsList[num].parentComment.comment.like;
-    var src = commentsList[num].parentComment.userImg;
+    var src = "data:image/jpg;base64,"+commentsList[num].parentComment.userImg;
     var floorNum = num+1;   //当前评论所属的楼层数
 
     //获取该层评论下的回复的条数，用其来判断是否有“点击查看”
     var replysCount = commentsList[num].replysCount;
-    // console.log(replysCount);
 
     //渲染该层评论
     postPostsUp(userId, timestampToTime(postTime), postsContent, like,src,floorNum);
@@ -207,14 +187,12 @@ function replysCommentsRender(replys,floorNum)
     var userNickname = replys.userNickname;
     var postTime = replys.comment.createTime;
     var replyContent = replys.comment.content;
-    var src = replys.userImg;
+    var src = "data:image/jpg;base64,"+replys.userImg;
     
-    // console.log(replysCount);
     //评论的回复
     replyPublishUp(replyListPosition(floorNum),userNickname,timestampToTime(postTime),replyContent,src);
 }
 
-// replyPublishContent(replyListPosition($("#111")),"sfa","111","wjfh","");
 //————————————————————— 获取回复所属评论的list位置 ———————————————————————————
 function replyListPosition(floorNum)
 {   //根据楼层数，让回复跟着所在的评论楼层
@@ -229,11 +207,12 @@ function replysReplysRender(replys,floorNum)
     var userNickname = replys.parentComment.userNickname;
     var postTime = replys.parentComment.comment.createTime;
     var replyContent = replys.parentComment.comment.content;
-    var src = replys.parentComment.userImg;
+    var src = "data:image/jpg;base64,"+replys.parentComment.userImg;
     //被回复的对象的昵称
     var repliedTargetName = replys.beRepliedComment.userNickname;
     replyAddPublishContent(replyListPosition(floorNum),userNickname,repliedTargetName,timestampToTime(postTime),replyContent,src);
 }
+
 // replyAddPublishContent(replyListPosition($("#111")),"userName","岚岚","123","replyContent","./img/homePage_highSchoolStudent_head.png");
 
 //————————————————————————————— 获取评论的回复列表的分页 ——————————————————————————————————

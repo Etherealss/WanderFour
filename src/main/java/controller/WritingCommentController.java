@@ -10,8 +10,9 @@ import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
 import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
+import filter.SensitiveFilter;
 import org.apache.log4j.Logger;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.dto.ResultState;
@@ -19,6 +20,7 @@ import pojo.po.Article;
 import pojo.po.Comment;
 import pojo.po.Posts;
 import service.CommentService;
+import service.SensitiveService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +48,7 @@ public class WritingCommentController extends BaseServlet {
 		JSONObject param = GetParamChoose.getJsonByUrl(req);
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, "评论");
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, param,"评论");
 		if (paramMissing) {
 			return;
 		}
@@ -161,8 +163,10 @@ public class WritingCommentController extends BaseServlet {
 			return;
 		}
 		ResultState state;
+
 		//敏感词过滤
-		SensitiveUtil.filterComment(comment);
+		SensitiveUtil.filterComment(new SensitiveFilter(), comment);
+
 		//html防注入
 //		SecurityUtil.ensureJsSafe(comment);
 		SecurityUtil.htmlEncode(comment);

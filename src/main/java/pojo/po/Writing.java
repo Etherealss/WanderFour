@@ -11,12 +11,6 @@ import java.util.Date;
  */
 public class Writing {
 
-	/*
-	本来是将属性都写在这里，但是遇到一个bug，无法通过子类映射父类属性
-	所以只好把属性都搬到子类中
-	TODO 待优化
-	 */
-
 	/** 数据库表id */
 	protected Long id;
 	/** 分类 */
@@ -46,7 +40,7 @@ public class Writing {
 
 	@Override
 	public String toString() {
-		String str = "Article{id=" + id + ", partition=";
+		String str = "Writing{id=" + id + ", partition=";
 		if (partition != null) {
 			str += partition.val();
 		} else {
@@ -203,4 +197,24 @@ public class Writing {
 		this.partition = Partition.getPartition(partitionStr);
 	}
 
+
+	public <T extends Writing>T toOthers(T t){
+		t.setId(id);
+		t.setCategory(category);
+		t.setAuthorId(authorId);
+		t.setTitle(title);
+		t.setLabel1(label2);
+		t.setLabel2(label2);
+		t.setLabel3(label3);
+		t.setLabel4(label4);
+		t.setLabel5(label5);
+		t.setUpdateTime(updateTime);
+		t.setCreateTime(createTime);
+		t.setLiked(liked);
+		t.setCollected(collected);
+		t.setContent(content);
+		t.setPartition(partition);
+		t.setPartitionStr(partitionStr);
+		return t;
+	}
 }

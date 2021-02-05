@@ -5,6 +5,7 @@ import pojo.po.User;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author 寒洲
@@ -12,6 +13,15 @@ import java.sql.SQLException;
  * @date 2020/10/2
  */
 public interface UserDao {
+	/**
+	 * 更新用户头像路径
+	 * @param conn
+	 * @param userId
+	 * @param filePath
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean updateUserAvatarPath(Connection conn, Long userId, String filePath) throws SQLException;
 
 	/**
 	 * 获取合适的数据库Id
@@ -102,5 +112,13 @@ public interface UserDao {
 	 * @throws SQLException
 	 */
 	User getImgAndNicknameById(Connection conn, Long id) throws SQLException;
-	
+
+	/**
+	 * 获取用户列表信息
+	 * @param conn
+	 * @param ids
+	 * @return
+	 * @throws SQLException
+	 */
+	List<User> getUsersInfo(Connection conn, List<Long> ids) throws SQLException;
 }

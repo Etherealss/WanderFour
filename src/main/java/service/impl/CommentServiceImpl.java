@@ -9,7 +9,7 @@ import common.strategy.impl.comment.*;
 import common.util.JdbcUtil;
 import dao.CommentDao;
 import org.apache.log4j.Logger;
-import pojo.CommentVo;
+import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;

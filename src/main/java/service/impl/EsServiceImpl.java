@@ -18,6 +18,7 @@ import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -28,9 +29,14 @@ import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
 import pojo.bo.EsBo;
+import pojo.bo.PageBo;
 import pojo.po.Article;
-import pojo.po.Writing;
 import service.CategoryService;
 import common.others.EsOperator;
 import service.EsService;
@@ -38,7 +44,9 @@ import service.EsService;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 寒洲
@@ -60,7 +68,7 @@ public class EsServiceImpl implements EsService {
 
 	@Override
 	public boolean createWritingIndex() {
-		if (this.existsIndex(EsEnum.INDEX_NAME)) {
+		if (this.existsIndex(EsEnum.INDEX_NAME_WRITING)) {
 			// 已存在，返回false
 			return false;
 		}
@@ -79,7 +87,7 @@ public class EsServiceImpl implements EsService {
 			XContentBuilder mappings = EsUtil.getEsWritingMappings();
 			EsOperator operator = new EsOperator();
 			client = EsUtil.getClient();
-			CreateIndexResponse resp = operator.createIndex(client, settings, mappings, EsEnum.INDEX_NAME);
+			CreateIndexResponse resp = operator.createIndex(client, settings, mappings, EsEnum.INDEX_NAME_WRITING);
 			return resp.isAcknowledged();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,8 +115,8 @@ public class EsServiceImpl implements EsService {
 			RestHighLevelClient client = EsUtil.getClient();
 			// 遍历作品id，检查是不是所有的作品都在ES中，并返回存在的作品的id
 			for (Long id : writingsId) {
-				String docId = type.val() + id;
-				boolean isExist = operator.existDoc(client, EsEnum.INDEX_NAME, docId);
+				String docId = (type.val() + id);
+				boolean isExist = operator.existDoc(client, EsEnum.INDEX_NAME_WRITING, docId);
 				if (!isExist) {
 					// 不存在
 					notExistIds.add(id);
@@ -134,12 +142,12 @@ public class EsServiceImpl implements EsService {
 			Article article = dao.getWritingById(conn, i);
 			String categoryName = (String) allCategory.get(article.getCategory());
 			assert categoryName != null;
-//			String s = service.addDoc(EsEnum.INDEX_NAME, article, categoryName);
+			EsOperator operator = new EsOperator();
+//			String s = operator.addDoc(EsEnum.INDEX_NAME_WRITING, article);
 //			logger.debug(s);
 		}
 		JdbcUtil.closeTransaction();
 	}
-
 
 	@Override
 	public boolean deleteIndex(String indexName) {
@@ -194,7 +202,7 @@ public class EsServiceImpl implements EsService {
 			CategoryService categoryService = ServiceFactory.getCategoryService();
 
 			// 封装实体数据到Json中
-			JSONObject jsonObject = EsUtil.getJsonObject(writing);
+			JSONObject jsonObject = EsUtil.getJsonObjecrForEs(writing);
 
 			// 将Map存储到ES中
 			EsOperator operator = new EsOperator();
@@ -222,7 +230,6 @@ public class EsServiceImpl implements EsService {
 		}
 		return null;
 	}
-
 
 	@Override
 	public String deleteDoc(String indexName, String docId) {
@@ -254,7 +261,7 @@ public class EsServiceImpl implements EsService {
 			client = EsUtil.getClient();
 
 			// 封装实体数据到Json中
-			JSONObject jsonObject = EsUtil.getJsonObject(writing);
+			JSONObject jsonObject = EsUtil.getJsonObjecrForEs(writing);
 
 			// 将Map存储到ES中
 			EsOperator operator = new EsOperator();
@@ -286,36 +293,40 @@ public class EsServiceImpl implements EsService {
 	@Override
 	public String bulkDoc(String indexName, String action, List<EsBo> docs) {
 		BulkRequest request = new BulkRequest();
+		JSONObject sourceMap2 = null;
 		// 封装request
 		try {
 			// 判断操作类型
 			switch (action) {
-				case "add":
+				case EsEnum.ACTION_ADD:
 					// 添加文档
 					int add = 0;
 					for (EsBo writing : docs) {
-						JSONObject sourceMap = EsUtil.getJsonObject(writing);
-						request.add(new IndexRequest(indexName).id(writing.getWritingId().toString())
-								.source(XContentType.JSON, sourceMap.toJSONString())
+						JSONObject sourceMap = EsUtil.getJsonObjecrForEs(writing);
+						sourceMap2 = sourceMap;
+						request.add(new IndexRequest(indexName).id(writing.getWritingType() + writing.getWritingId())
+								.source(sourceMap.toString(), XContentType.JSON)
 						);
 					}
 					break;
-				case "update":
+				case EsEnum.ACTION_UPDATE:
 					// 更新文档
 					int up = 0;
 					for (EsBo writing : docs) {
-						JSONObject sourceMap = EsUtil.getJsonObject(writing);
-						request.add(new UpdateRequest(indexName, writing.getWritingId().toString())
-								.doc(XContentType.JSON, sourceMap.toJSONString())
+						JSONObject sourceMap = EsUtil.getJsonObjecrForEs(writing);
+						request.add(new UpdateRequest(indexName, writing.getWritingType() + writing.getWritingId())
+								.doc(sourceMap.toString(), XContentType.JSON)
 						);
 					}
 					break;
-				case "delete":
+				case EsEnum.ACTION_DELETE:
 					// 删除文档
-				default:
 					for (EsBo writing : docs) {
-						request.add(new DeleteRequest(indexName, writing.getWritingId().toString()));
+						request.add(new DeleteRequest(indexName, writing.getWritingType() + writing.getWritingId()));
 					}
+					break;
+				default:
+					return "WRONG_ACTION";
 			}
 
 			RestHighLevelClient client = EsUtil.getClient();
@@ -328,6 +339,86 @@ public class EsServiceImpl implements EsService {
 			}
 
 			return bulkRespLog;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (sourceMap2 != null) {
+				logger.error("sourceJson = " + sourceMap2.toJSONString());
+			} else {
+				logger.error("sourceJson = null");
+			}
+		} finally {
+			if (client != null) {
+				try {
+					client.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public PageBo<EsBo> searchByHighLigh(String word, int from, int size) {
+		// 要高亮的字段
+		/*
+		{"title^3", "content", "categoryName^3", "label1^2",
+				"label2^2", "label3^2", "label4^2", "label5^2"}
+		 */
+		Map<String, Float> fieldNames = new HashMap<>(10);
+		fieldNames.put("title", 4.0F);
+		fieldNames.put("content", 1.0F);
+		fieldNames.put("categoryName", 3.0F);
+		fieldNames.put("label1", 3.0F);
+		fieldNames.put("label2", 3.0F);
+		fieldNames.put("label3", 3.0F);
+		fieldNames.put("label4", 3.0F);
+		fieldNames.put("label5", 3.0F);
+
+
+		RestHighLevelClient client = null;
+		try {
+			client = EsUtil.getClient();
+
+			EsOperator operator = new EsOperator();
+			SearchResponse resp =
+					operator.mulitHighLightQuery(client, EsEnum.INDEX_NAME_WRITING, fieldNames, word, from, size);
+
+			SearchHit[] hits = resp.getHits().getHits();
+
+			String articleStr = WritingType.ARTICLE.val();
+			String postsStr = WritingType.POSTS.val();
+
+			List<EsBo> list = new ArrayList<>();
+
+			for (SearchHit hit : hits) {
+				EsBo es = getEsBoDataFromHit(hit);
+				list.add(es);
+			}
+
+			// 包装
+			PageBo<EsBo> pb = new PageBo<>();
+			pb.setCurrentPage(from);
+			pb.setRows(size);
+			pb.setList(list);
+
+			// 获取记录条数
+			long totalCount = resp.getHits().getTotalHits().value;
+			pb.setTotalCount(totalCount);
+
+			/*
+			计算总页码数
+			如果总记录数可以整除以每页显示的记录数，
+			那么总页数就是它们的商否则
+			说明有几条数据要另开一页显示，总页数+1
+			 */
+			int page = (int) (totalCount / size);
+			int totalPage = totalCount % size == 0 ? page : page + 1;
+			pb.setTotalPage(totalPage);
+
+			return pb;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -343,19 +434,24 @@ public class EsServiceImpl implements EsService {
 		return null;
 	}
 
-
 	@Override
-	public void searchByHighLigh(String word, int from, int size) {
-		String[] fieldNames = {"title", "content", "label1", "label2", "label3", "label4", "label5"};
+	public List<EsBo> searchByPrefix(String word, int from, int size) {
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
 
 			EsOperator operator = new EsOperator();
-			SearchResponse resp =
-					operator.mulitHighLightQuery(client, EsEnum.INDEX_NAME, fieldNames, word, from, size);
+			SearchResponse resp = operator.findByPrefix(client,
+					EsEnum.INDEX_NAME_WRITING, "title", word, from, size);
+			SearchHit[] hits = resp.getHits().getHits();
 
+			List<EsBo> list = new ArrayList<>();
+			for (SearchHit hit : hits) {
+				EsBo es = getEsBoDataFromHit(hit);
+				list.add(es);
+			}
 
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -367,7 +463,71 @@ public class EsServiceImpl implements EsService {
 				}
 			}
 		}
+
+		return null;
 	}
 
+	@Override
+	public List<String> querySuggestion(String word, String indexName, int size) {
+		String fieldName_title = "title";
+		RestHighLevelClient client = EsUtil.getClient();
 
+		//设置搜索建议
+		CompletionSuggestionBuilder suggestionBuilder = new CompletionSuggestionBuilder(
+				fieldName_title).prefix(word).size(size);
+		SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion(fieldName_title, suggestionBuilder);
+
+		SearchSourceBuilder builder = new SearchSourceBuilder();
+		builder.suggest(suggestBuilder);
+
+		//创建需要搜索的index
+		SearchRequest request = new SearchRequest(indexName);
+		request.source(builder);
+
+		List<String> list = null;
+		try {
+			//进行搜索
+			SearchResponse resp = client.search(request, RequestOptions.DEFAULT);
+			//用来处理的接受结果
+			list = new ArrayList<>();
+
+			List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> entries
+					= resp.getSuggest().getSuggestion(fieldName_title).getEntries();
+			//处理结果
+			for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : entries) {
+				List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();
+				for (Suggest.Suggestion.Entry.Option pp : options) {
+					list.add(pp.getText().toString());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	/**
+	 * 从SearchHit中获取Map，包装到实例中
+	 * @param hit
+	 * @return
+	 */
+	private static EsBo getEsBoDataFromHit(SearchHit hit) {
+		String articleStr = WritingType.ARTICLE.val();
+		String postsStr = WritingType.POSTS.val();
+		Map<String, Object> source = hit.getSourceAsMap();
+		String esId = hit.getId();
+		if (esId.indexOf(articleStr) == 0) {
+			// _id以"article"开头，是文章
+			source.put("writingType", articleStr);
+			source.put("writingId", Long.valueOf(esId.substring(articleStr.length())));
+		} else {
+			// 问贴
+			source.put("writingType", postsStr);
+			source.put("writingId", Long.valueOf(esId.substring(postsStr.length())));
+		}
+		String jsonStr = JSONObject.toJSONString(source);
+		JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+		EsBo es = jsonObject.toJavaObject(EsBo.class);
+		return es;
+	}
 }

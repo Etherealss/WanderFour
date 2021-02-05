@@ -2,7 +2,7 @@ package service;
 
 import common.enums.WritingType;
 import pojo.bo.EsBo;
-import pojo.po.Writing;
+import pojo.bo.PageBo;
 
 import java.util.List;
 
@@ -87,6 +87,25 @@ public interface EsService {
 	 * @param word
 	 * @param from
 	 * @param size
+	 * @return
 	 */
-	void searchByHighLigh(String word, int from, int size);
+	PageBo<EsBo> searchByHighLigh(String word, int from, int size);
+
+	/**
+	 * 前缀搜素
+	 * @param word
+	 * @param from
+	 * @param size
+	 * @return
+	 */
+	List<EsBo> searchByPrefix(String word, int from, int size);
+
+	/**
+	 * 搜索建议
+	 * @param word
+	 * @param indexName
+	 * @param size
+	 * @return
+	 */
+	List<String> querySuggestion(String word, String indexName, int size);
 }

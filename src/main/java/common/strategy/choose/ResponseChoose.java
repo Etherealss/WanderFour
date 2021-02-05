@@ -69,7 +69,7 @@ public class ResponseChoose {
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		strategy.respOnlyStateToBrowser(resp, ResultType.ERROR,
 				ResultMsg.NO_PARAMETER + msg);
-		logger.error(ResultMsg.NO_PARAMETER + msg);
+		logger.warn(ResultMsg.NO_PARAMETER + msg);
 //		throw new ServletException(ResultMsg.NO_PARAMETER + msg);
 	}
 

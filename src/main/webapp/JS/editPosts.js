@@ -258,7 +258,7 @@ function checkEmpty() {
 }
 
 //点击提交信息
-$("#editPosts_save").on({
+$("#editPosts_publish").on({
     click: function () {
         // console.log(obtainVal().editPostsTitleVal);
         // console.log(obtainVal().editPostsContentVal);

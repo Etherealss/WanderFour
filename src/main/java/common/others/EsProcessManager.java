@@ -4,12 +4,8 @@ import common.enums.EsEnum;
 import common.enums.WritingType;
 import common.factory.ServiceFactory;
 import common.util.EsUtil;
-import common.util.FileUtil;
 import org.apache.log4j.Logger;
 import pojo.bo.EsBo;
-import pojo.po.Article;
-import pojo.po.Posts;
-import pojo.po.Writing;
 import service.EsService;
 import service.WritingService;
 
@@ -41,28 +37,37 @@ public class EsProcessManager {
 	 */
 	public static void esDataInit() {
 		logger.info("初始化ES数据");
+		EsService esService = ServiceFactory.getEsService();
 		try {
 			boolean isEsHostConnected = EsUtil.isEsHostConnected();
 			if (!isEsHostConnected) {
 				throw new IOException("ES连接失败");
 			}
-
-			EsService esService = ServiceFactory.getEsService();
-
 			// 判断是否存在索引
-			boolean existsIndex = esService.existsIndex(EsEnum.INDEX_NAME);
+			boolean existsIndex = esService.existsIndex(EsEnum.INDEX_NAME_WRITING);
 			if (!existsIndex) {
 				logger.trace("创建ES索引");
 				esService.createWritingIndex();
 			}
+		} catch (Exception e) {
+			logger.error("创建ES索引异常：" + e.getMessage());
+		}
 
+		try{
 			// 检查和补充数据
 			EsProcessManager.addUnExistWritingToEs(esService, WritingType.ARTICLE);
-			EsProcessManager.addUnExistWritingToEs(esService, WritingType.POSTS);
-
-		} catch (Exception e) {
-			logger.error("ES初始化ES数据失败：" + e.getMessage());
+		} catch (Exception e){
+			logger.error("ES添加文章文档异常");
+			e.printStackTrace();
 		}
+		try{
+			EsProcessManager.addUnExistWritingToEs(esService, WritingType.POSTS);
+		} catch (Exception e){
+			logger.error("ES添加问贴文档异常");
+			e.printStackTrace();
+		}
+
+
 	}
 
 	/**
@@ -73,20 +78,29 @@ public class EsProcessManager {
 		WritingService<?> service;
 
 		if (writingType == WritingType.ARTICLE) {
+			logger.trace("文章ES数据检查");
 			service = ServiceFactory.getArticleService();
 		} else {
+			logger.trace("问贴ES数据检查");
 			service = ServiceFactory.getPostsService();
 		}
 
+		logger.trace("获取所有文章/问贴id");
 		List<Long> allIds = service.getAllWritingsId();
+
 		// 判断ES是否有对应文档，获取需要添加的文档
+		logger.trace("判断ES是否有对应文档，获取需要添加的文档");
 		List<Long> addIds = esService.checkWritingsExist(WritingType.ARTICLE, allIds);
-		// 获取数据
+
+		// 获取需要添加到ES的数据
+		logger.trace("获取需要添加到ES的数据");
 		List<EsBo> addWritings = service.getWritingListByIds(addIds);
 
 		// 将不存在的文档添加到ES中
-		String add = esService.bulkDoc(EsEnum.INDEX_NAME, "add", addWritings);
+		logger.trace("将不存在的文档添加到ES中");
+		String add = esService.bulkDoc(EsEnum.INDEX_NAME_WRITING, EsEnum.ACTION_ADD, addWritings);
 
+		logger.trace("ES数据更新完毕");
 	}
 
 	/**

@@ -49,8 +49,8 @@ public class CommentUtil {
 		//使用base64转码
 		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
 		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-		//TODO 评论图片转码储存
-		cb.setUserImg("imgByBase64");
+		//TODO 评论图片转码
+		cb.setUserImg(imgByBase64);
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;

@@ -172,7 +172,7 @@ function showArticle(id) {
                 //检验测试
                 console.log(fail);
             }
-
+            $(".articleShow_body").height($('.articleShow_main').height()+100);
         }
     })
 }

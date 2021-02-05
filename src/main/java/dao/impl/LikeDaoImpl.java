@@ -65,7 +65,7 @@ public class LikeDaoImpl extends BaseDaoImpl implements LikeDao {
 	@Override
 	public boolean countUserLikeRecord(Connection conn, LikeRecord record) throws SQLException {
 		String sql = "SELECT COUNT(*) FROM " + LIKE_TABLE + " WHERE `user_id`=? AND `target_id`=?;";
-		Long l = qr.query(conn, sql, new ScalarHandler<Long>(), record.getUserid(), record.getTargetId());
+		Long l = qr.query(conn, sql, new ScalarHandler<>(), record.getUserid(), record.getTargetId());
 		//存在记录返回true
 		return l.equals(1L);
 	}

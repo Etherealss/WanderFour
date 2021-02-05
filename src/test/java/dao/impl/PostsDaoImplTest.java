@@ -1,5 +1,6 @@
 package dao.impl;
 
+import common.enums.DaoEnum;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import common.util.TestUtil;
@@ -25,7 +26,7 @@ public class PostsDaoImplTest {
 	@Before
 	public void setUp() throws Exception {
 		dao = DaoFactory.getPostsDao();
-		conn = JdbcUtil.beginTransaction();
+		conn = JdbcUtil.beginTransactionForTest();
 	}
 
 	@After
@@ -99,6 +100,14 @@ public class PostsDaoImplTest {
 		List<EsBo> writingsByIds = dao.getWritingsByIds(conn, list);
 		for (EsBo writingsById : writingsByIds) {
 			logger.debug(writingsById.toString());
+		}
+	}
+
+	@Test
+	public void testGetSimpleWritingListByOrder() throws Exception {
+		List<Posts> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(conn, 1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
+		for (Posts p : simpleWritingListByOrder) {
+			logger.debug(p);
 		}
 	}
 }

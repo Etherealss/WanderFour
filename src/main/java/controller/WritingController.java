@@ -1,10 +1,12 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.enums.AttrEnum;
 import common.enums.TargetType;
 import common.util.ControllerUtil;
 import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
+import filter.SensitiveFilter;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
@@ -32,7 +34,6 @@ public class WritingController extends BaseServlet {
 
 	private final static String TYPE_ARTICLE = TargetType.ARTICLE.val();
 	private final static String TYPE_POSTS = TargetType.POSTS.val();
-	private final static String TYPE_UNDEFINED = "undefined";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,10 +44,10 @@ public class WritingController extends BaseServlet {
 			//空参为异常，需要有参数才能获取指定数据
 			ResponseChoose.respNoParameterError(resp, "查询作品");
 			return;
-		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
+		} else if (AttrEnum.UNDEFINED.equals(params.getString(TYPE_ARTICLE))) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 			return;
-		} else if (TYPE_UNDEFINED.equals(params.getString(TYPE_POSTS))) {
+		} else if (AttrEnum.UNDEFINED.equals(params.getString(TYPE_POSTS))) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 			return;
 		}
@@ -142,7 +143,7 @@ public class WritingController extends BaseServlet {
 		//确定类型
 		//根据类型获取实体和Service
 		if (TYPE_ARTICLE.equals(type)) {
-			Article article = (Article) writing;
+			Article article = writing.toOthers(new Article());
 			logger.debug(article);
 
 			article.setAuthorId(userId);
@@ -150,7 +151,7 @@ public class WritingController extends BaseServlet {
 			//发表新文章
 			Long articleId = null;
 			//过滤敏感词
-			SensitiveUtil.filterArticle(article);
+			SensitiveUtil.filterWriting(new SensitiveFilter(), article);
 			//html防注入
 //			SecurityUtil.ensureJsSafe(article);
 			SecurityUtil.htmlEncode(article);
@@ -165,7 +166,7 @@ public class WritingController extends BaseServlet {
 
 		} else if (TYPE_POSTS.equals(type)) {
 			//获取参数
-			Posts posts = (Posts) writing;
+			Posts posts = writing.toOthers(new Posts());
 			logger.debug(posts);
 
 			posts.setAuthorId(userId);
@@ -173,7 +174,7 @@ public class WritingController extends BaseServlet {
 			//发表新文章
 			Long postsId = null;
 			//过滤敏感词
-			SensitiveUtil.filterPosts(posts);
+			SensitiveUtil.filterWriting(new SensitiveFilter(), posts);
 			//html防注入
 //			SecurityUtil.ensureJsSafe(posts);
 			SecurityUtil.htmlEncode(posts);
@@ -244,7 +245,7 @@ public class WritingController extends BaseServlet {
 		}
 
 		if (TYPE_ARTICLE.equals(type)) {
-			Article article = (Article) writing;
+			Article article = writing.toOthers(new Article());
 			logger.debug("获取article参数：\n\t" + article);
 
 
@@ -253,7 +254,7 @@ public class WritingController extends BaseServlet {
 			//修改文章
 			ResultType resultType = null;
 			//过滤敏感词
-			SensitiveUtil.filterArticle(article);
+			SensitiveUtil.filterWriting(new SensitiveFilter(), article);
 			//html防注入
 //			SecurityUtil.ensureJsSafe(article);
 			SecurityUtil.htmlEncode(article);
@@ -268,7 +269,7 @@ public class WritingController extends BaseServlet {
 		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("Posts put:" + type);
 
-			Posts posts = (Posts) writing;
+			Posts posts = writing.toOthers(new Posts());
 			logger.debug("获取article参数：\n\t" + posts);
 
 			WritingService<Posts> service = ServiceFactory.getPostsService();
@@ -276,7 +277,7 @@ public class WritingController extends BaseServlet {
 			ResultType resultType = null;
 
 			//过滤敏感词
-			SensitiveUtil.filterPosts(posts);
+			SensitiveUtil.filterWriting(new SensitiveFilter(), posts);
 			//html防注入
 //			SecurityUtil.ensureJsSafe(posts);
 			SecurityUtil.htmlEncode(posts);

@@ -18,9 +18,10 @@ public class FileUtilTest {
 
 	@Test
 	public void testRunEsService() throws Exception {
-		String textPath = "D:\\test.txt";
-		Process process = FileUtil.runProcess(textPath);
-		process.destroy();
+		String path = EsUtil.getEsPath();
+//		String path = "D:\\test.txt";
+		logger.debug(path);
+		Process process = FileUtil.runProcess(path);
 		logger.debug(process.isAlive());
 	}
 }

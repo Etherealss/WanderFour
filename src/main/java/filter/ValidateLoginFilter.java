@@ -26,7 +26,9 @@ public class ValidateLoginFilter implements Filter {
 	 * 需要拦截并判断登录状态的路径
 	 */
 	private static final Set<String> CHECK_PATHS = Collections.unmodifiableSet(
-			new HashSet<>(Arrays.asList("/editArticle.html", "/editPosts.html", "/user.html")));
+			new HashSet<>(Arrays.asList(
+					"/editArticle.html", "/editPosts.html", "/user.html", "/chatRoom.html"
+			)));
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {

@@ -2,6 +2,7 @@ package common.strategy.choose;
 
 import common.schedule.LikePersistencebyMinutes;
 import common.schedule.LikePersistenceBySecond;
+import org.apache.log4j.Logger;
 
 /**
  * @author 寒洲
@@ -9,6 +10,8 @@ import common.schedule.LikePersistenceBySecond;
  * @date 2020/10/21
  */
 public class LikePersistChoose {
+
+	private static Logger logger = Logger.getLogger(LikePersistChoose.class);
 
 	/**
 	 * 启动定时任务
@@ -24,6 +27,7 @@ public class LikePersistChoose {
 		try {
 			LikePersistencebyMinutes.shutDownScheduled();
 		} catch (Exception e) {
+			logger.error("关闭定时任务时异常");
 			e.printStackTrace();
 		}
 	}
@@ -42,6 +46,7 @@ public class LikePersistChoose {
 		try {
 			LikePersistenceBySecond.shutDownScheduled();
 		} catch (Exception e) {
+			logger.error("关闭定时任务时异常");
 			e.printStackTrace();
 		}
 	}

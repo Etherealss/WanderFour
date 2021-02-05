@@ -10,26 +10,18 @@ function textareaEnter(textareaBox) {
         keydown: function (event) {
             // console.log(event.keyCode);  //输出的值即为该按键的keyCode
             if (event.keyCode == 13) {
-                event.preventDefault();
+                // event.preventDefault();
                 //重写Enter事件，按下Enter键盘后换行
-                $(this).html($(this).html() + "<br/><br/>");
-                // $(this).append("<br/><br/>");
+                // $(this).html($(this).html() + "<br/><br/>");
+
                 //将光标置于内容的最后位置
-                setFocus($(this));
+                // setFocus($(this));
+
+                //调用光标插入方法，在光标处插入换行
+                insertNewLine("<br/>");
+                return false;
             }
-        },
-        // focus: function(){
-        //     $(this).css({
-        //         boxShadow: "1px 1px 5px rgba(0,0,0,0.25)",
-        //         transition: "all ease-in-out .3s"
-        //     });
-        // },
-        // blur: function(){
-        //     $(this).css({
-        //         boxShadow: "none",
-        //         transition: "all ease-in-out .3s"
-        //     });
-        // }
+        }
     });
 }
 
@@ -45,6 +37,43 @@ function setFocus(object) {
     sel.removeAllRanges();
     sel.addRange(range);
 };
+
+ /*光标处插入html代码，参数是String类型的html代码，例子："<p>猪头诺</p>"*/
+//getSelection()方法：返回一个Selection对象，表示用户选择的文本范围或光标的当前位置
+//sel.getRangeAt返回一个包含当前选区内容的区域对象
+//碎片节点插入
+ function insertNewLine(html) 
+ {
+    var sel, range;
+    sel = window.getSelection();
+    if (sel.getRangeAt && sel.rangeCount)
+    {
+        range = sel.getRangeAt(0);
+        range.deleteContents();
+
+        var el = document.createElement("div");
+        el.innerHTML = html;
+        var frag = document.createDocumentFragment(),node, lastNode;
+        
+        while ((node = el.firstChild)) 
+        {
+            lastNode = frag.appendChild(node);
+        }
+        range.insertNode(frag); //插入断点
+
+        if (lastNode) 
+        {
+            range = range.cloneRange();
+            range.setStartAfter(lastNode);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    }
+}
+
+//在div内容尾部添加一个空格，为了换行更加顺利
+$("#articleContentVal").append("&nbsp;");
 
 //————————————————————————————————— 插入图片 —————————————————————————————————————
 //图片转Base64码再存储
@@ -86,8 +115,6 @@ function changeImgSrc(inputFile, index) {
     }
 }
 
-//换行以及光标永远置于编辑的最后位置
-textareaEnter($("#articleContentVal"));
 //点击上传插入不同数量的图片
 changeImgSrc($("#imgFileBtn"), 0);
 

@@ -1,5 +1,7 @@
 package pojo.bo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
@@ -9,22 +11,52 @@ import java.util.Date;
  */
 public class EsBo {
 
+	@JSONField(ordinal = 0)
 	private Long writingId;
+	@JSONField(ordinal = 1)
 	private String writingType;
+
+	@JSONField(ordinal = 3)
 	private Long authorId;
-	private String title;
-	private String content;
+
+	@JSONField(ordinal = 4)
 	private Integer categoryId;
+	@JSONField(ordinal = 5)
 	private String categoryName;
+
+	@JSONField(ordinal = 6)
+	private String title;
+
+	@JSONField(ordinal = 11)
+	private String content;
+
+	@JSONField(ordinal = 7)
 	private String label1;
+
+	@JSONField(ordinal = 7)
 	private String label2;
+
+	@JSONField(ordinal = 7)
 	private String label3;
+
+	@JSONField(ordinal = 7)
 	private String label4;
+
+	@JSONField(ordinal = 7)
 	private String label5;
+
+	@JSONField(ordinal = 8)
 	private Date createTime;
+
+	@JSONField(ordinal = 9)
 	private Date updateTime;
+
+	@JSONField(ordinal = 10)
 	private Integer liked;
+
+	@JSONField(ordinal = 10)
 	private Integer collected;
+
 
 	public EsBo() {
 	}
@@ -34,11 +66,10 @@ public class EsBo {
 		return "EsBo{" +
 				"writingId=" + writingId +
 				", writingType='" + writingType + '\'' +
-				", arthorId=" + authorId +
-				", title='" + title + '\'' +
-				", content='" + content + '\'' +
 				", categoryId=" + categoryId +
 				", categoryName='" + categoryName + '\'' +
+				", arthorId=" + authorId +
+				", title='" + title + '\'' +
 				", label1='" + label1 + '\'' +
 				", label2='" + label2 + '\'' +
 				", label3='" + label3 + '\'' +
@@ -48,6 +79,7 @@ public class EsBo {
 				", updateTime=" + updateTime +
 				", liked=" + liked +
 				", collected=" + collected +
+				", content='" + content + '\'' +
 				'}';
 	}
 
@@ -75,22 +107,6 @@ public class EsBo {
 		this.authorId = authorId;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -105,6 +121,22 @@ public class EsBo {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getLabel1() {
@@ -177,5 +209,9 @@ public class EsBo {
 
 	public void setCollected(Integer collected) {
 		this.collected = collected;
+	}
+
+	public String[] getAllLabels() {
+		return new String[]{label1, label2, label3, label4, label5};
 	}
 }

@@ -1,5 +1,7 @@
 package common.util;
 
+import org.apache.log4j.Logger;
+import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import java.io.*;
@@ -10,6 +12,8 @@ import java.io.*;
  * @date 2020/10/23
  */
 public class FileUtil {
+
+	private static Logger logger = Logger.getLogger(FileUtil.class);
 
 	/**
 	 * 获取文件数据流
@@ -55,12 +59,71 @@ public class FileUtil {
 		return encoder.encode(data);
 	}
 
-	public static Process runProcess(String esPath) throws IOException {
+	/**
+	 * 通过图片文件路径 获取其Base64编码
+	 * @param filePath
+	 * @return
+	 */
+	public static String getBase64ByImgPath(String filePath){
+		return getImgByBase64(getFileStream(filePath));
+	}
+
+	/**
+	 * base64转图片保存本地
+	 * @param base64str base64码
+	 * @param savePath 图片路径
+	 * @return
+	 */
+	public static boolean generateImageByBase64(String base64str, String savePath) {
+		//对字节数组字符串进行Base64解码并生成图片
+		if ("".equals(savePath) || "".equals(base64str) || base64str == null || savePath == null) {
+			return false;
+		}
+		BASE64Decoder decoder = new BASE64Decoder();
+		OutputStream out = null;
+		try {
+			//Base64解码
+			byte[] b = decoder.decodeBuffer(base64str);
+			for (int i = 0; i < b.length; ++i) {
+				//调整异常数据
+				if (b[i] < 0) {
+					b[i] += 256;
+				}
+			}
+			//生成jpeg图片
+			out = new FileOutputStream(savePath);
+			out.write(b);
+			out.flush();
+			return true;
+		} catch (Exception e) {
+			logger.error("base64转图片保存本地 失败：" + e.getMessage());
+			return false;
+		} finally {
+			try {
+				if (out != null) {
+					out.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 启动文件
+	 * @param path 文件路径
+	 * @return
+	 * @throws IOException
+	 */
+	public static Process runProcess(String path) throws IOException {
 		/*
 		使用Runtime去运行命令行 CreateProcess error=193, %1 不是有效的 Win32 应用程序。
 		错误代码193是运行了一个不信任的程序. 当你充分信任你的程序时候你可以使用cmd作为跳板
 		解决方案：运行的命令行前面添加：“cmd \c ionic -v”
 		 */
-		return Runtime.getRuntime().exec("cmd /c " + esPath);
+		String command = "cmd.exe /C start " + path;
+		return Runtime.getRuntime().exec(command);
 	}
+
+
 }

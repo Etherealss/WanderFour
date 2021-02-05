@@ -123,7 +123,6 @@ public class LikeServiceImpl implements LikeService {
 	 * 实例化三个点赞DAO
 	 */
 	private void createDaoInstance() {
-		logger.trace("实例化三个点赞DAO");
 		articleLikeDao = DaoFactory.getLikeDao(TargetType.ARTICLE);
 		postsLikeDao = DaoFactory.getLikeDao(TargetType.POSTS);
 		commentLikeDao = DaoFactory.getLikeDao(TargetType.COMMMENT);

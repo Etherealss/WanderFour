@@ -1,6 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.enums.AttrEnum;
 import common.enums.ResultType;
 import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
@@ -26,33 +27,36 @@ public class UserInfoController extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.trace("获取用户信息");
-		Long userId = ControllerUtil.getUserId(req);
+		logger.trace("用户获取其他用户的信息");
+		JSONObject params = GetParamChoose.getJsonByUrl(req);
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "获取其他用户的信息", "userid");
+		String userIdStr = params.get("userid").toString();
+		if (paramMissing) {
+			return;
+		} else if (AttrEnum.UNDEFINED.equals(userIdStr)){
+			ResponseChoose.respWrongParameterError(resp, "参数undefined");
+			return;
+		}
 
 		JSONObject resJson = new JSONObject();
 		ResultState state;
 
-		if (userId == null) {
-			ResultType type = ResultType.NOT_LOGGED;
-			state = new ResultState(type, "用户未登录");
+		UserService userService = ServiceFactory.getUserService();
+		try {
+			// 获取请求的用户信息
+			Long userid = Long.valueOf(userIdStr);
+			User user = userService.getUserInfo(userid);
 
-		} else {
-			UserService userService = ServiceFactory.getUserService();
-			try {
-				User user = userService.getLoggedUserInfo(userId);
-				state = new ResultState(ResultType.LOGGED, "用户已登录，用户信息获取成功");
-
-				if (user == null) {
-					state = new ResultState(ResultType.EXCEPTION, "用户已登录，但是获取用户信息失败");
-				} else {
-					resJson.put("user", user);
-					logger.debug("用户已登录，id=" + user.getId() + ", userType = " + user.getUserType());
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				state = new ResultState(ResultType.EXCEPTION, "异常");
+			if (user == null) {
+				state = new ResultState(ResultType.EXCEPTION, "获取用户信息失败");
+			} else {
+				resJson.put("user", user);
+				state = new ResultState(ResultType.SUCCESS, "获取用户信息成功");
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			state = new ResultState(ResultType.EXCEPTION, "异常");
 		}
 		resJson.put("state", state);
 		ResponseChoose.respToBrowser(resp, resJson);

@@ -15,6 +15,14 @@ import pojo.po.Writing;
 public class DaoFactory {
 
 	/**
+	 * 好友列表
+	 * @return
+	 */
+	public static FriendRelationDao getFriendRelationDao(){
+		return new FriendRelationDaoImpl();
+	}
+
+	/**
 	 * 用户DAO
 	 *
 	 * @return 用户DAO对象
@@ -77,5 +85,13 @@ public class DaoFactory {
 	 */
 	public static SensitiveDao getSensitiveDao(){
 		return new SensitiveDaoImpl();
+	}
+
+	/**
+	 * 便利贴DAO
+	 * @return
+	 */
+	public static StickyNoteDao getStickyNoteDao(){
+		return new StickyNoteDaoImpl();
 	}
 }

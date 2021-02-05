@@ -16,7 +16,7 @@ import java.util.Date;
 @Db(DbName = "wanderfour")
 @DbTable(tableName = "posts")
 @DbTableFK(foreignKey = {"user", "partition"})
-public class Posts extends Writing{
+public class Posts extends Writing {
 
 	private Logger logger = Logger.getLogger(Posts.class);
 

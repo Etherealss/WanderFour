@@ -33,8 +33,17 @@
                     </li>
                 </ul>
                 <div class="topmargin_searchBox">
-                    <input type="search" name="" id="" placeholder="搜索学习经验/资源分享" />
-                    <button></button>
+                    <div class="topmargin_searchOutsideBox">
+                        <input type="search" name="" id="topmarginSearch" placeholder="搜索学习经验/资源分享" />
+                        <button></button>
+                    </div>
+                    <!-- 下拉框 -->
+                    <div id="ComboBox">
+                        <hr color="#CACACA"/>
+                    </div>
+                </div>
+                <div class="topmargin_wall">
+                    <a href="./wall.html">目标墙</a>
                 </div>
                 <div class="topmargin_personal_center">
                     <a id="topmargin_PC" href="./user.html">个人中心</a>
@@ -63,6 +72,9 @@
                         </li>
                         <li>
                             <a href="">收件箱</a>
+                        </li>
+                        <li>
+                            <a href="./chatRoom.html">聊天室</a>
                         </li>
                     </ul>
                 </div>
@@ -498,8 +510,12 @@
         </section>
     </div>
 </div>
+<div id="returnToTopBtn"></div>
 </body>
 <script src="JS/jQuery.js"></script>
+<script src="JS/models.js"></script>
+<script src="./JS/debounceAndThrottle.js"></script>
+<script src="./JS/searchFunction.js"></script>
 <script src="./JS/getSearch.js"></script>
 <script src="JS/universityLife.js"></script>
 <script src="JS/todolist_MR.js"></script>

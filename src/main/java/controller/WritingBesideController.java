@@ -37,7 +37,7 @@ public class WritingBesideController extends BaseServlet{
 		String partition = params.getString("partition");
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, "获取侧边的推荐作品",
+		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "获取侧边的推荐作品",
 				"type", "partition");
 		if (paramMissing) {
 			return;
