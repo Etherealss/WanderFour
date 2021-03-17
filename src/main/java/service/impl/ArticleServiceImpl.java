@@ -107,7 +107,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		article.setContent(content);
 
 		//获取用户的信息
-		User reviewerInfo = userDao.getImgAndNicknameById(conn, article.getAuthorId());
+		User reviewerInfo = userDao.getImgAndNicknameById(article.getAuthorId());
 		WritingBean<Article> bean = new WritingBean<>();
 		//用户头像 使用base64转码
 		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());

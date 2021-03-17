@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 		PageBo<CommentDto> pb = new PageBo<>(1, 3);
 		pb.setList(list);
 		//获取并存入总记录数
-		Long totalCount = dao.countCommentByParentId(conn, parentId);
+		Long totalCount = dao.countCommentByParentId(parentId);
 		pb.setTotalCount(totalCount);
 
 		return pb;
@@ -85,7 +85,7 @@ public class CommentServiceImpl implements CommentService {
 			//存入当前页码和每页显示的记录数
 			pb = new PageBo<>(currentPage, commentRows);
 			//获取并存入总记录数
-			Long totalCount = dao.countCommentByParentId(conn, parentId);
+			Long totalCount = dao.countCommentByParentId(parentId);
 			pb.setTotalCount(totalCount);
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
 			Long start = (currentPage - 1L) * commentRows;
@@ -126,7 +126,7 @@ public class CommentServiceImpl implements CommentService {
 			pb = new PageBo<>(currentPage, replyRows);
 
 			//获取并存入总回复记录数
-			Long totalCount = dao.countReplyByParentId(conn, parentId);
+			Long totalCount = dao.countReplyByParentId(parentId);
 			pb.setTotalCount(totalCount);
 
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
@@ -167,29 +167,23 @@ public class CommentServiceImpl implements CommentService {
 		boolean success;
 		if (comment.getTargetId() == null) {
 			//评论
-			success = dao.createNewComment(conn, comment);
+			dao.insertNewComment(comment);
 		} else {
 			//回复
-			success = dao.createNewReply(conn, comment);
+			dao.insertNewReply(comment);
 		}
-		if (success) {
-			return ResultType.SUCCESS;
-		}
-		return ResultType.EXCEPTION;
+		return ResultType.SUCCESS;
 	}
 
 	@Override
 	public ResultType deleteComment(Long commentId, Long userid) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
-		Long commentUserId = dao.getCommentUserId(conn, userid);
+		Long commentUserId = dao.getCommentUserId(userid);
 		if (!commentId.equals(commentUserId)) {
 			return ResultType.NOT_AUTHOR;
 		}
-		boolean success = dao.deleteComment(conn, commentId);
-		if (success) {
-			return ResultType.SUCCESS;
-		}
-		return ResultType.EXCEPTION;
+		dao.deleteComment(commentId);
+		return ResultType.SUCCESS;
 	}
 
 }

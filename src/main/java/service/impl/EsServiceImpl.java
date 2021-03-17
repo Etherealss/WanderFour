@@ -292,6 +292,9 @@ public class EsServiceImpl implements EsService {
 
 	@Override
 	public String bulkDoc(String indexName, String action, List<EsBo> docs) {
+		if (docs == null || docs.size() == 0) {
+			return "Nothing to add";
+		}
 		BulkRequest request = new BulkRequest();
 		JSONObject sourceMap2 = null;
 		// 封装request

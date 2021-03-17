@@ -139,7 +139,7 @@ public class UserEnterController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
-	public void register(HttpServletResponse resp, JSONObject params) throws ServletException, IOException {
+	public void register(HttpServletResponse resp, JSONObject params) throws ServletException {
 		logger.trace("用户注册...");
 		//获取请求参数，封装到实体中
 		User user = GetParamChoose.getObjByParam(params, User.class);
@@ -151,28 +151,12 @@ public class UserEnterController extends BaseServlet {
 		logger.debug("未加密：" + user);
 		user.setPassword(Md5Utils.md5Encode((user.getEmail() + user.getPassword())));
 		logger.debug("已加密：" + user);
-		// 封装到user对象中
-		String avatarPath;
-		//根据性别加载默认头像
-		if (user.getSex()) {
-			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_BOY;
-		} else {
-			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_GIRL;
-		}
-		user.setAvatarPath(avatarPath);
-		logger.debug(user);
+
 		//提交用户信息，获取业务结果
 		Long userid = null;
 		try {
 			UserService userService = ServiceFactory.getUserService();
 			userid = userService.registerNewUser(user);
-
-			// 获取默认头像的数据流，复制图片，以userId命名
-			// 拼接储存的文件路径和文件名
-			String savePath = AttrEnum.AVATAR_PATH + userid + ".png";
-			// 复制文件
-			String base64Str = FileUtil.getBase64ByImgPath(avatarPath);
-			FileUtil.generateImageByBase64(base64Str, savePath);
 
 		} catch (Exception e) {
 			e.printStackTrace();

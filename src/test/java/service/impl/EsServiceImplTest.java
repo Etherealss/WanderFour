@@ -8,6 +8,10 @@ import common.util.JdbcUtil;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.EsBo;
 import pojo.bo.PageBo;
 import pojo.po.Article;
@@ -16,11 +20,14 @@ import service.EsService;
 import java.sql.Connection;
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class EsServiceImplTest {
 
 	private Logger logger = Logger.getLogger(EsServiceImplTest.class);
 
-	private EsService service = ServiceFactory.getEsService();
+	@Autowired
+	private EsService service;
 
 	@Test
 	public void testCreateIndex() throws Exception {

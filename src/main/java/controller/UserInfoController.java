@@ -33,7 +33,7 @@ public class UserInfoController extends BaseServlet {
 		String userIdStr = params.get("userid").toString();
 		if (paramMissing) {
 			return;
-		} else if (AttrEnum.UNDEFINED.equals(userIdStr)){
+		} else if (AttrEnum.UNDEFINED.equals(userIdStr)) {
 			ResponseChoose.respWrongParameterError(resp, "参数undefined");
 			return;
 		}
@@ -77,11 +77,7 @@ public class UserInfoController extends BaseServlet {
 
 		UserService userService = ServiceFactory.getUserService();
 		try {
-			boolean b = userService.updateUserInfo(user);
-			if (!b) {
-				ResponseChoose.respToBrowser(resp, new ResultState(ResultType.EXCEPTION, "修改用户异常"));
-				return;
-			}
+			userService.updateUserInfo(user);
 			ResponseChoose.respToBrowser(resp, new ResultState(ResultType.SUCCESS, "修改用户信息成功"));
 
 		} catch (Exception e) {

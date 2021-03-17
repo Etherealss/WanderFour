@@ -45,10 +45,9 @@ public interface UserService {
 	/**
 	 * 修改用户信息
 	 * @param user
-	 * @return
 	 * @throws Exception
 	 */
-	boolean updateUserInfo(User user) throws Exception;
+	void updateUserInfo(User user) throws Exception;
 
 	/**
 	 * 获取已登录的用户的信息

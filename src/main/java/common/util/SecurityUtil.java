@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import pojo.po.Article;
 import pojo.po.Comment;
 import pojo.po.Posts;
+import pojo.po.Writing;
 
 import java.util.Map;
 
@@ -55,23 +56,27 @@ public class SecurityUtil {
 		return html;
 	}
 
-	public static void htmlEncode(Article a) {
-		a.setTitle(htmlEncode(a.getTitle()));
-		a.setLabel1(htmlEncode(a.getLabel1()));
-		a.setLabel2(htmlEncode(a.getLabel2()));
-		a.setLabel3(htmlEncode(a.getLabel3()));
-		a.setLabel4(htmlEncode(a.getLabel4()));
-		a.setLabel5(htmlEncode(a.getLabel5()));
-	}
+//	public static void htmlEncode(Article a) {
+//		a.setTitle(htmlEncode(a.getTitle()));
+//		a.setLabel1(htmlEncode(a.getLabel1()));
+//		a.setLabel2(htmlEncode(a.getLabel2()));
+//		a.setLabel3(htmlEncode(a.getLabel3()));
+//		a.setLabel4(htmlEncode(a.getLabel4()));
+//		a.setLabel5(htmlEncode(a.getLabel5()));
+//	}
+//
+//	public static void htmlEncode(Posts p) {
+//		p.setTitle(htmlEncode(p.getTitle()));
+////		p.setContent(htmlEncode(p.getContent()));
+//	}
 
-	public static void htmlEncode(Posts p) {
-		p.setTitle(htmlEncode(p.getTitle()));
-//		p.setContent(htmlEncode(p.getContent()));
-		p.setLabel1(htmlEncode(p.getLabel1()));
-		p.setLabel2(htmlEncode(p.getLabel2()));
-		p.setLabel3(htmlEncode(p.getLabel3()));
-		p.setLabel4(htmlEncode(p.getLabel4()));
-		p.setLabel5(htmlEncode(p.getLabel5()));
+	public static void htmlEncode(Writing writing) {
+		writing.setTitle(htmlEncode(writing.getTitle()));
+		writing.setLabel1(htmlEncode(writing.getLabel1()));
+		writing.setLabel2(htmlEncode(writing.getLabel2()));
+		writing.setLabel3(htmlEncode(writing.getLabel3()));
+		writing.setLabel4(htmlEncode(writing.getLabel4()));
+		writing.setLabel5(htmlEncode(writing.getLabel5()));
 	}
 
 	public static void htmlEncode(Comment p) {
@@ -125,14 +130,7 @@ public class SecurityUtil {
 	 * @return
 	 */
 	public static void ensureJsSafe(Article a) {
-		//TODO 优化
-//		a.setContent(StringEscapeUtils.escapeJavaScript(String.valueOf(a.getContent())));
-		a.setTitle(StringEscapeUtils.escapeJavaScript(a.getTitle()));
-		a.setLabel1(StringEscapeUtils.escapeJavaScript(a.getLabel1()));
-		a.setLabel2(StringEscapeUtils.escapeJavaScript(a.getLabel2()));
-		a.setLabel3(StringEscapeUtils.escapeJavaScript(a.getLabel3()));
-		a.setLabel4(StringEscapeUtils.escapeJavaScript(a.getLabel4()));
-		a.setLabel5(StringEscapeUtils.escapeJavaScript(a.getLabel5()));
+		escapeJavaScript(a);
 	}
 
 	/**
@@ -141,14 +139,22 @@ public class SecurityUtil {
 	 * @return
 	 */
 	public static void ensureJsSafe(Posts p) {
-		//TODO Writing没有对于的setter和getter，没办法通过泛型封装 待优化
 		p.setContent(StringEscapeUtils.escapeJavaScript(p.getContent()));
-		p.setTitle(StringEscapeUtils.escapeJavaScript(p.getTitle()));
-		p.setLabel1(StringEscapeUtils.escapeJavaScript(p.getLabel1()));
-		p.setLabel2(StringEscapeUtils.escapeJavaScript(p.getLabel2()));
-		p.setLabel3(StringEscapeUtils.escapeJavaScript(p.getLabel3()));
-		p.setLabel4(StringEscapeUtils.escapeJavaScript(p.getLabel4()));
-		p.setLabel5(StringEscapeUtils.escapeJavaScript(p.getLabel5()));
+		escapeJavaScript(p);
+	}
+
+	/**
+	 * 防止js注入
+	 * @param w
+	 * @return
+	 */
+	private static void escapeJavaScript(Writing w) {
+		w.setTitle(StringEscapeUtils.escapeJavaScript(w.getTitle()));
+		w.setLabel1(StringEscapeUtils.escapeJavaScript(w.getLabel1()));
+		w.setLabel2(StringEscapeUtils.escapeJavaScript(w.getLabel2()));
+		w.setLabel3(StringEscapeUtils.escapeJavaScript(w.getLabel3()));
+		w.setLabel4(StringEscapeUtils.escapeJavaScript(w.getLabel4()));
+		w.setLabel5(StringEscapeUtils.escapeJavaScript(w.getLabel5()));
 	}
 
 	/**

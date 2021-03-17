@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Dao接口的完整类名-->
+<mapper namespace="dao.UserDao">
+
+    <resultMap type="pojo.po.User" id="userMap">
+        <id column="id" property="id"/>
+        <result column="user_password" property="password"/>
+        <result column="type" property="userType"/>
+        <result column="avatar" property="avatarPath"/>
+        <result column="liked_count" property="liked"/>
+        <result column="collected_count" property="collected"/>
+        <result column="register_date" property="registerDate"/>
+    </resultMap>
+
+    <!--配置查询所有-->
+    <!--id为方法名称，resultType为MyBatis封装的类型-->
+    <!-- 更新用户头像路径 -->
+    <select id="updateUserAvatarPath"
+            resultType="Long">
+        UPDATE user
+        SET avatar = #{filePath}
+        WHERE id = #{userId};
+    </select>
+
+    <!-- 获取合适的数据库Id -->
+    <select id="getLastInsertId"
+            resultType="BigInteger">
+        SELECT LAST_INSERT_ID();
+    </select>
+
+    <!-- 通过账号密码查询用户 -->
+    <select id="selectUserBySign"
+            resultMap="userMap">
+        SELECT `user`.id,
+               `email`,
+               `nickname`,
+               `sex`,
+               `birthday`,
+               `type`,
+               `avatar`,
+               `liked_count`,
+               `collected_count`,
+               `register_date`
+        FROM `user`,
+             `user_type`
+        WHERE `user`.user_type = `user_type`.id
+          AND `user`.email = #{email}
+          AND `user_password` = #{password};
+    </select>
+
+    <!--查询用户id是否存在-->
+    <select id="countUserByEmail"
+            resultType="Long">
+        SELECT count(*)
+        FROM `user`
+        WHERE `email` = #{email}
+    </select>
+
+    <!--新建用户-->
+    <insert id="registerNewUser">
+        INSERT INTO `user`
+            (email, user_password, nickname, sex, avatar, register_date, user_type)
+        VALUES (#{email}, #{password}, #{nickname}, #{sex}, #{avatarPath}, #{registerDate},
+                (SELECT id FROM `user_type` WHERE `type` = #{userType}))
+    </insert>
+
+    <!-- 修改用户信息 -->
+    <update id="updateUserInfo">
+        UPDATE `user`
+        SET `email`=#{email},
+            `nickname`=#{nickname},
+            `birthday`=#{birthday},
+            `sex`=#{sex},
+            `user_type`=(SELECT id FROM `user_type` WHERE `type` = #{userType}),
+            `school`=#{school},
+            `major`=#{major}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 修改用户密码 -->
+    <update id="updateUserPw">
+        UPDATE `user`
+        SET `user_password`=#{password}
+        WHERE `id` = #{userId};
+    </update>
+
+    <!-- 通过邮箱查询用户，获取数据 -->
+    <select id="getUserByEmail"
+            resultMap="userMap"
+            parameterType="String">
+        SELECT `user`.id,
+               `email`,
+               `user_password`,
+               `nickname`,
+               `birthday`,
+               `type`,
+               `liked_count`,
+               `collected_count`,
+               `register_date`
+        FROM `user`,
+             `user_type`
+        WHERE `user`.user_type = `user_type`.id
+          AND `user`.email = #{emial}
+    </select>
+
+    <!-- 通过id查询用户，获取数据 -->
+    <select id="getUserById"
+            parameterType="long"
+            resultMap="userMap">
+        SELECT `user`.id,
+               `email`,
+               `nickname`,
+               `avatar`,
+               `sex`,
+               `birthday`,
+               `type`,
+               `liked_count`,
+               `collected_count`,
+               `register_date`
+        FROM `user`,
+             `user_type`
+        WHERE `user`.user_type = `user_type`.id
+          AND `user`.id = #{userId}
+    </select>
+
+    <!-- 获取用户邮箱 -->
+    <select id="getUserEmailAndPwById"
+            parameterType="long"
+            resultMap="userMap">
+        SELECT `email`, `user_password`
+        FROM `user`
+        WHERE `id` = #{userId};
+    </select>
+
+    <!-- 根据id获取评论用户的头像和昵称 -->
+    <select id="getImgAndNicknameById"
+            parameterType="long"
+            resultMap="userMap">
+        SELECT `nickname`, `avatar`
+        FROM `user`
+        WHERE `id` = #{userId};
+    </select>
+
+    <!-- 获取用户列表信息 -->
+    <select id="getUsersInfo"
+            resultMap="userMap">
+        SELECT `user`.id ,
+        `email`, `nickname`, `avatar`, `sex`,
+        `birthday`, `type`, `liked_count`, `collected_count`,
+        `register_date` FROM `user`, `user_type`
+        <where>
+            `user`.user_type = `user_type`.id
+            AND `user`.id IN
+            <foreach collection="ids" item="item" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+</mapper>

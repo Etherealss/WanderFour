@@ -6,6 +6,7 @@ import common.util.JdbcUtil;
 import dao.SensitiveDao;
 import filter.SensitiveFilter;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import service.SensitiveService;
 
 import java.io.*;
@@ -20,19 +21,18 @@ import java.util.Map;
  */
 public class SensitiveServiceImpl implements SensitiveService {
 
-	private SensitiveDao dao = DaoFactory.getSensitiveDao();
+	@Autowired
+	private SensitiveDao dao;
 	private Logger logger = Logger.getLogger(SensitiveServiceImpl.class);
 
 	@Override
 	public void insertSensitiveWord(int type, String path) {
 		BufferedReader reader = null;
-		Connection conn;
 		try {
-			conn = JdbcUtil.getConnection();
 			reader = new BufferedReader(new FileReader(path));
 			String temp;
 			while ((temp = reader.readLine()) != null) {
-				dao.insertSensitiveDao(conn, type, temp);
+				dao.insertSensitiveDao(type, temp);
 			}
 
 		} catch (Exception e) {
@@ -66,15 +66,9 @@ public class SensitiveServiceImpl implements SensitiveService {
 	@Override
 	public Map<Character, SensitiveNode> getSensitiveWordsMap() {
 		//初始化敏感词树
-		Connection conn;
-		try {
-			conn = JdbcUtil.getConnection();
-			List<String> sensitiveWordsList = dao.getSensitiveWordsList(conn);
-			Map<Character, SensitiveNode> wordMap = SensitiveFilter.transWordListToHashMap(sensitiveWordsList);
-			return wordMap;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		List<String> sensitiveWordsList = dao.getSensitiveWordsList();
+		Map<Character, SensitiveNode> wordMap =
+				SensitiveFilter.transWordListToHashMap(sensitiveWordsList);
+		return wordMap;
 	}
 }

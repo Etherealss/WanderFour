@@ -71,7 +71,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			Posts posts = dao.getWritingById(conn, writingId);
 
 			UserDao userDao = DaoFactory.getUserDAO();
-			User userInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
+			User userInfo = userDao.getImgAndNicknameById(posts.getAuthorId());
 			byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
 			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 
@@ -134,7 +134,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	}
 
 	private WritingBean<Posts> getWritingBeanWithAuthorInfo(Connection conn, UserDao userDao, Posts posts) throws SQLException {
-		User reviewerInfo = userDao.getImgAndNicknameById(conn, posts.getAuthorId());
+		User reviewerInfo = userDao.getImgAndNicknameById(posts.getAuthorId());
 		WritingBean<Posts> bean = new WritingBean<>();
 		//用户头像 使用base64转码
 		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());

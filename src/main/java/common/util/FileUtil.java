@@ -69,15 +69,14 @@ public class FileUtil {
 	}
 
 	/**
-	 * base64转图片保存本地
+	 * base64转图片，保存本地
 	 * @param base64str base64码
 	 * @param savePath 图片路径
-	 * @return
 	 */
-	public static boolean generateImageByBase64(String base64str, String savePath) {
+	public static void generateImageByBase64(String base64str, String savePath) {
 		//对字节数组字符串进行Base64解码并生成图片
 		if ("".equals(savePath) || "".equals(base64str) || base64str == null || savePath == null) {
-			return false;
+			return;
 		}
 		BASE64Decoder decoder = new BASE64Decoder();
 		OutputStream out = null;
@@ -90,14 +89,12 @@ public class FileUtil {
 					b[i] += 256;
 				}
 			}
-			//生成jpeg图片
+			//生成jpeg图片，保存图片
 			out = new FileOutputStream(savePath);
 			out.write(b);
 			out.flush();
-			return true;
 		} catch (Exception e) {
 			logger.error("base64转图片保存本地 失败：" + e.getMessage());
-			return false;
 		} finally {
 			try {
 				if (out != null) {

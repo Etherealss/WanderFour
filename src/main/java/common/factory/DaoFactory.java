@@ -19,7 +19,8 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static FriendRelationDao getFriendRelationDao(){
-		return new FriendRelationDaoImpl();
+//		return new FriendRelationDaoImpl();
+		return null;
 	}
 
 	/**
@@ -28,7 +29,8 @@ public class DaoFactory {
 	 * @return 用户DAO对象
 	 */
 	public static UserDao getUserDAO() {
-		return new UserDaoImpl();
+//		return new UserDaoImpl();
+		return null;
 	}
 
 	/**
@@ -61,7 +63,8 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static CategoryDao getCategoryDao() {
-		return new CategoryDaoImpl();
+//		return new CategoryDaoImpl();
+		return null;
 	}
 
 
@@ -84,7 +87,7 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static SensitiveDao getSensitiveDao(){
-		return new SensitiveDaoImpl();
+		return null;
 	}
 
 	/**
@@ -92,6 +95,7 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static StickyNoteDao getStickyNoteDao(){
-		return new StickyNoteDaoImpl();
+//		return new StickyNoteDaoImpl();
+		return null;
 	}
 }

@@ -1,6 +1,5 @@
 package common.util;
 
-import common.factory.DaoFactory;
 import dao.UserDao;
 import org.apache.log4j.Logger;
 import pojo.bean.CommentBean;
@@ -43,7 +42,7 @@ public class CommentUtil {
 		而comment的userid是评论者的userid，此处要封装评论者的用户信息（reviewerInfo）
 		需要用到的是reviewerUserId
 		 */
-		User reviewerInfo = userDao.getImgAndNicknameById(conn, reviewerUserId);
+		User reviewerInfo = userDao.getImgAndNicknameById(reviewerUserId);
 		cb.setUserNickname(reviewerInfo.getNickname());
 		//用户头像
 		//使用base64转码

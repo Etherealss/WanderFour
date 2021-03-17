@@ -1,16 +1,14 @@
 package service.impl;
 
+import common.enums.AttrEnum;
 import common.util.FileUtil;
 import common.util.Md5Utils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.User;
 import common.enums.ResultType;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import dao.UserDao;
 import service.UserService;
-
-import java.sql.Connection;
 
 /**
  * @author 寒洲
@@ -19,13 +17,14 @@ import java.sql.Connection;
  */
 public class UserServiceImpl implements UserService {
 	private Logger logger = Logger.getLogger(UserServiceImpl.class);
-	private final UserDao dao = DaoFactory.getUserDAO();
+
+	@Autowired
+	private UserDao dao;
 
 	@Override
-	public ResultType checkUserExist(String email) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
+	public ResultType checkUserExist(String email) {
 		//检查账号是否已存在
-		if (dao.countUserByEmail(conn, email)) {
+		if (dao.countUserByEmail(email) == 1) {
 			//存在
 			return ResultType.IS_REGISTED;
 		} else {
@@ -35,72 +34,80 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserEmailAndPw(Long id) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		return dao.getUserEmailAndPwById(conn, id);
+	public User getUserEmailAndPw(Long id) {
+		return dao.getUserEmailAndPwById(id);
 	}
 
 
 	@Override
-	public User validateUserLogin(String email, String paasword) throws Exception {
-		Connection conn;
-		conn = JdbcUtil.getConnection();
-		User user = dao.selectUserBySign(conn, email, paasword);
+	public User validateUserLogin(String email, String paasword) {
+		User user = dao.selectUserBySign(email, paasword);
 		setUserAvatarStream(user);
 		return user;
 	}
 
 	@Override
-	public Long registerNewUser(User user) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		boolean b1 = dao.registerNewUser(conn, user);
-		Long lastInsertId = dao.getLastInsertId(conn).longValue();
-		// 新的头像路径
-		String savePath = "D:\\WanderFourAvatar\\" + lastInsertId + ".png";
-		dao.updateUserAvatarPath(conn, lastInsertId, savePath);
+	public Long registerNewUser(User user) {
+		Long lastInsertId;
+		String savePath;
+		try {
+			dao.registerNewUser(user);
+			lastInsertId = dao.getLastInsertId().longValue();
+			// 新的头像路径，拼接储存的文件路径和文件名
+			savePath = AttrEnum.AVATAR_PATH + lastInsertId + ".png";
+			dao.updateUserAvatarPath(lastInsertId, savePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		// 获取默认头像的数据流，复制图片，以userId命名
+		// 封装到user对象中
+		String avatarPath;
+		//根据性别加载默认头像
+		if (user.getSex()) {
+			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_BOY;
+		} else {
+			avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_GIRL;
+		}
+		user.setAvatarPath(avatarPath);
+		// 复制文件
+		String base64Str = FileUtil.getBase64ByImgPath(avatarPath);
+		FileUtil.generateImageByBase64(base64Str, savePath);
+
 		return lastInsertId;
 	}
 
 	@Override
-	public boolean updateUserInfo(User user) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		boolean b = dao.updateUserInfo(conn, user);
-		return b;
+	public void updateUserInfo(User user) {
+		dao.updateUserInfo(user);
 	}
 
 
 	@Override
-	public User getUserInfo(Long userid) throws Exception {
-		Connection conn;
-		conn = JdbcUtil.getConnection();
-		User user = dao.getUserById(conn, userid);
+	public User getUserInfo(Long userid) {
+		User user = dao.getUserById(userid);
 		setUserAvatarStream(user);
 		return user;
 	}
 
 	@Override
-	public ResultType updateUserPw(Long userid, String originalPw, String newPw)  throws Exception{
-		Connection conn = JdbcUtil.getConnection();
-		User user = dao.getUserEmailAndPwById(conn, userid);
+	public ResultType updateUserPw(Long userid, String originalPw, String newPw) {
+		User user = dao.getUserEmailAndPwById(userid);
 		//Md5加密
 		originalPw = Md5Utils.md5Encode(user.getEmail() + originalPw);
 		logger.debug("\n修改密码：原始密码：" + user.getPassword() + "\n修改密码：新的密码：" + originalPw);
-		if (originalPw.equals(user.getPassword())){
+		if (originalPw.equals(user.getPassword())) {
 			//密码相同，可以修改
-			boolean b = dao.updateUserPw(conn, userid, newPw);
-			if (b){
-				return ResultType.SUCCESS;
-			} else {
-				//修改失败
-				return ResultType.EXCEPTION;
-			}
+			dao.updateUserPw(userid, newPw);
+			return ResultType.SUCCESS;
 		} else {
 			//原密码错误
 			return ResultType.PW_ERROR;
 		}
 	}
 
-	private void setUserAvatarStream(User user){
+	private void setUserAvatarStream(User user) {
 		if (user != null) {
 			//图片数据转码
 			byte[] imgStream = FileUtil.getFileStream(user.getAvatarPath());

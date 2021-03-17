@@ -4,6 +4,7 @@ import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.StickyNoteDao;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.StickyNote;
 import service.StickyNoteService;
 
@@ -19,21 +20,20 @@ public class StickyNoteServiceImpl implements StickyNoteService {
 
 	private Logger logger = Logger.getLogger(StickyNoteService.class);
 
-	private StickyNoteDao dao = DaoFactory.getStickyNoteDao();
+	@Autowired
+	private StickyNoteDao dao;
 
 	@Override
-	public boolean createStickyNote(StickyNote stickyNote) throws Exception {
+	public void createStickyNote(StickyNote stickyNote) {
 		logger.trace("创建便利贴");
-		Connection conn = JdbcUtil.getConnection();
-		return dao.createNote(conn, stickyNote);
+		dao.createNote(stickyNote);
 	}
 
 	@Override
-	public List<StickyNote> getStickyNoteList(int currentPage, int rows) throws Exception {
+	public List<StickyNote> getStickyNoteList(int currentPage, int rows) {
 		logger.trace("获取便利贴列表");
-		Connection conn = JdbcUtil.getConnection();
 		// 计算起始记录数
 		long start = (currentPage - 1L) * rows;
-		return dao.getStickyNoteList(conn, start, rows);
+		return dao.getStickyNoteList(start, rows);
 	}
 }

@@ -8,6 +8,7 @@ import common.util.JedisUtil;
 import common.util.JsonUtil;
 import dao.CategoryDao;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import service.CategoryService;
 
@@ -24,6 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private Logger logger = Logger.getLogger(CategoryServiceImpl.class);
 
+	@Autowired
+	private CategoryDao dao;
+
 	@Override
 	public JSONObject getAllCategoryByPart(int partition) throws Exception {
 		Jedis jedis = JedisUtil.getJedis();
@@ -36,10 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
 		} else {
 			//缓存中没有category分类数据
 			logger.trace("从 数据库 中获取分区信息");
-			Connection conn = JdbcUtil.getConnection();
-			CategoryDao dao = DaoFactory.getCategoryDao();
+			dao = DaoFactory.getCategoryDao();
 			//获取分类信息包
-			List<Map<String, Object>> maps = dao.getAllCategoryByPart(conn, partition);
+			List<Map<String, Object>> maps = dao.getAllCategoryByPart(partition);
 			//封装到json中
 			returnJson = new JSONObject();
 			for (Map<String, Object> map : maps) {

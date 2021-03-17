@@ -4,6 +4,8 @@ import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import dao.FriendRelationDao;
 import dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pojo.po.User;
 import service.FriendRelationService;
 
@@ -16,12 +18,14 @@ import java.util.List;
  * @date 2020/11/21
  */
 public class FriendRelationServiceImpl implements FriendRelationService {
+	@Autowired
+	private FriendRelationDao dao;
+	@Autowired
+	private UserDao userDao;
+
 	@Override
-	public List<User> getFriendsInfo(Long userId) throws Exception {
-		Connection conn = JdbcUtil.getConnection();
-		FriendRelationDao dao = DaoFactory.getFriendRelationDao();
-		List<Long> friendsId = dao.getFriendsId(conn, userId);
-		UserDao userDao = DaoFactory.getUserDAO();
-		return userDao.getUsersInfo(conn, friendsId);
+	public List<User> getFriendsInfo(Long userId) {
+		List<Long> friendsId = dao.getFriendsId(userId);
+		return userDao.getUsersInfo(friendsId);
 	}
 }

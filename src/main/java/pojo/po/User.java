@@ -1,8 +1,6 @@
 package pojo.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import common.annontation.Db;
-import common.annontation.DbTable;
 import common.enums.UserType;
 
 import java.util.Date;
@@ -12,8 +10,6 @@ import java.util.Date;
  * @description 用户PO
  * @date 2020/10/2
  */
-@Db(DbName = "wanderfour")
-@DbTable(tableName = "user")
 public class User {
 	private Long id;
 	private String email;
@@ -26,8 +22,7 @@ public class User {
 	 */
 	private Boolean sex;
 	private String avatarPath;
-	private UserType userType;
-	private String userTypeStr;
+	private String userType;
 	private Long liked;
 	/** 被收藏数 */
 	private Long collected;
@@ -92,7 +87,7 @@ public class User {
 		this.avatarPath = avatarPath;
 	}
 
-	public UserType getUserType() {
+	public String getUserType() {
 		return userType;
 	}
 
@@ -101,15 +96,7 @@ public class User {
 	 * @param userType
 	 */
 	public void setUserType(String userType) {
-		this.userType = UserType.getPartition(userType);
-	}
-
-	/**
-	 * 获取数据库数据时会使用
-	 * @param userTypeStr
-	 */
-	public void setUserTypeStr(String userTypeStr){
-		this.userType = UserType.getPartition(userTypeStr);
+		this.userType = userType;
 	}
 
 	public Long getLiked() {
@@ -152,48 +139,7 @@ public class User {
 		this.major = major;
 	}
 
-	public User() {}
-
-	public User(Long id, String email, String password, String nickname, Date birthday,
-	            Boolean sex, String avatarPath, String userType, Long liked, Long collected,
-	            Date registerDate) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
-		this.birthday = birthday;
-		this.sex = sex;
-		this.avatarPath = avatarPath;
-		this.userType = UserType.getPartition(userType);
-		this.liked = liked;
-		this.collected = collected;
-		this.registerDate = registerDate;
-	}
-
-	/**
-	 * @param email
-	 * @param password
-	 * @param nickname
-	 * @param sex
-	 * @param birthday
-	 * @param avatarPath
-	 * @param userType
-	 * @param liked
-	 * @param collected
-	 * @param registerDate
-	 */
-	public User(String email, String password, String nickname, Boolean sex, Date birthday,
-	            String avatarPath, String userType, Long liked, Long collected, Date registerDate) {
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
-		this.sex = sex;
-		this.birthday = birthday;
-		this.avatarPath = avatarPath;
-		this.userType = UserType.getPartition(userType);
-		this.liked = liked;
-		this.collected = collected;
-		this.registerDate = registerDate;
+	public User() {
 	}
 
 	/**
@@ -205,13 +151,14 @@ public class User {
 	 * @param userType
 	 * @param registerDate
 	 */
-	public User(String email, String password, String nickname, Boolean sex, String avatarPath, String userType, Date registerDate) {
+	public User(String email, String password, String nickname, Boolean sex,
+	            String avatarPath, String userType, Date registerDate) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.sex = sex;
 		this.avatarPath = avatarPath;
-		this.userType = UserType.getPartition(userType);
+		this.userType = userType;
 		this.registerDate = registerDate;
 	}
 
@@ -229,18 +176,19 @@ public class User {
 		return "User{" +
 				"id=" + id +
 				", email='" + email + '\'' +
-				", nickname='" + nickname + '\'' +
-				", sex=" + sex +
-				", school='" + school + '\'' +
-				", liked=" + liked +
-				", major=" + major +
-				", userType=" + userType +
-				", userTypeStr='" + userTypeStr + '\'' +
-				", collected=" + collected +
-				", birthday=" + birthday +
 				", password='" + password + '\'' +
+				", nickname='" + nickname + '\'' +
+				", userType=" + userType +
+				", sex=" + sex +
+				", birthday=" + birthday +
 				", registerDate=" + registerDate +
-				", avatarPath='" + avatarPath + '\'' +
+				", liked=" + liked +
+				", collected=" + collected +
+				", school='" + school + '\'' +
+				", major=" + major +
+				", avatarPath='" +
+				(avatarPath == null ? "null" : avatarPath.substring(0, 10) + "......" )
+				+ '\'' +
 				'}';
 	}
 }

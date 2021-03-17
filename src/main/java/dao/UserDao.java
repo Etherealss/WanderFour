@@ -1,9 +1,10 @@
 package dao;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import pojo.po.User;
 
 import java.math.BigInteger;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,110 +16,83 @@ import java.util.List;
 public interface UserDao {
 	/**
 	 * 更新用户头像路径
-	 * @param conn
 	 * @param userId
 	 * @param filePath
-	 * @return
-	 * @throws SQLException
 	 */
-	boolean updateUserAvatarPath(Connection conn, Long userId, String filePath) throws SQLException;
+	void updateUserAvatarPath(@Param("userId") Long userId, @Param("filePath") String filePath);
 
 	/**
 	 * 获取合适的数据库Id
-	 * @param conn
 	 * @return
-	 * @throws SQLException
 	 */
-	BigInteger getLastInsertId(Connection conn) throws SQLException;
+	BigInteger getLastInsertId();
 
 	/**
 	 * 通过账号密码查询用户
-	 * @param conn 数据库连接
 	 * @param email
 	 * @param password
 	 * @return 存在返回true
-	 * @throws SQLException
 	 */
-	User selectUserBySign(Connection conn, String email, String password) throws SQLException;
+	User selectUserBySign(@Param("email") String email, @Param("password") String password);
 
 	/**
 	 * 查询用户id是否存在
-	 * @param conn 数据库连接
 	 * @param email
 	 * @return 存在返回true
-	 * @throws SQLException
 	 */
-	boolean countUserByEmail(Connection conn, String email) throws SQLException;
+	long countUserByEmail(@Param("email") String email);
 
 	/**
 	 * 新建用户
-	 * @param conn
 	 * @param user
-	 * @return
-	 * @throws SQLException
 	 */
-	boolean registerNewUser(Connection conn, User user) throws SQLException;
+	void registerNewUser(User user);
 
 	/**
 	 * 修改用户信息
-	 * @param conn
 	 * @param user
-	 * @return
-	 * @throws SQLException
 	 */
-	boolean updateUserInfo(Connection conn, User user) throws SQLException;
+	void updateUserInfo(User user);
 
 	/**
 	 * 修改用户密码
-	 * @param conn
-	 * @param userid
-	 * @param pw
-	 * @return
-	 * @throws SQLException
+	 * @param userId
+	 * @param password
 	 */
-	boolean updateUserPw(Connection conn, Long userid, String pw) throws SQLException;
-	/**
-	 * 查询用户，获取数据
-	 * @param conn
-	 * @param email
-	 * @return
-	 * @throws SQLException
-	 */
-	User getUserByEmail(Connection conn, String email) throws SQLException;
+	void updateUserPw(@Param("userId") Long userId, @Param("password") String password);
 
 	/**
 	 * 查询用户，获取数据
-	 * @param conn
-	 * @param userid
+	 * @param email
 	 * @return
-	 * @throws SQLException
 	 */
-	User getUserById(Connection conn, Long userid) throws SQLException;
+	User getUserByEmail(String email);
+
+	/**
+	 * 查询用户，获取数据
+	 * @param userId
+	 * @return
+	 */
+	User getUserById(Long userId);
 
 	/**
 	 * 获取用户邮箱
-	 * @param conn
-	 * @param userid
+	 * @param userId
 	 * @return
-	 * @throws SQLException
 	 */
-	User getUserEmailAndPwById(Connection conn, Long userid) throws SQLException;
+	User getUserEmailAndPwById(Long userId);
 
 	/**
 	 * 根据id获取评论用户的头像和昵称
-	 * @param conn
-	 * @param id
+	 * @param userId
 	 * @return
-	 * @throws SQLException
 	 */
-	User getImgAndNicknameById(Connection conn, Long id) throws SQLException;
+	User getImgAndNicknameById(Long userId);
 
 	/**
 	 * 获取用户列表信息
-	 * @param conn
 	 * @param ids
 	 * @return
-	 * @throws SQLException
 	 */
-	List<User> getUsersInfo(Connection conn, List<Long> ids) throws SQLException;
+	List<User> getUsersInfo(@Param("ids") List<Long> ids);
 }

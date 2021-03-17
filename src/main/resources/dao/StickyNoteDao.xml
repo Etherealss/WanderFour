@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Dao接口的完整类名-->
+<mapper namespace="dao.StickyNoteDao">
+
+    <!--添加便利贴记录-->
+    <insert id="createNote">
+        INSERT INTO `sticky_note` (`id`, `author_id`, `content`, `create_time`, `like_count`, `shape`, `alpha`, `red`,
+                                   `green`, `blue`, `angle`)
+        VALUES (#{id}, #{authorId}, #{content}, #{createTime}, #{likeCount}, #{shape},
+                #{aplha}, #{red}, #{green}, #{blue}, #{angle});
+    </insert>
+
+    <!--获取便利贴记录-->
+    <select id="getStickyNote" resultType="StickyNote">
+        SELECT `id`,
+               `author_id`,
+               `content`,
+               `create_time`,
+               `like_count`,
+               `shape`,
+               `alpha`,
+               `red`,
+               `green`,
+               `blue`,
+               `angle`
+        FROM `sticky_note`
+        WHERE `id` = #{noteId};
+    </select>
+
+    <!--删除便利贴记录-->
+    <delete id="deleteStickyNote">
+        DELETE
+        FROM `sticky_note`
+        WHERE id = #{noteId};
+    </delete>
+
+    <!--获取便利贴列表-->
+    <select id="getStickyNoteList" resultType="StickyNote">
+        SELECT `id`,
+               `author_id`,
+               `content`,
+               `create_time`,
+               `like_count`,
+               `shape`,
+               `alpha`,
+               `red`,
+               `green`,
+               `blue`,
+               `angle`
+        FROM `sticky_note`
+        LIMIT #{start}, #{rows};
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package dao;
 
-import java.sql.Connection;
+import org.springframework.stereotype.Repository;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,9 @@ public interface CategoryDao {
 
 	/**
 	 * 获取数据库分类表中指定分区的分类id和分类name
-	 * @param conn
 	 * @param partition
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Map<String, Object>> getAllCategoryByPart(Connection conn, int partition) throws SQLException;
+	List<Map<String, Object>> getAllCategoryByPart(int partition) throws SQLException;
 }

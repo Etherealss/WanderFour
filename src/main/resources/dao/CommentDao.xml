@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Dao接口的完整类名-->
+<mapper namespace="dao.CommentDao">
+
+    <!--获取评论者的id-->
+    <select id="getCommentUserId" resultType="long">
+
+    </select>
+
+    <!--发表评论，创建数据库记录-->
+    <insert id="inseatNewComment">
+
+    </insert>
+
+    <!--做出回复，创建数据库记录-->
+    <insert id="insertNewReply">
+
+    </insert>
+
+    <!--删除评论或回复-->
+    <delete id="deleteComment">
+
+    </delete>
+
+    <!--通过id获取评论-->
+    <select id="getComment" resultType="Comment">
+
+    </select>
+
+    <!--获取 评论 记录-->
+    <select id="getCommentList" resultType="Comment">
+
+    </select>
+
+    <!--获取评论的 回复 记录-->
+    <select id="getReplyList" resultType="Comment">
+
+    </select>
+
+    <!--获取作品的评论总数-->
+    <select id="countCommentByParentId" resultType="long">
+
+    </select>
+
+    <!--获取作品的回复总数-->
+    <select id="countReplyByParentId" resultType="long">
+
+    </select>
+
+    <!--获取评论的回复总数-->
+    <select id="countReplyByTargetId" resultType="long">
+
+    </select>
+</mapper>

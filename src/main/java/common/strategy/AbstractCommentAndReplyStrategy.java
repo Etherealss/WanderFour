@@ -43,7 +43,7 @@ public abstract class AbstractCommentAndReplyStrategy {
 		List<CommentBean> list = new ArrayList<>();
 
 		//按需要的记录数 获取回复记录
-		List<Comment> replyList = dao.getReplyList(conn, orderBy, replyStart, replyRows, parentId);
+		List<Comment> replyList = dao.getReplyList(orderBy, replyStart, replyRows, parentId);
 
 		//遍历获取到的回复记录，封装用户信息
 		for (Comment reply : replyList) {

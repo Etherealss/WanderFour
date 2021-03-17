@@ -7,18 +7,15 @@ import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
-import org.apache.log4j.Logger;
 import pojo.dto.ResultState;
 import pojo.po.StickyNote;
 import service.StickyNoteService;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 寒洲

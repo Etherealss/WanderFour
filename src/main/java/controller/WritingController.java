@@ -207,7 +207,6 @@ public class WritingController extends BaseServlet {
 		} else {
 			ResponseChoose.respException(resp, "出现异常，发表失败");
 		}
-
 	}
 
 	@Override

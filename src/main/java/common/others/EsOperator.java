@@ -32,6 +32,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -478,7 +479,7 @@ public class EsOperator {
 	 * @return
 	 * @throws IOException
 	 */
-	public SearchResponse nexrScrollQuery(RestHighLevelClient client, String scrollId, long timeValue) throws IOException {
+	public SearchResponse nextScrollQuery(RestHighLevelClient client, String scrollId, long timeValue) throws IOException {
 		SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
 		scrollRequest.scroll(TimeValue.timeValueMinutes(timeValue));
 		return client.scroll(scrollRequest, RequestOptions.DEFAULT);

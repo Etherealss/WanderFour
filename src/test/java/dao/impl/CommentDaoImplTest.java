@@ -1,6 +1,5 @@
 package dao.impl;
 
-import common.enums.TargetType;
 import common.factory.DaoFactory;
 import common.util.JdbcUtil;
 import common.util.TestUtil;
@@ -37,41 +36,41 @@ public class CommentDaoImplTest {
 
 	@Test
 	public void testUserId() throws Exception {
-		Long commentUserId = dao.getCommentUserId(conn, 1L);
+		Long commentUserId = dao.getCommentUserId(1L);
 		logger.debug(commentUserId);
 	}
 
 	@Test
 	public void createNewComment() throws SQLException {
 		Comment defaultCommentPo = TestUtil.getDefaultCommentPo();
-		logger.debug(dao.createNewComment(conn, defaultCommentPo));
+		dao.insertNewComment(defaultCommentPo);
 	}
 
 	@Test
 	public void createNewReply() throws SQLException {
 		Comment defaultCommentPo = TestUtil.getDefaultReply();
-		logger.debug(dao.createNewReply(conn, defaultCommentPo));
+		dao.insertNewReply(defaultCommentPo);
 	}
 
 	@Test
 	public void deleteComment() throws SQLException {
-		logger.debug(dao.deleteComment(conn, 9L));
+		dao.deleteComment(9L);
 	}
 
 	@Test
 	public void getComment() throws SQLException {
-		logger.debug(dao.getComment(conn, 2L));
+		logger.debug(dao.getComment(2L));
 	}
 
 	@Test
 	public void getCommentList() throws SQLException {
-		List<Comment> list = dao.getCommentList(conn, ORDER_BY_LIKE, 0L, 3, 1L);
+		List<Comment> list = dao.getCommentList(ORDER_BY_LIKE, 0L, 3, 1L);
 		logger.debug(list);
 	}
 
 	@Test
 	public void getReplyList() throws SQLException {
-		List<Comment> list = dao.getReplyList(conn, ORDER_BY_LIKE, 0L, 3, 1L);
+		List<Comment> list = dao.getReplyList(ORDER_BY_LIKE, 0L, 3, 1L);
 		logger.debug(list);
 	}
 }

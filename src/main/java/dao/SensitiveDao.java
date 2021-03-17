@@ -1,6 +1,8 @@
 package dao;
 
-import java.sql.Connection;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,20 +15,17 @@ public interface SensitiveDao {
 
 	/**
 	 * 插入敏感词
-	 * @param conn
 	 * @param type
 	 * @param word
 	 * @throws SQLException
-	 * @return
 	 */
-	int insertSensitiveDao(Connection conn, int type, String word) throws SQLException;
+	void insertSensitiveDao(@Param("type") int type, @Param("word") String word);
 
 
 	/**
 	 * 获取敏感词
-	 * @param conn
 	 * @return
 	 * @throws SQLException
 	 */
-	List<String> getSensitiveWordsList(Connection conn) throws SQLException;
+	List<String> getSensitiveWordsList();
 }

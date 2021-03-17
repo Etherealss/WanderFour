@@ -60,8 +60,7 @@ public class WritingSearchController extends BaseServlet {
 			logger.debug("用户搜索：" + searchWord);
 
 			EsService service = ServiceFactory.getEsService();
-			pageData = service.searchByHighLigh(searchWord,
-					0, EsEnum.ES_SEARCH_SIZE);
+			pageData = service.searchByHighLigh(searchWord, 0, EsEnum.ES_SEARCH_SIZE);
 
 			state = new ResultState(ResultType.SUCCESS, "搜索成功");
 			json.put("pageDate", pageData);
@@ -77,4 +76,6 @@ public class WritingSearchController extends BaseServlet {
 		json.put("state", state);
 		return json;
 	}
+
+
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.enums.AttrEnum;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.ControllerUtil;
@@ -37,7 +38,7 @@ public class UserAvatarController extends BaseServlet {
 
 		String avatarStr = params.getString("avatar");
 		// 用png格式储存
-		String filePath = "D:\\WanderFourAvatar\\" + userId + ".png";
+		String filePath = AttrEnum.AVATAR_PATH + userId + ".png";
 		FileUtil.generateImageByBase64(avatarStr, filePath);
 	}
 }

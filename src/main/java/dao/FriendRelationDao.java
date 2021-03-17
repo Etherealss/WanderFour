@@ -1,7 +1,7 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -14,8 +14,7 @@ public interface FriendRelationDao {
 	/**
 	 * 获取好友列表Id
 	 * @return
-	 * @param conn
 	 * @param userId
 	 */
-	List<Long> getFriendsId(Connection conn, Long userId) throws SQLException;
+	List<Long> getFriendsId(Long userId);
 }
