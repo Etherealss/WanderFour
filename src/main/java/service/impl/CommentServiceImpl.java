@@ -9,6 +9,8 @@ import common.strategy.impl.comment.*;
 import common.util.JdbcUtil;
 import dao.CommentDao;
 import org.apache.log4j.Logger;
+import pojo.po.Article;
+import pojo.po.Posts;
 import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
@@ -33,12 +35,27 @@ public class CommentServiceImpl implements CommentService {
 
 	private CommentDao dao;
 
+	private String COMMENT_TABLE;
+
+
 	/**
 	 * @param clazz
 	 */
-	public CommentServiceImpl(Class<? extends Writing> clazz) {
+	public CommentServiceImpl(Class<? extends Writing> clazz) throws Exception {
 		//根据泛型获取对应数据库表的DAO
 		dao = DaoFactory.getCommentDao(clazz);
+
+		// 文章评论表
+		String articleCommentTableName = "`article_comment`";
+		// 问贴评论表
+		String postsCommentTableName = "`posts_comment`";
+		if (clazz.equals(Article.class)) {
+			COMMENT_TABLE = articleCommentTableName;
+		} else if (clazz.equals(Posts.class)) {
+			COMMENT_TABLE = postsCommentTableName;
+		} else {
+			throw new Exception("错误的评论表类型");
+		}
 	}
 
 	@Override
@@ -59,7 +76,7 @@ public class CommentServiceImpl implements CommentService {
 		PageBo<CommentDto> pb = new PageBo<>(1, 3);
 		pb.setList(list);
 		//获取并存入总记录数
-		Long totalCount = dao.countCommentByParentId(parentId);
+		Long totalCount = dao.countCommentByParentId(COMMENT_TABLE, parentId);
 		pb.setTotalCount(totalCount);
 
 		return pb;
@@ -85,7 +102,7 @@ public class CommentServiceImpl implements CommentService {
 			//存入当前页码和每页显示的记录数
 			pb = new PageBo<>(currentPage, commentRows);
 			//获取并存入总记录数
-			Long totalCount = dao.countCommentByParentId(parentId);
+			Long totalCount = dao.countCommentByParentId(COMMENT_TABLE, parentId);
 			pb.setTotalCount(totalCount);
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
 			Long start = (currentPage - 1L) * commentRows;
@@ -126,7 +143,7 @@ public class CommentServiceImpl implements CommentService {
 			pb = new PageBo<>(currentPage, replyRows);
 
 			//获取并存入总回复记录数
-			Long totalCount = dao.countReplyByParentId(parentId);
+			Long totalCount = dao.countReplyByParentId(COMMENT_TABLE, parentId);
 			pb.setTotalCount(totalCount);
 
 			//计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
@@ -167,10 +184,10 @@ public class CommentServiceImpl implements CommentService {
 		boolean success;
 		if (comment.getTargetId() == null) {
 			//评论
-			dao.insertNewComment(comment);
+			dao.insertNewComment(COMMENT_TABLE, comment);
 		} else {
 			//回复
-			dao.insertNewReply(comment);
+			dao.insertNewReply(COMMENT_TABLE, comment);
 		}
 		return ResultType.SUCCESS;
 	}
@@ -178,11 +195,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public ResultType deleteComment(Long commentId, Long userid) throws Exception {
 		Connection conn = JdbcUtil.getConnection();
-		Long commentUserId = dao.getCommentUserId(userid);
+		Long commentUserId = dao.getCommentUserId(COMMENT_TABLE, userid);
 		if (!commentId.equals(commentUserId)) {
 			return ResultType.NOT_AUTHOR;
 		}
-		dao.deleteComment(commentId);
+		dao.deleteComment(COMMENT_TABLE, commentId);
 		return ResultType.SUCCESS;
 	}
 

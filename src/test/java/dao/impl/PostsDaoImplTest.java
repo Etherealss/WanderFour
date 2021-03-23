@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.EsBo;
 import pojo.po.Posts;
 
@@ -16,29 +21,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class PostsDaoImplTest {
 
 	private final Logger logger = Logger.getLogger(PostsDaoImplTest.class);
+
+	@Autowired
+	@Qualifier("postsDao")
 	private WritingDao<Posts> dao = null;
-	private Connection conn;
-
-	@Before
-	public void setUp() throws Exception {
-		dao = DaoFactory.getPostsDao();
-		conn = JdbcUtil.beginTransactionForTest();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		JdbcUtil.closeTransaction();
-	}
 
 	@Test
 	public void updateNewWritingInfo() throws SQLException {
 		Posts posts = TestUtil.getDefaultPostsPo();
-		boolean b = dao.createWritingInfo(conn, posts);
-		logger.debug("发表新帖子：" + b);
+		Long maxId  = dao.createWritingInfo(posts);
+		logger.debug("发表新帖子：" + maxId);
 	}
 
 
@@ -47,45 +44,51 @@ public class PostsDaoImplTest {
 		Posts posts = TestUtil.getDefaultPostsPo();
 		posts.setId(2L);
 		posts.setContent("修改内容");
-		boolean b = dao.updateWritingInfo(conn, posts);
-		logger.debug("修改问贴：" + b);
+		dao.updateWritingInfo(posts);
 
 	}
 
 	@Test
 	public void selectWritingById() throws SQLException {
-		Posts posts = dao.getWritingById(conn, 2L);
+		Posts posts = dao.getWritingById(2L);
+		int collected = posts.getCollected();
 		logger.debug(posts);
+		logger.debug(collected);
 	}
 
 	@Test
 	public void deleteWritingById() throws SQLException {
-		boolean b = dao.deleteWritingById(conn, 3L);
-		logger.debug("删除问贴：" + b);
+		dao.deleteWritingById(34L);
 	}
 
 	@Test
 	public void countWriting() {
+		Long aLong = dao.countWriting(1);
+		logger.debug(aLong);
 	}
 
 	@Test
 	public void getWritingListByPage() {
+		List<Posts> like = dao.getWritingListByOrder(1, "like", 0L, 5);
+		logger.debug(like);
 	}
 
 	@Test
 	public void getUserWritingCount() {
+		long userWritingCount = dao.getUserWritingCount(4L);
+		logger.debug(userWritingCount);
 	}
 
 	@Test
 	public void getAuthorByWritingId() throws SQLException {
-		Long authorByWritingId = dao.getAuthorByWritingId(conn, 2L);
+		Long authorByWritingId = dao.getAuthorByWritingId(2L);
 		logger.debug("问贴作者：" + authorByWritingId);
 	}
 
 	@Test
 	public void testGetByTime() throws Exception {
 		List<Posts> writingListByTime = dao.getWritingListByOrder(
-				conn, 1, "`create_time`", 0L, 5);
+				1, "`create_time`", 0L, 5);
 		for (Posts posts : writingListByTime) {
 			logger.debug(posts);
 		}
@@ -97,7 +100,7 @@ public class PostsDaoImplTest {
 		list.add(1L);
 		list.add(2L);
 		list.add(3L);
-		List<EsBo> writingsByIds = dao.getWritingsByIds(conn, list);
+		List<EsBo> writingsByIds = dao.getWritingsByIds(list);
 		for (EsBo writingsById : writingsByIds) {
 			logger.debug(writingsById.toString());
 		}
@@ -105,7 +108,7 @@ public class PostsDaoImplTest {
 
 	@Test
 	public void testGetSimpleWritingListByOrder() throws Exception {
-		List<Posts> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(conn, 1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
+		List<Posts> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
 		for (Posts p : simpleWritingListByOrder) {
 			logger.debug(p);
 		}

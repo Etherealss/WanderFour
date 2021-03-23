@@ -1,10 +1,10 @@
 package dao;
 
+import org.apache.ibatis.annotations.Param;
 import pojo.bo.EsBo;
 import pojo.po.Writing;
 
 import java.math.BigInteger;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,164 +13,130 @@ import java.util.List;
  * @description
  * @date 2020/10/5
  */
-public interface WritingDao<T extends Writing>{
-
-	/**
-	 * 获取合适的数据库Id
-	 * @param conn
-	 * @return
-	 * @throws SQLException
-	 */
-	BigInteger getLastInsertId(Connection conn) throws SQLException;
+@SuppressWarnings("MybatisXMapperMethodInspection")
+public interface WritingDao<T extends Writing> {
 
 	/**
 	 * 发布新作品
-	 * @param conn
 	 * @param t
-	 * @throws SQLException
 	 * @return
+	 * @throws SQLException
 	 */
-	boolean createWritingInfo(Connection conn, T t) throws SQLException;
+	Long createWritingInfo(T t);
 
 	/***
 	 * 储存新作品的内容
-	 * @param conn
 	 * @param id
 	 * @param content
 	 * @return
-	 * @throws SQLException
 	 */
-	boolean createWritingContent(Connection conn, Long id, String content) throws SQLException;
+	void createWritingContent(@Param("id") Long id, @Param("content") String content);
 
 	/**
 	 * 更新文章
-	 * @param conn
 	 * @param t
 	 * @return
-	 * @throws SQLException
 	 */
-	boolean updateWritingInfo(Connection conn, T t) throws SQLException;
+	void updateWritingInfo(T t);
 
 	/**
 	 * 更新作品内容
-	 * @param conn
 	 * @param id
 	 * @param content
 	 * @return
-	 * @throws SQLException
 	 */
-	boolean updateWritingContent(Connection conn, Long id, String content) throws SQLException;
+	void updateWritingContent(@Param("id") Long id, @Param("content") String content);
 
 	/**
 	 * 获取文章的具体数据
-	 * @param conn
 	 * @param id
 	 * @return
-	 * @throws SQLException
 	 */
-	T getWritingById(Connection conn, Long id) throws SQLException;
+	T getWritingById(Long id);
 
 	/**
 	 * 获取作品内容
-	 * @param conn
 	 * @param id
 	 * @return
-	 * @throws SQLException
 	 */
-	String getWritingContent(Connection conn, Long id) throws SQLException;
+	String getWritingContent(Long id);
+
 	/**
 	 * 删除文章
-	 * @param conn
 	 * @param id
-	 * @throws SQLException
 	 * @return
 	 */
-	boolean deleteWritingById(Connection conn, Long id) throws SQLException;
+	void deleteWritingById(Long id);
 
 	/**
 	 * 查询一共有多少文章
-	 * @param conn
 	 * @param partition
 	 * @return
-	 * @throws SQLException
 	 */
-	Long countWriting(Connection conn, int partition) throws SQLException;
+	Long countWriting(int partition);
 
 	/**
 	 * 按时间查询每页的文章记录
-	 * @param conn 数据库连接
 	 * @param partition
 	 * @param order
-	 * @param start 文章记录的起始索引
-	 * @param rows 每一页显示的记录行数，也就是每一次查询要获取的记录数
+	 * @param start     文章记录的起始索引
+	 * @param rows      每一页显示的记录行数，也就是每一次查询要获取的记录数
 	 * @return 包含了文章数据的List
-	 * @throws SQLException
 	 */
-	List<T> getWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+	List<T> getWritingListByOrder(@Param("partition") int partition, @Param("order") String order,
+	                              @Param("start") Long start, @Param("rows") int rows);
 
 	/**
 	 * 按时间查询每页的文章记录
-	 * @param conn 数据库连接
 	 * @param partition
 	 * @param order
-	 * @param start 文章记录的起始索引
-	 * @param rows 每一页显示的记录行数，也就是每一次查询要获取的记录数
+	 * @param start     文章记录的起始索引
+	 * @param rows      每一页显示的记录行数，也就是每一次查询要获取的记录数
 	 * @return 包含了文章数据的List
-	 * @throws SQLException
 	 */
-	List<T> getSimpleWritingListByOrder(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+	List<T> getSimpleWritingListByOrder(@Param("partition") int partition, @Param("order") String order,
+	                                    @Param("start") Long start, @Param("rows") int rows);
 
 
 	/**
 	 * 获取指定用户的博客总数
-	 * @param conn 数据库
 	 * @param userid 用户id
 	 * @return 用户发表的文章数
 	 * @throws SQLException
 	 */
-	Long getUserWritingCount(Connection conn, String userid) throws SQLException;
+	long getUserWritingCount(long userid);
 
 	/**
 	 * 根据编号获取作者
-	 * @param conn
 	 * @param id
 	 * @return
-	 * @throws SQLException
 	 */
-	Long getAuthorByWritingId(Connection conn, Long id) throws SQLException;
+	long getAuthorByWritingId(Long id);
 
 	/**
 	 * 获取作品当前的点赞数
-	 * @param conn
 	 * @param id
-	 * @throws SQLException
 	 * @return
 	 */
-	Integer getLikeCount(Connection conn, Long id) throws SQLException;
+	int getLikeCount(Long id);
 
 	/**
 	 * 更新作品的点赞数
-	 * @param conn
 	 * @param id
 	 * @param count 新点赞数
-	 * @throws SQLException
 	 */
-	void updateLikeCount(Connection conn, Long id, Integer count) throws SQLException;
+	void updateLikeCount(@Param("id") Long id, @Param("count") Integer count);
 
 	/**
 	 * 获取所有文章/问贴的id
-	 * @param conn
 	 * @return
-	 * @throws SQLException
 	 */
-	List<Long> getAllWritingsId(Connection conn) throws SQLException;
+	List<Long> getAllWritingsId();
 
 	/**
 	 * 通过ids获取作品列表
-	 * @param conn
 	 * @param ids
 	 * @return
-	 * @throws SQLException
 	 */
-	List<EsBo> getWritingsByIds(Connection conn, List<Long> ids) throws SQLException;
+	List<EsBo> getWritingsByIds(@Param("ids") List<Long> ids);
 }

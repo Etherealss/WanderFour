@@ -76,7 +76,13 @@ public class ServiceFactory {
 	 * @return
 	 */
 	public static CommentService getCommentService(Class<? extends Writing> clazz){
-		return ProxyUtil.getProxyForTransaction(new CommentServiceImpl(clazz));
+		CommentServiceImpl proxyForTransaction = null;
+		try {
+			proxyForTransaction = ProxyUtil.getProxyForTransaction(new CommentServiceImpl(clazz));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return proxyForTransaction;
 	}
 
 	/**

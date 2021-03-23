@@ -6,6 +6,10 @@ import common.enums.Partition;
 import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bean.WritingBean;
 import pojo.dto.WritingDto;
 import pojo.po.Article;
@@ -14,10 +18,13 @@ import common.util.TestUtil;
 
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class ArticleServiceImplTest {
 
 	private Logger logger = Logger.getLogger(ArticleServiceImplTest.class);
-	WritingService<Article> service = ServiceFactory.getArticleService();
+	@Autowired
+	WritingService<Article> service;
 
 	@Test
 	public void publishNewWriting() {

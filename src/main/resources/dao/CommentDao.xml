@@ -6,51 +6,100 @@
 
     <!--获取评论者的id-->
     <select id="getCommentUserId" resultType="long">
-
+        SELECT `user_id`
+        FROM ${commentTableName}
+        WHERE `id` = #{commentId};
     </select>
 
     <!--发表评论，创建数据库记录-->
-    <insert id="inseatNewComment">
-
+    <insert id="insertNewComment">
+        INSERT INTO ${commentTableName} (`user_id`, `parent_id`, `content`)
+        VALUES (#{comment.userid}, #{comment.parentId}, #{comment.content});
     </insert>
 
     <!--做出回复，创建数据库记录-->
     <insert id="insertNewReply">
-
+        INSERT INTO ${commentTableName}
+            (`user_id`, `parent_id`, `target_id`, `content`)
+        VALUES (#{comment.userid}, #{comment.parentId}, #{comment.targetId}, #{comment.content});
     </insert>
 
     <!--删除评论或回复-->
     <delete id="deleteComment">
-
+        DELETE
+        FROM ${commentTableName}
+        WHERE `id` = #{id}
     </delete>
 
     <!--通过id获取评论-->
     <select id="getComment" resultType="Comment">
-
+        SELECT `id`,
+               `user_id`,
+               `parent_id`,
+               `target_id`,
+               `content`,
+               `liked`,
+               `create_time`,
+               `state`
+        FROM ${commentTableName}
+        WHERE id = #{id}
     </select>
 
     <!--获取 评论 记录-->
     <select id="getCommentList" resultType="Comment">
-
+        SELECT `id`,
+               `user_id`,
+               `parent_id`,
+               `target_id`,
+               `content`,
+               `liked`,
+               `create_time`,
+               `state`
+        FROM ${commentTableName}
+        WHERE `parent_id` = #{parentId}
+          AND `target_id` IS NOT NULL
+        ORDER BY ${orderByType} DESC
+        LIMIT #{start}, #{rows}
     </select>
 
     <!--获取评论的 回复 记录-->
     <select id="getReplyList" resultType="Comment">
-
+        SELECT `id`,
+               `user_id`,
+               `parent_id`,
+               `target_id`,
+               `content`,
+               `liked`,
+               `create_time`,
+               `state`
+        FROM ${commentTableName}
+        WHERE `parent_id` = #{parentId}
+          AND `target_id` IS NOT NULL
+        ORDER BY ${orderByType} DESC
+        LIMIT #{start}, #{rows}
     </select>
 
     <!--获取作品的评论总数-->
     <select id="countCommentByParentId" resultType="long">
-
+        SELECT COUNT(*)
+        FROM ${commentTableName}
+        WHERE `parent_id` = #{parentId}
+          AND ISNULL(`target_id`);
     </select>
 
     <!--获取作品的回复总数-->
     <select id="countReplyByParentId" resultType="long">
-
+        SELECT COUNT(*)
+        FROM ${commentTableName}
+        WHERE `parent_id` = #{parentId}
+          AND `target_id` IS NOT NULL;
     </select>
 
     <!--获取评论的回复总数-->
     <select id="countReplyByTargetId" resultType="long">
-
+        SELECT COUNT(*)
+        FROM ${commentTableName}
+        WHERE `parent_id` = #{parentId}
+          AND `target_id` = #{targetId};
     </select>
 </mapper>

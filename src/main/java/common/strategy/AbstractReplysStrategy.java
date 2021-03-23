@@ -66,7 +66,8 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 			if (!beRepliedId.equals(reply.getParentId())){
 				//该回复是回复另一条回复，则查询被回复的评论，添加引用(reply)
 				//targetComment 意：复的那个记录的对象，用户添加引用
-				Comment targetComment = commentDao.getComment(beRepliedId);
+				//TODO MyBatis表名
+				Comment targetComment = commentDao.getComment("`article_comment`", beRepliedId);
 				beRepliedBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
 			}
 			resultDtoList.add(new CommentDto(replyBean, beRepliedBean));

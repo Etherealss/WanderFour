@@ -62,6 +62,11 @@ public class Writing {
 		return str;
 	}
 
+
+	public String getPartitionStr() {
+		return partitionStr;
+	}
+
 	public Long getId() {
 		return id;
 	}

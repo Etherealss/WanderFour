@@ -54,8 +54,9 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 		List<CommentDto> returnDtoList = new ArrayList<>();
 
 		//获取rows条 顶层评论 数据
+		//TODO MyBatis表名
 		List<Comment> commentList = commentDao.getCommentList(
-				order, vo.getCommentStart(), vo.getCommentRows(), parentId);
+				"`article_comment`", order, vo.getCommentStart(), vo.getCommentRows(), parentId);
 
 		/*
 		加工评论数据：
@@ -91,7 +92,8 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 				List<CommentBean> replysCommentBeanList = getReplysCommentBean(voForReply);
 
 				// 获取回复总数
-				int count = commentDao.countReplyByParentId(parentId).intValue();
+				// TODO MyBatis表名
+				int count = commentDao.countReplyByParentId("`article_comment`", parentId).intValue();
 				//创建评论的Dto，封装数据
 				resultDto = new CommentDto(commentBean, replysCommentBeanList, count);
 			} else {
@@ -109,7 +111,8 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 					//该回复是回复另一条回复，则查询被回复的评论，添加引用(reply)
 					//targetComment 意：复的那个记录的对象，用户添加引用
 
-					Comment targetComment = commentDao.getComment(targetId);
+					// MyBatis表名
+					Comment targetComment = commentDao.getComment("`article_comment`", targetId);
 					targetBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
 				}
 				// 回复的Dto，封装数据

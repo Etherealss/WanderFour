@@ -1,11 +1,9 @@
 package common.strategy.impl;
 
-import common.enums.DaoEnum;
 import common.factory.DaoFactory;
 import common.strategy.GetWritingStrategy;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import pojo.po.Article;
 import pojo.po.Posts;
 
 import java.sql.Connection;
@@ -25,12 +23,12 @@ public class GetPostsStrategyImpl implements GetWritingStrategy<Posts> {
 
 	@Override
 	public List<Posts> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
-		return dao.getWritingListByOrder(conn, partition, order, start, rows);
+		return dao.getWritingListByOrder(partition, order, start, rows);
 	}
 
 	@Override
 	public List<Posts> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
-		return dao.getSimpleWritingListByOrder(conn, partition, order, start, rows);
+		return dao.getSimpleWritingListByOrder(partition, order, start, rows);
 	}
 
 }

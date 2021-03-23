@@ -139,7 +139,7 @@ public class EsServiceImpl implements EsService {
 		WritingDao<Article> dao = DaoFactory.getArticleDao();
 
 		for (Long i : writingsId) {
-			Article article = dao.getWritingById(conn, i);
+			Article article = dao.getWritingById(i);
 			String categoryName = (String) allCategory.get(article.getCategory());
 			assert categoryName != null;
 			EsOperator operator = new EsOperator();

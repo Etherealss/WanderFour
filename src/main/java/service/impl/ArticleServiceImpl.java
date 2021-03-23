@@ -12,6 +12,7 @@ import dao.LikeDao;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
 import pojo.bo.EsBo;
@@ -35,36 +36,32 @@ import java.util.List;
 public class ArticleServiceImpl implements WritingService<Article> {
 
 	private Logger logger = Logger.getLogger(ArticleServiceImpl.class);
-	private WritingDao<Article> writingDao = DaoFactory.getArticleDao();
+	@Autowired
+	private WritingDao<Article> writingDao;
 
 	@Override
 	public Long publishNewWriting(Article article) throws Exception {
 		logger.trace("发表新文章");
-		Connection conn = JdbcUtil.getConnection();
 		logger.debug(article);
 
 		//添加文章信息
-		boolean b1 = writingDao.createWritingInfo(conn, article);
-		//获取自增的主键Id
-		Long maxId = writingDao.getLastInsertId(conn).longValue();
+		writingDao.createWritingInfo(article);
+
+		// MyBatis将新插入的id封装在pojo对象的字段中
+		Long maxId = article.getId();
 		logger.debug("maxId = " + maxId);
 		article.setId(maxId);
 		//添加文章内容
-		boolean b2 = writingDao.createWritingContent(conn, maxId, article.getContent());
+		writingDao.createWritingContent(maxId, article.getContent());
 
-		if (b1 && b2) {
-			// 两次操作均无异常时返回
-			return maxId;
-		} else {
-			throw new Exception("发表新文章异常");
-		}
+		return maxId;
 	}
 
 	@Override
 	public WritingBean<Article> getWritingBean(Long writingId, Long userid) throws Exception {
 		logger.trace("获取文章");
 		Connection conn = JdbcUtil.getConnection();
-		Article article = writingDao.getWritingById(conn, writingId);
+		Article article = writingDao.getWritingById(writingId);
 		if (article == null) {
 			return null;
 		}
@@ -74,7 +71,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(conn, userDao, article);
 
 		//userid可能为null
-		if (userid != null){
+		if (userid != null) {
 			//判断是否为作者
 			bean.setAuthor(article.getAuthorId().equals(userid));
 			LikeDao likeDao = DaoFactory.getLikeDao(TargetType.ARTICLE);
@@ -103,7 +100,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	 */
 	private WritingBean<Article> getWrticleBeanWithAuthorInfo(Connection conn, UserDao userDao, Article article) throws SQLException {
 		//获取文章的内容
-		String content = writingDao.getWritingContent(conn, article.getId());
+		String content = writingDao.getWritingContent(article.getId());
 		article.setContent(content);
 
 		//获取用户的信息
@@ -183,18 +180,10 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		logger.trace("修改文章");
 		Connection conn = JdbcUtil.getConnection();
 		// 检查修改文章的用户是否为作者
-		if (article.getAuthorId().equals(writingDao.getAuthorByWritingId(conn, article.getId()))) {
-			boolean b1 = writingDao.updateWritingInfo(conn, article);
-			boolean b2 = writingDao.updateWritingContent(conn, article.getId(), article.getContent());
-			if (b1) {
-				if (b2) {
-					return ResultType.SUCCESS;
-				} else {
-					throw new Exception("修改文章内容异常");
-				}
-			} else {
-				throw new Exception("修改文章信息异常");
-			}
+		if (article.getAuthorId().equals(writingDao.getAuthorByWritingId(article.getId()))) {
+			writingDao.updateWritingInfo(article);
+			writingDao.updateWritingContent(article.getId(), article.getContent());
+			return ResultType.SUCCESS;
 		} else {
 			return ResultType.NOT_AUTHOR;
 		}
@@ -205,14 +194,10 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		logger.trace("删除文章");
 		Connection conn = JdbcUtil.getConnection();
 		// 检查是否作者本人删除
-		if (deleterId.equals(writingDao.getAuthorByWritingId(conn, writingId))) {
+		if (deleterId.equals(writingDao.getAuthorByWritingId(writingId))) {
 			//如果是，执行删除操作
-			boolean b = writingDao.deleteWritingById(conn, writingId);
-			if (b) {
-				return ResultType.SUCCESS;
-			} else {
-				throw new Exception("删除文章异常");
-			}
+			writingDao.deleteWritingById(writingId);
+			return ResultType.SUCCESS;
 		} else {
 			return ResultType.NOT_AUTHOR;
 		}
@@ -222,7 +207,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
 	public List<Long> getAllWritingsId() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		WritingDao<Article> articleDao = DaoFactory.getArticleDao();
-		return articleDao.getAllWritingsId(conn);
+		return articleDao.getAllWritingsId();
 	}
 
 	@Override
@@ -230,11 +215,11 @@ public class ArticleServiceImpl implements WritingService<Article> {
 		Connection conn = JdbcUtil.getConnection();
 		WritingDao<Article> dao = DaoFactory.getArticleDao();
 		List<EsBo> writings = null;
-		if (ids.size()!=0){
-			writings = dao.getWritingsByIds(conn, ids);
+		if (ids.size() != 0) {
+			writings = dao.getWritingsByIds(ids);
 			for (EsBo esBo : writings) {
 				esBo.setWritingType(WritingType.ARTICLE.val());
-				esBo.setContent(dao.getWritingContent(conn, esBo.getWritingId()));
+				esBo.setContent(dao.getWritingContent(esBo.getWritingId()));
 			}
 		}
 		return writings;

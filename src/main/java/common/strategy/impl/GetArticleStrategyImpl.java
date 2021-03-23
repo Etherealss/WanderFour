@@ -1,6 +1,5 @@
 package common.strategy.impl;
 
-import common.enums.WritingType;
 import common.factory.DaoFactory;
 import common.strategy.GetWritingStrategy;
 import dao.WritingDao;
@@ -24,12 +23,12 @@ public class GetArticleStrategyImpl implements GetWritingStrategy<Article> {
 
 	@Override
 	public List<Article> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
-		return dao.getWritingListByOrder(conn, partition, order, start, rows);
+		return dao.getWritingListByOrder(partition, order, start, rows);
 	}
 
 
 	@Override
 	public List<Article> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
-		return dao.getSimpleWritingListByOrder(conn, partition, order, start, rows);
+		return dao.getSimpleWritingListByOrder(partition, order, start, rows);
 	}
 }

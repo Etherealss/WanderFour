@@ -38,7 +38,7 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static WritingDao<Article> getArticleDao() {
-		return new ArticleDaoImpl();
+		return null;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class DaoFactory {
 	 * @return
 	 */
 	public static WritingDao<Posts> getPostsDao() {
-		return new PostsDaoImpl();
+		return null;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class DaoFactory {
 	 */
 	public static CommentDao getCommentDao(Class<? extends Writing> clazz){
 		try {
-			return new CommentDaoImpl(clazz);
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

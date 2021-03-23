@@ -3,7 +3,6 @@ package service.impl;
 import common.enums.EsEnum;
 import common.enums.WritingType;
 import common.factory.DaoFactory;
-import common.factory.ServiceFactory;
 import common.util.JdbcUtil;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
@@ -59,7 +58,7 @@ public class EsServiceImplTest {
 		WritingDao<Article> dao = DaoFactory.getArticleDao();
 
 		for (int i = 5; i < 9; i++) {
-			Article article = dao.getWritingById(conn, (long) i);
+			Article article = dao.getWritingById((long) i);
 			EsBo bo = new EsBo();
 			bo.setAuthorId(article.getAuthorId());
 			bo.setTitle(article.getTitle());

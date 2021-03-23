@@ -13,6 +13,7 @@ import common.util.JdbcUtil;
 import dao.UserDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
 import pojo.bo.EsBo;
@@ -36,6 +37,8 @@ public class PostsServiceImpl implements WritingService<Posts> {
 
 	private Logger logger = Logger.getLogger(PostsServiceImpl.class);
 	private WritingDao<Posts> dao = DaoFactory.getPostsDao();
+	@Autowired
+	private UserDao userDao;
 
 	@Override
 	public Long publishNewWriting(Posts posts) throws Exception {
@@ -46,16 +49,10 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			logger.debug(posts);
 
 			//添加问贴
-			boolean b = dao.createWritingInfo(conn, posts);
-			//获取自增的主键Id
-			Long maxId = dao.getLastInsertId(conn).longValue();
+			dao.createWritingInfo(posts);
+			Long maxId = posts.getId();
 			logger.debug("maxId = " + maxId);
-			if (b) {
-				// 两次操作均无异常时返回
-				return maxId;
-			} else {
-				throw new Exception("发表新问贴异常");
-			}
+			return maxId;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,9 +65,8 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		Connection conn;
 		try {
 			conn = JdbcUtil.getConnection();
-			Posts posts = dao.getWritingById(conn, writingId);
+			Posts posts = dao.getWritingById(writingId);
 
-			UserDao userDao = DaoFactory.getUserDAO();
 			User userInfo = userDao.getImgAndNicknameById(posts.getAuthorId());
 			byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
 			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
@@ -80,7 +76,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 			bean.setWriting(posts);
 			bean.setUserNickname(userInfo.getNickname());
 
-			if (userid != null){
+			if (userid != null) {
 
 			}
 
@@ -99,7 +95,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		List<Posts> postsList = null;
 		if (DaoEnum.ORDER_BY_TIME.equals(order)) {
 			postsList = choose.getByTime(conn, partition);
-		} else if (DaoEnum.ORDER_BY_LIKE.equals(order)){
+		} else if (DaoEnum.ORDER_BY_LIKE.equals(order)) {
 			postsList = choose.getByLike(conn, partition);
 		}
 		if (postsList == null) {
@@ -152,9 +148,9 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		GetWritingListChoose<Posts> choose = new GetWritingListChoose<>(new GetPostsStrategyImpl());
 
 		List<Posts> resList = null;
-		if (DaoEnum.ORDER_BY_LIKE.equals(order)){
+		if (DaoEnum.ORDER_BY_LIKE.equals(order)) {
 			resList = choose.getSimpleByLike(conn, partition);
-		} else if (DaoEnum.ORDER_BY_TIME.equals(order)){
+		} else if (DaoEnum.ORDER_BY_TIME.equals(order)) {
 			resList = choose.getSimpleByTime(conn, partition);
 		}
 		return resList;
@@ -167,13 +163,9 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		try {
 			conn = JdbcUtil.getConnection();
 			// 检查修改文章的用户是否为作者
-			if (posts.getAuthorId().equals(dao.getAuthorByWritingId(conn, posts.getId()))) {
-				boolean b = dao.updateWritingInfo(conn, posts);
-				if (b) {
-					return ResultType.SUCCESS;
-				} else {
-					throw new Exception("修改问贴异常");
-				}
+			if (posts.getAuthorId().equals(dao.getAuthorByWritingId(posts.getId()))) {
+				dao.updateWritingInfo(posts);
+				return ResultType.SUCCESS;
 			} else {
 				return ResultType.NOT_AUTHOR;
 			}
@@ -190,14 +182,10 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		try {
 			conn = JdbcUtil.getConnection();
 			// 检查是否作者本人删除
-			if (deleterId.equals(dao.getAuthorByWritingId(conn, writingId))) {
+			if (deleterId.equals(dao.getAuthorByWritingId(writingId))) {
 				//如果是，执行删除操作
-				boolean b = dao.deleteWritingById(conn, writingId);
-				if (b) {
-					return ResultType.SUCCESS;
-				} else {
-					throw new Exception("删除问贴异常");
-				}
+				dao.deleteWritingById(writingId);
+				return ResultType.SUCCESS;
 			} else {
 				return ResultType.NOT_AUTHOR;
 			}
@@ -211,7 +199,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
 	public List<Long> getAllWritingsId() throws Exception {
 		Connection conn = JdbcUtil.getConnection();
 		WritingDao<Posts> postsDao = DaoFactory.getPostsDao();
-		return postsDao.getAllWritingsId(conn);
+		return postsDao.getAllWritingsId();
 	}
 
 	@Override
@@ -219,8 +207,8 @@ public class PostsServiceImpl implements WritingService<Posts> {
 		Connection conn = JdbcUtil.getConnection();
 		WritingDao<Posts> dao = DaoFactory.getPostsDao();
 		List<EsBo> writings = null;
-		if (ids.size() != 0){
-			writings = dao.getWritingsByIds(conn, ids);
+		if (ids.size() != 0) {
+			writings = dao.getWritingsByIds(ids);
 
 			for (EsBo esBo : writings) {
 				esBo.setWritingType(WritingType.POSTS.val());

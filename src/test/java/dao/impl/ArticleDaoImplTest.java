@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.EsBo;
 import pojo.po.Article;
 
@@ -17,28 +22,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class ArticleDaoImplTest {
 	private final Logger logger = Logger.getLogger(UserDaoImplTest.class);
+	@Qualifier("articleDao")
+	@Autowired
 	private WritingDao<Article> dao = null;
-	private Connection conn;
 
-	@Before
-	public void init() throws Exception {
-		dao = DaoFactory.getArticleDao();
-		conn = JdbcUtil.beginTransactionForTest();
-	}
-
-	@After
-	public void closeConn() throws Exception {
-		JdbcUtil.closeTransaction();
-	}
-
-	@Test
-	public void selectLastInsert() throws SQLException {
-		Long aLong = dao.getLastInsertId(conn).longValue();
-		System.out.println(aLong);
-	}
 
 	@Test
 	public void updateArticle() {
@@ -58,7 +49,7 @@ public class ArticleDaoImplTest {
 
 		try {
 			//修改文章
-			logger.debug(dao.updateWritingInfo(conn, writing));
+			dao.updateWritingInfo(writing);
 		} catch (Exception throwables) {
 			throwables.printStackTrace();
 		}
@@ -66,13 +57,13 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectArticleById() throws SQLException {
-		Article writing = dao.getWritingById(conn, 2L);
+		Article writing = dao.getWritingById(2L);
 		logger.debug(writing);
 	}
 
 	@Test
 	public void testGetSimpleWriting() throws Exception {
-		List<Article> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(conn, 1, DaoEnum.FIELD_ORDER_BY_LIKE,
+		List<Article> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(1, DaoEnum.FIELD_ORDER_BY_LIKE,
 				DaoEnum.START_FROM_ZERO, 6);
 		for (Article article : simpleWritingListByOrder) {
 			logger.debug(article);
@@ -93,20 +84,20 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void selectLikeCount() throws SQLException {
-		int count = dao.getLikeCount(conn, 1L);
+		int count = dao.getLikeCount(1L);
 		logger.debug(count);
 	}
 
 	@Test
 	public void updateLikeCount() throws SQLException {
-		dao.updateLikeCount(conn, 2L, 6);
+		dao.updateLikeCount(2L, 6);
 	}
 
 
 	@Test
 	public void testGetByTime() throws Exception {
 		List<Article> writingListByLike = dao.getWritingListByOrder(
-				conn, 1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
+				1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
 		for (Article article : writingListByLike) {
 			logger.debug(article);
 		}
@@ -118,7 +109,7 @@ public class ArticleDaoImplTest {
 		list.add(1L);
 		list.add(2L);
 		list.add(3L);
-		List<EsBo> writingsByIds = dao.getWritingsByIds(conn, list);
+		List<EsBo> writingsByIds = dao.getWritingsByIds(list);
 		for (EsBo writingsById : writingsByIds) {
 			logger.debug(writingsById.toString());
 		}

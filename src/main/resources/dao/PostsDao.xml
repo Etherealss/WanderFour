@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Dao接口的完整类名-->
+<mapper namespace="dao.PostsDao">
+
+    <resultMap id="posts" type="pojo.po.Posts">
+        <result column="follow" property="collected"/>
+    </resultMap>
+
+    <!--获取插入的ID-->
+    <sql id="getLastId">
+        SELECT LAST_INSERT_ID();
+    </sql>
+
+    <!--发布新作品-->
+    <insert id="createWritingInfo" parameterType="Posts">
+        insert into `posts` (`category`, `author_id`, `title`,
+        `content`, `label1`, `label2`, `label3`, `label4`, `label5`, `liked`, `follow`)
+        values (#{category},
+        #{authorId},
+        #{title},
+        #{content},
+        #{label1},
+        #{label2},
+        #{label3},
+        #{label4},
+        #{label5},
+        #{liked},
+        #{collected});
+        <!-- 配置保存时获取插入的id -->
+        <selectKey keyColumn="id" keyProperty="id" resultType="Long" order="AFTER">
+            <include refid="getLastId"/>
+        </selectKey>
+    </insert>
+
+
+    <!--储存新作品的内容-->
+    <insert id="createWritingContent">
+
+    </insert>
+
+    <!--更新文章-->
+    <update id="updateWritingInfo" parameterType="Posts">
+        UPDATE `posts`
+        SET `category`=#{category},
+            `author_id`=#{authorId},
+            `title`=#{title},
+            `content`=#{content},
+            `label1`=#{label1},
+            `label2`=#{label2},
+            `label3`=#{label3},
+            `label4`=#{label4},
+            `label5`=#{label5}
+        WHERE id = #{id};
+    </update>
+
+    <!--更新作品内容-->
+    <update id="updateWritingContent">
+    </update>
+
+    <!--获取文章的具体数据-->
+    <select id="getWritingById" resultMap="posts">
+        SELECT `posts`.`id`,
+               `partition`.`name`  `partitionStr`,
+               `posts`.`category`,
+               `posts`.`content`,
+               `author_id`,
+               `title`,
+               `label1`,
+               `label2`,
+               `label3`,
+               `label4`,
+               `label5`,
+               `create_time`,
+               `update_time`,
+               `liked`,
+               `follow`
+        FROM `posts`
+                 LEFT JOIN `category` ON `posts`.`category` = `category`.`id`
+                 LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id`
+        WHERE `posts`.`id` = #{id};
+    </select>
+
+    <select id="getWritingContent">
+    </select>
+
+    <select id="deleteWritingById">
+        DELETE
+        FROM `posts`
+        WHERE id = #{id};
+    </select>
+
+    <select id="countWriting" resultType="long">
+        SELECT COUNT(*)
+        FROM `posts`
+                 LEFT JOIN `category` ON `posts`.`category` = `category`.`id`
+                 LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id`
+        WHERE `partition` = #{partition};
+    </select>
+
+    <!-- 按时间查询每页的文章记录-->
+    <select id="getWritingListByOrder" resultMap="posts">
+        SELECT `posts`.`id`,
+        `partition`.`name` `partitionStr`,
+        `category`.`id`,
+        `author_id`,
+        `title`,
+        `label1`,
+        `label2`,
+        `label3`,
+        `label4`,
+        `label5`,
+        `create_time`,
+        `update_time`,
+        `liked`,
+        `follow`
+        FROM `posts`
+        LEFT JOIN `category` ON `posts`.`category` = `category`.`id`
+        LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id`
+        WHERE `category`.`partition` = #{partition}
+        <if test="order == 'time' ">
+            ORDER BY `create_time` DESC
+        </if>
+        <if test="order == 'like' ">
+            ORDER BY `liked` DESC
+        </if>
+        LIMIT #{start},#{rows};
+    </select>
+
+    <!--按时间查询每页的文章记录-->
+    <select id="getSimpleWritingListByOrder" resultMap="posts">
+        SELECT `posts`.`id`, `title`
+        FROM `posts`
+        LEFT JOIN `category` ON `posts`.`category` = `category`.`id`
+        LEFT JOIN `partition` ON `category`.`partition` = `partition`.`id`
+        WHERE `partition`.`id`= #{partition}
+        <if test="order == 'time' ">
+            ORDER BY `create_time` DESC
+        </if>
+        <if test="order == 'like' ">
+            ORDER BY `liked` DESC
+        </if>
+        LIMIT #{start},#{rows};
+    </select>
+
+    <!--获取指定用户的博客总数-->
+    <select id="getUserWritingCount" resultType="long">
+        SELECT COUNT(*) FROM `posts` WHERE author_id = #{id};
+    </select>
+
+    <!--根据编号获取作者-->
+    <select id="getAuthorByWritingId" resultType="long">
+        SELECT `author_id`
+        FROM `posts`
+        WHERE `id` = #{id};
+    </select>
+
+    <!--获取作品当前的点赞数-->
+    <select id="getLikeCount" resultType="int">
+        SELECT `liked`
+        FROM `posts`
+        WHERE `id` = #{id};
+    </select>
+
+    <!--更新作品的点赞数-->
+    <update id="updateLikeCount">
+        UPDATE `posts`
+        SET `liked`=#{count}
+        WHERE `id` = #{id};
+    </update>
+
+    <!--获取所有文章的id-->
+    <select id="getAllWritingsId" resultType="Long">
+        SELECT `id`
+        FROM `posts`;
+    </select>
+
+    <!--通过ids获取作品列表-->
+    <select id="getWritingsByIds" resultType="pojo.bo.EsBo">
+        SELECT `posts`.`id`,
+        `category`.`id` ,
+        `category`.`name`,
+        `author_id`,
+        `title`,
+        `label1`,
+        `label2`,
+        `label3`,
+        `label4`,
+        `label5`,
+        `create_time`,
+        `update_time`,
+        `liked`,
+        `follow`
+        FROM `posts`
+        LEFT JOIN `category`
+        ON `posts`.`category` = `category`.`id`
+        <where>
+            `posts`.`id` IN
+            <foreach collection="ids" item="item" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+</mapper>

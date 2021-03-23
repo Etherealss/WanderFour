@@ -15,43 +15,54 @@ public interface CommentDao {
 
 	/**
 	 * 获取评论者的id
+	 * @param commentTableName
 	 * @param commentId
 	 * @return
 	 * @throws SQLException
 	 */
-	Long getCommentUserId(Long commentId) throws SQLException;
+	Long getCommentUserId(@Param("commentTableName") String commentTableName,
+	                      @Param("commentId") Long commentId) throws SQLException;
 
 	/**
 	 * 发表评论
+	 * @param commentTableName
 	 * @param comment
 	 * @throws SQLException
 	 */
-	void insertNewComment(Comment comment) throws SQLException;
+	void insertNewComment(@Param("commentTableName") String commentTableName,
+	                      @Param("comment") Comment comment) throws SQLException;
 
 	/**
 	 * 做出回复
+	 * @param commentTableName
 	 * @param comment
 	 * @throws SQLException
 	 */
-	void insertNewReply(Comment comment) throws SQLException;
+	void insertNewReply(@Param("commentTableName") String commentTableName,
+	                    @Param("comment") Comment comment) throws SQLException;
 
 	/**
 	 * 删除评论或回复
+	 * @param commentTableName
 	 * @param id
 	 * @throws SQLException
 	 */
-	void deleteComment(Long id) throws SQLException;
+	void deleteComment(@Param("commentTableName") String commentTableName,
+	                   @Param("id") Long id) throws SQLException;
 
 	/**
 	 * 通过id获取评论
+	 * @param commentTableName
 	 * @param id
 	 * @return
 	 * @throws SQLException
 	 */
-	Comment getComment(Long id) throws SQLException;
+	Comment getComment(@Param("commentTableName") String commentTableName,
+	                   @Param("id") Long id) throws SQLException;
 
 	/**
 	 * 获取 评论 记录
+	 * @param commentTableName
 	 * @param orderByType 按时间 / 按点赞数 获取
 	 * @param start
 	 * @param rows 获取的记录行数
@@ -59,11 +70,13 @@ public interface CommentDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Comment> getCommentList(@Param("orderByType") String orderByType, @Param("start") Long start,
+	List<Comment> getCommentList(@Param("commentTableName") String commentTableName,
+	                             @Param("orderByType") String orderByType, @Param("start") Long start,
 	                             @Param("rows") int rows, @Param("parentId") Long parentId) throws SQLException;
 
 	/**
 	 * 获取评论的 回复 记录
+	 * @param commentTableName
 	 * @param orderByType 按时间 / 按点赞数 获取
 	 * @param start
 	 * @param rows
@@ -71,31 +84,38 @@ public interface CommentDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<Comment> getReplyList(@Param("orderByType") String orderByType, @Param("start") Long start,
+	List<Comment> getReplyList(@Param("commentTableName") String commentTableName,
+	                           @Param("orderByType") String orderByType, @Param("start") Long start,
 	                           @Param("rows") int rows, @Param("parentId") Long parentId) throws SQLException;
 
 	/**
 	 * 获取作品的评论总数
+	 * @param commentTableName
 	 * @param parentId
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countCommentByParentId(Long parentId) throws SQLException;
+	Long countCommentByParentId(@Param("commentTableName") String commentTableName,
+	                            @Param("parentId") Long parentId) throws SQLException;
 
 	/**
 	 * 获取作品的回复总数
+	 * @param commentTableName
 	 * @param parentId
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countReplyByParentId(Long parentId) throws SQLException;
+	Long countReplyByParentId(@Param("commentTableName") String commentTableName,
+	                          @Param("parentId") Long parentId) throws SQLException;
 
 	/**
 	 * 获取评论的回复总数
+	 * @param commentTableName
 	 * @param parentId
 	 * @param targetId
 	 * @return
 	 * @throws SQLException
 	 */
-	Long countReplyByTargetId(@Param("parentId") Long parentId, @Param("targetId") Long targetId) throws SQLException;
+	Long countReplyByTargetId(@Param("commentTableName") String commentTableName,
+	                          @Param("parentId") Long parentId, @Param("targetId") Long targetId) throws SQLException;
 }

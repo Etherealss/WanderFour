@@ -181,19 +181,19 @@ public class LikeServiceImpl implements LikeService {
 			if (String.valueOf(TargetType.ARTICLE.code()).equals(splitKey[0])) {
 				// 点赞了文章
 				// 获取文章当前的点赞数
-				int likeCount = aDao.getLikeCount(conn, id);
+				int likeCount = aDao.getLikeCount(id);
 				// 获取最终点赞数
 				int result = count + likeCount;
 				// 更新点赞数
-				aDao.updateLikeCount(conn, id, result);
+				aDao.updateLikeCount(id, result);
 			} else if (String.valueOf(TargetType.POSTS.code()).equals(splitKey[0])) {
 				// 点赞了问贴
 				// 获取问贴当前的点赞数
-				int likeCount = pDao.getLikeCount(conn, id);
+				int likeCount = pDao.getLikeCount(id);
 				// 获取最终点赞数
 				int result = count + likeCount;
 				// 更新点赞数
-				pDao.updateLikeCount(conn, id, result);
+				pDao.updateLikeCount(id, result);
 
 			}
 		}
