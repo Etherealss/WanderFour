@@ -2,24 +2,35 @@
 <web-app
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+    <!--全局初始化参数-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/spring-config.xml</param-value>
+    </context-param>
+
+    <!--监听器-->
+    <listener>
+        <!--Spring自带的加载上下文的监听器-->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <!-- 配置spring mvc的核心控制器 -->
     <servlet>
         <servlet-name>SpringMVCDispatcherServlet</servlet-name>
-        <servlet-class> org.springframework.web.servlet.DispatcherServlet </servlet-class>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!-- 配置初始化参数，用于读取SpringMVC的配置文件 -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring-web.xml</param-value>
         </init-param>
-        <!-- 配置servlet的对象的创建时间点：应用加载时创建。 取值只能是非0正整数，表示启动顺序 -->
+        <!-- 配置servlet的对象的创建时间点：应用加载时创建。取值只能是非0正整数，表示启动顺序 -->
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>SpringMVCDispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
+
+
 </web-app>

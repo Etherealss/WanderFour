@@ -3,21 +3,26 @@ package service.impl;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.DaoEnum;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
-import pojo.po.Posts;
 import service.CommentService;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class CommentServiceImplTestTest {
 
 	private Logger logger = Logger.getLogger(CommentServiceImpl.class);
 
-	CommentService service = ServiceFactory.getCommentService(Posts.class);
+	@Autowired
+	private CommentService service;
+
 	@Test
 	public void testGetHotCommentList() throws Exception {
 		PageBo<CommentDto> list = service.getHotCommentList(1L, 1L);

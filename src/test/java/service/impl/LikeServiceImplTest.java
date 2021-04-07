@@ -1,14 +1,18 @@
 package service.impl;
 
-import common.factory.ServiceFactory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import service.LikeService;
 
-import static org.junit.Assert.*;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class LikeServiceImplTest {
 
-	LikeService service = ServiceFactory.getLikeService();
+	@Autowired
+	LikeService service;
 	@Test
 	public void likeOrUnlike() {
 	}

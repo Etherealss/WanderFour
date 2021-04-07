@@ -2,9 +2,7 @@ package service.impl;
 
 import common.enums.EsEnum;
 import common.enums.WritingType;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
-import dao.WritingDao;
+import dao.ArticleDao;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +25,8 @@ public class EsServiceImplTest {
 
 	@Autowired
 	private EsService service;
+	@Autowired
+	private ArticleDao articleDao;
 
 	@Test
 	public void testCreateIndex() throws Exception {
@@ -54,11 +54,9 @@ public class EsServiceImplTest {
 			service.createWritingIndex();
 		}
 		// 获取所有的分类Json
-		Connection conn = JdbcUtil.beginTransaction();
-		WritingDao<Article> dao = DaoFactory.getArticleDao();
 
 		for (int i = 5; i < 9; i++) {
-			Article article = dao.getWritingById((long) i);
+			Article article = articleDao.getWritingById((long) i);
 			EsBo bo = new EsBo();
 			bo.setAuthorId(article.getAuthorId());
 			bo.setTitle(article.getTitle());
@@ -69,7 +67,6 @@ public class EsServiceImplTest {
 			bo.setWritingType(WritingType.ARTICLE.val());
 			String s = service.addDoc(EsEnum.INDEX_NAME_WRITING, bo);
 		}
-		JdbcUtil.closeTransaction();
 	}
 
 	@Test

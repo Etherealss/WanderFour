@@ -2,6 +2,7 @@ package common.util;
 
 import dao.UserDao;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import pojo.bean.CommentBean;
 import pojo.po.Comment;
 import pojo.po.User;
@@ -20,15 +21,14 @@ public class CommentUtil {
 
 	/**
 	 * 包装评论者的用户昵称和头像（base64转码）
-	 * @param conn
 	 * @param userDao
 	 * @param comment 当前评论的Comment对象
 	 * @param userid  当前用户
 	 * @return 包括评论信息、评论者昵称、评论者头像的CommentBean
 	 * @throws SQLException
 	 */
-	public static CommentBean getCommentBean(Connection conn, UserDao userDao, Comment comment,
-	                                         Long userid) throws SQLException {
+	public static CommentBean getCommentBean(@NotNull UserDao userDao, @NotNull Comment comment,
+	                                         Long userid) {
 		CommentBean cb = new CommentBean();
 		//判断是否为当前用户
 		Long reviewerUserId = comment.getUserid();

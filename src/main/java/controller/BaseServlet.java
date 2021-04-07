@@ -42,6 +42,7 @@ public class BaseServlet extends HttpServlet {
 		try {
 			super.service(req, resp);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			logger.error("（服务运行异常）" + ex.getMessage());
 //			ex.printStackTrace();
 //			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -52,45 +53,4 @@ public class BaseServlet extends HttpServlet {
 		afterService(req, resp);
 	}
 
-	/**
-	 * 获取用于反射的方法
-	 * @param request
-	 * @return
-	 */
-	private Method getMethod(HttpServletRequest request) {
-		// 获取请求标识
-		String methodName = request.getParameter("method");
-		logger.debug("method = " + methodName);
-		// 获取指定类的字节码对象
-		// 这里的this指的是继承BaseServlet对象
-		Class<? extends BaseServlet> clazz = this.getClass();
-		// 通过类的字节码对象获取方法的字节码对象
-		Method method = null;
-		try {
-			// 因为Servlet是单例多线程，所以map不适合作为成员变量，
-			// 此处转为参数传给所有方法
-			method = clazz.getDeclaredMethod(methodName, Map.class, HttpServletRequest.class, HttpServletResponse.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		assert method != null;
-		return method;
-	}
-
-//	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Method method = getMethod(request);
-//		try {
-//			// 让方法执行
-//			Map<String, Object> info = new Hashtable<>();
-//			logger.trace(method.getName() + "()执行");
-//			method.invoke(this, info, request, response);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doPost(request, response);
-//	}
 }

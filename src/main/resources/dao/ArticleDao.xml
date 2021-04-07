@@ -29,6 +29,11 @@
         </selectKey>
     </insert>
 
+    <select id="getWritingContent" resultType="String">
+        SELECT `content`
+        FROM `article_content`
+        WHERE `article_id` = #{id};
+    </select>
 
     <!--储存新作品的内容-->
     <insert id="createWritingContent">
@@ -43,28 +48,28 @@
     <!--更新文章-->
     <update id="updateWritingInfo" parameterType="Article">
         UPDATE `article`
-        SET `category`=#{catagory},
-            `author_id`=#{authorId},
+        SET `category`=#{category},
             `title`=#{title},
             `label1`=#{label1},
             `label2`=#{label2},
             `label3`=#{label3},
             `label4`=#{label4},
             `label5`=#{label5}
-        WHERE id = #{id};
+        WHERE id = #{id}
+          AND `author_id` = #{authorId};
     </update>
 
     <!--更新作品内容-->
     <update id="updateWritingContent">
         UPDATE `article_content`
-        SET `content`=#{content}
-        WHERE `article_id` = #{authorId};
+        SET `content`= #{content}
+        WHERE `article_id` = #{id};
     </update>
 
     <!--获取文章的具体数据-->
     <select id="getWritingById" resultType="Article">
         SELECT `article`.`id`,
-               `partition`.`name`  `partitionStr`,
+               `partition`.`name` `partitionStr`,
                `article`.`category`,
                `author_id`,
                `title`,
@@ -83,11 +88,12 @@
         WHERE `article`.`id` = #{id};
     </select>
 
-    <select id="deleteWritingById">
+    <delete id="deleteWritingById">
         DELETE
         FROM `article`
-        WHERE id = #{id};
-    </select>
+        WHERE id = #{writingId}
+          AND author_id = #{deleterId};
+    </delete>
 
     <select id="countWriting" resultType="long">
         SELECT COUNT(*)
@@ -100,7 +106,7 @@
     <!-- 按时间查询每页的文章记录-->
     <select id="getWritingListByOrder" resultType="Article">
         SELECT `article`.`id`,
-        `partition`.`name`  `partitionStr`,
+        `partition`.`name` `partitionStr`,
         `category`.`id`,
         `author_id`,
         `title`,
@@ -144,11 +150,13 @@
 
     <!--获取指定用户的博客总数-->
     <select id="getUserWritingCount" resultType="long">
-        SELECT COUNT(*) FROM `article` WHERE author_id = #{id};
+        SELECT COUNT(*)
+        FROM `article`
+        WHERE author_id = #{id};
     </select>
 
     <!--根据编号获取作者-->
-    <select id="getAuthorByWritingId" resultType="long">
+    <select id="getAuthorByWritingId" resultType="Long">
         SELECT `author_id`
         FROM `article`
         WHERE `id` = #{id};

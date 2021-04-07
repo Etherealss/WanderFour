@@ -3,10 +3,14 @@ package controller;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.strategy.choose.GetParamChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.ResponseChoose;
 import service.UserService;
 
@@ -22,20 +26,20 @@ import java.net.URLDecoder;
  * @description 检查账号是否存在
  * @date 2020/10/3
  */
-@WebServlet("/CheckUserExistServlet")
-public class CheckUserExistController extends BaseServlet {
+@Controller
+public class CheckUserExistController {
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private final Logger logger = Logger.getLogger(CheckUserExistController.class);
 
-	}
+	private UserService userService;
 
-	@Override
+
+	@RequestMapping(value = "/CheckUserExistServlet", method = RequestMethod.GET)
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "检查账号是否已注册",
+		boolean paramMissing = WebUtil.isParamMissing(resp, params, "检查账号是否已注册",
 				"email");
 		if (paramMissing){
 			return;
@@ -47,10 +51,9 @@ public class CheckUserExistController extends BaseServlet {
 		email = URLDecoder.decode(email, AttrEnum.CODING_FORMAT);
 
 		//获取service，检查email是否存在
-		UserService us = ServiceFactory.getUserService();
 		ResultType state = null;
 		try {
-			state = us.checkUserExist(email);
+			state = userService.checkUserExist(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,5 +63,10 @@ public class CheckUserExistController extends BaseServlet {
 		ResultState result = new ResultState(state, "账号查询结果");
 		jsonObject.put("state", result);
 		ResponseChoose.respToBrowser(resp, jsonObject);
+	}
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

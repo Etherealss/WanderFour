@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Dao接口的完整类名-->
+<mapper namespace="dao.LikeDao">
+
+    <!--添加点赞记录-->
+    <insert id="createLikeRecord">
+        INSERT INTO ${likeTableName} (`user_id`, `target_id`)
+        VALUES (#{record.userid}, #{record.targetId});
+    </insert>
+
+    <!--删除点赞记录-->
+    <delete id="deleteLikeRecord">
+        DELETE
+        FROM ${likeTableName}
+        WHERE `user_id` = #{record.userid}
+          AND `target_id` = #{record.targetId};
+    </delete>
+
+    <!--查看用户的点赞状态-->
+    <select id="countUserLikeRecord" resultType="int">
+        SELECT COUNT(*)
+        FROM ${likeTableName}
+        WHERE `user_id` = #{record.userid}
+          AND `target_id` = #{record.targetId};
+    </select>
+
+    <!--统计点赞数-->
+    <select id="countLikeRecord" resultType="long">
+        SELECT COUNT(*)
+        FROM ${likeTableName}
+        WHERE `target_id` = #{record.targetId};
+    </select>
+
+    <!--检查用户的点赞状态-->
+    <select id="checkUserLikeRecord" resultType="long">
+        SELECT COUNT(*)
+        FROM ${likeTableName}
+        WHERE `user_id` = #{record.userid}
+          AND `target_id` = #{record.targetId};
+    </select>
+</mapper>

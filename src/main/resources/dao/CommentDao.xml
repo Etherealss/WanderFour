@@ -28,7 +28,7 @@
     <delete id="deleteComment">
         DELETE
         FROM ${commentTableName}
-        WHERE `id` = #{id}
+        WHERE `id` = #{id} and `user_id` = #{userId};
     </delete>
 
     <!--通过id获取评论-->

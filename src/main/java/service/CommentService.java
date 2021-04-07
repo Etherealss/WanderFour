@@ -1,6 +1,7 @@
 package service;
 
 import common.enums.ResultType;
+import pojo.po.Writing;
 import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
@@ -13,15 +14,19 @@ import pojo.po.Comment;
  */
 public interface CommentService {
 
+	/**
+	 * 设置评论表名
+	 * @param clazz
+	 */
+	void setTableName(Class<? extends Writing> clazz);
 
 	/**
 	 * 获取文章下方的评论
 	 * @param parentId
 	 * @param userId
 	 * @return
-	 * @throws Exception
 	 */
-	PageBo<CommentDto> getHotCommentList(Long parentId, Long userId) throws Exception;
+	PageBo<CommentDto> getHotCommentList(Long parentId, Long userId);
 
 	/**
 	 * 按分页获取页面所有评论
@@ -30,17 +35,15 @@ public interface CommentService {
 	 *           需要提供 userid parentId commentRows replyRows orderBy
 	 * @param currentPage
 	 * @return
-	 * @throws Exception
 	 */
-	PageBo<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) throws Exception;
+	PageBo<CommentDto> getCommentListByPage(CommentVo vo, int currentPage);
 
 	/**
 	 * 发表新评论/回复
 	 * @param comment
 	 * @return
-	 * @throws Exception
 	 */
-	ResultType publishNewComment(Comment comment) throws Exception;
+	ResultType publishNewComment(Comment comment);
 
 	/**
 	 * 删除评论/回复
@@ -48,7 +51,6 @@ public interface CommentService {
 	 * @param commentId
 	 * @param userid
 	 * @return
-	 * @throws Exception
 	 */
-	ResultType deleteComment(Long commentId, Long userid) throws Exception;
+	ResultType deleteComment(Long commentId, Long userid);
 }

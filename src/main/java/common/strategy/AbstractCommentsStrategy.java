@@ -1,7 +1,6 @@
 package common.strategy;
 
 import common.enums.DaoEnum;
-import common.factory.DaoFactory;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import dao.UserDao;
@@ -11,7 +10,6 @@ import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 	 * @return
 	 * @throws SQLException
 	 */
-	public abstract List<CommentDto> getCommentsWithReplys(CommentVo vo) throws SQLException;
+	public abstract List<CommentDto> getCommentsWithReplys(CommentVo vo);
 
 	/**
 	 * 获取CommentDto列表
@@ -43,9 +41,9 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CommentDto> getCommentDto(CommentVo vo) throws SQLException {
-		CommentDao commentDao = vo.getDao();
-		Connection conn = vo.getConn();
+	public List<CommentDto> getCommentDto(CommentVo vo) {
+		CommentDao commentDao = vo.getCommentDao();
+		UserDao userDao = vo.getUserDao();
 		String order = vo.getOrder();
 		Long parentId = vo.getParentId();
 		Long userid = vo.getUserid();
@@ -54,9 +52,8 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 		List<CommentDto> returnDtoList = new ArrayList<>();
 
 		//获取rows条 顶层评论 数据
-		//TODO MyBatis表名
 		List<Comment> commentList = commentDao.getCommentList(
-				"`article_comment`", order, vo.getCommentStart(), vo.getCommentRows(), parentId);
+				vo.getCommentTableName(), order, vo.getCommentStart(), vo.getCommentRows(), parentId);
 
 		/*
 		加工评论数据：
@@ -77,9 +74,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 			/*
 			包装 顶层评论的Bean
 			 */
-			// 封装回复的评论的CommentBean
-			UserDao userDao = DaoFactory.getUserDAO();
-			CommentBean commentBean = CommentUtil.getCommentBean(conn, userDao, comment, userid);
+			CommentBean commentBean = CommentUtil.getCommentBean(userDao, comment, userid);
 
 			CommentDto resultDto = null;
 			//判断是否获取回复列表（评论才有回复列表，回复列表就显示在回复没有回复列表
@@ -92,8 +87,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 				List<CommentBean> replysCommentBeanList = getReplysCommentBean(voForReply);
 
 				// 获取回复总数
-				// TODO MyBatis表名
-				int count = commentDao.countReplyByParentId("`article_comment`", parentId).intValue();
+				int count = commentDao.countReplyByParentId(vo.getCommentTableName(), parentId).intValue();
 				//创建评论的Dto，封装数据
 				resultDto = new CommentDto(commentBean, replysCommentBeanList, count);
 			} else {
@@ -111,9 +105,8 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 					//该回复是回复另一条回复，则查询被回复的评论，添加引用(reply)
 					//targetComment 意：复的那个记录的对象，用户添加引用
 
-					// MyBatis表名
-					Comment targetComment = commentDao.getComment("`article_comment`", targetId);
-					targetBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
+					Comment targetComment = commentDao.getComment(vo.getCommentTableName(), targetId);
+					targetBean = CommentUtil.getCommentBean(userDao, targetComment, userid);
 				}
 				// 回复的Dto，封装数据
 				resultDto = new CommentDto(commentBean, targetBean);

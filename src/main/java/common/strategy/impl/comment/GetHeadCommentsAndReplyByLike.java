@@ -20,10 +20,9 @@ public class GetHeadCommentsAndReplyByLike extends AbstractCommentsStrategy {
 	/**
 	 * @param vo 需要 dao conn parentId userId
 	 * @return
-	 * @throws SQLException
 	 */
 	@Override
-	public List<CommentDto> getCommentsWithReplys(CommentVo vo) throws SQLException {
+	public List<CommentDto> getCommentsWithReplys(CommentVo vo) {
 		/*
 		 * 策略：在文章加载时获取评论
          * 获取3条点赞数最高的评论，并同时每条评论获取3条点赞数最高的回复

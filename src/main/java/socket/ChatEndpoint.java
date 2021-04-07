@@ -2,15 +2,11 @@ package socket;
 
 import com.alibaba.fastjson.JSONObject;
 import common.enums.websocket.InfoType;
-import common.factory.ServiceFactory;
-import common.util.SensitiveUtil;
 import common.util.WebSocketUtil;
 import filter.SensitiveFilter;
 import org.apache.log4j.Logger;
 import pojo.Information;
 import pojo.po.ChatRecord;
-import service.SensitiveService;
-import service.impl.SensitiveServiceImpl;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;

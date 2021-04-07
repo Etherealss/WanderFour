@@ -1,4 +1,7 @@
 import com.alibaba.fastjson.JSONObject;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.dto.ResultState;
@@ -8,15 +11,15 @@ import pojo.po.Article;
 import pojo.po.User;
 import common.util.TestUtil;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 寒洲
  * @description
  * @date 2020/10/15
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class JsonTest {
 
 	@Test
@@ -28,6 +31,7 @@ public class JsonTest {
 		User user = new User("123", "123");
 		String userstr = JSONObject.toJSONString(user);
 		System.out.println(userstr); //{"password":"123","userid":"123"}
+
 	}
 
 	@Test

@@ -20,7 +20,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	Long publishNewWriting(T t) throws Exception;
+	Long publishNewWriting(T t);
 
 	/**
 	 * 获取作品
@@ -29,7 +29,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	WritingBean<T> getWritingBean(Long writingId, Long userid) throws Exception;
+	WritingBean<T> getWritingBean(Long writingId, Long userid);
 
 	/**
 	 * 获取作品列表
@@ -40,7 +40,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	List<WritingDto<T>> getWritingList(Long userid, int partition, String order) throws Exception;
+	List<WritingDto<T>> getWritingList(Long userid, int partition, String order);
 
 	/**
 	 * 获取简单的作品信息，仅包含作品id和标题
@@ -49,7 +49,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	List<T> getSimpleWritingList(int partition, String order) throws Exception;
+	List<T> getSimpleWritingList(int partition, String order);
 
 	/**
 	 * 修改作品
@@ -57,7 +57,7 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	ResultType updateWriting(T t) throws Exception;
+	ResultType updateWriting(T t);
 
 	/**
 	 * 删除作品
@@ -66,14 +66,14 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	ResultType deleteWriting(Long writingId, Long deleterId) throws Exception;
+	ResultType deleteWriting(Long writingId, Long deleterId);
 
 	/**
 	 * 获取所有文章/问贴的id
 	 * @return
 	 * @throws Exception
 	 */
-	List<Long> getAllWritingsId() throws Exception;
+	List<Long> getAllWritingsId();
 
 	/**
 	 * 通过id列表获取多个作品
@@ -81,5 +81,5 @@ public interface WritingService<T extends Writing> {
 	 * @return
 	 * @throws Exception
 	 */
-	List<EsBo> getWritingListByIds(List<Long> ids) throws Exception;
+	List<EsBo> getWritingListByIds(List<Long> ids) ;
 }

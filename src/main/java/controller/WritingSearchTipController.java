@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.enums.EsEnum;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
 import service.EsService;
 
@@ -26,17 +28,18 @@ import java.util.List;
  * @description 搜索提示
  * @date 2020/11/17
  */
-@WebServlet("/WritingSearchTipServlet")
-public class WritingSearchTipController extends BaseServlet{
+public class WritingSearchTipController {
 
 	private Logger logger = Logger.getLogger(WritingSearchTipController.class);
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private EsService esService;
+
+	@RequestMapping(value = "/WritingSearchTipServlet", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("获取搜索提示词");
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		//encodeURIComponent解码
-		ControllerUtil.isParamMissing(resp, params, "搜索");
+		WebUtil.isParamMissing(resp, params, "搜索");
 
 		String wd = params.getString("wd");
 		if (wd != null && !"".equals(wd)) {
@@ -52,9 +55,8 @@ public class WritingSearchTipController extends BaseServlet{
 
 			String searchWord = URLDecoder.decode(params.getString("wd"), AttrEnum.CODING_FORMAT);
 
-			EsService service = ServiceFactory.getEsService();
 			logger.debug("搜索词：" + searchWord);
-			List<String> strings = service.querySuggestion(searchWord, EsEnum.INDEX_NAME_WRITING, EsEnum.ES_SEARCH_SIZE);
+			List<String> strings = esService.querySuggestion(searchWord, EsEnum.INDEX_NAME_WRITING, EsEnum.ES_SEARCH_SIZE);
 
 			state = new ResultState(ResultType.SUCCESS, "已获取搜索提示");
 			json.put("tips", strings);

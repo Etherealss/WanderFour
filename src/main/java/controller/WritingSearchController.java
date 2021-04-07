@@ -3,12 +3,14 @@ package controller;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.EsEnum;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.bo.EsBo;
 import pojo.bo.PageBo;
 import pojo.dto.ResultState;
@@ -21,22 +23,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Map;
 
 /**
  * @author 寒洲
  * @description 搜索
  * @date 2020/10/31
  */
-@WebServlet("/WritingSearchServlet")
-public class WritingSearchController extends BaseServlet {
+@Controller
+public class WritingSearchController {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private final Logger logger = Logger.getLogger(WritingSearchController.class);
+	private EsService esService;
+
+	@RequestMapping(value = "/WritingSearchServlet", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("搜索文章");
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		//encodeURIComponent解码
-		ControllerUtil.isParamMissing(resp, params, "搜索", "currentPage");
+		WebUtil.isParamMissing(resp, params, "搜索", "currentPage");
 
 		String wd = params.getString("wd");
 		if (wd != null && !"".equals(wd)) {
@@ -59,8 +63,7 @@ public class WritingSearchController extends BaseServlet {
 			String searchWord = URLDecoder.decode(params.getString("wd"), "UTF-8");
 			logger.debug("用户搜索：" + searchWord);
 
-			EsService service = ServiceFactory.getEsService();
-			pageData = service.searchByHighLigh(searchWord, 0, EsEnum.ES_SEARCH_SIZE);
+			pageData = esService.searchByHighLigh(searchWord, 0, EsEnum.ES_SEARCH_SIZE);
 
 			state = new ResultState(ResultType.SUCCESS, "搜索成功");
 			json.put("pageDate", pageData);

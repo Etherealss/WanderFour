@@ -17,18 +17,12 @@
     <!--配置查询所有-->
     <!--id为方法名称，resultType为MyBatis封装的类型-->
     <!-- 更新用户头像路径 -->
-    <select id="updateUserAvatarPath"
-            resultType="Long">
+    <update id="updateUserAvatarPath">
         UPDATE user
         SET avatar = #{filePath}
         WHERE id = #{userId};
-    </select>
+    </update>
 
-    <!-- 获取合适的数据库Id -->
-    <select id="getLastInsertId"
-            resultType="BigInteger">
-        SELECT LAST_INSERT_ID();
-    </select>
 
     <!-- 通过账号密码查询用户 -->
     <select id="selectUserBySign"
@@ -60,10 +54,14 @@
 
     <!--新建用户-->
     <insert id="registerNewUser">
+        <!-- 配置保存时获取插入的id -->
+        <selectKey keyColumn="id" keyProperty="id" resultType="Long" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
         INSERT INTO `user`
             (email, user_password, nickname, sex, avatar, register_date, user_type)
-        VALUES (#{email}, #{password}, #{nickname}, #{sex}, #{avatarPath}, #{registerDate},
-                (SELECT id FROM `user_type` WHERE `type` = #{userType}))
+        VALUES (#{email}, #{password}, #{nickname}, #{sex}, #{avatarPath}, CURRENT_TIMESTAMP,
+                (SELECT id FROM `user_type` WHERE `type` = #{userType}));
     </insert>
 
     <!-- 修改用户信息 -->

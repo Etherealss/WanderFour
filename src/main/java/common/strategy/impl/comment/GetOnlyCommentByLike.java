@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GetOnlyCommentByLike extends AbstractCommentsStrategy {
 	@Override
-	public List<CommentDto> getCommentsWithReplys(CommentVo vo) throws SQLException {
+	public List<CommentDto> getCommentsWithReplys(CommentVo vo) {
 		/*
 		 * 仅按点赞数获取3条评论记录（不获取其回复）
 		 */

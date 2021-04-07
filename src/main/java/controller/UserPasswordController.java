@@ -2,18 +2,19 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
-import common.util.Md5Utils;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
-import pojo.po.User;
 import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,12 +24,15 @@ import java.io.IOException;
  * @description 修改密码
  * @date 2020/11/3
  */
-@WebServlet("/UserPasswordServlet")
-public class UserPasswordController extends BaseServlet {
+@Controller
+public class UserPasswordController {
+	private final Logger logger = Logger.getLogger(UserPasswordController.class);
 
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Long userId = ControllerUtil.getUserId(req);
+	private UserService userService;
+
+	@RequestMapping(value = "/UserPasswordServlet", method = RequestMethod.PUT)
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+		Long userId = WebUtil.getUserId(req);
 		if (userId == null) {
 			ResponseChoose.respUserUnloggedError(resp);
 			return;
@@ -37,7 +41,7 @@ public class UserPasswordController extends BaseServlet {
 		JSONObject params = GetParamChoose.getJsonByJson(req);
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "修改密码",
+		boolean paramMissing = WebUtil.isParamMissing(resp, params, "修改密码",
 				"originalPw", "newPw");
 		if (paramMissing) {
 			return;
@@ -46,10 +50,9 @@ public class UserPasswordController extends BaseServlet {
 		String originalPw = params.getString("originalPw");
 		String newPw = params.getString("newPw");
 
-		UserService service = ServiceFactory.getUserService();
 		ResultState state;
 		try {
-			ResultType resultType = service.updateUserPw(userId, originalPw, newPw);
+			ResultType resultType = userService.updateUserPw(userId, originalPw, newPw);
 			state = new ResultState(resultType, "修改结果");
 		} catch (Exception e) {
 			e.printStackTrace();

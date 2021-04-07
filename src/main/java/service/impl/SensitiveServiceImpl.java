@@ -1,8 +1,6 @@
 package service.impl;
 
 import common.bean.SensitiveNode;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import dao.SensitiveDao;
 import filter.SensitiveFilter;
 import org.apache.log4j.Logger;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import service.SensitiveService;
 
 import java.io.*;
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 

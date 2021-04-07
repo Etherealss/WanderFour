@@ -2,8 +2,6 @@ package service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import common.enums.Partition;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import common.util.JedisUtil;
 import common.util.JsonUtil;
 import dao.CategoryDao;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import service.CategoryService;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
 		} else {
 			//缓存中没有category分类数据
 			logger.trace("从 数据库 中获取分区信息");
-			dao = DaoFactory.getCategoryDao();
 			//获取分类信息包
 			List<Map<String, Object>> maps = dao.getAllCategoryByPart(partition);
 			//封装到json中

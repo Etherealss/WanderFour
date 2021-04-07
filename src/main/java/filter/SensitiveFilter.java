@@ -1,8 +1,10 @@
 package filter;
 
 import common.bean.SensitiveNode;
-import common.factory.ServiceFactory;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.SensitiveService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,9 +67,14 @@ public class SensitiveFilter {
 		logger.trace("获取敏感词数据");
 		if (sensitiveWordMap == null) {
 			logger.trace("初始化敏感词数据");
+
+			ApplicationContext ac =
+					new ClassPathXmlApplicationContext("spring/spring-config.xml");
+			SensitiveService sensitiveService =
+					(SensitiveService) ac.getBean("sensitiveService");
 			//获取敏感词树
 			Map<Character, SensitiveNode> sensitiveWordsMap =
-					ServiceFactory.getSensitiveService().getSensitiveWordsMap();
+					sensitiveService.getSensitiveWordsMap();
 			//添加到内存
 			setSensitiveWordMap(sensitiveWordsMap);
 		}

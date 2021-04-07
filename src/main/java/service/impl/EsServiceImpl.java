@@ -5,11 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.EsEnum;
 import common.enums.ResultType;
 import common.enums.WritingType;
-import common.factory.DaoFactory;
-import common.factory.ServiceFactory;
 import common.util.EsUtil;
-import common.util.JdbcUtil;
-import dao.WritingDao;
+import dao.ArticleDao;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -34,15 +31,14 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.suggest.Suggest;
 import org.elasticsearch.search.suggest.SuggestBuilder;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import pojo.bo.EsBo;
 import pojo.bo.PageBo;
 import pojo.po.Article;
-import service.CategoryService;
 import common.others.EsOperator;
 import service.EsService;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +54,9 @@ public class EsServiceImpl implements EsService {
 	Logger logger = Logger.getLogger(EsServiceImpl.class);
 
 	private RestHighLevelClient client = EsUtil.getClient();
+
+	@Autowired
+	private ArticleDao articleDao;
 
 	/** ik分词器 */
 	private static final String ANALYZER_IK_MAX_WORD = "ik_max_word";
@@ -129,24 +128,15 @@ public class EsServiceImpl implements EsService {
 	}
 
 	@Override
-	public void initWritingDocs(WritingType type, List<Long> writingsId) throws Exception {
-		// 获取所有的分类Json
-		CategoryService categoryService = ServiceFactory.getArticleService();
-		// Connection连接会在categoryService中关闭而引起bug
-		JSONObject allCategory = categoryService.getAllCategory();
-
-		Connection conn = JdbcUtil.beginTransaction();
-		WritingDao<Article> dao = DaoFactory.getArticleDao();
-
+	public void initWritingDocs(WritingType type, List<Long> writingsId, JSONObject allCategory) throws Exception {
 		for (Long i : writingsId) {
-			Article article = dao.getWritingById(i);
+			Article article = articleDao.getWritingById(i);
 			String categoryName = (String) allCategory.get(article.getCategory());
 			assert categoryName != null;
 			EsOperator operator = new EsOperator();
 //			String s = operator.addDoc(EsEnum.INDEX_NAME_WRITING, article);
 //			logger.debug(s);
 		}
-		JdbcUtil.closeTransaction();
 	}
 
 	@Override
@@ -197,9 +187,6 @@ public class EsServiceImpl implements EsService {
 		RestHighLevelClient client = null;
 		try {
 			client = EsUtil.getClient();
-
-			// 获取文章的分类的字符串 要用到的service
-			CategoryService categoryService = ServiceFactory.getCategoryService();
 
 			// 封装实体数据到Json中
 			JSONObject jsonObject = EsUtil.getJsonObjecrForEs(writing);

@@ -1,5 +1,6 @@
 package service;
 
+import com.alibaba.fastjson.JSONObject;
 import common.enums.WritingType;
 import pojo.bo.EsBo;
 import pojo.bo.PageBo;
@@ -31,9 +32,10 @@ public interface EsService {
 	 * 初始化ES的数据
 	 * @param type
 	 * @param writingsId
+	 * @param allCategory 获取所有的分类Json
 	 * @throws Exception
 	 */
-	void initWritingDocs(WritingType type, List<Long> writingsId) throws Exception;
+	void initWritingDocs(WritingType type, List<Long> writingsId, JSONObject allCategory) throws Exception;
 
 	/**
 	 * 根据索引名删除索引

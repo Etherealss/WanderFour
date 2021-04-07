@@ -2,12 +2,8 @@ package dao.impl;
 
 import common.enums.DaoEnum;
 import common.enums.Partition;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.EsBo;
 import pojo.po.Article;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,12 +42,9 @@ public class ArticleDaoImplTest {
 		writing.setCreateTime(new Date());
 		writing.setUpdateTime(new Date());
 
-		try {
 			//修改文章
-			dao.updateWritingInfo(writing);
-		} catch (Exception throwables) {
-			throwables.printStackTrace();
-		}
+		int i = dao.updateWritingInfo(writing);
+		logger.debug(i);
 	}
 
 	@Test
@@ -68,6 +60,12 @@ public class ArticleDaoImplTest {
 		for (Article article : simpleWritingListByOrder) {
 			logger.debug(article);
 		}
+	}
+
+	@Test
+	public void testDeleteWriting() throws Exception {
+		Integer integer = dao.deleteWritingById(23L, 4L);
+		logger.debug(integer);
 	}
 
 	@Test

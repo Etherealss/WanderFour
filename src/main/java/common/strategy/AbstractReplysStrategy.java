@@ -1,6 +1,5 @@
 package common.strategy;
 
-import common.factory.DaoFactory;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import dao.UserDao;
@@ -10,7 +9,6 @@ import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
 import pojo.po.Comment;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 	 * @return
 	 * @throws SQLException
 	 */
-	public abstract List<CommentDto> getReplys(CommentVo vo) throws SQLException;
+	public abstract List<CommentDto> getReplys(CommentVo vo);
 
 	/**
 	 * 获取回复的Dto列表
@@ -38,9 +36,9 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CommentDto> getReplysDtoList(CommentVo vo) throws SQLException {
-		Connection conn = vo.getConn();
-		CommentDao commentDao = vo.getDao();
+	public List<CommentDto> getReplysDtoList(CommentVo vo) {
+		CommentDao commentDao = vo.getCommentDao();
+		UserDao userDao = vo.getUserDao();
 		Long parentId = vo.getParentId();
 		Long userid = vo.getUserid();
 
@@ -55,9 +53,6 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 			Comment reply = replyBean.getComment();
 
 			//只包装该回复记录，不添加其他replys
-			//添加回复引用
-			UserDao userDao = DaoFactory.getUserDAO();
-
 
 			//判断当前回复是否需要引用
 			CommentBean beRepliedBean = null;
@@ -68,7 +63,7 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 				//targetComment 意：复的那个记录的对象，用户添加引用
 				//TODO MyBatis表名
 				Comment targetComment = commentDao.getComment("`article_comment`", beRepliedId);
-				beRepliedBean = CommentUtil.getCommentBean(conn, userDao, targetComment, userid);
+				beRepliedBean = CommentUtil.getCommentBean(userDao, targetComment, userid);
 			}
 			resultDtoList.add(new CommentDto(replyBean, beRepliedBean));
 		}

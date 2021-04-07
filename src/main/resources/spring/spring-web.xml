@@ -17,9 +17,9 @@
     <!--启用mvc默认配置(内置一部分bean对象的定义)-->
     <mvc:annotation-driven/>
     <!--注册视图解析对象 -->
-    <bean id="viewResovler" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="Prefix" value="/"/>
-        <property name="Suffix" value=".html"/>
-    </bean>
-
+<!--    <bean id="viewResovler" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+<!--        <property name="prefix" value="/"/>-->
+<!--        <property name="suffix" value=".html"/>-->
+<!--    </bean>-->
+    <mvc:default-servlet-handler/>
 </beans>

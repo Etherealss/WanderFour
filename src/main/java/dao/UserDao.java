@@ -21,11 +21,6 @@ public interface UserDao {
 	 */
 	void updateUserAvatarPath(@Param("userId") Long userId, @Param("filePath") String filePath);
 
-	/**
-	 * 获取合适的数据库Id
-	 * @return
-	 */
-	BigInteger getLastInsertId();
 
 	/**
 	 * 通过账号密码查询用户

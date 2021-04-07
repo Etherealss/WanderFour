@@ -1,8 +1,10 @@
 package pojo.vo;
 
 import dao.CommentDao;
-
-import java.sql.Connection;
+import dao.UserDao;
+import pojo.po.Article;
+import pojo.po.Posts;
+import pojo.po.Writing;
 
 /**
  * @author 寒洲
@@ -11,10 +13,12 @@ import java.sql.Connection;
  */
 public class CommentVo {
 
-	/** 数据库连接 */
-	private Connection conn;
 	/** 评论DAO */
-	private CommentDao dao;
+	private CommentDao commentDao;
+	/** 用户DAO */
+	private UserDao userDao;
+	/** 表名 */
+	private String commentTableName;
 	/** 查询数据库的排序方式 */
 	private String order;
 	/** 评论记录起始值 */
@@ -32,20 +36,37 @@ public class CommentVo {
 	/** 当前用户Id */
 	private Long userid;
 
-	public Connection getConn() {
-		return conn;
+
+	public CommentDao getCommentDao() {
+		return commentDao;
 	}
 
-	public void setConn(Connection conn) {
-		this.conn = conn;
+	public void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
 	}
 
-	public CommentDao getDao() {
-		return dao;
+	public UserDao getUserDao() {
+		return userDao;
 	}
 
-	public void setDao(CommentDao dao) {
-		this.dao = dao;
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public String getCommentTableName() {
+		return commentTableName;
+	}
+
+	public void setCommentTableName(String commentTableName) {
+		this.commentTableName = commentTableName;
+	}
+
+	public <T extends Writing> void setCommentTableName(Class<T> clazz) {
+		if (Article.class.equals(clazz)) {
+			this.commentTableName = "`article_comment`";
+		} else if (Posts.class.equals(clazz)) {
+			commentTableName = "`posts_comment`";
+		}
 	}
 
 	public String getOrder() {
@@ -114,8 +135,7 @@ public class CommentVo {
 
 	/**
 	 * 有targetId 有commentRows 和 replyRows
-	 * @param conn
-	 * @param dao
+	 * @param commentDao
 	 * @param commentStart
 	 * @param commentRows
 	 * @param replyRows
@@ -123,10 +143,9 @@ public class CommentVo {
 	 * @param targetId
 	 * @param userid
 	 */
-	public CommentVo(Connection conn, CommentDao dao, Long commentStart, int commentRows,
+	public CommentVo(CommentDao commentDao, Long commentStart, int commentRows,
 	                 int replyRows, Long parentId, Long targetId, Long userid) {
-		this.conn = conn;
-		this.dao = dao;
+		this.commentDao = commentDao;
 		this.commentStart = commentStart;
 		this.commentRows = commentRows;
 		this.replyRows = replyRows;
@@ -135,73 +154,6 @@ public class CommentVo {
 		this.userid = userid;
 	}
 
-	/**
-	 * 没有targetId 右replyRows
-	 * @param conn
-	 * @param dao
-	 * @param commentStart
-	 * @param commentRows
-	 * @param replyRows
-	 * @param parentId
-	 * @param userid
-	 */
-	public CommentVo(Connection conn, CommentDao dao, Long commentStart, int commentRows,
-	                 int replyRows, Long parentId, Long userid) {
-		this.conn = conn;
-		this.dao = dao;
-		this.commentStart = commentStart;
-		this.commentRows = commentRows;
-		this.replyRows = replyRows;
-		this.parentId = parentId;
-		this.userid = userid;
-	}
-
-	/**
-	 * 没有targetId 有commentRows
-	 * @param conn
-	 * @param dao
-	 * @param order
-	 * @param commentStart
-	 * @param commentRows
-	 * @param replyRows
-	 * @param parentId
-	 * @param userid
-	 */
-	public CommentVo(Connection conn, CommentDao dao, String order, Long commentStart,
-	                 int commentRows, int replyRows, Long parentId, Long userid) {
-		this.conn = conn;
-		this.dao = dao;
-		this.order = order;
-		this.commentStart = commentStart;
-		this.commentRows = commentRows;
-		this.replyRows = replyRows;
-		this.parentId = parentId;
-		this.userid = userid;
-	}
-
-	/**
-	 * 啥都有
-	 * @param conn
-	 * @param dao
-	 * @param order
-	 * @param commentStart
-	 * @param commentRows
-	 * @param replyRows
-	 * @param parentId
-	 * @param targetId
-	 * @param userid
-	 */
-	public CommentVo(Connection conn, CommentDao dao, String order, Long commentStart, int commentRows, int replyRows, Long parentId, Long targetId, Long userid) {
-		this.conn = conn;
-		this.dao = dao;
-		this.order = order;
-		this.commentStart = commentStart;
-		this.commentRows = commentRows;
-		this.replyRows = replyRows;
-		this.parentId = parentId;
-		this.targetId = targetId;
-		this.userid = userid;
-	}
 
 	public CommentVo() {
 	}
@@ -209,8 +161,7 @@ public class CommentVo {
 	@Override
 	public String toString() {
 		return "CommentVo{" +
-				"conn=" + conn +
-				", dao=" + dao +
+				", dao=" + commentDao +
 				", order='" + order + '\'' +
 				", commentStart=" + commentStart +
 				", replyStart=" + replyStart +

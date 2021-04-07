@@ -1,6 +1,6 @@
 package filter;
 
-import common.util.ControllerUtil;
+import common.util.WebUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -41,7 +41,7 @@ public class ValidateLoginFilter implements Filter {
 		String uri = req.getRequestURI();
 		//判断是否是登录相关的资源
 		if (CHECK_PATHS.contains(uri)) {
-			Long userId = ControllerUtil.getUserId(req);
+			Long userId = WebUtil.getUserId(req);
 			if (userId == null) {
 				//未登录，跳转到登录页面
 				logger.trace("检查用户的登录状态 未登录，拦截");

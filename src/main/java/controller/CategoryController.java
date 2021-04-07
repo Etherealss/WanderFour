@@ -2,15 +2,18 @@ package controller;
 
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.choose.GetParamChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.ResponseChoose;
 import service.CategoryService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,15 +23,18 @@ import java.io.IOException;
  * @description 分类
  * @date 2020/10/20
  */
-@WebServlet("/CategoryServlet")
-public class CategoryController extends BaseServlet {
+@Controller
+public class CategoryController {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private final Logger logger = Logger.getLogger(CategoryController.class);
+	private CategoryService categoryService;
+
+	@RequestMapping(value = "CategoryServlet", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("分类Get");
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		//空参判断
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "获取分类", "partition");
+		boolean paramMissing = WebUtil.isParamMissing(resp, params, "获取分类", "partition");
 		if (paramMissing){
 			return;
 		}
@@ -36,13 +42,12 @@ public class CategoryController extends BaseServlet {
 		Integer partition = params.getInteger("partition");
 		logger.debug(partition);
 
-		CategoryService service = ServiceFactory.getCategoryService();
 		//获取分区json
-		JSONObject categoryJson = null;
+		JSONObject categoryJson;
 		//传给浏览器的信息包
 		JSONObject result = new JSONObject();
 		try {
-			categoryJson = service.getAllCategoryByPart(partition);
+			categoryJson = categoryService.getAllCategoryByPart(partition);
 			//获取成功
 			ResultState state = new ResultState(ResultType.SUCCESS, "获取分类结果");
 			result.put("state", state);
@@ -56,8 +61,8 @@ public class CategoryController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, result);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.trace("分类Post");
+	@Autowired
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
 	}
 }

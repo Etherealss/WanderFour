@@ -1,8 +1,8 @@
 package dao;
 
+import org.apache.ibatis.annotations.Param;
 import pojo.po.LikeRecord;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -14,56 +14,55 @@ public interface LikeDao {
 
 	/**
 	 * 添加点赞记录
-	 * @param conn
+	 *
+	 * @param likeTableName
 	 * @param record
-	 * @return
-	 * @throws SQLException
 	 */
-	boolean createLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+	void createLikeRecord(@Param("likeTableName") String likeTableName,
+	                      @Param("record") LikeRecord record);
 
 //	/**
 //	 * 更新点赞记录
 //	 * @param conn
 //	 * @param record
 //	 * @return
-//	 * @throws SQLException
 //	 */
-//	boolean updateLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+//	boolean updateLikeRecord(Connection conn, LikeRecord record);
 
 	/**
 	 * 删除点赞记录
-	 * @param conn
+	 * @param likeTableName
 	 * @param record
-	 * @return
-	 * @throws SQLException
 	 */
-	boolean deleteLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+	void deleteLikeRecord(@Param("likeTableName") String likeTableName,
+	                      @Param("record") LikeRecord record);
 
 	/**
 	 * 查看用户的点赞状态
-	 * @param conn
+	 *
+	 * @param likeTableName
 	 * @param record
 	 * @return
-	 * @throws SQLException
 	 */
-	boolean countUserLikeRecord(Connection conn, LikeRecord record) throws SQLException;
+	int countUserLikeRecord(@Param("likeTableName") String likeTableName,
+	                        @Param("record") LikeRecord record);
 
 	/**
 	 * 统计点赞数
-	 * @param conn
+	 * @param likeTableName
 	 * @param targetId
 	 * @return
-	 * @throws SQLException
 	 */
-	Long countLikeRecord(Connection conn, Long targetId) throws SQLException;
+	int countLikeRecord(@Param("likeTableName") String likeTableName,
+	                    @Param("targetId") Long targetId);
 
 	/**
 	 * 检查用户的点赞状态
-	 * @param conn
+	 * @param likeTableName
 	 * @param userid
 	 * @param targetId
 	 * @return
-	 * @throws SQLException
 	 */
-	boolean checkUserLikeRecord(Connection conn, Long userid, Long targetId) throws SQLException;
+	int checkUserLikeRecord(@Param("likeTableName") String likeTableName,
+	                        @Param("userid") Long userid, Long targetId);
 }

@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
 import common.util.FileUtil;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,20 +21,21 @@ import java.io.IOException;
  * @description 用户头像
  * @date 2020/11/20
  */
-public class UserAvatarController extends BaseServlet {
+@Controller
+public class UserAvatarController {
 
 	private Logger logger = Logger.getLogger(UserAvatarController.class);
 
-	@Override
+	@RequestMapping(value = "UserAvatarController", method = RequestMethod.PUT)
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("修改头像");
-		Long userId = ControllerUtil.getUserId(req);
+		Long userId = WebUtil.getUserId(req);
 		if (userId == null) {
 			ResponseChoose.respUserUnloggedError(resp);
 			return;
 		}
 		JSONObject params = GetParamChoose.getJsonByJson(req);
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "avatar");
+		boolean paramMissing = WebUtil.isParamMissing(resp, params, "avatar");
 		if (paramMissing){
 			return;
 		}

@@ -1,6 +1,5 @@
 package common.strategy;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,7 +12,6 @@ public interface GetWritingStrategy<T> {
 
 	/**
 	 * 按时间获取作品
-	 * @param conn
 	 * @param partition
 	 * @param order
 	 * @param start
@@ -21,12 +19,11 @@ public interface GetWritingStrategy<T> {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<T> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+	List<T> getWritingList(int partition, String order, Long start, int rows);
 
 
 	/**
 	 * 按时间获取作品
-	 * @param conn
 	 * @param partition
 	 * @param order
 	 * @param start
@@ -34,6 +31,6 @@ public interface GetWritingStrategy<T> {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<T> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException;
+	List<T> getSimpleWritingList(int partition, String order, Long start, int rows);
 
 }

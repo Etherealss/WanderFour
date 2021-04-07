@@ -4,14 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.DaoEnum;
 import common.enums.ResultType;
 import common.enums.TargetType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
 import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
 import filter.SensitiveFilter;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.vo.CommentVo;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
@@ -20,13 +23,10 @@ import pojo.po.Article;
 import pojo.po.Comment;
 import pojo.po.Posts;
 import service.CommentService;
-import service.SensitiveService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -34,21 +34,23 @@ import java.util.List;
  * @description 文章/帖子的评论回复
  * @date 2020/10/23
  */
-@WebServlet("/WritingCommentServlet")
-public class WritingCommentController extends BaseServlet {
+@Controller
+public class WritingCommentController {
 
-	private Logger logger = Logger.getLogger(WritingCommentController.class);
+	private final Logger logger = Logger.getLogger(WritingCommentController.class);
 
 	private final static String TYPE_ARTICLE = TargetType.ARTICLE.val();
 	private final static String TYPE_POSTS = TargetType.POSTS.val();
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private CommentService commentService;
+
+	@RequestMapping(value = "/WritingCommentServlet", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("获取评论");
 		JSONObject param = GetParamChoose.getJsonByUrl(req);
 
 		//空参检查
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, param,"评论");
+		boolean paramMissing = WebUtil.isParamMissing(resp, param,"评论");
 		if (paramMissing) {
 			return;
 		}
@@ -56,13 +58,12 @@ public class WritingCommentController extends BaseServlet {
 		//判断文章还是帖子
 		String type = param.getString("type");
 		//获取请求的数据
-		CommentService service;
 		if (TYPE_ARTICLE.equals(type)) {
 			logger.trace("获取文章的评论");
-			service = ServiceFactory.getCommentService(Article.class);
+			commentService.setTableName(Article.class);
 		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("获取问贴的评论");
-			service = ServiceFactory.getCommentService(Posts.class);
+			commentService.setTableName(Posts.class);
 		} else {
 			logger.error("评论type参数错误：" + type);
 			ResponseChoose.respWrongParameterError(resp, "评论type参数错误");
@@ -84,7 +85,7 @@ public class WritingCommentController extends BaseServlet {
 			vo.setTargetId(targetId);
 
 			//userid可以为null，即未登录
-			Long userid = ControllerUtil.getUserId(req);
+			Long userid = WebUtil.getUserId(req);
 			vo.setUserid(userid);
 
 			if (orderBy == null) {
@@ -92,7 +93,7 @@ public class WritingCommentController extends BaseServlet {
 				没有该参数，说明是获取作品的推荐评论
 				 */
 				logger.trace("获取推荐评论");
-				PageBo<CommentDto> resultList = service.getHotCommentList(parentId, userid);
+				PageBo<CommentDto> resultList = commentService.getHotCommentList(parentId, userid);
 				assert resultList != null;
 				jsonObject.put("pageData", resultList);
 				state = new ResultState(ResultType.SUCCESS, "获取推荐评论成功");
@@ -106,7 +107,7 @@ public class WritingCommentController extends BaseServlet {
 					vo.setOrder(orderBy);
 					//具体是评论还是回复要看有无targetId，但是两种请求调用的方法相同，去下一层判断
 					PageBo<CommentDto> resultPageBo =
-							service.getCommentListByPage(vo, currentPage);
+							commentService.getCommentListByPage(vo, currentPage);
 					List<CommentDto> list = resultPageBo.getList();
 					if (list == null || list.size() == 0) {
 						state = new ResultState(ResultType.NO_RECORD, "当前页没有评论记录");
@@ -131,13 +132,14 @@ public class WritingCommentController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Comment comment = GetParamChoose.getObjByJson(req, Comment.class);
+	@RequestMapping(value = "/WritingCommentServlet", method = RequestMethod.POST)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+		JSONObject params = GetParamChoose.getJsonByJson(req);
+		Comment comment = GetParamChoose.getObjByParam(params, Comment.class);
 		logger.trace("发表评论 comment=" + comment);
-		String type = req.getParameter("type");
 
-		Long userId = ControllerUtil.getUserId(req);
+
+		Long userId = WebUtil.getUserId(req);
 		if (userId == null) {
 			logger.error("评论时用户未登录");
 			ResponseChoose.respUserUnloggedError(resp);
@@ -149,14 +151,14 @@ public class WritingCommentController extends BaseServlet {
 		}
 		comment.setUserid(userId);
 
-		CommentService service;
+		String type = params.getString("type");
 		if (TYPE_ARTICLE.equals(type)) {
 			logger.trace("发表文章的评论");
-			service = ServiceFactory.getCommentService(Article.class);
+			commentService.setTableName(Article.class);
 
 		} else if (TYPE_POSTS.equals(type)) {
 			logger.trace("发表问贴的评论");
-			service = ServiceFactory.getCommentService(Posts.class);
+			commentService.setTableName(Posts.class);
 		} else {
 			logger.error("评论type参数错误：" + type);
 			ResponseChoose.respWrongParameterError(resp, "评论type参数错误");
@@ -171,7 +173,7 @@ public class WritingCommentController extends BaseServlet {
 //		SecurityUtil.ensureJsSafe(comment);
 		SecurityUtil.htmlEncode(comment);
 		try {
-			ResultType resultType = service.publishNewComment(comment);
+			ResultType resultType = commentService.publishNewComment(comment);
 			state = new ResultState(resultType, "发表结果");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -183,14 +185,14 @@ public class WritingCommentController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, jsonObject);
 	}
 
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value = "/WritingCommentServlet", method = RequestMethod.DELETE)
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		JSONObject paramJson = GetParamChoose.getJsonByJson(req);
 		logger.trace("删除评论 paramJson: " + paramJson);
 		Long articleId = paramJson.getLong("article");
 		Long postsId = paramJson.getLong("posts");
 
-		Long userId = ControllerUtil.getUserId(req);
+		Long userId = WebUtil.getUserId(req);
 		if (userId == null) {
 			logger.error("删除评论时用户未登录");
 			ResponseChoose.respUserUnloggedError(resp);
@@ -201,13 +203,13 @@ public class WritingCommentController extends BaseServlet {
 		try {
 			if (articleId != null) {
 				//删除文章表中的评论记录
-				CommentService service = ServiceFactory.getCommentService(Article.class);
-				ResultType resultType = service.deleteComment(articleId, userId);
+				commentService.setTableName(Article.class);
+				ResultType resultType = commentService.deleteComment(articleId, userId);
 				state = new ResultState(resultType, "删除结果");
 			} else {
 				//删除问贴表中的评论记录
-				CommentService service = ServiceFactory.getCommentService(Posts.class);
-				ResultType resultType = service.deleteComment(postsId, userId);
+				commentService.setTableName(Posts.class);
+				ResultType resultType = commentService.deleteComment(postsId, userId);
 				state = new ResultState(resultType, "删除结果");
 			}
 		} catch (Exception e) {
@@ -217,5 +219,10 @@ public class WritingCommentController extends BaseServlet {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("state", state);
 		ResponseChoose.respToBrowser(resp, jsonObject);
+	}
+
+	@Autowired
+	public void setCommentService(CommentService commentService) {
+		this.commentService = commentService;
 	}
 }

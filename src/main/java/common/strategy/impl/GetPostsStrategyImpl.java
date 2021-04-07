@@ -1,13 +1,11 @@
 package common.strategy.impl;
 
-import common.factory.DaoFactory;
 import common.strategy.GetWritingStrategy;
+import dao.PostsDao;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
 import pojo.po.Posts;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,17 +15,21 @@ import java.util.List;
  */
 public class GetPostsStrategyImpl implements GetWritingStrategy<Posts> {
 
-	private WritingDao<Posts> dao = DaoFactory.getPostsDao();
+	private WritingDao<Posts> dao;
+
+	public GetPostsStrategyImpl(PostsDao dao) {
+		this.dao = dao;
+	}
 
 	private Logger logger = Logger.getLogger(GetArticleStrategyImpl.class);
 
 	@Override
-	public List<Posts> getWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+	public List<Posts> getWritingList(int partition, String order, Long start, int rows) {
 		return dao.getWritingListByOrder(partition, order, start, rows);
 	}
 
 	@Override
-	public List<Posts> getSimpleWritingList(Connection conn, int partition, String order, Long start, int rows) throws SQLException {
+	public List<Posts> getSimpleWritingList(int partition, String order, Long start, int rows) {
 		return dao.getSimpleWritingListByOrder(partition, order, start, rows);
 	}
 

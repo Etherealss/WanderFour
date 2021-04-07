@@ -1,13 +1,13 @@
 import common.enums.TargetType;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import common.util.JedisUtil;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import java.util.Date;
 
@@ -17,6 +17,8 @@ import java.util.Date;
  * @description
  * @date 2020/10/14
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class JedisTest {
 	Logger log = Logger.getLogger(JedisTest.class);
 	Jedis jedis;

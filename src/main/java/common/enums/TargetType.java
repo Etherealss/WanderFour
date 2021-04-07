@@ -71,4 +71,31 @@ public enum TargetType {
 		}
 		return null;
 	}
+
+	/**
+	 * 根据LikeRecord的targetType获取对应的点赞数据库表名
+	 * @param targetType
+	 * @return
+	 */
+	public static String getLikeTableNameByTargetType(TargetType targetType) {
+		String likeTableName;
+		// 文章点赞表
+		String likeArticleTableName = "`article_like_record`";
+		// 问贴点赞表
+		String likePostsTableName = "`posts_like_record`";
+		// 评论点赞表
+		String likeCommentTableName = "`posts_like_record`";
+		switch (targetType) {
+			case ARTICLE:
+				likeTableName = likeArticleTableName;
+				break;
+			case POSTS:
+				likeTableName = likePostsTableName;
+				break;
+			default:
+				likeTableName = likeCommentTableName;
+				break;
+		}
+		return likeTableName;
+	}
 }

@@ -4,7 +4,6 @@ import org.apache.ibatis.annotations.Param;
 import pojo.bo.EsBo;
 import pojo.po.Writing;
 
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,10 +33,10 @@ public interface WritingDao<T extends Writing> {
 
 	/**
 	 * 更新文章
-	 * @param t
+	 * @param writing
 	 * @return
 	 */
-	void updateWritingInfo(T t);
+	int updateWritingInfo(T writing);
 
 	/**
 	 * 更新作品内容
@@ -63,10 +62,11 @@ public interface WritingDao<T extends Writing> {
 
 	/**
 	 * 删除文章
-	 * @param id
+	 * @param writingId
+	 * @param deleterId
 	 * @return
 	 */
-	void deleteWritingById(Long id);
+	int deleteWritingById(@Param("writingId") Long writingId, @Param("deleterId") Long deleterId);
 
 	/**
 	 * 查询一共有多少文章
@@ -111,7 +111,7 @@ public interface WritingDao<T extends Writing> {
 	 * @param id
 	 * @return
 	 */
-	long getAuthorByWritingId(Long id);
+	Long getAuthorByWritingId(Long id);
 
 	/**
 	 * 获取作品当前的点赞数

@@ -31,7 +31,7 @@ public class CommentChoose {
 	 * @param vo
 	 * 需要conn dao userid parentId commentRows replyRows start order
 	 */
-	public List<CommentDto> doGet(CommentVo vo) throws SQLException {
+	public List<CommentDto> doGet(CommentVo vo) {
 		return strategy.getCommentsWithReplys(vo);
 	}
 }

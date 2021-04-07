@@ -1,14 +1,11 @@
 package service.impl;
 
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import dao.StickyNoteDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.StickyNote;
 import service.StickyNoteService;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**

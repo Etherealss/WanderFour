@@ -18,7 +18,7 @@ import java.util.List;
 public class GetCommentsByTime extends AbstractCommentsStrategy {
 
 	@Override
-	public List<CommentDto> getCommentsWithReplys(CommentVo vo) throws SQLException {
+	public List<CommentDto> getCommentsWithReplys(CommentVo vo) {
 		/*
 		策略：在显示所有评论时获取评论
 	    获取10条最新的评论，并同时每条评论获取3条点赞数最高的回复

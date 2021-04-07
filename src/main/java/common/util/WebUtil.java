@@ -3,7 +3,9 @@ package common.util;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.strategy.choose.ResponseChoose;
+import org.springframework.context.ApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * @description
  * @date 2020/10/28
  */
-public class ControllerUtil {
+public class WebUtil {
 
 	/**
 	 * 从req中获取用户的userid

@@ -1,13 +1,9 @@
 package dao.impl;
 
 import common.enums.DaoEnum;
-import common.factory.DaoFactory;
-import common.util.JdbcUtil;
 import common.util.TestUtil;
 import dao.WritingDao;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.bo.EsBo;
 import pojo.po.Posts;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +53,7 @@ public class PostsDaoImplTest {
 
 	@Test
 	public void deleteWritingById() throws SQLException {
-		dao.deleteWritingById(34L);
+		dao.deleteWritingById(34L, 4L);
 	}
 
 	@Test

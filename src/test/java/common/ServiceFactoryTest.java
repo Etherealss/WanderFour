@@ -1,11 +1,6 @@
 package common;
 
-import common.factory.ServiceFactory;
 import org.junit.Test;
-import pojo.po.Article;
-import service.impl.ArticleServiceImpl;
-
-import static org.junit.Assert.*;
 
 public class ServiceFactoryTest {
 

@@ -26,6 +26,7 @@
     <bean id="postsService" class="service.impl.PostsServiceImpl"/>
     <bean id="cacheMessageService" class="service.impl.CacheMessageServiceImpl"/>
     <bean id="likeService" class="service.impl.LikeServiceImpl"/>
+    <bean id="commentService" class="service.impl.CommentServiceImpl"/>
 
     <!-- 事务 -->
     <!-- Spring自带的事务管理器 -->

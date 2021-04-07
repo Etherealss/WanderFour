@@ -2,12 +2,17 @@ package common.others;
 
 import common.enums.EsEnum;
 import common.enums.WritingType;
-import common.factory.ServiceFactory;
 import common.util.EsUtil;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pojo.bo.EsBo;
+import pojo.po.Posts;
+import pojo.po.Writing;
 import service.EsService;
 import service.WritingService;
+import service.impl.ArticleServiceImpl;
+import service.impl.PostsServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,9 +40,10 @@ public class EsProcessManager {
 	/**
 	 * 初始化ES数据，建立索引和文档
 	 */
-	public static void esDataInit() {
+	public static void esDataInit(ApplicationContext applicationContext) {
 		logger.info("初始化ES数据");
-		EsService esService = ServiceFactory.getEsService();
+
+		EsService esService = (EsService) applicationContext.getBean("esService");
 		try {
 			boolean isEsHostConnected = EsUtil.isEsHostConnected();
 			if (!isEsHostConnected) {
@@ -53,16 +59,21 @@ public class EsProcessManager {
 			logger.error("创建ES索引异常：" + e.getMessage());
 		}
 
-		try{
+		WritingService<? extends Writing> articleService =
+				(WritingService<? extends Writing>) applicationContext.getBean("articleService");
+		WritingService<? extends Writing> postsService =
+				(WritingService<? extends Writing>) applicationContext.getBean("postsService");
+
+		try {
 			// 检查和补充数据
-			EsProcessManager.addUnExistWritingToEs(esService, WritingType.ARTICLE);
-		} catch (Exception e){
+			EsProcessManager.addUnExistWritingToEs(esService, articleService, WritingType.ARTICLE);
+		} catch (Exception e) {
 			logger.error("ES添加文章文档异常");
 			e.printStackTrace();
 		}
-		try{
-			EsProcessManager.addUnExistWritingToEs(esService, WritingType.POSTS);
-		} catch (Exception e){
+		try {
+			EsProcessManager.addUnExistWritingToEs(esService, postsService, WritingType.POSTS);
+		} catch (Exception e) {
 			logger.error("ES添加问贴文档异常");
 			e.printStackTrace();
 		}
@@ -72,29 +83,21 @@ public class EsProcessManager {
 
 	/**
 	 * 获取所有文章和问贴id，将需要的数据添加到ES文档库
-	 * @param writingType
+	 * @param esService
+	 * @param writingService
 	 */
-	private static void addUnExistWritingToEs(EsService esService, WritingType writingType) throws Exception {
-		WritingService<?> service;
-
-		if (writingType == WritingType.ARTICLE) {
-			logger.trace("文章ES数据检查");
-			service = ServiceFactory.getArticleService();
-		} else {
-			logger.trace("问贴ES数据检查");
-			service = ServiceFactory.getPostsService();
-		}
+	private static void addUnExistWritingToEs(EsService esService, WritingService<? extends Writing> writingService, WritingType writingType) {
 
 		logger.trace("获取所有文章/问贴id");
-		List<Long> allIds = service.getAllWritingsId();
+		List<Long> allIds = writingService.getAllWritingsId();
 
 		// 判断ES是否有对应文档，获取需要添加的文档
 		logger.trace("判断ES是否有对应文档，获取需要添加的文档");
-		List<Long> addIds = esService.checkWritingsExist(WritingType.ARTICLE, allIds);
+		List<Long> addIds = esService.checkWritingsExist(writingType, allIds);
 
 		// 获取需要添加到ES的数据
 		logger.trace("获取需要添加到ES的数据");
-		List<EsBo> addWritings = service.getWritingListByIds(addIds);
+		List<EsBo> addWritings = writingService.getWritingListByIds(addIds);
 
 		// 将不存在的文档添加到ES中
 		logger.trace("将不存在的文档添加到ES中");

@@ -1,11 +1,14 @@
 package controller;
 
-import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.po.LikeRecord;
 import service.LikeService;
 
@@ -20,43 +23,39 @@ import java.io.IOException;
  * @description 点赞
  * @date 2020/10/13
  */
-@WebServlet("/LikeServlet")
-public class LikeController extends BaseServlet {
+@Controller
+public class LikeController {
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.trace("点赞");
-		LikeRecord record = GetParamChoose.getObjByJson(req, LikeRecord.class);
-		//空参检查
-		if (record == null) {
-			ResponseChoose.respNoParameterError(resp, "点赞");
-			return;
-		}
+    private final Logger logger = Logger.getLogger(LikeController.class);
+    private LikeService likeService;
 
-		Long userId = ControllerUtil.getUserId(req);
-		if (userId == null) {
-			logger.error("点赞时用户未登录");
-			ResponseChoose.respUserUnloggedError(resp);
-			return;
-		}
-		record.setUserid(userId);
-		logger.debug(record.toString());
+    @RequestMapping(value = "/LikeServlet", method = RequestMethod.POST)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+        logger.trace("点赞");
+        LikeRecord record = GetParamChoose.getObjByJson(req, LikeRecord.class);
+        //空参检查
+        if (record == null) {
+            ResponseChoose.respNoParameterError(resp, "点赞");
+            return;
+        }
 
-		//点赞
-		LikeService service = ServiceFactory.getLikeService();
-		ResultType resultType = null;
-		try {
-			resultType = service.likeOrUnlike(record);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//返回结果
-		ResponseChoose.respOnlyStateToBrowser(resp, resultType, "点赞操作");
+        Long userId = WebUtil.getUserId(req);
+        if (userId == null) {
+            logger.error("点赞时用户未登录");
+            ResponseChoose.respUserUnloggedError(resp);
+            return;
+        }
+        record.setUserid(userId);
+        logger.debug(record.toString());
 
-	}
+        //点赞
+        ResultType resultType = likeService.likeOrUnlike(record);
+        //返回结果
+        ResponseChoose.respOnlyStateToBrowser(resp, resultType, "点赞操作");
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.trace("doGet");
-	}
+    @Autowired
+    public void setLikeService(LikeService likeService) {
+        this.likeService = likeService;
+    }
 }

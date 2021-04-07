@@ -3,10 +3,14 @@ package controller;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.enums.ResultType;
-import common.factory.ServiceFactory;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
-import common.util.ControllerUtil;
+import common.util.WebUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
 import pojo.po.User;
 import service.UserService;
@@ -22,14 +26,16 @@ import java.io.IOException;
  * @description 用户信息相关
  * @date 2020/10/30
  */
-@WebServlet("/UserInfoServlet")
-public class UserInfoController extends BaseServlet {
+@Controller
+public class UserInfoController {
+	private final Logger logger = Logger.getLogger(UserInfoController.class);
+	private UserService userService;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value = "/UserInfoServlet", method = RequestMethod.GET)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("用户获取其他用户的信息");
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
-		boolean paramMissing = ControllerUtil.isParamMissing(resp, params, "获取其他用户的信息", "userid");
+		boolean paramMissing = WebUtil.isParamMissing(resp, params, "获取其他用户的信息", "userid");
 		String userIdStr = params.get("userid").toString();
 		if (paramMissing) {
 			return;
@@ -41,7 +47,6 @@ public class UserInfoController extends BaseServlet {
 		JSONObject resJson = new JSONObject();
 		ResultState state;
 
-		UserService userService = ServiceFactory.getUserService();
 		try {
 			// 获取请求的用户信息
 			Long userid = Long.valueOf(userIdStr);
@@ -62,11 +67,11 @@ public class UserInfoController extends BaseServlet {
 		ResponseChoose.respToBrowser(resp, resJson);
 	}
 
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value = "/UserInfoServlet", method = RequestMethod.PUT)
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("修改用户信息");
 		User user = GetParamChoose.getObjByJson(req, User.class);
-		Long userId = ControllerUtil.getUserId(req);
+		Long userId = WebUtil.getUserId(req);
 		if (user == null) {
 			ResponseChoose.respNoParameterError(resp, "获取不到User对象");
 			return;
@@ -75,7 +80,6 @@ public class UserInfoController extends BaseServlet {
 			return;
 		}
 
-		UserService userService = ServiceFactory.getUserService();
 		try {
 			userService.updateUserInfo(user);
 			ResponseChoose.respToBrowser(resp, new ResultState(ResultType.SUCCESS, "修改用户信息成功"));

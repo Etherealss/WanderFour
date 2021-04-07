@@ -44,7 +44,6 @@
     <update id="updateWritingInfo" parameterType="Posts">
         UPDATE `posts`
         SET `category`=#{category},
-            `author_id`=#{authorId},
             `title`=#{title},
             `content`=#{content},
             `label1`=#{label1},
@@ -52,7 +51,7 @@
             `label3`=#{label3},
             `label4`=#{label4},
             `label5`=#{label5}
-        WHERE id = #{id};
+        WHERE id = #{id} AND `author_id`=#{authorId};
     </update>
 
     <!--更新作品内容-->
@@ -85,11 +84,12 @@
     <select id="getWritingContent">
     </select>
 
-    <select id="deleteWritingById">
+    <delete id="deleteWritingById">
         DELETE
         FROM `posts`
-        WHERE id = #{id};
-    </select>
+        WHERE id = #{writingId}
+          AND author_id = #{deleterId};
+    </delete>
 
     <select id="countWriting" resultType="long">
         SELECT COUNT(*)
@@ -150,7 +150,7 @@
     </select>
 
     <!--根据编号获取作者-->
-    <select id="getAuthorByWritingId" resultType="long">
+    <select id="getAuthorByWritingId" resultType="Long">
         SELECT `author_id`
         FROM `posts`
         WHERE `id` = #{id};

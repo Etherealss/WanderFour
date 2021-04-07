@@ -6,4 +6,6 @@ package pojo.po;
  * @date 2020/10/9
  */
 public class Article extends Writing {
+
+
 }

@@ -5,7 +5,6 @@ import common.strategy.AbstractReplysStrategy;
 import pojo.vo.CommentVo;
 import pojo.dto.CommentDto;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
 public class GetReplysByTime extends AbstractReplysStrategy {
 
 	@Override
-	public List<CommentDto> getReplys(CommentVo vo) throws SQLException {
+	public List<CommentDto> getReplys(CommentVo vo) {
 		/*
 		策略：在显示评论的所有回复时获取回复
 	    获取10条最新回复

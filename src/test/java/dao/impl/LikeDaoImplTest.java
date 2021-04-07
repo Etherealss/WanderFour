@@ -1,32 +1,25 @@
 package dao.impl;
 
 import common.enums.TargetType;
-import common.util.JdbcUtil;
 import dao.LikeDao;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.po.LikeRecord;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class LikeDaoImplTest {
 
-	private LikeDao dao = new LikeDaoImpl(TargetType.ARTICLE);
+	@Autowired
+	private LikeDao dao;
 	private final Logger logger = Logger.getLogger(LikeDaoImplTest.class);
-	private Connection conn;
+	private final String likeArticleTableName = "`article_like_record`";
 
-	@Before
-	public void init() throws Exception{
-		conn = JdbcUtil.beginTransactionForTest();
-	}
-
-	@After
-	public void closeConn() throws Exception {
-		JdbcUtil.closeTransaction();
-	}
 
 	@Test
 	public void insertLikeRecord() throws SQLException {
@@ -35,8 +28,7 @@ public class LikeDaoImplTest {
 		record.setTargetId(2L);
 		record.setTargetType(1);
 		record.setUserid(2L);
-		boolean b = dao.createLikeRecord(conn, record);
-		logger.debug(b);
+		dao.createLikeRecord(likeArticleTableName, record);
 	}
 
 //	@Test
@@ -57,13 +49,12 @@ public class LikeDaoImplTest {
 		record.setTargetId(2L);
 		record.setTargetType(1);
 		record.setUserid(2L);
-		boolean b = dao.deleteLikeRecord(conn, record);
-		logger.debug(b);
+		dao.deleteLikeRecord(likeArticleTableName, record);
 	}
 
 	@Test
 	public void countLikeRecord() throws SQLException {
-		Long l = dao.countLikeRecord(conn, 2L);
+		int l = dao.countLikeRecord(likeArticleTableName, 2L);
 		logger.debug(l);
 	}
 }
