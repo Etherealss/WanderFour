@@ -325,7 +325,11 @@ public class EsServiceImpl implements EsService {
 			// 获取结果日志
 			String bulkRespLog = EsUtil.getBulkRespLog(bulkResponse);
 			if (!ResultType.SUCCESS.val().equals(bulkRespLog)) {
-				logger.error("=ElasticSearch bulk error=" + bulkRespLog);
+				logger.error("===================== ElasticSearch bulk error =====================\n"
+						+ "index = " + indexName + ", action = " + action + "\n"
+						+ bulkRespLog
+						+ "Bo List :\n" + docs
+				);
 			}
 
 			return bulkRespLog;

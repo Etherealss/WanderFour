@@ -80,5 +80,8 @@ public class WritingSearchController {
 		return json;
 	}
 
-
+	@Autowired
+	public void setEsService(EsService esService) {
+		this.esService = esService;
+	}
 }

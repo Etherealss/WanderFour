@@ -184,9 +184,9 @@
 
     <!--通过ids获取作品列表-->
     <select id="getWritingsByIds" resultType="pojo.bo.EsBo">
-        SELECT `article`.`id`,
-        `category`.`id` ,
-        `category`.`name`,
+        SELECT `article`.`id` writingId,
+        `category`.`id` categoryId,
+        `category`.`name` categoryName,
         `author_id`,
         `title`,
         `label1`,
@@ -197,7 +197,7 @@
         `create_time`,
         `update_time`,
         `liked`,
-        `collected`
+        `collected` collected
         FROM `article`
         LEFT JOIN `category`
         ON `article`.`category` = `category`.`id`

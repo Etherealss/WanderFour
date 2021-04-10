@@ -9,6 +9,7 @@ import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
@@ -28,6 +29,7 @@ import java.util.List;
  * @description 搜索提示
  * @date 2020/11/17
  */
+@Controller
 public class WritingSearchTipController {
 
 	private Logger logger = Logger.getLogger(WritingSearchTipController.class);
@@ -72,5 +74,10 @@ public class WritingSearchTipController {
 		json.put("state", state);
 		return json;
 
+	}
+
+	@Autowired
+	public void setEsService(EsService esService) {
+		this.esService = esService;
 	}
 }
