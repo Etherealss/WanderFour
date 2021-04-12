@@ -26,7 +26,7 @@ public class LikeRunnable implements Runnable {
 		logger.trace("[" + Thread.currentThread().getName() + "]线程运行(run)，redis持久化！");
 		try {
 			//TODO 了解 消息队列
-			//TODO 点赞是持久化待优化：获取记录时统计点赞数，并将关系储存在数据库，之后根据统计数更新字段
+			//TODO 点赞时持久化待优化：获取记录时统计点赞数，并将关系储存在数据库，之后根据统计数更新字段
 			likeService.persistLikeCount();
 			likeService.persistLikeRecord();
 		} catch (Exception e) {

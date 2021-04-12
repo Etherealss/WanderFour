@@ -125,6 +125,7 @@ public class WritingController {
         JSONObject params = GetParamChoose.getJsonByJson(req);
         if (params == null) {
             ResponseChoose.respException(resp, "发表作品");
+            return;
         }
         String type = params.getString("type");
 
