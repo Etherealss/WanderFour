@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import controller.BaseServlet;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pojo.dto.ResultState;
 import pojo.po.User;
 import service.FriendRelationService;
@@ -22,13 +25,19 @@ import java.util.List;
  * @description 好友
  * @date 2020/11/20
  */
-@WebServlet("/socket/friend")
-public class FriendController extends BaseServlet {
+@Controller
+public class FriendController {
 
-	@Autowired
+	private Logger logger = Logger.getLogger(FriendController.class);
+
+
 	private FriendRelationService relationService;
+	@Autowired
+	public void setRelationService(FriendRelationService relationService) {
+		this.relationService = relationService;
+	}
 
-	@Override
+	@RequestMapping(value = "/socket/friend",method = RequestMethod.GET)
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("获取用户好友列表");
 		Long userId = WebUtil.getUserId(req);

@@ -22,6 +22,7 @@ import pojo.po.Posts;
 import pojo.po.User;
 import service.WritingService;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,13 @@ public class PostsServiceImpl implements WritingService<Posts> {
         Posts posts = postsDao.getWritingById(writingId);
 
         User userInfo = userDao.getImgAndNicknameById(posts.getAuthorId());
-        byte[] imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
+        byte[] imgStream = new byte[0];
+        try {
+            imgStream = FileUtil.getFileStream(userInfo.getAvatarPath());
+        } catch (IOException e) {
+            logger.error("获取问贴时用户头像转码异常",e);
+            return null;
+        }
         String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 
         WritingBean<Posts> bean = new WritingBean<>();
@@ -123,7 +130,13 @@ public class PostsServiceImpl implements WritingService<Posts> {
         User reviewerInfo = userDao.getImgAndNicknameById(posts.getAuthorId());
         WritingBean<Posts> bean = new WritingBean<>();
         //用户头像 使用base64转码
-        byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+        byte[] imgStream = new byte[0];
+        try {
+            imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+        } catch (IOException e) {
+            logger.error("获取问贴列表时用户头像转码异常",e);
+            return null;
+        }
         String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 
         bean.setWriting(posts);

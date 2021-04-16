@@ -7,6 +7,7 @@ import pojo.bean.CommentBean;
 import pojo.po.Comment;
 import pojo.po.User;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -46,10 +47,16 @@ public class CommentUtil {
 		cb.setUserNickname(reviewerInfo.getNickname());
 		//用户头像
 		//使用base64转码
-		byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
-		String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-		//TODO 评论图片转码
-		cb.setUserImg(imgByBase64);
+		byte[] imgStream;
+		try {
+			imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+			//TODO 评论图片转码
+			cb.setUserImg(imgByBase64);
+			return null;
+		} catch (IOException e) {
+			logger.error("评论图片转码异常", e);
+		}
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;

@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+        id="WebApp_ID" version="2.5">
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
     <!--全局初始化参数-->
+    <!-- 为Spring自带的加载上下文的监听器配置初始化参数 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/spring-config.xml</param-value>
     </context-param>
+    <!-- Log4j参数 -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>webAppName.root</param-value>
+    </context-param>
 
     <!--监听器-->
     <listener>
-        <!--Spring自带的加载上下文的监听器-->
+        <!--Spring自带的加载上下文的监听器，
+			自动将ApplicationContext封装到ServletContext中-->
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 

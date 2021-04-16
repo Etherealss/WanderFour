@@ -20,6 +20,7 @@ import pojo.po.LikeRecord;
 import pojo.po.User;
 import service.WritingService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
     @Override
     public Long publishNewWriting(Article article) {
         logger.trace("发表新文章");
-        logger.debug(article);
+        logger.debug("发表新文章：" + article);
 
         //添加文章信息
         articleDao.createWritingInfo(article);
@@ -108,7 +109,12 @@ public class ArticleServiceImpl implements WritingService<Article> {
         User reviewerInfo = userDao.getImgAndNicknameById(article.getAuthorId());
         WritingBean<Article> bean = new WritingBean<>();
         //用户头像 使用base64转码
-        byte[] imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+        byte[] imgStream = new byte[0];
+        try {
+            imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+        } catch (IOException e) {
+            logger.error("获取文章作者信息异常", e);
+        }
         String imgByBase64 = FileUtil.getImgByBase64(imgStream);
 
         //打包

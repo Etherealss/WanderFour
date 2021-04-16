@@ -64,35 +64,30 @@ public class WritingController {
 
         //确认作品类型，如果是文章，url为?article=xxx，可以获取article参数
         boolean isArticle = (params.get(TYPE_ARTICLE) != null);
+
         //根据类型获取实体和Service
-        if (isArticle) {
-            WritingBean<Article> article = null;
-            try {
-                article = articleService.getWritingBean(
+        WritingBean<? extends Writing> resWritingBean = null;
+        try {
+            if (isArticle) {
+                resWritingBean = articleService.getWritingBean(
                         Long.valueOf(String.valueOf(params.get(TYPE_ARTICLE))), WebUtil.getUserId(req));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            //判空并返回客户端
-            checkResultAndResp(resp, article);
+            } else if (params.get(TYPE_POSTS) != null) {
+                //获取问贴
 
-        } else if (params.get(TYPE_POSTS) != null) {
-            //获取问贴
-            WritingBean<Posts> posts = null;
-            try {
-                posts = postsService.getWritingBean(
+                resWritingBean = postsService.getWritingBean(
                         Long.valueOf(String.valueOf(params.get(TYPE_POSTS))), WebUtil.getUserId(req));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            //判空并返回客户端
-            checkResultAndResp(resp, posts);
-        } else {
-            logger.error("获取作品空参");
-            ResponseChoose.respNoParameterError(resp, "获取作品");
+            } else {
+                logger.error("获取作品空参");
+                ResponseChoose.respNoParameterError(resp, "获取作品");
+                return;
+            }
+        } catch (Exception e) {
+            logger.error("获取作品异常，json参数：" + params.toJSONString(), e);
         }
+        //判空并返回客户端
+        checkResultAndResp(resp, resWritingBean);
     }
 
     /**
@@ -165,11 +160,7 @@ public class WritingController {
             //html防注入
 //			SecurityUtil.ensureJsSafe(article);
             SecurityUtil.htmlEncode(article);
-            try {
-                articleId = articleService.publishNewWriting(article);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            articleId = articleService.publishNewWriting(article);
 
             //判空并返回客户端
             checkResultAndResp(resp, articleId);
@@ -187,11 +178,7 @@ public class WritingController {
             //html防注入
 //			SecurityUtil.ensureJsSafe(posts);
             SecurityUtil.htmlEncode(posts);
-            try {
-                postsId = postsService.publishNewWriting(posts);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            postsId = postsService.publishNewWriting(posts);
 
             //判空并返回客户端
             checkResultAndResp(resp, postsId);

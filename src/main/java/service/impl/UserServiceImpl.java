@@ -1,6 +1,6 @@
 package service.impl;
 
-import common.enums.AttrEnum;
+import common.enums.ApplicationConfig;
 import common.util.FileUtil;
 import common.util.Md5Utils;
 import org.apache.log4j.Logger;
@@ -9,6 +9,8 @@ import pojo.po.User;
 import common.enums.ResultType;
 import dao.UserDao;
 import service.UserService;
+
+import java.io.IOException;
 
 /**
  * @author 寒洲
@@ -66,9 +68,9 @@ public class UserServiceImpl implements UserService {
         String avatarPath;
         //根据性别加载默认头像
         if (user.getSex()) {
-            avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_BOY;
+            avatarPath = ApplicationConfig.AVATAR_DEFAULT_PATH_BOY;
         } else {
-            avatarPath = AttrEnum.AVATAR_DEFAULT_PATH_GIRL;
+            avatarPath = ApplicationConfig.AVATAR_DEFAULT_PATH_GIRL;
         }
         user.setAvatarPath(avatarPath);
 
@@ -81,17 +83,22 @@ public class UserServiceImpl implements UserService {
             // MyBatis插入新id
             lastInsertId = user.getId();
             // 新的头像路径，拼接储存的文件路径和文件名
-            avatarSavePath = AttrEnum.AVATAR_PATH + lastInsertId + ".png";
+            avatarSavePath = ApplicationConfig.AVATAR_PATH + lastInsertId + ".png";
             dao.updateUserAvatarPath(lastInsertId, avatarSavePath);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("注册用户异常",e);
             return null;
         }
 
         // 复制头像图片，以userId命名
-        String base64Str = FileUtil.getBase64ByImgPath(avatarPath);
-        FileUtil.generateImageByBase64(base64Str, avatarSavePath);
-
+        String base64Str = null;
+        try {
+            base64Str = FileUtil.getBase64ByImgPath(avatarPath);
+            FileUtil.generateImageByBase64(base64Str, avatarSavePath);
+        } catch (IOException e) {
+            logger.error("注册用户复制头像图片出现异常",e);
+            return null;
+        }
         return lastInsertId;
     }
 
@@ -126,9 +133,14 @@ public class UserServiceImpl implements UserService {
     private void setUserAvatarStream(User user) {
         if (user != null) {
             //图片数据转码
-            byte[] imgStream = FileUtil.getFileStream(user.getAvatarPath());
-            String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-            user.setAvatarPath(imgByBase64);
+            try {
+                byte[] imgStream = FileUtil.getFileStream(user.getAvatarPath());
+                String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+                user.setAvatarPath(imgByBase64);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

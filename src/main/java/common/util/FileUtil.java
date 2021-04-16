@@ -20,7 +20,7 @@ public class FileUtil {
 	 * @param filePath
 	 * @return
 	 */
-	public static byte[] getFileStream(String filePath) {
+	public static byte[] getFileStream(String filePath) throws IOException {
 		//字节输入流
 		InputStream inputStream = null;
 		//字节缓冲流数组
@@ -34,8 +34,6 @@ public class FileUtil {
 				outputStream.write(b, 0, len);
 			}
 			return outputStream.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			try {
 				if (inputStream != null) {
@@ -45,7 +43,6 @@ public class FileUtil {
 				e.printStackTrace();
 			}
 		}
-		return null;
 	}
 
 	/**
@@ -64,7 +61,7 @@ public class FileUtil {
 	 * @param filePath
 	 * @return
 	 */
-	public static String getBase64ByImgPath(String filePath){
+	public static String getBase64ByImgPath(String filePath) throws IOException {
 		return getImgByBase64(getFileStream(filePath));
 	}
 
@@ -73,7 +70,7 @@ public class FileUtil {
 	 * @param base64str base64码
 	 * @param savePath 图片路径
 	 */
-	public static void generateImageByBase64(String base64str, String savePath) {
+	public static void generateImageByBase64(String base64str, String savePath) throws IOException {
 		//对字节数组字符串进行Base64解码并生成图片
 		if ("".equals(savePath) || "".equals(base64str) || base64str == null || savePath == null) {
 			return;
@@ -93,8 +90,6 @@ public class FileUtil {
 			out = new FileOutputStream(savePath);
 			out.write(b);
 			out.flush();
-		} catch (Exception e) {
-			logger.error("base64转图片保存本地 失败：" + e.getMessage());
 		} finally {
 			try {
 				if (out != null) {

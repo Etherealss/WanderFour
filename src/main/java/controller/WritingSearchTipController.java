@@ -1,6 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
+import common.enums.ApplicationConfig;
 import common.enums.AttrEnum;
 import common.enums.EsEnum;
 import common.enums.ResultType;
@@ -55,7 +56,8 @@ public class WritingSearchTipController {
 		ResultState state;
 		try {
 
-			String searchWord = URLDecoder.decode(params.getString("wd"), AttrEnum.CODING_FORMAT);
+			String searchWord = URLDecoder.decode(params.getString("wd"),
+					ApplicationConfig.CODING_FORMAT);
 
 			logger.debug("搜索词：" + searchWord);
 			List<String> strings = esService.querySuggestion(searchWord, EsEnum.INDEX_NAME_WRITING, EsEnum.ES_SEARCH_SIZE);

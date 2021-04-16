@@ -65,7 +65,7 @@ public class InitWritingController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("初始化作品页面异常", e);
         }
         ResponseChoose.respToBrowser(resp, resultJson);
     }

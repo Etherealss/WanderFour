@@ -1,5 +1,14 @@
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.ibatis.reflection.ExceptionUtil;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * @author 寒洲
@@ -7,6 +16,7 @@ import org.junit.Test;
  * @date 2020/9/25
  */
 public class Log4jTest {
+	Logger logger = Logger.getLogger(Log4jTest.class);
 
 	@Test
 	public void log4jTest(){
@@ -14,7 +24,6 @@ public class Log4jTest {
 //		LogLog.setInternalDebugging(true);
 		//初始化配置信息，不使用配置文件
 //		BasicConfigurator.configure();
-		Logger logger = Logger.getLogger(Log4jTest.class);
 		logger.fatal("fatal");
 		logger.error("error");
 		logger.warn("warn");
@@ -30,5 +39,23 @@ public class Log4jTest {
 //			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
+	}
+
+	@Test
+	public void testError() throws Exception {
+		try {
+			f();
+		} catch (Exception e) {
+			logger.fatal("错误", e);
+		}
+	}
+
+	private void f() {
+		String s = h();
+		int len = s.length();
+	}
+
+	private String h() {
+		return null;
 	}
 }

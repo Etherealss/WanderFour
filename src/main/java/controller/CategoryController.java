@@ -53,7 +53,7 @@ public class CategoryController {
 			result.put("state", state);
 			result.put("category", categoryJson);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("获取分类异常", e);
 			//异常
 			result.put("state",  new ResultState(ResultType.EXCEPTION, "获取分类结果"));
 		}

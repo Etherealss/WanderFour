@@ -19,7 +19,6 @@ import service.UserService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,26 +37,26 @@ public class UserEnterController {
     private final static String ACTION_REGISTER = "register";
 
     private UserService userService;
+
     @RequestMapping(value = "/UserEnterServlet", method = RequestMethod.POST)
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         JSONObject params = GetParamChoose.getJsonByJson(req);
         String action = params.getString("action");
-        if (ACTION_LOGIN.equals(action)) {
-            login(req, resp, params);
-        } else if (ACTION_REGISTER.equals(action)) {
-            register(resp, params);
-        } else {
-            logger.error("错误的方法: action = " + action);
-            ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查action参数：action=login(/register)");
-            throw new ServletException("错误的方法action");
+        try {
+            if (ACTION_LOGIN.equals(action)) {
+                login(req, resp, params);
+            } else if (ACTION_REGISTER.equals(action)) {
+                register(resp, params);
+            } else {
+                ResponseChoose.respOnlyStateToBrowser(resp, ResultType.EXCEPTION, "错误的方法，检查action参数：action=login(/register)");
+                throw new ServletException("错误的方法：action = " + action);
+            }
+        } catch (Exception e) {
+            logger.error("登录注册异常", e);
         }
     }
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.trace("DoGet!");
-    }
-
-    public void login(HttpServletRequest req, HttpServletResponse resp, JSONObject params) throws ServletException, IOException {
+    public void login(HttpServletRequest req, HttpServletResponse resp, JSONObject params) throws ServletException {
         logger.trace("用户登录...");
 
         //空参检查
@@ -79,61 +78,57 @@ public class UserEnterController {
         //默认为异常
         ResultState info = new ResultState(ResultType.EXCEPTION, "登录异常");
         //执行操作，获取结果
-        try {
-            state = userService.checkUserExist(email);
-            //用户存在
-            if (state == ResultType.IS_REGISTED) {
+        state = userService.checkUserExist(email);
+        //用户存在
+        if (state == ResultType.IS_REGISTED) {
 
-                User user = userService.validateUserLogin(email, password);
-                if (user != null) {
-                    //密码正确，检查异地登录
-                    logger.trace("密码正确，检查异地登录");
-                    HttpSession session = req.getSession();
-                    String sessionId = session.getId();
+            User user = userService.validateUserLogin(email, password);
+            if (user != null) {
+                //密码正确，检查异地登录
+                logger.trace("密码正确，检查异地登录");
+                HttpSession session = req.getSession();
+                String sessionId = session.getId();
 
-                    String useridStr = String.valueOf(user.getId());
-                    //通过ServletContext检查异地登录
-                    ServletContext servletContext = session.getServletContext();
-                    if (servletContext.getAttribute(useridStr) != null &&
-                            !StringUtils.equals(sessionId, servletContext.getAttribute(useridStr).toString())) {
-                        //如果servletContext中存在email，说明已登录，比较两个sessionId
-                        //如果两个sessionId相同，说明是同个地点登录
-                        //输出“您已登录”
-                        logger.trace("已经登录了");
-                        state = ResultType.LOGGED;
-                        info = new ResultState(state, "已登录");
-                    } else {
-                        //当前用户未登录
-                        state = ResultType.SUCCESS;
-                        //返回前端
-                        jsonObject.put("user", user);
-
-                        if (servletContext.getAttribute(useridStr) == null) {
-                            //未登录，用email做标识，存入请求的sessionId
-                            logger.trace("未登录，好了，现在登录了");
-                            info = new ResultState(state, "未登录，好了，现在登录了");
-                        } else {
-                            //如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
-                            logger.trace("异地登录！");
-                            servletContext.removeAttribute(useridStr);
-                            info = new ResultState(state, "已异地登录！踢下异地用户");
-                        }
-                        //用servletContext判断登录状态，用session储存用户的信息
-                        servletContext.setAttribute(useridStr, sessionId);
-                        session.setAttribute(AttrEnum.LOGIN_SESSION_NAME, user.getId());
-
-                        logger.info("用户：" + user.getId() + "登录");
-                    }
+                String useridStr = String.valueOf(user.getId());
+                //通过ServletContext检查异地登录
+                ServletContext servletContext = session.getServletContext();
+                if (servletContext.getAttribute(useridStr) != null &&
+                        !StringUtils.equals(sessionId, servletContext.getAttribute(useridStr).toString())) {
+                    //如果servletContext中存在email，说明已登录，比较两个sessionId
+                    //如果两个sessionId相同，说明是同个地点登录
+                    //输出“您已登录”
+                    logger.trace("已经登录了");
+                    state = ResultType.LOGGED;
+                    info = new ResultState(state, "已登录");
                 } else {
-                    //密码错误
-                    state = ResultType.PW_ERROR;
-                    info = new ResultState(state, "密码错误");
+                    //当前用户未登录
+                    state = ResultType.SUCCESS;
+                    //返回前端
+                    jsonObject.put("user", user);
+
+                    if (servletContext.getAttribute(useridStr) == null) {
+                        //未登录，用email做标识，存入请求的sessionId
+                        logger.trace("未登录，好了，现在登录了");
+                        info = new ResultState(state, "未登录，好了，现在登录了");
+                    } else {
+                        //如果两个sessionId 不相同，说明是已在别处登录，踢下异地用户
+                        logger.trace("异地登录！");
+                        servletContext.removeAttribute(useridStr);
+                        info = new ResultState(state, "已异地登录！踢下异地用户");
+                    }
+                    //用servletContext判断登录状态，用session储存用户的信息
+                    servletContext.setAttribute(useridStr, sessionId);
+                    session.setAttribute(AttrEnum.LOGIN_SESSION_NAME, user.getId());
+
+                    logger.info("用户：" + user.getId() + "登录");
                 }
-            } else if (state == ResultType.USER_UN_FOUND) {
-                info = new ResultState(state, "用户不存在");
+            } else {
+                //密码错误
+                state = ResultType.PW_ERROR;
+                info = new ResultState(state, "密码错误");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else if (state == ResultType.USER_UN_FOUND) {
+            info = new ResultState(state, "用户不存在");
         }
 
         jsonObject.put("state", info);

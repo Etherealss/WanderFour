@@ -13,11 +13,8 @@ import pojo.dto.ResultState;
 import pojo.po.User;
 import service.UserService;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author 寒洲

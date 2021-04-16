@@ -38,7 +38,8 @@ public class WebUtil {
 	 * @return 参数缺失返回true，没有参数缺失，返回false
 	 * @throws ServletException
 	 */
-	public static boolean isParamMissing(HttpServletResponse resp, JSONObject params, String msg, String... paramNames) throws ServletException {
+	public static boolean isParamMissing(HttpServletResponse resp, JSONObject params,
+	                                     String msg, String... paramNames) throws ServletException {
 		if (params == null) {
 			ResponseChoose.respNoParameterError(resp, msg + " JSONObject为null，获取不到Json参数");
 			// 确认参数缺失（is missing）返回true

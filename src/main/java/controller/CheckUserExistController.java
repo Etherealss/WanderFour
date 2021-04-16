@@ -1,7 +1,7 @@
 package controller;
 
 import com.alibaba.fastjson.JSONObject;
-import common.enums.AttrEnum;
+import common.enums.ApplicationConfig;
 import common.strategy.choose.GetParamChoose;
 import common.util.WebUtil;
 import org.apache.log4j.Logger;
@@ -15,7 +15,6 @@ import common.strategy.choose.ResponseChoose;
 import service.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -48,14 +47,15 @@ public class CheckUserExistController {
 		String email = params.getString("email");
 
 		// encodeURLComponent转码
-		email = URLDecoder.decode(email, AttrEnum.CODING_FORMAT);
+		email = URLDecoder.decode(email, ApplicationConfig.CODING_FORMAT);
 
 		//获取service，检查email是否存在
 		ResultType state = null;
 		try {
 			state = userService.checkUserExist(email);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("检查账号是否已注册异常", e);
+
 		}
 		logger.debug("email = " + email + ", state = " + state);
 		//因为接口规范所以需要再次包装json对象，而不是直接发送state.getJson()

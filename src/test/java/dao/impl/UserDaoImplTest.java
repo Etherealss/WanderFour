@@ -1,5 +1,6 @@
 package dao.impl;
 
+import common.enums.ApplicationConfig;
 import common.enums.AttrEnum;
 import common.enums.UserType;
 import dao.UserDao;
@@ -26,8 +27,8 @@ public class UserDaoImplTest {
 	public void testSelectUserByPw() throws Exception {
 		String email = "123456@qq.com";
 		String pw = "2i8jdhgfnouflho1iqsl47tc4l";
-		User b = dao.selectUserBySign(email, pw);
-		logger.debug("selectUserByPw()测试结果：" + b);
+		User user = dao.selectUserBySign(email, pw);
+		logger.debug("selectUserByPw()测试结果：" + user);
 	}
 
 	@Test
@@ -61,7 +62,7 @@ public class UserDaoImplTest {
 	@Test
 	public void testUpdateUserAvatarPath() throws Exception {
 		Long userId = 4L;
-		String filePath = AttrEnum.AVATAR_PATH + userId + ".png";
+		String filePath = ApplicationConfig.AVATAR_PATH + userId + ".png";
 		logger.debug(filePath);
 		dao.updateUserAvatarPath(userId, filePath);
 	}
@@ -79,5 +80,11 @@ public class UserDaoImplTest {
 		for (User user : usersInfo) {
 			logger.debug(user);
 		}
+	}
+
+	@Test
+	public void testAvatar() throws Exception {
+		String a = ApplicationConfig.AVATAR_DEFAULT_PATH_GIRL;
+		System.out.println(a);
 	}
 }

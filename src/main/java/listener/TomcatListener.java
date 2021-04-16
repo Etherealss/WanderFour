@@ -64,7 +64,7 @@ public class TomcatListener implements ServletContextListener {
             assert applicationContext != null;
             EsProcessManager.esDataInit(applicationContext);
         } else {
-            logger.warn("ES数据未初始化");
+            logger.warn("ES启动失败");
         }
     }
 }
