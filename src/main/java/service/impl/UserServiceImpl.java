@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
             // MyBatis插入新id
             lastInsertId = user.getId();
             // 新的头像路径，拼接储存的文件路径和文件名
-            avatarSavePath = ApplicationConfig.AVATAR_PATH + lastInsertId + ".png";
+            avatarSavePath = ApplicationConfig.AVATAR_DIR + lastInsertId + ".png";
             dao.updateUserAvatarPath(lastInsertId, avatarSavePath);
         } catch (Exception e) {
             logger.error("注册用户异常",e);

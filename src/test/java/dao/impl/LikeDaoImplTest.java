@@ -54,7 +54,7 @@ public class LikeDaoImplTest {
 
 	@Test
 	public void countLikeRecord() throws SQLException {
-		int l = dao.countLikeRecord(likeArticleTableName, 2L);
+		long l = dao.countLikeRecord(likeArticleTableName, 2L);
 		logger.debug(l);
 	}
 }

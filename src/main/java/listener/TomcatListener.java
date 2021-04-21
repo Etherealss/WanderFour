@@ -1,10 +1,11 @@
 package listener;
 
+import common.enums.ApplicationConfig;
 import common.others.EsProcessManager;
-import common.strategy.choose.LikePersistChoose;
-import common.util.WebUtil;
+import common.schedule.LikePersistenceManager;
 import common.util.EsUtil;
 import common.util.JedisUtil;
+import common.util.OsUtil;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -32,10 +33,11 @@ public class TomcatListener implements ServletContextListener {
         JedisUtil.closeJedisPool();
         //结束定时任务
         logger.info("结束定时任务.....");
-        LikePersistChoose.shutDownPersistenceDelayMinutes();
+        LikePersistenceManager.shutDownPersistenceDelayMinutes();
 
         // 关闭ElasticSearch
-        if (EsUtil.isEsHostConnected()) {
+        // 是windows环境代表是本地环境，可以关闭服务
+        if (OsUtil.isWindows() && ApplicationConfig.ES_SHUTDOWN && EsUtil.isEsHostConnected()) {
             // 已连接，关闭服务
             logger.info("关闭ES服务");
             EsProcessManager.destroyEsProcess();
@@ -46,7 +48,7 @@ public class TomcatListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0) {
         logger.info("tomcat初始化......");
         //启动定时任务，周期性持久化redis数据
-        LikePersistChoose.persistDelayMinutes();
+        LikePersistenceManager.persistDelayMinutes();
         launchEsService(arg0.getServletContext());
 
     }
@@ -63,8 +65,6 @@ public class TomcatListener implements ServletContextListener {
                     WebApplicationContextUtils.getWebApplicationContext(servletContext);
             assert applicationContext != null;
             EsProcessManager.esDataInit(applicationContext);
-        } else {
-            logger.warn("ES启动失败");
         }
     }
 }

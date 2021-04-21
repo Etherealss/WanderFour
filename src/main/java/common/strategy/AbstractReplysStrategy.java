@@ -45,7 +45,7 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 		//获取回复的数据列表
 		List<CommentBean> replysCommentBean = getReplysCommentBean(vo);
 
-		//封装后添加到List<ReplyDto>中返回
+		//封装后添加到List<ReplyDto>中返回，ReplyDto用CommentDto充当
 		List<CommentDto> resultDtoList = new ArrayList<>();
 		for (CommentBean replyBean : replysCommentBean) {
 
@@ -54,7 +54,9 @@ public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStra
 
 			//只包装该回复记录，不添加其他replys
 
-			//判断当前回复是否需要引用
+			/* *******************************
+			 判断当前回复是否需要引用
+			 ******************************* */
 			CommentBean beRepliedBean = null;
 			// 该记录(Comment)所回复的那个目标的id
 			Long beRepliedId = reply.getTargetId();

@@ -53,7 +53,7 @@ public interface LikeDao {
 	 * @param targetId
 	 * @return
 	 */
-	int countLikeRecord(@Param("likeTableName") String likeTableName,
+	long countLikeRecord(@Param("likeTableName") String likeTableName,
 	                    @Param("targetId") Long targetId);
 
 	/**
@@ -63,6 +63,6 @@ public interface LikeDao {
 	 * @param targetId
 	 * @return
 	 */
-	int checkUserLikeRecord(@Param("likeTableName") String likeTableName,
+	long checkUserLikeRecord(@Param("likeTableName") String likeTableName,
 	                        @Param("userid") Long userid, Long targetId);
 }

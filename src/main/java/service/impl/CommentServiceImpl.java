@@ -98,7 +98,7 @@ public class CommentServiceImpl implements CommentService {
                 return getReplyList(vo, currentPage);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("获取回复异常", e);
         }
         return null;
     }
@@ -158,14 +158,13 @@ public class CommentServiceImpl implements CommentService {
      * @throws Exception
      */
     private PageBo<CommentDto> getReplyList(CommentVo vo, int currentPage) throws Exception {
-        PageBo<CommentDto> pb;
         //TODO 此处按道理应该在策略中确定
         int replyRows = DaoEnum.REPLY_ROWS_TEN;
         vo.setReplyRows(replyRows);
         Long parentId = vo.getParentId();
         Long targetId = vo.getTargetId();
         //存入当前页码和每页显示的记录数
-        pb = new PageBo<>(currentPage, replyRows);
+        PageBo<CommentDto> pb = new PageBo<>(currentPage, replyRows);
 
         //获取并存入总回复记录数
         Long totalCount = commentDao.countReplyByParentId(tableName, parentId);

@@ -28,8 +28,10 @@ public class LikeServiceImpl implements LikeService {
 	private Logger logger = Logger.getLogger(LikeServiceImpl.class);
 
 	@Autowired
-	private LikeDao dao;
+	private LikeDao likeDao;
+
 	//预设两个DAO，理论上每次都会用到两个DAO
+
 	@Autowired
 	private ArticleDao aDao;
 	@Autowired
@@ -87,14 +89,14 @@ public class LikeServiceImpl implements LikeService {
 			likeTableName = TargetType.getLikeTableNameByTargetType(likeRecord.getTargetType());
 
 			//检查数据库的点赞状态，true为存在点赞记录
-			boolean b = dao.countUserLikeRecord(likeTableName, likeRecord) == 1;
+			boolean b = likeDao.countUserLikeRecord(likeTableName, likeRecord) == 1;
 			logger.debug("数据库点赞状态：" + b);
 
 			if (LikeEnum.HAVE_LIKED.equals(value)) {
 				//储存点赞记录
 				if (!b) {
 					//未点赞，添加记录
-					dao.createLikeRecord(likeTableName, likeRecord);
+					likeDao.createLikeRecord(likeTableName, likeRecord);
 					logger.trace("添加点赞记录");
 				}
 				//else 已点赞，不操作
@@ -103,7 +105,7 @@ public class LikeServiceImpl implements LikeService {
 				//删除点赞记录
 				if (b) {
 					//数据库存在用户点赞记录，删除该记录，取消点赞
-					dao.deleteLikeRecord(likeTableName, likeRecord);
+					likeDao.deleteLikeRecord(likeTableName, likeRecord);
 					logger.trace("删除点赞记录");
 				}
 			}

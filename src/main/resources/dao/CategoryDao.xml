@@ -4,7 +4,7 @@
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.CategoryDao">
 
-    <select id="getAllCategoryByPart">
+    <select id="getAllCategoryByPart" resultType="java.util.HashMap">
         SELECT `id`, `name` FROM `category` WHERE `partition`= #{partition};
     </select>
 </mapper>

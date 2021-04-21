@@ -485,8 +485,8 @@ public class EsServiceImpl implements EsService {
 			//用来处理的接受结果
 			list = new ArrayList<>();
 
-			List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> entries
-					= resp.getSuggest().getSuggestion(fieldName_title).getEntries();
+			List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>>
+					entries = resp.getSuggest().getSuggestion(fieldName_title).getEntries();
 			//处理结果
 			for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : entries) {
 				List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();

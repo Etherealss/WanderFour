@@ -81,7 +81,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
             likeRecord.setTargetType(TargetType.ARTICLE);
             likeRecord.setTargetId(writingId);
 
-
+            // 是否已点赞
             int isLike = likeDao.countUserLikeRecord(
                     TargetType.getLikeTableNameByTargetType(likeRecord.getTargetType()),
                     likeRecord);

@@ -48,7 +48,8 @@ public abstract class EsUtil {
      */
     public static boolean runEsService() {
         boolean isEsHostConnected = EsUtil.isEsHostConnected();
-        if (!isEsHostConnected) {
+        // 未启动而且是windows环境（windows环境代表本地环境而不是服务器环境，可以手动开启服务）
+        if (!isEsHostConnected && OsUtil.isWindows()) {
             logger.info("启动ES");
             // 获取elasticsearch.bat文件路径，通过Runtime.getRuntime().exec()方法启动
             try {
@@ -62,7 +63,7 @@ public abstract class EsUtil {
                     return false;
                 }
             } catch (Exception e) {
-                logger.error("==== elasticsearch.bat启动失败：" + e.getMessage() + " ====");
+                logger.error("elasticsearch.bat启动异常：", e);
             }
         } else {
             logger.info("ES已就绪");

@@ -10,8 +10,10 @@ public enum TargetType {
 	ARTICLE(1, "article"),
 	/** 帖子 */
 	POSTS(2, "posts"),
-	/** 评论 */
-	COMMMENT(3, "comment"),
+	/** 文章评论 */
+	ARTICLE_COMMMENT(3, "articleComment"),
+	/** 问贴 */
+	POSTS_COMMENT(4, "postsComment")
 	;
 
 	private final int CODE;
@@ -41,7 +43,7 @@ public enum TargetType {
 				return p.code();
 			}
 		}
-		return -1;
+		throw new IllegalArgumentException("无效的枚举类型参数");
 	}
 
 	/**
@@ -55,7 +57,7 @@ public enum TargetType {
 				return p;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException("无效的枚举类型参数");
 	}
 
 	/**
@@ -71,6 +73,14 @@ public enum TargetType {
 		}
 		return null;
 	}
+	/** 文章点赞表 */
+	private static final String TABLE_NAME_LIKE_ARTICLE = "`article_like_record`";
+	/** 问贴点赞表 */
+	private static final String TABLE_NAME_LIKE_POSTS = "`posts_like_record`";
+	/** 文章评论点赞表 */
+	private static final String TABLE_NAME_LIKE_ARTICLE_COMMENT = "`article_comment_like_record`";
+	/** 问贴评论点赞表 */
+	private static final String TABLE_NAME_LIKE_POSTS_COMMENT = "`posts_comment_like_record`";
 
 	/**
 	 * 根据LikeRecord的targetType获取对应的点赞数据库表名
@@ -79,21 +89,19 @@ public enum TargetType {
 	 */
 	public static String getLikeTableNameByTargetType(TargetType targetType) {
 		String likeTableName;
-		// 文章点赞表
-		String likeArticleTableName = "`article_like_record`";
-		// 问贴点赞表
-		String likePostsTableName = "`posts_like_record`";
-		// 评论点赞表
-		String likeCommentTableName = "`posts_like_record`";
 		switch (targetType) {
 			case ARTICLE:
-				likeTableName = likeArticleTableName;
+				likeTableName = TABLE_NAME_LIKE_ARTICLE;
 				break;
 			case POSTS:
-				likeTableName = likePostsTableName;
+				likeTableName = TABLE_NAME_LIKE_POSTS;
 				break;
+			case ARTICLE_COMMMENT:
+				likeTableName = TABLE_NAME_LIKE_ARTICLE_COMMENT;
+				break;
+			case POSTS_COMMENT:
 			default:
-				likeTableName = likeCommentTableName;
+				likeTableName = TABLE_NAME_LIKE_POSTS_COMMENT;
 				break;
 		}
 		return likeTableName;

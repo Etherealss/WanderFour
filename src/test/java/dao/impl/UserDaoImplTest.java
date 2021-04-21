@@ -1,7 +1,6 @@
 package dao.impl;
 
 import common.enums.ApplicationConfig;
-import common.enums.AttrEnum;
 import common.enums.UserType;
 import dao.UserDao;
 import org.junit.runner.RunWith;
@@ -62,7 +61,7 @@ public class UserDaoImplTest {
 	@Test
 	public void testUpdateUserAvatarPath() throws Exception {
 		Long userId = 4L;
-		String filePath = ApplicationConfig.AVATAR_PATH + userId + ".png";
+		String filePath = ApplicationConfig.AVATAR_DIR + userId + ".png";
 		logger.debug(filePath);
 		dao.updateUserAvatarPath(userId, filePath);
 	}
