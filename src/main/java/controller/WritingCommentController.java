@@ -108,12 +108,16 @@ public class WritingCommentController {
                     //具体是评论还是回复要看有无targetId，但是两种请求调用的方法相同，去下一层判断
                     PageBo<CommentDto> resultPageBo =
                             commentService.getCommentListByPage(vo, currentPage);
-                    List<CommentDto> list = resultPageBo.getList();
-                    if (list == null || list.size() == 0) {
-                        state = new ResultState(ResultType.NO_RECORD, "当前页没有评论记录");
-
+                    if (resultPageBo == null) {
+                        state = new ResultState(ResultType.EXCEPTION, "获取评论异常");
                     } else {
-                        state = new ResultState(ResultType.SUCCESS, "获取评论记录成功");
+                        List<CommentDto> list = resultPageBo.getList();
+                        if (list == null || list.size() == 0) {
+                            state = new ResultState(ResultType.NO_RECORD, "当前页没有评论记录");
+
+                        } else {
+                            state = new ResultState(ResultType.SUCCESS, "获取评论记录成功");
+                        }
                     }
                     jsonObject.put("pageData", resultPageBo);
 

@@ -83,8 +83,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public PageBo<CommentDto> getCommentListByPage
-            (CommentVo vo, int currentPage) {
+    public PageBo<CommentDto> getCommentListByPage(CommentVo vo, int currentPage) {
         vo.setCommentDao(commentDao);
         vo.setUserDao(userDao);
         vo.setCommentTableName(tableName);
@@ -116,12 +115,14 @@ public class CommentServiceImpl implements CommentService {
         int replyRows = DaoEnum.REPLY_ROWS_THREE;
         vo.setCommentRows(commentRows);
         vo.setReplyRows(replyRows);
+
         Long parentId = vo.getParentId();
         //存入当前页码和每页显示的记录数
         pb = new PageBo<>(currentPage, commentRows);
         //获取并存入总记录数
         Long totalCount = commentDao.countCommentByParentId(tableName, parentId);
         pb.setTotalCount(totalCount);
+
         //计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
         Long start = (currentPage - 1L) * commentRows;
         vo.setCommentStart(start);

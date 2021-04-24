@@ -1,5 +1,6 @@
 package pojo.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @description WebSocket 信息包
  * @date 2020/11/18
  */
-public class ChatRecord {
+public class ChatRecord implements Serializable {
 
 	Long fromId;
 

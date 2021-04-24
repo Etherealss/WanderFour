@@ -64,8 +64,7 @@ public class GetParamChoose {
 		try {
 			return strategy.getObjByParam(jsonByJson, clazz);
 		} catch (Exception ex) {
-			logger.error("获取实例 失败 " + ex.getMessage());
-			ex.printStackTrace();
+			logger.error("获取实例失败", ex);
 		}
 		return null;
 	}

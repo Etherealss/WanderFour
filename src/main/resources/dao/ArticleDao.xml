@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.ArticleDao">
+    <!--使用二级缓存-->
+    <cache/>
 
     <!--获取插入的ID-->
     <sql id="getLastId">
@@ -132,7 +134,7 @@
         LIMIT #{start},#{rows};
     </select>
 
-    <!--按时间查询每页的文章记录-->
+    <!--按时间查询每页的文章简要信息-->
     <select id="getSimpleWritingListByOrder" resultType="Article">
         SELECT `article`.`id`, `title`
         FROM `article`

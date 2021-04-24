@@ -2,6 +2,7 @@ package pojo.po;
 
 import common.enums.Partition;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @description 作品类，文章和帖子的基类
  * @date 2020/10/7
  */
-public class Writing {
+public class Writing implements Serializable {
 
     /** 数据库表id */
     protected Long id;

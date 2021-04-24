@@ -38,13 +38,15 @@ public class LikeStrategyImpl extends LikeStrategy {
 
 		//缓存点赞关系
 		if (LikeEnum.HAVE_LIKED.equals(recordState)) {
-			//TODO 已缓存点赞
+			// 已缓存点赞，异常
+			logger.warn("点赞已缓存：userid=" + userid +
+					", targetId=" + targetId +
+					"targetType="+ targetType);
 		} else {
 			//未点赞或者无记录，修改记录。
 			//之后在缓存数据持久化到数据库时会检查是否已点赞过
-			logger.trace("未点赞或者无记录，修改缓存记录，暂不检查数据库");
+			logger.debug("未点赞或者无记录，修改缓存记录，暂不检查数据库");
 			jedis.hset(LikeEnum.KEY_LIKE_RECORD, likeRecordFieldName, LIKE_STATE);
-
 			/*
 			更新缓存的点赞数量，点赞数+1
 			如果没有记录，会添加记录，并执行hincrby操作

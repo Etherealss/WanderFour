@@ -51,9 +51,7 @@ public class CommentUtil {
 		try {
 			imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
 			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-			//TODO 评论图片转码
 			cb.setUserImg(imgByBase64);
-			return null;
 		} catch (IOException e) {
 			logger.error("评论图片转码异常", e);
 		}

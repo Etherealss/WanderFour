@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.CategoryDao">
+    <!--使用二级缓存-->
+    <cache/>
 
     <select id="getAllCategoryByPart" resultType="java.util.HashMap">
         SELECT `id`, `name` FROM `category` WHERE `partition`= #{partition};

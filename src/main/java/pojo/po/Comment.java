@@ -2,6 +2,7 @@ package pojo.po;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @description 评论和回复
  * @date 2020/10/22
  */
-public class Comment {
+public class Comment implements Serializable {
 	@JSONField(ordinal = 0)
 	private Long id;
 

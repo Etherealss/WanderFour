@@ -12,90 +12,82 @@ import pojo.po.Comment;
  */
 public class CommentBean {
 
-	/**
-	 * 评论者昵称
-	 */
-	@JSONField(ordinal = 0)
-	private String userNickname;
+    /**
+     * 评论者昵称
+     */
+    @JSONField(ordinal = 0)
+    private String userNickname;
 
-	/**
-	 * 判断当前请求的用户是否可以删除该评论
-	 * （是否为评论者）
-	 */
-	@JSONField(ordinal = 1)
-	private boolean canDelete;
+    /**
+     * 判断当前请求的用户是否可以删除该评论
+     * （是否为评论者）
+     */
+    @JSONField(ordinal = 1)
+    private boolean canDelete;
 
-	/**
-	 * 该评论/回复的具体信息
-	 */
-	@JSONField(ordinal = 2)
-	private Comment comment;
+    /**
+     * 该评论/回复的具体信息
+     */
+    @JSONField(ordinal = 2)
+    private Comment comment;
 
-	/**
-	 * 评论者头像(base64)
-	 */
-	@JSONField(ordinal = 3)
-	private String userImg;
+    /**
+     * 评论者头像(base64)
+     */
+    @JSONField(ordinal = 3)
+    private String userImg;
 
 
+    @Override
+    public String toString() {
+        //TODO 删除测试
+        return "CommentBean{" +
+                "comment=" + comment +
+                ", userNickname='" + userNickname + '\'' +
+                ", userImg='" + ((userImg.length() > 20) ?
+                        ("(注释)Base64数组前20位：'" + userImg.substring(0, 20) + "...'")
+                        : userImg) +
+                '}';
+    }
 
-	@Override
-	public String toString() {
-		//TODO 删除测试
-		return "CommentBean{" +
-				"comment=" + comment +
-				", userNickname='" + userNickname + '\'' +
-				", userImg='" +
-				((userImg.length() >= 20) ? ("(注释)Base64数组前20位："+userImg.substring(0, 20) + "...'") : userImg) +
-				'}';
-	}
+    public Comment getComment() {
+        return comment;
+    }
 
-	public Comment getComment() {
-		return comment;
-	}
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
+    public String getUserImg() {
+        return userImg;
+    }
 
-	public String getUserImg() {
-		return userImg;
-	}
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
 
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
-	}
+    public String getUserNickname() {
+        return userNickname;
+    }
 
-	public String getUserNickname() {
-		return userNickname;
-	}
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
+    }
 
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
-	}
+    public boolean isCanDelete() {
+        return canDelete;
+    }
 
-//	public Comment getBeRepliedComment() {
-//		return beRepliedComment;
-//	}
-//
-//	public void setBeRepliedComment(Comment beRepliedComment) {
-//		this.beRepliedComment = beRepliedComment;
-//	}
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
+    }
 
-	public boolean isCanDelete() {
-		return canDelete;
-	}
+    public CommentBean(Comment comment, String userImg, String userNickname) {
+        this.comment = comment;
+        this.userImg = userImg;
+        this.userNickname = userNickname;
+    }
 
-	public void setCanDelete(boolean canDelete) {
-		this.canDelete = canDelete;
-	}
-
-	public CommentBean(Comment comment, String userImg, String userNickname) {
-		this.comment = comment;
-		this.userImg = userImg;
-		this.userNickname = userNickname;
-	}
-
-	public CommentBean() {
-	}
+    public CommentBean() {
+    }
 }

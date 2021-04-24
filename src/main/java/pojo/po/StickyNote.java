@@ -2,6 +2,7 @@ package pojo.po;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @description 便利贴
  * @date 2020/11/20
  */
-public class StickyNote {
+public class StickyNote implements Serializable {
 	@JSONField(ordinal = 0)
 	private Long id;
 

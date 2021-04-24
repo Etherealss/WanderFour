@@ -3,6 +3,7 @@ package pojo.po;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import common.enums.UserType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @description 用户PO
  * @date 2020/10/2
  */
-public class User {
+public class User implements Serializable {
 	private Long id;
 	private String email;
 	private String password;

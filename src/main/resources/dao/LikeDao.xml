@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.LikeDao">
+    <!--使用二级缓存-->
+    <cache/>
 
     <!--添加点赞记录-->
     <insert id="createLikeRecord">

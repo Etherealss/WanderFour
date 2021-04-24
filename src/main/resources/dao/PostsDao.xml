@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.PostsDao">
+    <!--使用二级缓存-->
+    <cache/>
 
     <resultMap id="posts" type="pojo.po.Posts">
         <result column="follow" property="collected"/>

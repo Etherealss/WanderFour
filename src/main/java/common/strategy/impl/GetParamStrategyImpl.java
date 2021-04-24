@@ -98,8 +98,7 @@ public class GetParamStrategyImpl implements GetParamStrategy {
             //封装对象返回
             return json.toJavaObject(clazz);
         } catch (Exception e) {
-            logger.error("封装对象失败");
-            e.printStackTrace();
+            logger.error("封装对象失败", e);
         }
         return null;
     }

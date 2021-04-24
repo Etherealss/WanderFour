@@ -3,12 +3,14 @@ package pojo.po;
 import common.enums.TargetType;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
+
 /**
  * @author 寒洲
  * @description 用户点赞类
  * @date 2020/10/13
  */
-public class LikeRecord {
+public class LikeRecord implements Serializable {
 
 	private Logger logger = Logger.getLogger(LikeRecord.class);
 	/**
