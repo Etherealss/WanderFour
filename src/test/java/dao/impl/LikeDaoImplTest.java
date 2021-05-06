@@ -1,10 +1,10 @@
 package dao.impl;
 
-import common.enums.TargetType;
 import dao.LikeDao;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,7 +17,7 @@ public class LikeDaoImplTest {
 
 	@Autowired
 	private LikeDao dao;
-	private final Logger logger = Logger.getLogger(LikeDaoImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 	private final String likeArticleTableName = "`article_like_record`";
 
 
@@ -55,6 +55,6 @@ public class LikeDaoImplTest {
 	@Test
 	public void countLikeRecord() throws SQLException {
 		long l = dao.countLikeRecord(likeArticleTableName, 2L);
-		logger.debug(l);
+		logger.debug(String.valueOf(l));
 	}
 }

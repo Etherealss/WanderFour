@@ -1,11 +1,11 @@
 package controller;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.io.IOException;
  * @date 2020/11/25
  */
 public class Test {
-    private final Logger logger = Logger.getLogger(Test.class);
+    private final Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

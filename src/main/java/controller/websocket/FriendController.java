@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import java.util.List;
 @Controller
 public class FriendController {
 
-	private Logger logger = Logger.getLogger(FriendController.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 
 	private FriendRelationService relationService;
@@ -55,7 +56,7 @@ public class FriendController {
 			e.printStackTrace();
 			json.put("state", new ResultState(ResultType.EXCEPTION, "获取好友列表异常"));
 		}
-		logger.debug(json);
+		logger.debug(json.toJSONString());
 		ResponseChoose.respToBrowser(resp, json);
 	}
 }

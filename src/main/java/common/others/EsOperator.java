@@ -1,6 +1,5 @@
 package common.others;
 
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -30,6 +29,8 @@ import org.elasticsearch.search.aggregations.metrics.ExtendedStats;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ import java.util.Map;
  */
 public class EsOperator {
 
-	private Logger logger = Logger.getLogger(EsOperator.class);
+	private Logger logger = LoggerFactory.getLogger(EsOperator.class);
 
 	/**
 	 * 添加索引
@@ -648,7 +649,7 @@ public class EsOperator {
 		matchQueryBuilder.fields(fieldNames);
 		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 		builder.query(matchQueryBuilder);
-		logger.debug(matchQueryBuilder);
+		logger.debug(String.valueOf(matchQueryBuilder));
 		// 配置高亮查询
 //		int fragmentSize = 10;
 //		HighlightBuilder highlightBuilder = new HighlightBuilder();
@@ -664,7 +665,7 @@ public class EsOperator {
 
 		SearchRequest request = new SearchRequest(indexName);
 		request.source(builder);
-		logger.debug(builder);
+		logger.debug(String.valueOf(builder));
 		return client.search(request, RequestOptions.DEFAULT);
 	}
 

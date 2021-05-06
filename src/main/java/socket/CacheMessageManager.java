@@ -1,6 +1,7 @@
 package socket;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.Information;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CacheMessageManager {
 
-	private static Logger logger = Logger.getLogger(CacheMessageManager.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 缓存未发送的信息，键为发送对象的userId，值为1~n个消息列表

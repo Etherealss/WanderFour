@@ -4,11 +4,12 @@ import common.enums.ApplicationConfig;
 import common.enums.UserType;
 import dao.UserDao;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pojo.po.User;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class UserDaoImplTest {
-	private final Logger logger = Logger.getLogger(UserDaoImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 	@Autowired
 	private UserDao dao;
 
@@ -34,7 +35,7 @@ public class UserDaoImplTest {
 	public void testSelectUserById() throws Exception {
 		Long email = 1L;
 		User b = dao.getUserById(email);
-		logger.debug(b);
+		logger.debug(b.toString());
 	}
 
 	@Test
@@ -47,7 +48,7 @@ public class UserDaoImplTest {
 	public void testSelectUserByEmail() throws SQLException {
 		String emial = "123456@qq.com";
 		User user = dao.getUserByEmail(emial);
-		logger.debug(user);
+		logger.debug(user.toString());
 	}
 
 	@Test
@@ -77,7 +78,7 @@ public class UserDaoImplTest {
 			return;
 		}
 		for (User user : usersInfo) {
-			logger.debug(user);
+			logger.debug(user.toString());
 		}
 	}
 

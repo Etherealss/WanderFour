@@ -3,7 +3,8 @@ package common.strategy.impl;
 import common.strategy.GetWritingStrategy;
 import dao.PostsDao;
 import dao.WritingDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.po.Posts;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class GetPostsStrategyImpl implements GetWritingStrategy<Posts> {
 		this.dao = dao;
 	}
 
-	private Logger logger = Logger.getLogger(GetArticleStrategyImpl.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Override
 	public List<Posts> getWritingList(int partition, String order, Long start, int rows) {

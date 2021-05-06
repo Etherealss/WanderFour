@@ -1,7 +1,8 @@
 package filter;
 
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -20,7 +21,7 @@ import java.util.Set;
  */
 @WebFilter(urlPatterns = {"/*"})
 public class ValidateLoginFilter implements Filter {
-	private final Logger logger = Logger.getLogger(ValidateLoginFilter.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 需要拦截并判断登录状态的路径

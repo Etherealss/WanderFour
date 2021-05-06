@@ -1,5 +1,6 @@
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.po.Article;
 import pojo.po.Writing;
 
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public class RegTest {
 
-	private static Logger logger = Logger.getLogger(RegTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Test
 	public void regTest1() {
@@ -73,6 +74,6 @@ public class RegTest {
 		writing.setId(1L);
 		writing.setContent("123123");
 		Article article = (Article) writing;
-		logger.debug(article);
+		logger.debug(article.toString());
 	}
 }

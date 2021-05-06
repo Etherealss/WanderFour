@@ -30,11 +30,28 @@
         <mysql.version>5.1.6</mysql.version>
         <junit.version>4.12</junit.version>
         <servlet.version>3.1.0</servlet.version>
+        <log4j2.version>2.13.1</log4j2.version>
+        <slf4j-impl.version>2.10.0</slf4j-impl.version>
     </properties>
 
     <dependencies>
+        <!-- log4j2 slf4j -->
+        <!--使用slf4j作为日志的门面,使用log4j2来记录日志 -->
+        <!--为slf4j绑定日志实现 log4j2的适配器 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${slf4j-impl.version}</version>
+        </dependency>
+        <!--异步日志依赖-->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+
         <!-- WebSocket -->
-        <!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
         <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
@@ -58,6 +75,10 @@
                     <artifactId>jackson-core</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>log4j-api</artifactId>
+                    <groupId>org.apache.logging.log4j</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -67,13 +88,6 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!--log4j-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
         </dependency>
 
         <!--connector-->
@@ -114,7 +128,7 @@
             <version>1.2.47</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
+        <!-- dbutils -->
         <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
@@ -189,6 +203,11 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
         <!-- Servlet框架引入 -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -220,13 +239,12 @@
 
     <build>
         <finalName>WanderFour</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+        <pluginManagement>
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
-                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>

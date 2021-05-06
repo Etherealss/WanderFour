@@ -6,7 +6,8 @@ import common.enums.ResultType;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +32,7 @@ import java.net.URLDecoder;
  */
 @Controller
 public class WritingSearchController {
-
-	private final Logger logger = Logger.getLogger(WritingSearchController.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	private EsService esService;
 
 	@RequestMapping(value = "/WritingSearchServlet", method = RequestMethod.GET)

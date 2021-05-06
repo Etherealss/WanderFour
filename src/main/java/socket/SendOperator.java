@@ -1,7 +1,8 @@
 package socket;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.Information;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.io.IOException;
  * @date 2020/11/19
  */
 public class SendOperator {
-	private static Logger logger = Logger.getLogger(SendOperator.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 
 	/**

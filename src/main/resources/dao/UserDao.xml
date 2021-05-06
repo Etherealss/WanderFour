@@ -4,7 +4,7 @@
 <!--namespace为Dao接口的完整类名-->
 <mapper namespace="dao.UserDao">
     <!--使用二级缓存-->
-    <cache/>
+<!--    <cache/>-->
 
     <resultMap type="pojo.po.User" id="userMap">
         <id column="id" property="id"/>

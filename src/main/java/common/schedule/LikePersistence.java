@@ -2,7 +2,8 @@ package common.schedule;
 
 import common.enums.ApplicationConfig;
 import common.factory.NamedThreadFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LikePersistence {
 
-	private static Logger logger = Logger.getLogger(LikePersistence.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/** 单元时间单位 */
 	private static final TimeUnit TIME_UNIT = TimeUnit.MINUTES;

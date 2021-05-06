@@ -5,7 +5,8 @@ import common.enums.Partition;
 import common.util.JedisUtil;
 import common.util.JsonUtil;
 import dao.CategoryDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import service.CategoryService;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public class CategoryServiceImpl implements CategoryService {
 
-	private Logger logger = Logger.getLogger(CategoryServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Autowired
 	private CategoryDao dao;

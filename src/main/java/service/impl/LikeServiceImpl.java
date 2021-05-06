@@ -10,7 +10,8 @@ import common.util.JedisUtil;
 import dao.ArticleDao;
 import dao.LikeDao;
 import dao.PostsDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.LikeRecord;
 import redis.clients.jedis.Jedis;
@@ -25,7 +26,7 @@ import java.util.Map;
  */
 public class LikeServiceImpl implements LikeService {
 
-	private Logger logger = Logger.getLogger(LikeServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Autowired
 	private LikeDao likeDao;
@@ -174,7 +175,7 @@ public class LikeServiceImpl implements LikeService {
 		record.setTargetType(Integer.parseInt(splitKey[0]));
 		record.setUserid(Long.valueOf(splitKey[1]));
 		record.setTargetId(Long.valueOf(splitKey[2]));
-		logger.debug(record);
+		logger.debug(record.toString());
 
 		return record;
 	}

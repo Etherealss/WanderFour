@@ -8,7 +8,6 @@ import common.enums.WritingType;
 import common.util.ApplicationUtil;
 import common.util.EsUtil;
 import dao.ArticleDao;
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -32,6 +31,8 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.suggest.Suggest;
 import org.elasticsearch.search.suggest.SuggestBuilder;
 import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.bo.EsBo;
 import pojo.bo.PageBo;
@@ -52,7 +53,7 @@ import java.util.Map;
  */
 public class EsServiceImpl implements EsService {
 
-    Logger logger = Logger.getLogger(EsServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 //	private RestHighLevelClient client = EsUtil.getClient();
 

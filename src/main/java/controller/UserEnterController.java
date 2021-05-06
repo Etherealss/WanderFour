@@ -5,7 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.AttrEnum;
 import common.util.WebUtil;
 import common.util.Md5Utils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ import java.util.Objects;
  */
 @Controller
 public class UserEnterController {
-    private Logger logger = Logger.getLogger(UserEnterController.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
     private final static String ACTION_LOGIN = "login";
     private final static String ACTION_REGISTER = "register";
 
@@ -85,7 +86,7 @@ public class UserEnterController {
             User user = userService.validateUserLogin(email, password);
             if (user != null) {
                 //密码正确，检查异地登录
-                logger.trace("密码正确，检查异地登录");
+                logger.trace("密码正确，检查登录");
                 HttpSession session = req.getSession();
                 String sessionId = session.getId();
 
@@ -166,7 +167,7 @@ public class UserEnterController {
      * @param userid
      */
     private void respRegisterResult(HttpServletResponse resp, Long userid) {
-        logger.debug(userid);
+        logger.debug(String.valueOf(userid));
         ResultType resultType = userid == null ? ResultType.EXCEPTION : ResultType.SUCCESS;
         ResultState state = new ResultState(resultType, "注册结果，包含userid");
         JSONObject json = new JSONObject();

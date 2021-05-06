@@ -7,8 +7,9 @@ import common.strategy.impl.GetArticleStrategyImpl;
 import common.strategy.impl.comment.GetOnlyCommentByLike;
 import common.util.FileUtil;
 import dao.*;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class ArticleServiceImpl implements WritingService<Article> {
 
-    private Logger logger = Logger.getLogger(ArticleServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
     @Autowired
     private ArticleDao articleDao;
     @Autowired
@@ -68,7 +69,7 @@ public class ArticleServiceImpl implements WritingService<Article> {
             return null;
         }
         //获取文章信息包
-        logger.debug(article);
+        logger.debug(String.valueOf(article));
         WritingBean<Article> bean = this.getWrticleBeanWithAuthorInfo(article);
 
         //userid可能为null

@@ -1,9 +1,10 @@
 package service.impl;
 
-import common.bean.SensitiveNode;
+import common.structure.SensitiveNode;
 import dao.SensitiveDao;
 import filter.SensitiveFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import service.SensitiveService;
 
@@ -20,7 +21,7 @@ public class SensitiveServiceImpl implements SensitiveService {
 
 	@Autowired
 	private SensitiveDao dao;
-	private Logger logger = Logger.getLogger(SensitiveServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Override
 	public void insertSensitiveWord(int type, String path) {

@@ -11,7 +11,8 @@ import common.util.FileUtil;
 import dao.CommentDao;
 import dao.PostsDao;
 import dao.UserDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.vo.CommentVo;
 import pojo.bean.WritingBean;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class PostsServiceImpl implements WritingService<Posts> {
 
-    private Logger logger = Logger.getLogger(PostsServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
     @Autowired
     private PostsDao postsDao;
     @Autowired
@@ -45,7 +46,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
     @Override
     public Long publishNewWriting(Posts posts) {
         logger.trace("发表新问贴");
-        logger.debug(posts);
+        logger.debug(posts.toString());
 
         //添加问贴
         postsDao.createWritingInfo(posts);
@@ -162,7 +163,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
     public ResultType updateWriting(Posts posts) {
         logger.trace("修改问贴");
         int i = postsDao.updateWritingInfo(posts);
-        logger.debug(i);
+        logger.debug(String.valueOf(i));
         return i == 1 ? ResultType.SUCCESS : ResultType.NOT_AUTHOR;
     }
 
@@ -170,7 +171,7 @@ public class PostsServiceImpl implements WritingService<Posts> {
     public ResultType deleteWriting(Long writingId, Long deleterId) {
         logger.trace("删除问贴");
         int i = postsDao.deleteWritingById(writingId, deleterId);
-        logger.debug(i);
+        logger.debug(String.valueOf(i));
         return i == 1 ? ResultType.SUCCESS : ResultType.NOT_AUTHOR;
     }
 

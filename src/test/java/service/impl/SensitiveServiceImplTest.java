@@ -1,9 +1,10 @@
 package service.impl;
 
-import common.bean.SensitiveNode;
-import org.apache.log4j.Logger;
+import common.structure.SensitiveNode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,7 +16,8 @@ import java.util.Map;
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class SensitiveServiceImplTest {
 
-	private Logger logger = Logger.getLogger(SensitiveServiceImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
+
 	@Autowired
 	private SensitiveService service;
 
@@ -28,7 +30,7 @@ public class SensitiveServiceImplTest {
 	@Test
 	public void testGetSensitiveWordsList() {
 		Map<Character, SensitiveNode> sensitiveWordsList = service.getSensitiveWordsMap();
-		logger.debug(sensitiveWordsList);
+		logger.debug(sensitiveWordsList.toString());
 	}
 
 }

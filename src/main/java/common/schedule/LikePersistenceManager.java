@@ -1,6 +1,7 @@
 package common.schedule;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author 寒洲
@@ -9,7 +10,7 @@ import org.apache.log4j.Logger;
  */
 public class LikePersistenceManager {
 
-	private static Logger logger = Logger.getLogger(LikePersistenceManager.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 启动定时任务

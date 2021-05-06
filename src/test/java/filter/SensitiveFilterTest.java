@@ -1,20 +1,19 @@
 package filter;
 
-import common.bean.SensitiveNode;
-import org.apache.log4j.Logger;
+import common.structure.SensitiveNode;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class SensitiveFilterTest {
-
-	private Logger logger = Logger.getLogger(SensitiveFilterTest.class);
-
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Test
 	public void testGetSensitiveWordsMap() throws Exception {
 		Map<Character, SensitiveNode> sensitiveWordsMap = SensitiveFilter.getSensitiveWordsMap();
-		logger.debug(sensitiveWordsMap);
+		logger.debug(sensitiveWordsMap.toString());
 	}
 
 	@Test
@@ -26,7 +25,7 @@ public class SensitiveFilterTest {
 		//获取字符对应的Map
 		SensitiveNode wordMap = sensitiveWordsMap.get(c);
 		if (wordMap != null) {
-			logger.debug(wordMap);
+			logger.debug(wordMap.toString());
 		} else {
 			logger.debug("null");
 		}

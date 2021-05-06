@@ -6,8 +6,8 @@ import common.enums.ResultType;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,6 @@ import pojo.po.StickyNote;
 import service.StickyNoteService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,7 +29,7 @@ import java.util.List;
 @Controller
 public class StickyNoteController {
 
-	private final Logger logger = Logger.getLogger(StickyNoteController.class);
+	private final Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	private StickyNoteService stickyNoteService;
 
 	@RequestMapping(value = "/StickyNoteServlet", method = RequestMethod.GET)

@@ -1,7 +1,6 @@
-package common.bean;
+package common.structure;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author 寒洲

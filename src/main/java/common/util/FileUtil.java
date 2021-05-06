@@ -1,6 +1,7 @@
 package common.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -13,7 +14,7 @@ import java.io.*;
  */
 public class FileUtil {
 
-	private static Logger logger = Logger.getLogger(FileUtil.class);
+	private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * 获取文件数据流
@@ -35,13 +36,7 @@ public class FileUtil {
 			}
 			return outputStream.toByteArray();
 		} finally {
-			try {
-				if (inputStream != null) {
-					inputStream.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			ApplicationUtil.close(inputStream);
 		}
 	}
 

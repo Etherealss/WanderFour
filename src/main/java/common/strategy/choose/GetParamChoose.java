@@ -3,7 +3,8 @@ package common.strategy.choose;
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.GetParamStrategy;
 import common.strategy.impl.GetParamStrategyImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class GetParamChoose {
 
-	private static Logger logger = Logger.getLogger(GetParamChoose.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	private static GetParamStrategy strategy = new GetParamStrategyImpl();
 

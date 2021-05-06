@@ -1,8 +1,9 @@
 package common.util;
 
 import dao.UserDao;
-import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.bean.CommentBean;
 import pojo.po.Comment;
 import pojo.po.User;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
  */
 public class CommentUtil {
 
-	private static Logger logger = Logger.getLogger(CommentUtil.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 包装评论者的用户昵称和头像（base64转码）

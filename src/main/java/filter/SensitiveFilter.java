@@ -1,7 +1,8 @@
 package filter;
 
-import common.bean.SensitiveNode;
-import org.apache.log4j.Logger;
+import common.structure.SensitiveNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.SensitiveService;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @date 2020/10/26
  */
 public class SensitiveFilter {
-	private static Logger logger = Logger.getLogger(SensitiveFilter.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 敏感词树

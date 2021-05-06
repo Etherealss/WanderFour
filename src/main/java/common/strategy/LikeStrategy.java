@@ -1,7 +1,8 @@
 package common.strategy;
 
 import common.enums.TargetType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author 寒洲
@@ -10,7 +11,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class LikeStrategy {
 
-	protected Logger logger = Logger.getLogger(LikeStrategy.class);
+	protected Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	/**
 	 * 点赞操作
 	 * @param userid

@@ -7,7 +7,8 @@ import common.strategy.choose.ReplyChoose;
 import common.strategy.impl.comment.*;
 import dao.CommentDao;
 import dao.UserDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.Article;
 import pojo.po.Posts;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class CommentServiceImpl implements CommentService {
 
-    private Logger logger = Logger.getLogger(CommentServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     private static final String ORDER_BY_LIKE = "like";
     private static final String ORDER_BY_TIME = "time";

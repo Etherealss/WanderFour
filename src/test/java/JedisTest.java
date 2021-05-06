@@ -1,10 +1,11 @@
 import common.enums.TargetType;
 import common.util.JedisUtil;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.Jedis;
@@ -20,7 +21,7 @@ import java.util.Date;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class JedisTest {
-	Logger log = Logger.getLogger(JedisTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 	Jedis jedis;
 
 	@Before
@@ -36,7 +37,7 @@ public class JedisTest {
 	public void jedisUtil() {
 		Jedis jedis = JedisUtil.getJedis();
 		jedis.set("username", "zhangsan");
-		log.debug(jedis.get("username"));
+		logger.debug(jedis.get("username"));
 	}
 
 	@Test

@@ -5,7 +5,6 @@ import common.enums.ApplicationConfig;
 import common.enums.ResultType;
 import common.others.EsProcessManager;
 import org.apache.http.HttpHost;
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.RestClient;
@@ -13,6 +12,8 @@ import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.json.JsonXContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.bo.EsBo;
 import pojo.po.Article;
 import pojo.po.Posts;
@@ -30,7 +31,7 @@ import java.util.*;
  */
 public abstract class EsUtil {
 
-    private static Logger logger = Logger.getLogger(EsUtil.class);
+    private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     private static final String ES_HOST = ApplicationConfig.ES_HOST;
     private static final int ES_PORT = ApplicationConfig.ES_PORT;

@@ -10,7 +10,8 @@ import common.util.WebUtil;
 import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
 import filter.SensitiveFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ import java.util.List;
 @Controller
 public class WritingCommentController {
 
-    private final Logger logger = Logger.getLogger(WritingCommentController.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     private final static String TYPE_ARTICLE = TargetType.ARTICLE.val();
     private final static String TYPE_POSTS = TargetType.POSTS.val();
@@ -132,7 +133,7 @@ public class WritingCommentController {
             state = new ResultState(ResultType.EXCEPTION, "获取评论时出现异常");
         }
         jsonObject.put("state", state);
-        logger.debug(jsonObject);
+        logger.debug(String.valueOf(jsonObject));
         ResponseChoose.respToBrowser(resp, jsonObject);
     }
 

@@ -1,9 +1,10 @@
 package dao.impl;
 
 import dao.StickyNoteDao;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,7 +16,7 @@ public class StickyNoteDaoImplTest {
 
 	@Autowired
 	private StickyNoteDao dao;
-	private Logger logger = Logger.getLogger(StickyNoteDaoImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Test
 	public void testCreateNote() throws Exception {
@@ -24,7 +25,7 @@ public class StickyNoteDaoImplTest {
 	@Test
 	public void testGetStickyNote() throws Exception {
 		StickyNote stickyNote = dao.getStickyNote(1L);
-		logger.debug(stickyNote);
+		logger.debug(stickyNote.toString());
 	}
 
 	@Test

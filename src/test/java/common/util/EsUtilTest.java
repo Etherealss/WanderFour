@@ -1,8 +1,9 @@
 package common.util;
 
 import common.enums.WritingType;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.bo.EsBo;
 
 import java.lang.reflect.Field;
@@ -12,8 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EsUtilTest {
-
-	private Logger logger = Logger.getLogger(EsUtilTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 
 	@Test
@@ -46,7 +46,7 @@ public class EsUtilTest {
 		source.put("writingId", 1L);
 		source.put("writingType", WritingType.ARTICLE.val());
 		EsBo json = EsUtil.getEsBoByMap(source);
-		logger.debug(json);
+		logger.debug("{}",json);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class EsUtilTest {
 			ObjectUtil.invokeSetter(esBo, en.getKey(), en.getValue());
 		}
 
-		logger.debug(esBo);
+		logger.debug("{}",esBo);
 	}
 
 	@Test

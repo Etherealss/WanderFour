@@ -1,9 +1,10 @@
 package service.impl;
 
 import common.enums.ResultType;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,7 +17,7 @@ import java.util.Date;
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class UserServiceImplTest {
 
-	private Logger logger = Logger.getLogger(UserServiceImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Autowired
 	UserService service;
@@ -24,19 +25,19 @@ public class UserServiceImplTest {
 	@Test
 	public void testCheckUserExist() throws Exception {
 		ResultType resultType = service.checkUserExist("123456@qq.com");
-		logger.debug(resultType);
+		logger.debug(resultType.toString());
 	}
 
 	@Test
 	public void testGetUserEmailAndPw() throws Exception {
 		User resultType = service.getUserEmailAndPw(1L);
-		logger.debug(resultType);
+		logger.debug(resultType.toString());
 	}
 
 	@Test
 	public void testValidateUserLogin() throws Exception {
 		User user = service.validateUserLogin("111111@qq.com", "mima");
-		logger.debug(user);
+		logger.debug(user.toString());
 	}
 
 	@Test
@@ -57,7 +58,7 @@ public class UserServiceImplTest {
 	public void testUpdateUserInfo() throws Exception {
 		User userInfo = service.getUserInfo(18L);
 		userInfo.setBirthday(new Date());
-		logger.debug(userInfo);
+		logger.debug(userInfo.toString());
 		userInfo.setNickname("3333");
 		service.updateUserInfo(userInfo);
 	}
@@ -65,19 +66,19 @@ public class UserServiceImplTest {
 	@Test
 	public void testGetUserInfo() throws Exception {
 		User userInfo = service.getUserInfo(17L);
-		logger.debug(userInfo);
+		logger.debug(userInfo.toString());
 	}
 
 	@Test
 	public void testUpdateUserPw() throws Exception {
 		ResultType resultType = service.updateUserPw(1L, "mima2", "mima");
-		logger.debug(resultType);
+		logger.debug(resultType.toString());
 	}
 
 	@Test
 	public void testTestCheckUserExist() throws Exception {
 		ResultType resultType = service.checkUserExist("123123@qq.com");
-		logger.debug(resultType);
+		logger.debug(resultType.toString());
 	}
 
 }

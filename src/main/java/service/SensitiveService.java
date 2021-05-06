@@ -1,6 +1,6 @@
 package service;
 
-import common.bean.SensitiveNode;
+import common.structure.SensitiveNode;
 
 import java.util.Map;
 

@@ -1,10 +1,11 @@
 package common.strategy.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.dto.ResultState;
 import common.enums.ResultType;
 import common.strategy.ResponseStrategy;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.io.IOException;
  */
 public class ResponseStrategyImpl implements ResponseStrategy {
 
-	private Logger logger = Logger.getLogger(ResponseStrategyImpl.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Override
 	public void respToBrowser(HttpServletResponse response, ResultState state) {

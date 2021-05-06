@@ -2,7 +2,8 @@ package common.util;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.po.Article;
 import pojo.po.Comment;
 import pojo.po.Posts;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class SecurityUtil {
 
-    private static Logger logger = Logger.getLogger(SecurityUtil.class);
+    private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     /**
      * html代码转义

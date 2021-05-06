@@ -1,7 +1,5 @@
 package common.enums;
 
-import exception.NoSuchTypeException;
-
 /**
  * @author 寒洲
  * @description 用户类型枚举

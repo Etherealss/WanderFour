@@ -3,7 +3,8 @@ package common.strategy;
 import common.util.CommentUtil;
 import dao.CommentDao;
 import dao.UserDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.vo.CommentVo;
 import pojo.bean.CommentBean;
 import pojo.dto.CommentDto;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public abstract class AbstractReplysStrategy extends AbstractCommentAndReplyStrategy {
 
-	protected Logger logger = Logger.getLogger(AbstractCommentsStrategy.class);
+	protected Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 获取请求的数据（回复列表）

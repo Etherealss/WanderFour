@@ -1,6 +1,7 @@
 package filter;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +14,7 @@ import java.io.IOException;
  */
 @WebFilter(urlPatterns = {"/*"})
 public class EncodingFilter implements Filter {
-	private final Logger logger = Logger.getLogger(EncodingFilter.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	@Override
 	public void destroy() {
 	}

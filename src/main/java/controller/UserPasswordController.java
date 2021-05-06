@@ -5,7 +5,8 @@ import common.enums.ResultType;
 import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class UserPasswordController {
-	private final Logger logger = Logger.getLogger(UserPasswordController.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	private UserService userService;
 

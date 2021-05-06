@@ -7,7 +7,8 @@ import common.util.WebUtil;
 import common.util.SecurityUtil;
 import common.util.SensitiveUtil;
 import filter.SensitiveFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,7 @@ import java.io.IOException;
 @Controller
 public class WritingController {
 
-    private Logger logger = Logger.getLogger(WritingController.class);
+    private Logger logger = LoggerFactory.getLogger(WritingController.class);
 
     private final static String TYPE_ARTICLE = TargetType.ARTICLE.val();
     private final static String TYPE_POSTS = TargetType.POSTS.val();
@@ -150,7 +151,7 @@ public class WritingController {
         //根据类型获取实体和Service
         if (TYPE_ARTICLE.equals(type)) {
             Article article = writing.toOthers(new Article());
-            logger.debug(article);
+            logger.debug(String.valueOf(article));
 
             article.setAuthorId(userId);
             //发表新文章
@@ -168,7 +169,7 @@ public class WritingController {
         } else if (TYPE_POSTS.equals(type)) {
             //获取参数
             Posts posts = writing.toOthers(new Posts());
-            logger.debug(posts);
+            logger.debug(String.valueOf(posts));
 
             posts.setAuthorId(userId);
             //发表新文章
@@ -208,7 +209,7 @@ public class WritingController {
     @RequestMapping(value = "/WritingServlet", method = RequestMethod.PUT)
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         JSONObject param = GetParamChoose.getJsonByJson(req);
-        logger.trace(param);
+        logger.trace(String.valueOf(param));
         //空参检查
         if (param == null) {
             ResponseChoose.respNoParameterError(resp, "修改作品");

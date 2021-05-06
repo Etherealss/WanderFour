@@ -1,6 +1,6 @@
 package common.util;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.Closeable;
 import java.io.IOException;

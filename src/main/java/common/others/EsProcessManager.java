@@ -3,16 +3,13 @@ package common.others;
 import common.enums.EsEnum;
 import common.enums.WritingType;
 import common.util.EsUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pojo.bo.EsBo;
-import pojo.po.Posts;
 import pojo.po.Writing;
 import service.EsService;
 import service.WritingService;
-import service.impl.ArticleServiceImpl;
-import service.impl.PostsServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.List;
  */
 public class EsProcessManager {
 
-    private static Logger logger = Logger.getLogger(EsProcessManager.class);
+    private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     /** ES进程对象 */
     private static Process esProcess;

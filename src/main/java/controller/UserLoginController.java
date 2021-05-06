@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class UserLoginController {
 
-	private Logger logger = Logger.getLogger(UserLoginController.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	private UserService userService;
 
 	@RequestMapping(value = "/UserLoginServlet", method = RequestMethod.GET)

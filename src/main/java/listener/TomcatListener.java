@@ -6,7 +6,8 @@ import common.schedule.LikePersistenceManager;
 import common.util.EsUtil;
 import common.util.JedisUtil;
 import common.util.OsUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -23,7 +24,7 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class TomcatListener implements ServletContextListener {
 
-    private Logger logger = Logger.getLogger(TomcatListener.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {

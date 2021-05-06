@@ -1,12 +1,12 @@
 package common.util;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileUtilTest {
 
-	private Logger logger = Logger.getLogger(FileUtilTest.class);
-
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Test
 	public void testGetFileStream() throws Exception {
@@ -22,6 +22,6 @@ public class FileUtilTest {
 //		String path = "D:\\test.txt";
 		logger.debug(path);
 		Process process = FileUtil.runProcess(path);
-		logger.debug(process.isAlive());
+		logger.debug(String.valueOf(process.isAlive()));
 	}
 }

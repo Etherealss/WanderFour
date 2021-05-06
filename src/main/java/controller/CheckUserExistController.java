@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.ApplicationConfig;
 import common.strategy.choose.GetParamChoose;
 import common.util.WebUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import java.net.URLDecoder;
 @Controller
 public class CheckUserExistController {
 
-	private final Logger logger = Logger.getLogger(CheckUserExistController.class);
+	private final Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	private UserService userService;
 

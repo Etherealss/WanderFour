@@ -1,16 +1,14 @@
 package common.util;
 
-import static org.junit.Assert.*;
-
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.po.Article;
 
 public class SecurityUtilTest {
 
-	private Logger logger = Logger.getLogger(SecurityUtilTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 
 	@Test

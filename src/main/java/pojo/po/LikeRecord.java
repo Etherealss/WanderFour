@@ -1,7 +1,8 @@
 package pojo.po;
 
 import common.enums.TargetType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
  */
 public class LikeRecord implements Serializable {
 
-	private Logger logger = Logger.getLogger(LikeRecord.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	/**
 	 * 数据库主键
 	 */

@@ -3,7 +3,8 @@ package service.impl;
 import common.enums.ApplicationConfig;
 import common.util.FileUtil;
 import common.util.Md5Utils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.User;
 import common.enums.ResultType;
@@ -18,7 +19,7 @@ import java.io.IOException;
  * @date 2020/10/2
  */
 public class UserServiceImpl implements UserService {
-    private Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     @Autowired
     private UserDao dao;
@@ -138,7 +139,7 @@ public class UserServiceImpl implements UserService {
                 String imgByBase64 = FileUtil.getImgByBase64(imgStream);
                 user.setAvatarPath(imgByBase64);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("图片数据转码异常", e);
             }
 
         }

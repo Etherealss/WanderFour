@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import common.enums.websocket.InfoType;
 import common.util.WebSocketUtil;
 import filter.SensitiveFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.Information;
 import pojo.po.ChatRecord;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @ServerEndpoint(value = "/chat", configurator = HttpSessionConfigurator.class)
 public class ChatEndpoint {
 
-	private Logger logger = Logger.getLogger(ChatEndpoint.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 	private Session session;
 	private HttpSession httpSession;
 

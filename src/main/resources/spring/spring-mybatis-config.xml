@@ -7,7 +7,7 @@
     <settings>
         <!--自动驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="LOG4J"/>
+        <setting name="logImpl" value="NO_LOGGING"/>
         <!-- 开启二级缓存的支持 -->
         <setting name="cacheEnabled" value="true"/>
     </settings>

@@ -3,8 +3,8 @@ package common.strategy.impl;
 import com.alibaba.fastjson.JSONObject;
 import common.strategy.GetParamStrategy;
 import common.util.SecurityUtil;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class GetParamStrategyImpl implements GetParamStrategy {
 
-    private Logger logger = Logger.getLogger(GetParamStrategyImpl.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     @Override
     public JSONObject getJsonByJson(HttpServletRequest req) {
@@ -75,7 +75,7 @@ public class GetParamStrategyImpl implements GetParamStrategy {
                 String parameter = req.getParameter(key);
                 json.put(key, parameter);
             }
-            logger.trace(json);
+            logger.trace(String.valueOf(json));
             return json.toJavaObject(clazz);
         } catch (Exception ex) {
             logger.error("解析 formData 失败", ex);

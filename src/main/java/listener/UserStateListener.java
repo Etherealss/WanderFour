@@ -1,9 +1,8 @@
 package listener;
 
 import common.enums.AttrEnum;
-import org.apache.log4j.Logger;
-import service.UserService;
-import service.impl.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpSessionListener;
 @WebListener
 public class UserStateListener implements HttpSessionListener {
 
-	private Logger logger = Logger.getLogger(UserStateListener.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
@@ -32,5 +31,6 @@ public class UserStateListener implements HttpSessionListener {
 		HttpSession session = se.getSession();
 		Object userId = session.getAttribute(AttrEnum.LOGIN_SESSION_NAME);
 		logger.info("StateListener 用户session连接断开 / 用户退出 : " + userId);
+		session.getServletContext().removeAttribute(String.valueOf(userId));
 	}
 }

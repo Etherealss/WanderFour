@@ -1,6 +1,7 @@
 package common.schedule;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.LikeService;
@@ -11,7 +12,7 @@ import service.LikeService;
  * @date 2020/10/21
  */
 public class LikepersistenceRunnable implements Runnable {
-    private Logger logger = Logger.getLogger(LikepersistenceRunnable.class);
+    private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     private LikeService likeService;
 

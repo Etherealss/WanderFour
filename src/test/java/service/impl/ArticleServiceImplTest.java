@@ -3,9 +3,10 @@ package service.impl;
 import com.alibaba.fastjson.JSONObject;
 import common.enums.ResultType;
 import common.enums.Partition;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,8 +22,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-config.xml"})
 public class ArticleServiceImplTest {
-
-    private Logger logger = Logger.getLogger(ArticleServiceImplTest.class);
+    private Logger logger = LoggerFactory.getLogger("testLogger");
     @Autowired
     WritingService<Article> service;
 
@@ -35,7 +35,7 @@ public class ArticleServiceImplTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.debug(id);
+        logger.debug(String.valueOf(id));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ArticleServiceImplTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.debug(writing);
+        logger.debug(writing.toString());
     }
 
     @Test
@@ -62,13 +62,13 @@ public class ArticleServiceImplTest {
         writing.setLabel1("标签1");
         writing.setLabel2("标签2");
         ResultType resultType = service.updateWriting(writing);
-        logger.debug(resultType);
+        logger.debug(resultType.toString());
     }
 
     @Test
     public void deleteWriting() {
         ResultType resultType = service.deleteWriting(25L, 2L);
-        logger.debug(resultType);
+        logger.debug(resultType.toString());
     }
 
     @Test
@@ -76,6 +76,6 @@ public class ArticleServiceImplTest {
         List<WritingDto<Article>> time = service.getWritingList(4L, 1, "time");
         JSONObject json = new JSONObject();
         json.put("articleList", time);
-        logger.debug(json);
+        logger.debug(json.toJSONString());
     }
 }

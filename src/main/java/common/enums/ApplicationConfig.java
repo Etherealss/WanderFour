@@ -2,7 +2,8 @@ package common.enums;
 
 import common.util.JedisUtil;
 import common.util.OsUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.InputStream;
@@ -15,7 +16,7 @@ import java.util.Properties;
  */
 public class ApplicationConfig {
 
-    private static Logger logger = Logger.getLogger(ApplicationConfig.class);
+    private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
     public static final String CODING_FORMAT = "UTF-8";
 
@@ -38,13 +39,13 @@ public class ApplicationConfig {
 
     static {
         //获取配置文件
-        InputStream is = JedisUtil.class.getClassLoader().getResourceAsStream("ApplicationConfig.properties");
+        InputStream is = ApplicationConfig.class.getClassLoader().getResourceAsStream("ApplicationConfig.properties");
         Properties prop = new Properties();
         try {
             //读取
             prop.load(is);
         } catch (Exception e) {
-            logger.fatal("初始化参数失败", e);
+            logger.error("初始化参数失败", e);
         }
 
         ES_HOST = prop.getProperty("es.host");
@@ -87,7 +88,7 @@ public class ApplicationConfig {
     private static void checkDirExists(String path) {
         File file = new File(path);
         if (!file.exists()) {
-            logger.fatal("目录或文件不存在：" + file.getName());
+            logger.error("目录或文件不存在：" + file.getName());
         }
     }
 

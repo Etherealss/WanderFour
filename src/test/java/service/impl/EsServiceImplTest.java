@@ -3,9 +3,10 @@ package service.impl;
 import common.enums.EsEnum;
 import common.enums.WritingType;
 import dao.ArticleDao;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +22,7 @@ import java.util.List;
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class EsServiceImplTest {
 
-	private Logger logger = Logger.getLogger(EsServiceImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 
 	@Autowired
 	private EsService service;
@@ -31,19 +32,19 @@ public class EsServiceImplTest {
 	@Test
 	public void testCreateIndex() throws Exception {
 		boolean writingIndex = service.createWritingIndex();
-		logger.debug(writingIndex);
+		logger.debug(String.valueOf(writingIndex));
 	}
 
 	@Test
 	public void testDeleteIndex() throws Exception {
 		boolean b = service.deleteIndex(EsEnum.INDEX_NAME_WRITING);
-		logger.debug(b);
+		logger.debug(String.valueOf(b));
 	}
 
 	@Test
 	public void testExistsIndex() throws Exception {
 		boolean b = service.existsIndex(EsEnum.INDEX_NAME_WRITING);
-		logger.debug(b);
+		logger.debug(String.valueOf(b));
 	}
 
 	@Test
@@ -94,7 +95,7 @@ public class EsServiceImplTest {
 		);
 		List<EsBo> list = page.getList();
 		for (EsBo esBo : list) {
-			logger.debug(esBo);
+			logger.debug(esBo.toString());
 		}
 	}
 
@@ -110,7 +111,7 @@ public class EsServiceImplTest {
 	public void testSearchByPrefix() throws Exception {
 		List<EsBo> list = service.searchByPrefix("数学", 1, 10);
 		for (EsBo esBo : list) {
-			logger.debug(esBo);
+			logger.debug(esBo.toString());
 		}
 	}
 

@@ -3,9 +3,10 @@ package dao.impl;
 import common.enums.DaoEnum;
 import common.enums.Partition;
 import dao.WritingDao;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,7 +21,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class ArticleDaoImplTest {
-	private final Logger logger = Logger.getLogger(UserDaoImplTest.class);
+	private Logger logger = LoggerFactory.getLogger("testLogger");
 	@Qualifier("articleDao")
 	@Autowired
 	private WritingDao<Article> dao = null;
@@ -44,13 +45,13 @@ public class ArticleDaoImplTest {
 
 			//修改文章
 		int i = dao.updateWritingInfo(writing);
-		logger.debug(i);
+		logger.debug("{}", i);
 	}
 
 	@Test
 	public void selectArticleById() throws SQLException {
 		Article writing = dao.getWritingById(2L);
-		logger.debug(writing);
+		logger.debug(writing.toString());
 	}
 
 	@Test
@@ -58,14 +59,14 @@ public class ArticleDaoImplTest {
 		List<Article> simpleWritingListByOrder = dao.getSimpleWritingListByOrder(1, DaoEnum.FIELD_ORDER_BY_LIKE,
 				DaoEnum.START_FROM_ZERO, 6);
 		for (Article article : simpleWritingListByOrder) {
-			logger.debug(article);
+			logger.debug(article.toString());
 		}
 	}
 
 	@Test
 	public void testDeleteWriting() throws Exception {
 		Integer integer = dao.deleteWritingById(23L, 4L);
-		logger.debug(integer);
+		logger.debug(integer.toString());
 	}
 
 	@Test
@@ -83,7 +84,7 @@ public class ArticleDaoImplTest {
 	@Test
 	public void selectLikeCount() throws SQLException {
 		int count = dao.getLikeCount(1L);
-		logger.debug(count);
+		logger.debug(String.valueOf(count));
 	}
 
 	@Test
@@ -97,7 +98,7 @@ public class ArticleDaoImplTest {
 		List<Article> writingListByLike = dao.getWritingListByOrder(
 				1, DaoEnum.FIELD_ORDER_BY_TIME, 0L, 5);
 		for (Article article : writingListByLike) {
-			logger.debug(article);
+			logger.debug(article.toString());
 		}
 	}
 

@@ -1,8 +1,8 @@
 package common.strategy.choose;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.org.apache.regexp.internal.RE;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pojo.dto.ResultState;
 import common.enums.ResultMsg;
 import common.enums.ResultType;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ResponseChoose {
 
-	private static Logger logger = Logger.getLogger(ResponseChoose.class);
+	private static Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	/**
 	 * 策略类

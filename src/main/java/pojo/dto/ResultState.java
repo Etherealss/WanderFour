@@ -46,10 +46,4 @@ public class ResultState {
 				'}';
 	}
 
-	//	public JSONObject getJson() {
-//		JSONObject json = new JSONObject();
-//		json.put("code", resultType);
-//		json.put("msg", msg);
-//		return json;
-//	}
 }

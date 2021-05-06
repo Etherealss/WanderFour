@@ -2,7 +2,8 @@ package socket;
 
 import common.enums.websocket.InfoType;
 import common.util.WebSocketUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class BroadcastOperator {
 
-	private static Logger logger = Logger.getLogger(BroadcastOperator.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	public static void newUserLogin(Long userId) {
 		String message = WebSocketUtil.getMessage(

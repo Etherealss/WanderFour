@@ -1,7 +1,8 @@
 package service.impl;
 
 import dao.StickyNoteDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojo.po.StickyNote;
 import service.StickyNoteService;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class StickyNoteServiceImpl implements StickyNoteService {
 
-	private Logger logger = Logger.getLogger(StickyNoteService.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@Autowired
 	private StickyNoteDao dao;

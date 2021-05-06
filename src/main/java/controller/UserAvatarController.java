@@ -6,7 +6,8 @@ import common.strategy.choose.GetParamChoose;
 import common.strategy.choose.ResponseChoose;
 import common.util.WebUtil;
 import common.util.FileUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,7 @@ import java.io.IOException;
 @Controller
 public class UserAvatarController {
 
-	private Logger logger = Logger.getLogger(UserAvatarController.class);
+	private Logger logger = LoggerFactory.getLogger("simpleAsyncLogger");
 
 	@RequestMapping(value = "UserAvatarController", method = RequestMethod.PUT)
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
