@@ -15,9 +15,9 @@
 
     <context:component-scan base-package="controller"/>
     <!-- 字符过滤器不过滤资源文件，**表示该目录下的文件以及子目录的文件 -->
-    <mvc:resources location="/CSS/" mapping="/css/**"/>
-    <mvc:resources location="/img/" mapping="/images/**"/>
-    <mvc:resources location="/JS/" mapping="/javascript/**"/>
+<!--    <mvc:resources location="/CSS/" mapping="/css/**"/>-->
+<!--    <mvc:resources location="/img/" mapping="/images/**"/>-->
+<!--    <mvc:resources location="/JS/" mapping="/javascript/**"/>-->
     <!--启用mvc默认配置(内置一部分bean对象的定义)-->
     <mvc:annotation-driven/>
     <!--注册视图解析对象 -->

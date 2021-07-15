@@ -4,6 +4,9 @@ import org.slf4j.LoggerFactory;
 import pojo.po.Article;
 import pojo.po.Writing;
 
+import javax.swing.*;
+import java.io.File;
+import java.net.URL;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +22,20 @@ public class RegTest {
 
 	@Test
 	public void regTest1() {
+
+		URL adsad = getClass().getResource("adsad");
+
+
+		Icon icon = new ImageIcon("D:/123.png");
+
+
+
+
+
+
+
+
+
 		// 按指定模式在字符串查找
 		String line = "";
 		String pattern = "^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]+$";

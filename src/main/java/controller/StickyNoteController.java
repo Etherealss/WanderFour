@@ -35,7 +35,6 @@ public class StickyNoteController {
 	@RequestMapping(value = "/StickyNoteServlet", method = RequestMethod.GET)
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		logger.trace("获取便利贴");
-
 		JSONObject params = GetParamChoose.getJsonByUrl(req);
 		boolean paramMissing = WebUtil.isParamMissing(resp, params, "获取便利贴");
 		if (paramMissing){

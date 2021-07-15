@@ -5,11 +5,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author wtk
- * @description 交互参数异常
+ * @description 用户操作异常
  * @date 2021-05-06
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ParametersException extends ServerRuntimeException {
+public class BadRequestException extends ServerException {
 
 }

@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +32,8 @@ public class JsonTest {
 		User user = new User("123", "123");
 		String userstr = JSONObject.toJSONString(user);
 		System.out.println(userstr); //{"password":"123","userid":"123"}
+
+		User user1 = JSONObject.toJavaObject(JSON.parseObject(jsonString), User.class);
 
 	}
 

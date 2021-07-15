@@ -9,45 +9,47 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ResultType {
-	/** 成功 */
-	SUCCESS("SUCCESS"),
-	/** 异常 */
-	EXCEPTION("EXCEPTION"),
-	/** 接口错误 */
-	ERROR("ERROR"),
+    /** 成功 */
+    SUCCESS("SUCCESS"),
+    /** 异常 */
+    EXCEPTION("EXCEPTION"),
+    /** 接口错误 */
+    ERROR("ERROR"),
+    /** 没有访问权限 */
+    NOT_READABLE("NOT_READABLE"),
 
-	/** 密码错误 */
-	PW_ERROR("PW_ERROR"),
-	/** 账号不存在 */
-	USER_UN_FOUND("USER_UN_FOUND"),
-	/** 账号已登录 */
-	LOGGED("LOGGED"),
-	/** 账号未登录 */
-	NOT_LOGGED("LOGGED"),
+    /** 密码错误 */
+    PW_ERROR("PW_ERROR"),
+    /** 账号不存在 */
+    USER_UN_FOUND("USER_UN_FOUND"),
+    /** 账号已登录 */
+    LOGGED("LOGGED"),
+    /** 账号未登录 */
+    NOT_LOGGED("LOGGED"),
 
-	IS_REGISTED("IS_REGISTED"),
+    IS_REGISTED("IS_REGISTED"),
 
-	NOT_AUTHOR("NOT_AUTHOR"),
+    NOT_AUTHOR("NOT_AUTHOR"),
 
-	/**已点赞*/
-	HAVE_LIKED("HAS_LIKED"),
-	HAVE_NOT_LIKED("HAVE_NOT_LIKED"),
+    /** 已点赞 */
+    HAVE_LIKED("HAS_LIKED"),
+    HAVE_NOT_LIKED("HAVE_NOT_LIKED"),
 
-	/**没有记录*/
-	NO_RECORD("NO_RECORD"),
-	;
+    /** 没有记录 */
+    NO_RECORD("NO_RECORD"),
+    ;
 
-	private final String code;
+    private final String code;
 
-	ResultType(String code) {
-		this.code = code;
-	}
+    ResultType(String code) {
+        this.code = code;
+    }
 
-	public String val() {
-		return code;
-	}
+    public String val() {
+        return code;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 }

@@ -10,40 +10,41 @@ import common.enums.ResultType;
  */
 public class ResultState {
 
-	@JSONField(ordinal = 0)
-	private ResultType code;
-	@JSONField(ordinal = 1)
-	private String msg;
+    @JSONField(ordinal = 0)
+    private ResultType code;
+    @JSONField(ordinal = 1)
+    private String msg;
 
-	public ResultState() {}
+    public ResultState() {
+    }
 
-	public ResultState(ResultType code, String msg) {
-		this.code = code;
-		this.msg = msg;
-	}
+    public ResultState(ResultType code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
-	public ResultType getCode() {
-		return code;
-	}
+    public ResultType getCode() {
+        return code;
+    }
 
-	public void setCode(ResultType code) {
-		this.code = code;
-	}
+    public void setCode(ResultType code) {
+        this.code = code;
+    }
 
-	public String getMsg() {
-		return msg;
-	}
+    public String getMsg() {
+        return msg;
+    }
 
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
-	@Override
-	public String toString() {
-		return "ResultState{" +
-				"code=" + code +
-				", msg='" + msg + '\'' +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "ResultState{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 
 }

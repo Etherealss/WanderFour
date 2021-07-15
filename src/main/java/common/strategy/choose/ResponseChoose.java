@@ -126,4 +126,22 @@ public class ResponseChoose {
 		strategy.respOnlyStateToBrowser(resp, ResultType.NOT_LOGGED, "用户未登录");
 	}
 
+	// 全局异常处理
+
+	public static ResultState success(String msg) {
+		return new ResultState(ResultType.SUCCESS, msg);
+	}
+
+	public static ResultState notReadable(String msg) {
+
+		return new ResultState(ResultType.NOT_READABLE, msg);
+	}
+
+	public static ResultState error(String msg) {
+		return new ResultState(ResultType.ERROR, msg);
+	}
+
+	public static ResultState exception(String msg) {
+		return new ResultState(ResultType.EXCEPTION, msg);
+	}
 }
