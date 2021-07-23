@@ -1,0 +1,29 @@
+@import "./normalize.css";
+
+/* :root 这个 CSS 伪类匹配文档树的根元素 html。
+对于HTML来说，:root表示元素,除了优先级更高之外,与html选择器相同。 */
+:root {
+    --color-text: #333;
+    --font-size: 14px;
+}
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    /* 禁止用户鼠标在页面上选中文字、图片等 */
+    /* user-select: none; */
+    color: var(--color-text);
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
