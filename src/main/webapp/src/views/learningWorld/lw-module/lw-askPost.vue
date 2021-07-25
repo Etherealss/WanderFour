@@ -11,11 +11,7 @@
       <!-- 问贴主要内容Part -->
       <div class="LearningWorld-TA-mainBox">
         <div class="askpost-content-box">
-          <!-- 跳转到askPostShow问帖显示页面 -->
-          <router-link to="/user/askPostShow">
-            <askpost-item></askpost-item>
-          </router-link>
-
+          <askpost-item></askpost-item>
           <askpost-item></askpost-item>
           <askpost-item></askpost-item>
           <askpost-item></askpost-item>

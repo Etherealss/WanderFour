@@ -1,6 +1,9 @@
 <template>
-  <div class="LearningWorld_TA_askPost" @click="showClick">
-    <h3 @click="askPostShowClick">{{msg.title}}</h3>
+  <div class="LearningWorld_TA_askPost" @click.stop="showClick">
+  <!-- 跳转到askPostShow问帖显示页面 -->
+    <router-link to="/user/askPostShow">
+      <h3 @click="askPostShowClick">{{msg.title}}</h3>
+    </router-link>
     <p>{{msg.summary}}</p>
     <ul class="LearningWorld_TA_comment">
       <li v-for="(item, index) in msg.comments">第 {{index+1}} 楼: {{item}}</li>
@@ -86,7 +89,7 @@
 
   .LearningWorld_TA_askPost h3 {
     display: inline-block;
-    padding: 20px 0 0 25px;
+    margin: 20px 0 0 25px;
     color: #343434;
     font-size: 19px;
     letter-spacing: 2px;
