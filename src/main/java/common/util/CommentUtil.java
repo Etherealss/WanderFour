@@ -46,16 +46,17 @@ public class CommentUtil {
 		 */
 		User reviewerInfo = userDao.getImgAndNicknameById(reviewerUserId);
 		cb.setUserNickname(reviewerInfo.getNickname());
-		//用户头像
+		// TODO 评论用户头像
 		//使用base64转码
 		byte[] imgStream;
-		try {
-			imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
-			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
-			cb.setUserImg(imgByBase64);
-		} catch (IOException e) {
-			logger.error("评论图片转码异常", e);
-		}
+//		try {
+//			imgStream = FileUtil.getFileStream(reviewerInfo.getAvatarPath());
+//			String imgByBase64 = FileUtil.getImgByBase64(imgStream);
+//			cb.setUserImg(imgByBase64);
+//		} catch (IOException e) {
+//			logger.error("评论图片转码异常", e);
+//		}
+		cb.setUserImg("imgByBase64");
 		//封装评论信息
 		cb.setComment(comment);
 		return cb;

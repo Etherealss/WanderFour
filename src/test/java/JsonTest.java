@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import pojo.bo.PageBo;
 import pojo.dto.CommentDto;
 import pojo.dto.ResultState;
@@ -20,6 +21,7 @@ import java.util.*;
  * @date 2020/10/15
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration("src/main/resources")
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class JsonTest {
 
@@ -133,7 +135,7 @@ public class JsonTest {
 		PageBo<CommentDto> pageBo = new PageBo<>();
 		pageBo.setCurrentPage(1);
 		pageBo.setTotalPage(6);
-		pageBo.setTotalCount(52L);
+		pageBo.setTotalCount(52);
 		pageBo.setRows(3);
 
 		List<CommentDto> list = new LinkedList<>();
@@ -153,7 +155,7 @@ public class JsonTest {
 		PageBo<CommentDto> pageBo = new PageBo<>();
 		pageBo.setCurrentPage(1);
 		pageBo.setTotalPage(5);
-		pageBo.setTotalCount(14L);
+		pageBo.setTotalCount(14);
 		pageBo.setRows(3);
 		List<CommentDto> list = TestUtil.getDeultReplyDto();
 		pageBo.setList(list);

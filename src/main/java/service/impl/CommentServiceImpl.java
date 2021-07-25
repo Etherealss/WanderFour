@@ -5,6 +5,9 @@ import common.enums.ResultType;
 import common.strategy.choose.CommentChoose;
 import common.strategy.choose.ReplyChoose;
 import common.strategy.impl.comment.*;
+import common.strategy.remark.RemarkChoose;
+import common.strategy.remark.comment.CommentQueryStrategy;
+import common.strategy.remark.comment.CommentQueryWithReply;
 import dao.CommentDao;
 import dao.UserDao;
 import org.slf4j.Logger;
@@ -62,22 +65,29 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public PageBo<CommentDto> getHotCommentList(Long parentId, Long userId) {
         //选择策略 按点赞数获取热门评论及其回复
-        CommentChoose choose = new CommentChoose(new GetHeadCommentsAndReplyByLike());
-        //获取评论DtoList
-        CommentVo vo = new CommentVo();
-        vo.setParentId(parentId);
-        vo.setUserid(userId);
-        vo.setCommentDao(commentDao);
-        vo.setUserDao(userDao);
-        vo.setCommentTableName(tableName);
-        //策略 获取所有评论数据
-        List<CommentDto> list = choose.doGet(vo);
+//        CommentChoose choose = new CommentChoose(new GetHeadCommentsAndReplyByLike());
+//        //获取评论DtoList
+//        CommentVo vo = new CommentVo();
+//        vo.setParentId(parentId);
+//        vo.setUserid(userId);
+//        vo.setCommentDao(commentDao);
+//        vo.setUserDao(userDao);
+//        vo.setCommentTableName(tableName);
+//        //策略 获取所有评论数据
+//        List<CommentDto> list = choose.doGet(vo);
 
+        CommentQueryStrategy commentQueryStrategy = new CommentQueryWithReply(
+                userDao, userId, commentDao, tableName, DaoEnum.FIELD_ORDER_BY_LIKE
+        );
+        commentQueryStrategy.setCommentStart(0);
+        commentQueryStrategy.setCommentRows(3);
+        RemarkChoose remarkChoose = new RemarkChoose(commentQueryStrategy);
+        List<CommentDto> remarkData = remarkChoose.getRemarkData(parentId);
         // 包装Bean
         PageBo<CommentDto> pb = new PageBo<>(1, 3);
-        pb.setList(list);
+        pb.setList(remarkData);
         //获取并存入总记录数
-        Long totalCount = commentDao.countCommentByParentId(tableName, parentId);
+        int totalCount = commentDao.countCommentByParentId(tableName, parentId);
         pb.setTotalCount(totalCount);
 
         return pb;
@@ -98,7 +108,7 @@ public class CommentServiceImpl implements CommentService {
                 return getReplyList(vo, currentPage);
             }
         } catch (Exception e) {
-            logger.error("获取回复异常", e);
+            logger.error("获取评论或回复异常", e);
         }
         return null;
     }
@@ -111,7 +121,6 @@ public class CommentServiceImpl implements CommentService {
     private PageBo<CommentDto> getCommentList(CommentVo vo, int currentPage) throws Exception {
         //要获取评论
         PageBo<CommentDto> pb;
-        //TODO 此处按道理应该在策略中确定
         int commentRows = DaoEnum.COMMENT_ROWS_TEN;
         int replyRows = DaoEnum.REPLY_ROWS_THREE;
         vo.setCommentRows(commentRows);
@@ -121,7 +130,7 @@ public class CommentServiceImpl implements CommentService {
         //存入当前页码和每页显示的记录数
         pb = new PageBo<>(currentPage, commentRows);
         //获取并存入总记录数
-        Long totalCount = commentDao.countCommentByParentId(tableName, parentId);
+        int totalCount = commentDao.countCommentByParentId(tableName, parentId);
         pb.setTotalCount(totalCount);
 
         //计算索引 注意在 -1 的时候加入long类型，使结果升格为Long
@@ -169,7 +178,7 @@ public class CommentServiceImpl implements CommentService {
         PageBo<CommentDto> pb = new PageBo<>(currentPage, replyRows);
 
         //获取并存入总回复记录数
-        Long totalCount = commentDao.countReplyByParentId(tableName, parentId);
+        int totalCount = commentDao.countReplyByParentId(tableName, parentId);
         pb.setTotalCount(totalCount);
 
         //计算索引 注意在 -1 的时候加入long类型，使结果升格为Long

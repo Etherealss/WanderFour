@@ -11,5 +11,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BadRequestException extends ServerException {
+    public BadRequestException(String type, String msg) {
+        super(type, msg);
+    }
 
 }

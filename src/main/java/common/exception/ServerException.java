@@ -12,10 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ServerException extends Exception {
 
-    /** 结果码 */
-    private int code;
-
-    /** 结果码code的类型，与结果码一一对应 */
+    /** 异常类型 */
     private String type;
 
     /** 结果码的文字描述 */
@@ -28,12 +25,8 @@ public class ServerException extends Exception {
         this.msg = msg;
     }
 
-    public ServerException(int code) {
-        this.code = code;
-    }
-
-    public ServerException(int code, String type, String msg) {
-        this.code = code;
+    public ServerException(String type, String msg) {
+        super(msg);
         this.type = type;
         this.msg = msg;
     }

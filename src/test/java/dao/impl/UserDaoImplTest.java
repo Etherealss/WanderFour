@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import pojo.po.User;
 import org.junit.Test;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration("src/main/resources")
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class UserDaoImplTest {
 	private Logger logger = LoggerFactory.getLogger("testLogger");

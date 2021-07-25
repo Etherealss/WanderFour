@@ -14,16 +14,25 @@
        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <context:component-scan base-package="controller"/>
-    <!-- 字符过滤器不过滤资源文件，**表示该目录下的文件以及子目录的文件 -->
-<!--    <mvc:resources location="/CSS/" mapping="/css/**"/>-->
-<!--    <mvc:resources location="/img/" mapping="/images/**"/>-->
-<!--    <mvc:resources location="/JS/" mapping="/javascript/**"/>-->
+
     <!--启用mvc默认配置(内置一部分bean对象的定义)-->
     <mvc:annotation-driven/>
+    <context:annotation-config/>
+    <!-- 字符过滤器不过滤资源文件，**表示该目录下的文件以及子目录的文件 -->
+<!--    <mvc:resources mapping="/CSS/**" location="/CSS/"/>-->
+<!--    <mvc:resources mapping="/img/**" location="/img/"/>-->
+<!--    <mvc:resources mapping="/JS/**" location="/JS/"/>-->
+    <!--Swagger ui-->
+    <!--重要！将你的SwaggerConfig配置类注入-->
+<!--    <bean class="common.config.SwaggerConfig"/>-->
+<!--    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />-->
+<!--    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />-->
+
+
     <!--注册视图解析对象 -->
-<!--    <bean id="viewResovler" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-<!--        <property name="prefix" value="/"/>-->
-<!--        <property name="suffix" value=".html"/>-->
-<!--    </bean>-->
+    <!--    <bean id="viewResovler" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--        <property name="prefix" value="/"/>-->
+    <!--        <property name="suffix" value=".html"/>-->
+    <!--    </bean>-->
     <mvc:default-servlet-handler/>
 </beans>

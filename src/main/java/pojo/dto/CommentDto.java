@@ -1,8 +1,10 @@
 package pojo.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import pojo.bean.CommentBean;
-import pojo.po.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  * ReplyDto就相当于没有replys的CommentDto，也相当于一个普通的CommentBean
  * @date 2020/10/22
  */
+@Setter
+@Getter
 public class CommentDto {
 
 	/**
@@ -40,39 +44,6 @@ public class CommentDto {
 	 */
 	@JSONField(ordinal = 2)
 	private List<CommentBean> replys = new ArrayList<>();
-
-
-	public CommentBean getParentComment() {
-		return parentComment;
-	}
-
-	public void setParentComment(CommentBean parentComment) {
-		this.parentComment = parentComment;
-	}
-
-	public CommentBean getBeRepliedComment() {
-		return beRepliedComment;
-	}
-
-	public void setBeRepliedComment(CommentBean beRepliedComment) {
-		this.beRepliedComment = beRepliedComment;
-	}
-
-	public List<CommentBean> getReplys() {
-		return replys;
-	}
-
-	public void setReplys(List<CommentBean> replys) {
-		this.replys = replys;
-	}
-
-	public int getReplysCount() {
-		return replysCount;
-	}
-
-	public void setReplysCount(int replysCount) {
-		this.replysCount = replysCount;
-	}
 
 	/**
 	 * 添加回复实例
@@ -112,8 +83,8 @@ public class CommentDto {
 		return "CommentDto{" +
 				"parentComment=" + parentComment +
 				", beRepliedComment=" + beRepliedComment +
-				", replys=" + replys +
 				", replysCount=" + replysCount +
+				", replys=" + replys +
 				'}';
 	}
 }

@@ -5,7 +5,6 @@ import common.strategy.AbstractCommentsStrategy;
 import pojo.vo.CommentVo;
 import pojo.dto.CommentDto;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class GetCommentsByTime extends AbstractCommentsStrategy {
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
 		logger.debug(vo.toString());
-		List<CommentDto> returnList = getCommentDto(vo);
+		List<CommentDto> returnList = getCommentDtoList(vo);
 		return returnList;
 	}
 }

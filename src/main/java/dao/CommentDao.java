@@ -90,7 +90,7 @@ public interface CommentDao {
      * @param parentId
      * @return
      */
-    Long countCommentByParentId(@Param("commentTableName") String commentTableName,
+    int countCommentByParentId(@Param("commentTableName") String commentTableName,
                                 @Param("parentId") Long parentId);
 
     /**
@@ -99,7 +99,7 @@ public interface CommentDao {
      * @param parentId
      * @return
      */
-    Long countReplyByParentId(@Param("commentTableName") String commentTableName,
+    int countReplyByParentId(@Param("commentTableName") String commentTableName,
                               @Param("parentId") Long parentId);
 
     /**

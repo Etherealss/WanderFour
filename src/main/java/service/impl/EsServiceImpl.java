@@ -367,7 +367,7 @@ public class EsServiceImpl implements EsService {
 
             // 获取记录条数
             long totalCount = resp.getHits().getTotalHits().value;
-            pb.setTotalCount(totalCount);
+            pb.setTotalCount((int)totalCount);
 
 			/*
 			计算总页码数
