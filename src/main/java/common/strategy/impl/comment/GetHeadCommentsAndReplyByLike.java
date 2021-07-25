@@ -5,7 +5,6 @@ import common.strategy.AbstractCommentsStrategy;
 import pojo.vo.CommentVo;
 import pojo.dto.CommentDto;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class GetHeadCommentsAndReplyByLike extends AbstractCommentsStrategy {
 		vo.setCommentStart(DaoEnum.START_FROM_ZERO);
 		vo.setReplyStart(DaoEnum.START_FROM_ZERO);
 
-		List<CommentDto> returnList = getCommentDto(vo);
+		List<CommentDto> returnList = getCommentDtoList(vo);
 		return returnList;
 	}
 

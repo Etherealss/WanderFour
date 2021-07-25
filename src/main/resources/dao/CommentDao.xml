@@ -59,7 +59,7 @@
                `state`
         FROM ${commentTableName}
         WHERE `parent_id` = #{parentId}
-          AND `target_id` IS NOT NULL
+          AND `target_id` IS NULL
         ORDER BY ${orderByType} DESC
         LIMIT #{start}, #{rows}
     </select>
@@ -82,7 +82,7 @@
     </select>
 
     <!--获取作品的评论总数-->
-    <select id="countCommentByParentId" resultType="long">
+    <select id="countCommentByParentId" resultType="int">
         SELECT COUNT(*)
         FROM ${commentTableName}
         WHERE `parent_id` = #{parentId}
@@ -90,7 +90,7 @@
     </select>
 
     <!--获取作品的回复总数-->
-    <select id="countReplyByParentId" resultType="long">
+    <select id="countReplyByParentId" resultType="int">
         SELECT COUNT(*)
         FROM ${commentTableName}
         WHERE `parent_id` = #{parentId}

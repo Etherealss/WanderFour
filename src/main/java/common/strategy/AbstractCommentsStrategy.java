@@ -42,7 +42,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CommentDto> getCommentDto(CommentVo vo) {
+	public List<CommentDto> getCommentDtoList(CommentVo vo) {
 		CommentDao commentDao = vo.getCommentDao();
 		UserDao userDao = vo.getUserDao();
 		String order = vo.getOrder();
@@ -88,7 +88,7 @@ public abstract class AbstractCommentsStrategy extends AbstractCommentAndReplySt
 				List<CommentBean> replysCommentBeanList = getReplysCommentBean(voForReply);
 
 				// 获取回复总数
-				int count = commentDao.countReplyByParentId(vo.getCommentTableName(), parentId).intValue();
+				int count = commentDao.countReplyByParentId(vo.getCommentTableName(), parentId);
 				//创建评论的Dto，封装数据
 				resultDto = new CommentDto(commentBean, replysCommentBeanList, count);
 			} else {

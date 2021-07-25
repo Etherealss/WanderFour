@@ -1,6 +1,7 @@
 package pojo.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
 
 import java.util.List;
 
@@ -9,10 +10,11 @@ import java.util.List;
  * @description 分页类
  * @date 2020/10/22
  */
+@Data
 public class PageBo<T> {
 	/** 总记录数 */
 	@JSONField(ordinal = 0)
-	private Long totalCount;
+	private int totalCount;
 
 	/** 总页码 */
 	@JSONField(ordinal = 0)
@@ -29,46 +31,6 @@ public class PageBo<T> {
 	/** 每页的数据 */
 	@JSONField(ordinal = 1)
 	private List<T> list;
-
-	public Long getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(Long totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public List<T> getList() {
-		return list;
-	}
-
-	public void setList(List<T> list) {
-		this.list = list;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
 
 	public PageBo() {
 	}
@@ -89,7 +51,7 @@ public class PageBo<T> {
 	 * @param currentPage 当前页码
 	 * @param rows        每一页显示的记录数
 	 */
-	public PageBo(Long totalCount, int totalPage, List<T> list, int currentPage, int rows) {
+	public PageBo(int totalCount, int totalPage, List<T> list, int currentPage, int rows) {
 		this.totalCount = totalCount;
 		this.totalPage = totalPage;
 		this.list = list;

@@ -50,7 +50,7 @@ public class TomcatListener implements ServletContextListener {
         logger.info("tomcat初始化......");
         //启动定时任务，周期性持久化redis数据
         LikePersistenceManager.persistDelayMinutes();
-        launchEsService(arg0.getServletContext());
+//        launchEsService(arg0.getServletContext());
 
     }
 

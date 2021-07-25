@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration("src/main/resources")
 @ContextConfiguration(locations= {"classpath:spring/spring-config.xml"})
 public class CategoryDaoImplTest {
 	private Logger logger = LoggerFactory.getLogger("testLogger");

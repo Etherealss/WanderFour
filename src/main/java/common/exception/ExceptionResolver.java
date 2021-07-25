@@ -1,5 +1,6 @@
 package common.exception;
 
+import common.exception.specific.ParametersErrorException;
 import common.strategy.choose.ResponseChoose;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,8 @@ public class ExceptionResolver {
      * 400 - Internal Server Error
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ParametersException.class)
-    public ResultState handleException(ParametersException e) {
+    @ExceptionHandler(ParametersErrorException.class)
+    public ResultState handleException(ParametersErrorException e) {
         logger.warn("参数异常", e);
         return ResponseChoose.exception("参数异常：" + e.getMsg());
     }

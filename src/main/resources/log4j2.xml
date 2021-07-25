@@ -77,7 +77,7 @@
             includeLocation="false" 关闭日志记录的行号信息
             additivity="false" 不在继承 rootlogger 对象
         -->
-        <AsyncLogger name="simpleAsyncLogger" level="debug" includeLocation="false" additivity="true">
+        <AsyncLogger name="simpleAsyncLogger" level="all" includeLocation="false" additivity="true">
             <!--
                 此处的AppenderRef用来指定该日志输出到哪个Appender，
                 如果没有指定，就会默认继承自Root。
